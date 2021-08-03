@@ -52,20 +52,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.httpBasic();
 
+
         http.authorizeRequests()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/home").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/").hasAnyRole("USER", "ADMIN")
-                .and()
+                .antMatchers("/").permitAll();
+
+                /*.and()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/authenticateUser")
-                .defaultSuccessUrl("/home", true)
+                .defaultSuccessUrl("/", true)
                 .permitAll()
                 .and()
                 .logout()
                 .logoutSuccessUrl("/login")
                 .permitAll();
+                */
+
     }
 
 }
