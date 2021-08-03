@@ -38,7 +38,6 @@ public class HomeController {
         return "register-success";
     }
 
-
     @GetMapping("/user")
     public String user() {
         return "Welcome user";
