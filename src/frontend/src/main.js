@@ -1,4 +1,10 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from "vue";
+import App from "./App.vue";
+import router from "./router";
+import axios from "axios";
+import "./assets/styles/global.css";
 
-createApp(App).mount('#app')
+window.axios = axios;
+axios.defaults.baseURL = "http://127.0.0.1:3333";
+
+createApp(App).use(router).mount("#app");

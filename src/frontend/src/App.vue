@@ -1,18 +1,37 @@
 <template>
-  <HelloWorld />
+<div>
+    <div id="nav" v-show="$route.name !== 'Login'">
+    <router-link to="/">Home</router-link>
+    <router-link to="/about">About</router-link>
+    <router-link to="/login">Login</router-link>
+  </div>
+  <router-view />
+</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+  data() {
+    return {
+    }
+  },
+  methods: {
+  },
 }
 </script>
 
-<style>
+<style lang="scss">
+//#app {
+//}
+
+#nav {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0.5em;
+}
+
+#nav a {
+  padding-right: 0.5em;
+}
 
 </style>
