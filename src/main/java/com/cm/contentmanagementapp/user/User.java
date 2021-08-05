@@ -1,11 +1,11 @@
 package com.cm.contentmanagementapp.user;
 
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.File;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -24,11 +24,11 @@ public class User {
     @Column(name="role")
     private String role;
 
-    @NotNull
+    @NotBlank
     @Column(name="username")
     private String username;
 
-    @NotNull
+    @NotBlank
     @Column(name="password")
     private String password;
 
