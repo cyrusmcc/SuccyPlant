@@ -19,7 +19,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private long id;
+    private Long id;
 
     @Column(name="role")
     private String role;
@@ -50,6 +50,12 @@ public class User {
     // private FavoriteList userFavoriteList;
 
     public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+        userJoinDate = LocalDate.now();
+    }
+
+    public User(String username, String email, String password) {
         this.username = username;
         this.password = password;
         userJoinDate = LocalDate.now();

@@ -13,11 +13,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
-
-    @Autowired
     public UserServiceImpl(UserRepository theUserRepository) {
-        userRepository = theUserRepository;
+        this.userRepository = theUserRepository;
     }
 
     @Override
@@ -26,7 +23,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(long id) {
+    public User findById(Long id) {
 
         Optional<User> result = userRepository.findById(id);
 
@@ -62,13 +59,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(User user) {
 
-        user.setId(0);
-
-        String password = user.getPassword();
-
-        String encryptedPwd = passwordEncoder.encode(password);
-
-        user.setPassword(encryptedPwd);
+        user.setId(0L);
 
         user.setRole("ROLE_USER");
 
@@ -76,7 +67,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteById(long id) {
+    public void deleteById(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    @Override
+    public boolean existsbyEmail(String email) {
+        return userRepository.existsByEmail(email);
     }
 }

@@ -6,12 +6,16 @@ public interface UserService {
 
     List<User> findAll();
 
-    User findById(long id);
+    User findById(Long id);
 
     User findByUsername(String username);
 
     void save(User theUser);
 
-    void deleteById(long id);
+    void deleteById(Long id);
+
+    boolean existsByUsername(String username);
+
+    boolean existsbyEmail(String email);
 
 }

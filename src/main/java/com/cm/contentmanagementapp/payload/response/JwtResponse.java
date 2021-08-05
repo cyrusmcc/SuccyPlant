@@ -7,7 +7,6 @@ import lombok.Setter;
 import java.util.List;
 
 @Getter @Setter
-@AllArgsConstructor
 public class JwtResponse {
 
     private String token;
@@ -17,4 +16,6 @@ public class JwtResponse {
     private String email;
     private List<String> Roles;
 
+    public JwtResponse(String jwt, Long id, String username, String email, List<String> roles) {
+    }
 }
