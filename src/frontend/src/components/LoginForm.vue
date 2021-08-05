@@ -1,17 +1,17 @@
 <template>
   <div class="card" id="loginCard">
-    <form action="#">
+    <form @submit.prevent="callLogin()">
       <fieldset>
         <p>Sign in</p>
         <div class="form-in">
           <label class="form-label" for="usernameInput">Username</label>
           <input aria-describedby="usernameHelp" class="form-control" id="usernameInput" name="username"
-            type="text" required>
+            type="text" required v-model="username">
         </div>
         <div class="form-in">
           <label class="form-label" for="passwordInput">Password</label>
           <input class="form-control" id="passwordInput" name="password"
-            type="text" required>
+            type="text" required v-model="password">
         </div>
 
         <button class="button-primary" type="submit" id="loginButton">Log in</button>
@@ -19,16 +19,38 @@
         <router-link to="/register" class="button-primary" id="registerButton">
           Register</router-link>
 
-
       </fieldset>
     </form>
 
   </div>
+
 </template>
 
 <script>
-export default {
+import axios from 'axios';
 
+export default {
+  data() {
+    return {
+      username: '',
+      password: '',
+      error: false,
+    }
+  },
+  methods: {
+    callLogin() {
+      axios.post('/api/authenticateUser', {
+        username: this.username,
+        password: this.password
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      }) 
+    }  
+  }
 }
 </script>
 

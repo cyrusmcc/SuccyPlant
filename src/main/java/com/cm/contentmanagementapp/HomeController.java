@@ -20,16 +20,16 @@ public class HomeController {
         this.userService = userService;
     }
 
-    @ResponseBody
-    @GetMapping("/login")
-    public String showLoginForm() {
-        return "login-form";
+    @RequestMapping(value = "{_:^(?!index\\\\.html|api).$}")
+    public String redirectApi() {
+        log.info("URL entered directly, redirect");
+        return "forward:/";
     }
 
     @ResponseBody
     @GetMapping("/hello")
     public String showHello() {
-        return "Hello!";
+        return "yo!";
     }
 
     @ResponseBody
