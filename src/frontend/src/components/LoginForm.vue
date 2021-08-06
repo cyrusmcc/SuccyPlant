@@ -58,6 +58,11 @@ export default {
   #loginCard {
     color: $lightShade;
     text-align: center;
+    padding: 15px;
+  }
+
+  form {
+    height: 100%;
   }
 
   fieldset{
@@ -66,12 +71,15 @@ export default {
     align-items: center;
     flex-direction: column;
   }
-
+  h2 {
+    font-weight: 0;
+  }
   .form-in {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     font-size: 0.8rem;
+    width: 100%;
     padding: 10px 0 10px 0;
   }
 
@@ -83,22 +91,76 @@ export default {
     background-color: $darkShade;
     color: $lightShade;
     border: none;
-    padding: 10px;
+    height: 2.5em;
+    width: 100%;
     border-radius: 3px;
+  }
+
+  .button-primary {
+    width: 100%;
+    font-size: 0.75rem;
   }
 
   #loginButton {
     margin-top: 5px;
     align-self: flex-start;
-    width: 100%;
-    font-size: 0.75rem;
   } 
 
   #registerButton {
     margin-top: 15px;
-    font-size: 0.75rem;
-    width: 100%;
     padding: 7px 0;
+  }
+
+  @include screen-md() {
+    #loginCard {
+      padding: 30px;
+    }
+    .form-in {
+      padding: 30px 0 30px 0;
+    }
+    .form-label {
+      padding-bottom: 15px;
+    }
+    .form-control {
+      height: 5em;
+    }
+    .button-primary {
+      padding: 15px;
+      font-size: 0.9rem;
+    }
+    #loginButton {
+      margin-top: 30px;
+      margin-bottom: 15px;
+      align-self: flex-start;
+      width: 100%;
+    } 
+  }
+
+    @include screen-lg() {
+      #loginCard {
+        font-size: 0.25rem;
+        padding: 15px;
+      }
+      .button-primary {
+        font-size: inherit;
+        margin-bottom: 0;
+      }
+      .form-label {
+        padding-bottom: 10px;
+      }
+      .form-in {
+        padding: 10px 0 10px 0;
+        font-size: inherit;
+      }
+      .form-control {
+        height: 3.5em;
+      }
+      #loginButton {
+        margin-bottom: 0;
+      }
+      #registerButton {
+        padding: 10px 0;
+      }
     }
 
 </style>

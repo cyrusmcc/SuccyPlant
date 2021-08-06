@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import axios from "axios";
-import vuex from "veux";
+import vuex from "vuex";
 import "./assets/styles/global.css";
 
 window.axios = axios;

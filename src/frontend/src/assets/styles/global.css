@@ -12,6 +12,10 @@ html, body {
   background-color: #232121;
 }
 
+h2 {
+  font-weight: 0;
+}
+
 a {
   color: #F5F5F5;
   text-decoration: none;
@@ -22,6 +26,8 @@ a:hover, a:focus {
 }
 
 fieldset {
+  padding: 0;
+  margin: 0;
   border: none;
 }
 
@@ -31,9 +37,7 @@ fieldset {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
+  width: 15em;
   margin: 100px auto;
   padding-bottom: 5px;
   -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/20%), 0 6px 20px 0 RGB(0 0 0/19%);
