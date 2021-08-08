@@ -1,9 +1,12 @@
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { FontAwesome } from "@fortawesome/vue-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import {
+    faHome,
     faUser,
-    faSignIn,
-    faSignOut
+    faSignInAlt,
+    faSignOutAlt
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faUser, faSignIn, faSignOut);
+library.add(faHome, faUser, faSignInAlt, faSignOutAlt);
+
+export { FontAwesomeIcon };

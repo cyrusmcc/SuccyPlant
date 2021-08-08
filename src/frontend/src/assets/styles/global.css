@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap");
 /* MIXINS */
 :root {
-  font-size: 5vw;
+  font-size: 1rem;
 }
 
 html, body {
@@ -37,7 +37,8 @@ fieldset {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
-  width: 15em;
+  max-width: 80%;
+  width: 400px;
   margin: 100px auto;
   padding-bottom: 5px;
   -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/20%), 0 6px 20px 0 RGB(0 0 0/19%);
@@ -48,7 +49,9 @@ fieldset {
   background-color: #09725F;
   color: #F5F5F5;
   border-radius: 4px;
+  font-size: 1rem;
   border: none;
-  padding: 8px;
+  height: 2rem;
+  width: 100%;
 }
 /*# sourceMappingURL=global.css.map */

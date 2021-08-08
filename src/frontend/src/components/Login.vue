@@ -1,67 +1,99 @@
 <template>
   <div class="card" id="loginCard">
-    <form @submit.prevent="callLogin()">
-      <fieldset>
+    <!-- only works with "handleLogin", not "handeLogin()"-->
+    <Form @submit="handleLogin" :validation-schema="schema">
         <p>Sign in</p>
+
         <div class="form-in">
-          <label class="form-label" for="usernameInput">Username</label>
-          <input aria-describedby="usernameHelp" class="form-control" id="usernameInput" name="username"
-            type="text" required v-model="username">
+          <label for="username" class="form-label">Username</label>
+          <Field name="username" class="form-control" type="username" />
+          <ErrorMessage name ="username" class="error-feedback" />
         </div>
+        
         <div class="form-in">
-          <label class="form-label" for="passwordInput">Password</label>
-          <input class="form-control" id="passwordInput" name="password"
-            type="text" required v-model="password">
+          <label class="form-label" for="password">Password</label>
+          <Field name="password" class="form-control" type="password" />
+          <ErrorMessage name ="password" class="error-feedback" />
         </div>
 
-        <button class="button-primary" type="submit" id="loginButton">Log in</button>
+        <button class="button-primary" id="loginButton">Log in</button>
 
-        <router-link to="/register" class="button-primary" id="registerButton">
-          Register</router-link>
-
-      </fieldset>
-    </form>
-
+        <div>
+          <div v-if="message" class = "alert" role="alert">
+            {{ message }}
+          </div>
+        </div>
+    </Form>
   </div>
-
 </template>
 
 <script>
-import axios from 'axios';
+import { Form, Field, ErrorMessage } from "vee-validate";
+import * as yup from "yup";
 
 export default {
+  name: "Login",
+  components: {
+    Form,
+    Field,
+    ErrorMessage,
+  },
   data() {
+    const schema = yup.object().shape({
+      username: yup.string().required("Username is required!"),
+      password: yup.string().required("Password is required!"),
+    });
+
     return {
-      username: '',
-      password: '',
-      error: false,
+      loading: false,
+      message: "",
+      schema,
+    };
+  },
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    },
+  },
+  created() {
+    if (this.loggedIn) {
+      this.$router.push("/");
     }
   },
   methods: {
-    callLogin() {
-      axios.post('/api/auth/login', {
-        username: this.username,
-        password: this.password
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      }) 
-    }  
-  }
-}
-</script>
+    handleLogin(user) {
+      this.loading = true;
 
+      this.$store.dispatch("auth/login", user).then(
+        () => {
+          this.$router.push("/");
+        },
+        (error) => {
+          this.loading = false;
+          this.message =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+        }
+      );
+    },
+  },
+};
+</script>
 <style scoped lang="scss">
-  #loginCard {
+  .card {
     color: $lightShade;
     text-align: center;
     padding: 15px;
   }
 
-  form {
+  p {
+    font-size: 1.5rem;
+  }
+
+  Form {
     height: 100%;
   }
 
@@ -71,14 +103,10 @@ export default {
     align-items: center;
     flex-direction: column;
   }
-  h2 {
-    font-weight: 0;
-  }
   .form-in {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    font-size: 0.8rem;
     width: 100%;
     padding: 10px 0 10px 0;
   }
@@ -91,14 +119,9 @@ export default {
     background-color: $darkShade;
     color: $lightShade;
     border: none;
-    height: 2.5em;
+    line-height: 2rem;
     width: 100%;
     border-radius: 3px;
-  }
-
-  .button-primary {
-    width: 100%;
-    font-size: 0.75rem;
   }
 
   #loginButton {
@@ -111,6 +134,7 @@ export default {
     padding: 7px 0;
   }
 
+  /*
   @include screen-md() {
     #loginCard {
       padding: 30px;
@@ -162,5 +186,6 @@ export default {
         padding: 10px 0;
       }
     }
+    */
 
 </style>

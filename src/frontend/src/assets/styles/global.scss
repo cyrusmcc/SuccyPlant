@@ -41,7 +41,7 @@ $robotoSlab: 'Roboto Slab', serif;
 }
 
 :root {
-    font-size: 5vw;
+    font-size: 1rem;
 }
 
 html, body {
@@ -75,7 +75,8 @@ fieldset {
     background-color: $accentShade;
     border-radius: 4px;
     height: fit-content;
-    width: 15em;
+    max-width: 80%;
+    width: 400px;
     margin: 100px auto;
     padding-bottom: 5px;
     box-shadow: 0 4px 8px 0 RGB(0 0 0/20%), 0 6px 20px 0 RGB(0 0 0/19%);
@@ -85,6 +86,8 @@ fieldset {
     background-color: $accentOne;
     color: $lightShade;
     border-radius: 4px;
+    font-size: 1rem;
     border: none;
-    padding: 8px;
+    height: 2rem;
+    width: 100%;
 }

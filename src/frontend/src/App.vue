@@ -1,7 +1,8 @@
 <template>
 <div>
     <div id="nav" v-show="$route.name !== 'Login'">
-    <router-link to="/">Home</router-link>
+    <router-link to="/">
+    </router-link>
     <router-link to="/about">About</router-link>
     <router-link to="/login">Login</router-link>
   </div>
@@ -11,11 +12,16 @@
 
 <script>
 export default {
-  data() {
-    return {
-    }
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
   },
   methods: {
+    logOut() {
+      this.$store.dispatch('auth/logout');
+      this.$router.push('/login');
+    }
   },
 }
 </script>
