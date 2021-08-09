@@ -1,11 +1,11 @@
 <template>
   <div class="container">
-    <img src="../assets/user.svg" alt="user-icon" />
+    <img src="../assets/users.svg" alt="user-icon" />
 
-    <div class="card" id="loginCard">
-      <!-- only works with "handleLogin", not "handeLogin()"-->
-      <Form @submit="handleLogin" :validation-schema="schema">
-        <p>Sign in</p>
+    <div class="card" id="registerCard">
+      <!-- only works with "handleX", not "handeX()"-->
+      <Form @submit="handleRegister" :validation-schema="schema">
+        <p>Register new account</p>
 
         <div class="form-in">
           <label for="username" class="form-label">Username</label>
@@ -14,17 +14,18 @@
         </div>
 
         <div class="form-in">
+          <label for="email" class="form-label">Email(Optional)</label>
+          <Field name="email" class="form-control" type="email" />
+          <ErrorMessage name="email" class="error-feedback" />
+        </div>
+
+        <div class="form-in">
           <label class="form-label" for="password">Password</label>
           <Field name="password" class="form-control" type="password" />
           <ErrorMessage name="password" class="error-feedback" />
         </div>
 
-        <div class="form-submit">
-          <button class="button-primary" id="loginButton">Log in</button>
-          <router-link to="/register" class="button-primary">
-            Register
-          </router-link>
-        </div>
+        <button class="button-primary" id="registerButton">Register</button>
 
         <div>
           <div v-if="message" class="alert" role="alert">
@@ -41,7 +42,7 @@ import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 
 export default {
-  name: "Login",
+  name: "Register",
   components: {
     Form,
     Field,
@@ -49,11 +50,13 @@ export default {
   },
   data() {
     const schema = yup.object().shape({
-      username: yup.string().required("Username is required!"),
-      password: yup.string().required("Password is required!"),
+      username: yup.string().required("Username is required!").min(3),
+      email: yup.string().email(),
+      password: yup.string().required("Password is required!").min(8),
     });
 
     return {
+      successful: false,
       loading: false,
       message: "",
       schema,
@@ -64,18 +67,22 @@ export default {
       return this.$store.state.auth.status.loggedIn;
     },
   },
-  created() {
+  mounted() {
     if (this.loggedIn) {
       this.$router.push("/");
     }
   },
   methods: {
-    handleLogin(user) {
+    handleRegister(user) {
+      this.successful = false;
       this.loading = true;
+      this.message = "";
 
-      this.$store.dispatch("auth/login", user).then(
+      this.$store.dispatch("auth/register", user).then(
         () => {
-          this.$router.push("/");
+          this.message = data.message;
+          this.successful = true;
+          this.$router.push("/login");
         },
         (error) => {
           this.loading = false;
@@ -147,7 +154,7 @@ fieldset {
   border-radius: 3px;
 }
 
-#loginButton {
+#registerButton {
   margin-top: 5px;
   align-self: flex-start;
 }

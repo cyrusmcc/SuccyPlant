@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div id="nav" v-show="$route.name !== 'Login'">
+    <div id="nav" v-if="!$route.meta.hideNav">
     <router-link to="/">
     </router-link>
     <router-link to="/about">About</router-link>
