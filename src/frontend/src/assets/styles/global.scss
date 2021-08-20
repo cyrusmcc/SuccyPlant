@@ -57,12 +57,13 @@ h2 {
 }
 
 a {
+    cursor: pointer;
     color: $lightShade;
     text-decoration: none;
 }
   
 a:hover, a:focus {
-    box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
+    font-weight: bold;
 }
 
 fieldset {

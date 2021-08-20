@@ -14,15 +14,18 @@
         </div>
 
         <div class="form-in">
-          <label for="email" class="form-label">Email(Optional)</label>
-          <Field name="email" class="form-control" type="email" />
-          <ErrorMessage name="email" class="error-feedback" />
-        </div>
-
-        <div class="form-in">
           <label class="form-label" for="password">Password</label>
           <Field name="password" class="form-control" type="password" />
           <ErrorMessage name="password" class="error-feedback" />
+        </div>
+
+        <div class="form-in">
+          <div id="email-label">
+            <label for="email" class="form-label">Email</label>
+            <span>(Optional)</span>
+          </div>
+          <Field name="email" class="form-control" type="email" />
+          <ErrorMessage name="email" class="error-feedback" />
         </div>
 
         <button class="button-primary" id="registerButton">Register</button>
@@ -34,6 +37,15 @@
         </div>
       </Form>
     </div>
+
+    <div id="login-link">
+      <span>Already have an account?</span>
+      <router-link to="/login">
+        Login
+     </router-link>
+    </div>
+
+
   </div>
 </template>
 
@@ -50,9 +62,9 @@ export default {
   },
   data() {
     const schema = yup.object().shape({
-      username: yup.string().required("Username is required!").min(3),
-      email: yup.string().email(),
-      password: yup.string().required("Password is required!").min(8),
+      username: yup.string().required("Username is required!").min(3).max(16,"Username cannot be greater than 16 characters long."),
+      email: yup.string().email("Email is invalid."),
+      password: yup.string().required("Password is required!").min(8).max(256),
     });
 
     return {
@@ -79,10 +91,12 @@ export default {
       this.message = "";
 
       this.$store.dispatch("auth/register", user).then(
-        () => {
+        (data) => {
           this.message = data.message;
           this.successful = true;
+          this.loading = false;
           this.$router.push("/login");
+          console.log(user.email)
         },
         (error) => {
           this.loading = false;
@@ -154,8 +168,37 @@ fieldset {
   border-radius: 3px;
 }
 
+.alert {
+  margin-top: 5px;
+}
+
 #registerButton {
   margin-top: 5px;
   align-self: flex-start;
 }
+
+#login-link {
+  font-size: 0.85rem;
+  color: $lightShade;
+  display: flex;
+  justify-content: center;
+  column-gap: 6px;
+}
+
+#login-link a {
+  color: $accentOne;
+}
+
+#email-label {
+  display: flex;
+  align-content: center;
+  column-gap: 5px;
+}
+
+#email-label span {
+  font-size: 0.75em;
+  padding-bottom: 5px;
+  align-self: center;
+}
+
 </style>

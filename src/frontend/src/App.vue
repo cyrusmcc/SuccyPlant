@@ -3,8 +3,13 @@
     <div id="nav" v-if="!$route.meta.hideNav">
     <router-link to="/">
     </router-link>
-    <router-link to="/about">About</router-link>
-    <router-link to="/login">Login</router-link>
+    <router-link class="nav-link" to="/about">About</router-link>
+    <div class="nav-link" v-if="!currentUser">
+      <router-link to="/login">Login</router-link>
+    </div>
+    <div v-if="currentUser">
+      <a class="nav-link" @click.prevent="logOut">Logout</a>
+    </div>
   </div>
   <router-view />
 </div>
@@ -27,9 +32,6 @@ export default {
 </script>
 
 <style lang="scss">
-//#app {
-//}
-
 #nav {
   display: flex;
   justify-content: flex-end;
@@ -38,6 +40,10 @@ export default {
 
 #nav a {
   padding-right: 0.5em;
+}
+
+#nav a:hover, #nav a:focus {
+  font-weight: bold;
 }
 
 </style>

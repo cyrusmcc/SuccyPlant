@@ -7,8 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
-public class SignupRequest
-{
+public class SignupRequest {
 
     @NotBlank
     private String username;

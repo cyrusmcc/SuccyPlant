@@ -21,9 +21,6 @@
 
         <div class="form-submit">
           <button class="button-primary" id="loginButton">Log in</button>
-          <router-link to="/register" class="button-primary">
-            Register
-          </router-link>
         </div>
 
         <div>
@@ -33,6 +30,14 @@
         </div>
       </Form>
     </div>
+
+    <div id="register-link">
+      <span>Don't have an account yet? </span>
+      <router-link to="/register">
+        Register one here
+     </router-link>
+    </div>
+
   </div>
 </template>
 
@@ -147,8 +152,25 @@ fieldset {
   border-radius: 3px;
 }
 
+.alert {
+  margin-top: 5px;
+}
+
 #loginButton {
   margin-top: 5px;
   align-self: flex-start;
 }
+
+#register-link {
+  font-size: 0.85rem;
+  color: $lightShade;
+  display: flex;
+  justify-content: center;
+  column-gap: 6px;
+}
+
+#register-link a {
+  color: $accentOne;
+}
+
 </style>
