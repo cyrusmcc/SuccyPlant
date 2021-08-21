@@ -68,10 +68,10 @@ export default {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
     },
-  },
+  }, 
   created() {
     if (this.loggedIn) {
-      this.$router.push("/");
+      this.$router.push("/profile");
     }
   },
   methods: {
@@ -80,7 +80,7 @@ export default {
 
       this.$store.dispatch("auth/login", user).then(
         () => {
-          this.$router.push("/");
+          this.$router.push("/profile");
         },
         (error) => {
           this.loading = false;

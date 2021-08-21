@@ -1,5 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
+import Login from "../components/Login.vue"
+import Register from "../components/Register.vue"
+
+const Profile = () => import("../components/ProfilePage.vue");
 
 const routes = [
   {
@@ -22,7 +26,7 @@ const routes = [
       hideNav: true,
     },
 
-    component: () => import("../components/Login.vue"),
+    component: Login,
   },
   {
     path: "/register",
@@ -31,13 +35,13 @@ const routes = [
       hideNav: true,
     },
 
-    component: () => import("../components/Register.vue"),
+    component: Register,
   },
   {
     path: "/profile",
     name: "profile",
 
-    component: () => import("../components/ProfilePage.vue"),
+    component: Profile,
   },
   // new here
 ]

@@ -1,6 +1,5 @@
 package com.cm.contentmanagementapp.payload.request;
 
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 

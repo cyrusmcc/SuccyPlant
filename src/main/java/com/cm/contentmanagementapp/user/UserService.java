@@ -1,18 +1,19 @@
 package com.cm.contentmanagementapp.user;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
     List<User> findAll();
 
-    User findById(Long id);
+    User findById(long id);
 
-    User findByUsername(String username);
+    Optional<User> findByUsername(String username);
 
     void save(User theUser);
 
-    void deleteById(Long id);
+    void deleteById(long id);
 
     boolean existsByUsername(String username);
 

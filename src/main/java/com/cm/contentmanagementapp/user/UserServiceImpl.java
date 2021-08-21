@@ -2,19 +2,24 @@ package com.cm.contentmanagementapp.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
 
+    private RoleRepository roleRepository;
+
     @Autowired
-    public UserServiceImpl(UserRepository theUserRepository) {
+    public UserServiceImpl(UserRepository theUserRepository, RoleRepository theRoleRepository) {
         this.userRepository = theUserRepository;
+        this.roleRepository = theRoleRepository;
     }
 
     @Override
@@ -23,7 +28,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(Long id) {
+    public User findById(long id) {
 
         Optional<User> result = userRepository.findById(id);
 
@@ -41,9 +46,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUsername(String username) {
+    public Optional<User> findByUsername(String username) {
 
-        User user = null;
+        Optional<User> user = null;
 
         if (userRepository.findByUsername(username) != null) {
 
@@ -61,13 +66,16 @@ public class UserServiceImpl implements UserService {
 
         user.setId(0L);
 
-        user.setRole("ROLE_USER");
+        Role userRole = roleRepository.findByName(EnumRole.ROLE_USER);
+        Set<Role> roles = new HashSet<>();
+        roles.add(userRole);
+        user.setUserRoles(roles);
 
         userRepository.save(user);
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(long id) {
         userRepository.deleteById(id);
     }
 
