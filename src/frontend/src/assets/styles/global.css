@@ -22,6 +22,10 @@ a {
   text-decoration: none;
 }
 
+a:hover, a:focus {
+  font-weight: bold;
+}
+
 fieldset {
   padding: 0;
   margin: 0;
