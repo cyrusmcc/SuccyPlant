@@ -2,8 +2,10 @@ package com.cm.contentmanagementapp;
 
 import com.cm.contentmanagementapp.payload.request.LoginRequest;
 import com.cm.contentmanagementapp.payload.request.SignupRequest;
+import com.cm.contentmanagementapp.payload.request.TokenRefreshRequest;
 import com.cm.contentmanagementapp.payload.response.JwtResponse;
 import com.cm.contentmanagementapp.payload.response.MessageResponse;
+import com.cm.contentmanagementapp.payload.response.TokenRefreshResponse;
 import com.cm.contentmanagementapp.security.UserDetailsImpl;
 import com.cm.contentmanagementapp.security.jwt.JwtUtils;
 import com.cm.contentmanagementapp.user.RoleService;
@@ -40,14 +42,17 @@ public class AuthController {
 
     JwtUtils jwtUtils;
 
+    RefreshTokenService refreshTokenService;
+
     @Autowired
     public AuthController(AuthenticationManager authManager, UserService userService, RoleService roleService,
-                          PasswordEncoder encoder, JwtUtils utils) {
+                          PasswordEncoder encoder, JwtUtils utils, RefreshTokenService refreshTokenService) {
         this.authManager = authManager;
         this.userService = userService;
         this.roleService = roleService;
         this.encoder = encoder;
         this.jwtUtils = utils;
+        this.refreshTokenService = refreshTokenService;
     }
 
     @PostMapping("/login")
@@ -63,9 +68,12 @@ public class AuthController {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
+        RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
+
         log.info("User login attempt: {}", loginRequest.getUsername());
 
         return ResponseEntity.ok(new JwtResponse(jwt,
+                refreshToken.getToken(),
                 userDetails.getId(),
                 userDetails.getUsername(),
                 userDetails.getEmail(),
@@ -95,4 +103,18 @@ public class AuthController {
         return ResponseEntity.ok(new MessageResponse("User registered successfully."));
     }
 
+    @PostMapping("/refreshtoken")
+    public ResponseEntity<?> refreshtoken(@Valid @RequestBody TokenRefreshRequest request) {
+        String requestRefreshToken = request.getRefreshToken();
+
+        return refreshTokenService.findByToken(requestRefreshToken)
+                .map(refreshTokenService::verifyExpiration)
+                .map(RefreshToken::getUser)
+                .map(user -> {
+                    String token = jwtUtils.generateTokenFromUsername(user.getUsername());
+                    return ResponseEntity.ok(new TokenRefreshResponse(token, requestRefreshToken));
+                })
+                .orElseThrow(() -> new TokenRefreshException(requestRefreshToken,
+                        "Refresh token is not in db!"));
+    }
 }
