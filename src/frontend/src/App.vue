@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import EventBus from "./EventBus";
+
 export default {
   computed: {
     currentUser() {
@@ -28,7 +30,15 @@ export default {
       this.$router.push('/login');
     }
   },
-}
+  mounted() {
+    EventBus.on("logout", () => {
+      this.logOut();
+    });
+  },
+  beforeDestroy() {
+    EventBus.remove("logout");
+  }
+};
 </script>
 
 <style lang="scss">

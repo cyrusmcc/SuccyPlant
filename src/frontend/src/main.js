@@ -4,6 +4,9 @@ import router from "./router/router";
 import store from "./store";
 //import { FontAwesomeIcon } from './plugins/font-awesome';
 import "./assets/styles/global.css";
+import setupInterceptors from './service/setupInterceptors';
+
+setupInterceptors(store);
 
 createApp(App)
     .use(router)
