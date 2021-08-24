@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="container">
     <div id="nav" v-if="!$route.meta.hideNav">
     <router-link to="/">
       Home

@@ -3,7 +3,7 @@ $accentShade: #353131;
 $darkShade: #232121;
 $accentOne: #09725F;
 $accentTwo: #F1E788;
-$accentThree: #ADECFA;
+$accentThree: #a2d8e4;
 
 
 $screen-md: 610px;
@@ -47,10 +47,15 @@ $robotoSlab: 'Roboto Slab', serif;
 html, body {
     font-family: $robotoSlab;
     margin: 0;
+    padding: 0;
     max-width: 100%;
+    max-height: 100%;
     scroll-behavior: smooth;
     background-color: $darkShade;
+    position: relative;
+    box-sizing: border-box;
 }
+
 
 h2 {
     font-weight: 0;
