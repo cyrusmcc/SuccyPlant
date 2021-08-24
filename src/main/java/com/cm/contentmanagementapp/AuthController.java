@@ -1,5 +1,6 @@
 package com.cm.contentmanagementapp;
 
+import com.cm.contentmanagementapp.payload.request.LogOutRequest;
 import com.cm.contentmanagementapp.payload.request.LoginRequest;
 import com.cm.contentmanagementapp.payload.request.SignupRequest;
 import com.cm.contentmanagementapp.payload.request.TokenRefreshRequest;
@@ -117,4 +118,11 @@ public class AuthController {
                 .orElseThrow(() -> new TokenRefreshException(requestRefreshToken,
                         "Refresh token is not in db!"));
     }
+
+    @PostMapping
+    public ResponseEntity<?> logoutUser(@Valid @RequestBody LogOutRequest logoutRequest) {
+        refreshTokenService.deleteByUserId(logoutRequest.getUserId());
+        return ResponseEntity.ok(new MessageResponse("Log out successful!"));
+    }
 }
+

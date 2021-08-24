@@ -8,7 +8,7 @@ class UserService {
     }
 
     getUserBoard() {
-        return api.get(API_URL + 'user', { headers: authHeader()});
+        return api.get(API_URL + 'user');
     }
 
 }

@@ -2,6 +2,10 @@
 <div>
     <div id="nav" v-if="!$route.meta.hideNav">
     <router-link to="/">
+      Home
+    </router-link>
+        <router-link to="/profile">
+      profile
     </router-link>
     <router-link class="nav-link" to="/about">About</router-link>
     <div class="nav-link" v-if="!currentUser">
@@ -16,11 +20,18 @@
 </template>
 
 <script>
+import TokenService from "./service/token.service"
 import EventBus from "./EventBus";
 
 export default {
   computed: {
     currentUser() {
+      
+      // readd user to local storage after refresh
+      if (!TokenService.getUser()) {
+        TokenService.setUser(this.$store.state.auth.user);
+      }
+
       return this.$store.state.auth.user;
     },
   },
@@ -35,7 +46,7 @@ export default {
       this.logOut();
     });
   },
-  beforeDestroy() {
+  beforeUnmount() {
     EventBus.remove("logout");
   }
 };
