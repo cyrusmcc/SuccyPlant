@@ -8,17 +8,16 @@
       </div>
     </div>
     <div class="closeModalButton" :style="[displayHamburger ? {'display': 'none'} : {'display': 'block'}]">x</div>
+    <modal>Test slot!</modal>
   </div>
 </template>
 
 <script>
-//import Modal from "./Modal.vue";
+import Modal from './Modal.vue';
 
 export default {
+  components: { Modal },
   name: "Hamburger",
-  compontents: {
-    //Modal,
-  },
   data() {
     return {
       displayHamburger: true,

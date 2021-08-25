@@ -6,7 +6,7 @@
           <img src="../assets/profilePicPlaceholder.jpg" alt="profile picture">
         </div>
         <div id="userInfo">
-          <span id="usernameText">{{ currentUser.username }}</span>
+          <span id="usernameText" v-if="currentUser">{{ currentUser.username }}</span>
           <span id="joinDateText">user since {{ getUserJoinDate }}</span>
         </div>
       </div>
@@ -32,7 +32,6 @@ export default {
   name: "Profile",
   computed: {
     currentUser() {
-      console.log(TokenService.getUser());
       return TokenService.getUser();
     },
     getUserJoinDate() {
@@ -44,11 +43,11 @@ export default {
         joined = month + " " + year;
         return joined;
       }
-        return null;
+      return null;
     }
   },
   mounted() {
-    if (!this.currentUser) {
+    if (TokenService.getUser() == null) {
       this.$router.push("/login");
     }
   },
