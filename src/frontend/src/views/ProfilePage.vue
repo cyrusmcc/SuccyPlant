@@ -5,7 +5,10 @@
         <div class="imgCont">
           <img src="../assets/profilePicPlaceholder.jpg" alt="profile picture">
         </div>
-        <span id="usernameText">{{ currentUser.username }}</span>
+        <div id="userInfo">
+          <span id="usernameText">{{ currentUser.username }}</span>
+          <span id="joinDateText">user since {{ getUserJoinDate }}</span>
+        </div>
       </div>
       <div class="card" id="userContentCard">
         <div id="userContentNavContainer">
@@ -29,8 +32,20 @@ export default {
   name: "Profile",
   computed: {
     currentUser() {
+      console.log(TokenService.getUser());
       return TokenService.getUser();
     },
+    getUserJoinDate() {
+      if(this.currentUser) {
+        const userJoinDate = new Date(this.currentUser.joinDate),
+        locale = 'en-us',
+        month = userJoinDate.toLocaleString(locale, { month: "short" }),
+        year = userJoinDate.toLocaleString(locale, { year: "numeric"}),
+        joined = month + " " + year;
+        return joined;
+      }
+        return null;
+    }
   },
   mounted() {
     if (!this.currentUser) {
@@ -89,14 +104,25 @@ export default {
   box-shadow: none;
 }
 
-#usernameText {
+#userInfo {
   z-index: 3;
-  align-self: center;
-  margin: 0 0 16px 10px;
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0 0 10px;
+  line-height: 1.6rem;
+}
+
+
+#usernameText {
   font-weight: bold;
   font-size: 1.5rem;
   
 }
+
+#joinDateText {
+  color: $lightShade;
+  font-size: 0.8rem;
+  }
 
 #userContentNavContainer {
   border-top: 0;

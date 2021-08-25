@@ -11,9 +11,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,17 +29,20 @@ public class UserDetailsImpl implements UserDetails {
 
     private String email;
 
+    private LocalDate userJoinDate;
+
     @JsonIgnore
     private String password;
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(long id, String username, String email, String password,
+    public UserDetailsImpl(long id, String username, String email, String password, LocalDate userJoinDate,
                            Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.userJoinDate = userJoinDate;
         this.authorities = authorities;
     }
 
@@ -53,6 +56,7 @@ public class UserDetailsImpl implements UserDetails {
                 user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),
+                user.getUserJoinDate(),
                 authorities);
     }
 
