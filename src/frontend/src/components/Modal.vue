@@ -1,5 +1,5 @@
 <template>
-  <div id="modalBackground" v-if="!displayModal" @click="toggleModal()">
+  <div id="modalBackground" v-if="displayModal" @click="toggleModal()">
     <div class="card" id="modalContent">
       <div id="modalClose" @click="toggleModal()">+</div>
       <slot></slot>

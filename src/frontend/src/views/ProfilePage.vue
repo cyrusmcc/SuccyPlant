@@ -56,7 +56,6 @@ export default {
 <style scoped lang="scss">
 
 .container {
-  margin-top: 50px;
   display: flex;
   flex-direction: column;
   align-content: flex-start;
@@ -95,6 +94,7 @@ export default {
   align-content: center;
   overflow: hidden;
   padding: 10px 0 10px 0;
+  margin-top: 50px;
 }
 
 #userContentCard {

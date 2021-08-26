@@ -1,13 +1,8 @@
 <template>
-  <div class="home">
-    <img id="vueLogo" alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+  <div></div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
 import UserService from "../service/user.service";
 
 export default {
@@ -17,9 +12,7 @@ export default {
       content: "",
     };
   },
-  components: {
-    HelloWorld,
-  },
+
   mounted() {
     UserService.getPublicContent().then(
       (response) => {
@@ -38,13 +31,5 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-  .home {
-    margin: 100px auto;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  }
-  #vueLogo {
-    max-width: 20rem;
-  }
+
 </style>

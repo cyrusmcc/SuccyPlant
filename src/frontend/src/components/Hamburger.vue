@@ -1,22 +1,27 @@
 <template>
-  <div class="container" @click="toggleHamburger">
-    <div class="hamburger" :style="[displayHamburger ? {'display': 'flex'} : {'display': 'none'}]">
-      <div class="hamburgerLineContainer">
+  <div class="container" :style="[displayHamburger ? {'height': 'fit-content'} : {'height': '100%'}]">
+    <div class="hamburgerIcon">
+      <div class="hamburgerLineContainer" v-if="displayHamburger" @click="toggleHamburger">
         <div class="hamburgerLine"></div>
         <div class="hamburgerLine"></div>
         <div class="hamburgerLine"></div>
       </div>
+      <div
+        class="closeHamburgerButton"
+        v-if="!displayHamburger"
+        @click="toggleHamburger">
+        +
+      </div>
     </div>
-    <div class="closeModalButton" :style="[displayHamburger ? {'display': 'none'} : {'display': 'block'}]">x</div>
-    <modal>Test slot!</modal>
+    <div class="hamburgerContent" v-if="!displayHamburger">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
 <script>
-import Modal from './Modal.vue';
 
 export default {
-  components: { Modal },
   name: "Hamburger",
   data() {
     return {
@@ -38,16 +43,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.hamburger {
-  cursor: pointer;
+.container {
+  z-index: 4;
+  width: 100%;
+  max-height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+}
+
+.hamburgerIcon {
+  display: relative;
   height: 25px;
-  width: auto;
+  max-width: 100%;
+  cursor: pointer;
   display: flex;
-  justify-content: space-evenly;
-  flex-direction: column;
-  border-radius: 4px;
-  padding: 5px;
-  //background-color: $accentShade;
+  background: $accentOne;
+  padding: 5px 0 5px 10px;
 }
 
 .hamburgerLine {
@@ -58,14 +70,28 @@ export default {
   background-color: #f5f5f5;
 }
 
-.closeModalButton {
-  display: none;
+.closeHamburgerButton {
+  position: absolute;
+  top: -7px;
+  left: 10px;
+  transform: rotate(45deg);
   font-family: $libreFranklin;
   color: $lightShade;
   user-select: none;
-  padding: 0 0 5px 10px;
-  font-size: 29px;
+  font-size: 45px;
   cursor: pointer;
 }
 
+.hamburgerContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 15px;
+  row-gap: 10px;
+  background: $accentOne;
+  height: 400px;
+  width: auto;
+  max-width: 100%;
+}
 </style>
