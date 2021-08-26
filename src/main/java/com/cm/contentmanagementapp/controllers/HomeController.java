@@ -1,7 +1,7 @@
-package com.cm.contentmanagementapp;
+package com.cm.contentmanagementapp.controllers;
 
-import com.cm.contentmanagementapp.user.User;
-import com.cm.contentmanagementapp.user.UserService;
+import com.cm.contentmanagementapp.models.User;
+import com.cm.contentmanagementapp.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

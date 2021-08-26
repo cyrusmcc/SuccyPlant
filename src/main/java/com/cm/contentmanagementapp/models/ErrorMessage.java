@@ -1,4 +1,4 @@
-package com.cm.contentmanagementapp;
+package com.cm.contentmanagementapp.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,5 +1,5 @@
 <template>
-  <div class="container" :style="[displayHamburger ? {'height': 'fit-content'} : {'height': '100%'}]">
+  <div class="container" :style="[displayHamburger ? {'height': 'fit-content'} : {'height': '100%'}]" @click.self="toggleHamburger">
     <div class="hamburgerIcon">
       <div class="hamburgerLineContainer" v-if="displayHamburger" @click="toggleHamburger">
         <div class="hamburgerLine"></div>
@@ -32,10 +32,8 @@ export default {
     toggleHamburger() {
       if (this.displayHamburger) {
         this.displayHamburger = false;
-        console.log(this.displayHamburger);
       } else {
         this.displayHamburger = true;
-        console.log(this.displayHamburger);
       }
     },
   },
@@ -50,6 +48,7 @@ export default {
   background-color: rgba(0, 0, 0, 0.7);
   position: absolute;
   top: 0;
+  box-shadow: 0 4px 8px 0 RGB(0 0 0/20%), 0 6px 20px 0 RGB(0 0 0/19%);
 }
 
 .hamburgerIcon {

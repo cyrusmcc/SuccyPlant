@@ -1,6 +1,9 @@
-package com.cm.contentmanagementapp;
+package com.cm.contentmanagementapp.services;
 
-import com.cm.contentmanagementapp.user.UserRepository;
+import com.cm.contentmanagementapp.TokenRefreshException;
+import com.cm.contentmanagementapp.models.RefreshToken;
+import com.cm.contentmanagementapp.repositories.RefreshTokenRepository;
+import com.cm.contentmanagementapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

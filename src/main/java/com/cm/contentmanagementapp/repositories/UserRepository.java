@@ -1,5 +1,6 @@
-package com.cm.contentmanagementapp.user;
+package com.cm.contentmanagementapp.repositories;
 
+import com.cm.contentmanagementapp.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

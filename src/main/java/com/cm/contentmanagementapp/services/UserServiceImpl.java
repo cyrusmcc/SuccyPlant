@@ -1,10 +1,14 @@
-package com.cm.contentmanagementapp.user;
+package com.cm.contentmanagementapp.services;
 
+import com.cm.contentmanagementapp.models.EnumRole;
+import com.cm.contentmanagementapp.models.Role;
+import com.cm.contentmanagementapp.models.User;
+import com.cm.contentmanagementapp.repositories.RoleRepository;
+import com.cm.contentmanagementapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;

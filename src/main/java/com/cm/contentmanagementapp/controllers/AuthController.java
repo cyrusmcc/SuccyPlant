@@ -1,5 +1,8 @@
-package com.cm.contentmanagementapp;
+package com.cm.contentmanagementapp.controllers;
 
+import com.cm.contentmanagementapp.models.RefreshToken;
+import com.cm.contentmanagementapp.services.RefreshTokenService;
+import com.cm.contentmanagementapp.TokenRefreshException;
 import com.cm.contentmanagementapp.payload.request.LogOutRequest;
 import com.cm.contentmanagementapp.payload.request.LoginRequest;
 import com.cm.contentmanagementapp.payload.request.SignupRequest;
@@ -7,11 +10,11 @@ import com.cm.contentmanagementapp.payload.request.TokenRefreshRequest;
 import com.cm.contentmanagementapp.payload.response.JwtResponse;
 import com.cm.contentmanagementapp.payload.response.MessageResponse;
 import com.cm.contentmanagementapp.payload.response.TokenRefreshResponse;
-import com.cm.contentmanagementapp.security.UserDetailsImpl;
+import com.cm.contentmanagementapp.services.UserDetailsImpl;
 import com.cm.contentmanagementapp.security.jwt.JwtUtils;
-import com.cm.contentmanagementapp.user.RoleService;
-import com.cm.contentmanagementapp.user.User;
-import com.cm.contentmanagementapp.user.UserService;
+import com.cm.contentmanagementapp.services.RoleService;
+import com.cm.contentmanagementapp.models.User;
+import com.cm.contentmanagementapp.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +27,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -102,6 +106,8 @@ public class AuthController {
 
         userService.save(user);
 
+        log.info("User register attempt: {} ", user.getId());
+
         return ResponseEntity.ok(new MessageResponse("User registered successfully."));
     }
 
@@ -123,6 +129,7 @@ public class AuthController {
     @PostMapping
     public ResponseEntity<?> logoutUser(@Valid @RequestBody LogOutRequest logoutRequest) {
         refreshTokenService.deleteByUserId(logoutRequest.getUserId());
+        log.info("User logout attempt: {} ", logoutRequest.getUserId());
         return ResponseEntity.ok(new MessageResponse("Log out successful!"));
     }
 }

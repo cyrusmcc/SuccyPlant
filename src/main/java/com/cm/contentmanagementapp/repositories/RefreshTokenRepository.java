@@ -1,6 +1,7 @@
-package com.cm.contentmanagementapp;
+package com.cm.contentmanagementapp.repositories;
 
-import com.cm.contentmanagementapp.user.User;
+import com.cm.contentmanagementapp.models.RefreshToken;
+import com.cm.contentmanagementapp.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

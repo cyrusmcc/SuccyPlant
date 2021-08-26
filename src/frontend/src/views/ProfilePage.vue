@@ -1,60 +1,55 @@
 <template>
   <div class="container">
-      <div class="card" id="userInfoCard">
-        <div id="loginCardAccent"></div>
-        <div class="imgCont">
-          <img src="../assets/profilePicPlaceholder.jpg" alt="profile picture">
-        </div>
-        <div id="userInfo">
-          <span id="usernameText" v-if="currentUser">{{ currentUser.username }}</span>
-          <span id="joinDateText">user since {{ getUserJoinDate }}</span>
+    <div class="card" id="userInfoCard">
+      <div id="loginCardAccent"></div>
+      <div class="imgCont">
+        <img src="../assets/profilePicPlaceholder.jpg" alt="profile picture" />
+      </div>
+      <div id="userInfo">
+        <span id="usernameText">{{ currentUser.username }}</span>
+        <span id="joinDateText">user since {{ getUserJoinDate }}</span>
+      </div>
+    </div>
+    <div class="card" id="userContentCard">
+      <div id="userContentNavContainer">
+        <div id="navTabs">
+          <span class="navTab" id="navTab1">All</span>
+          <span class="navTab" id="navTab2">Posts</span>
+          <span class="navTab" id="navTab3">Comments</span>
         </div>
       </div>
-      <div class="card" id="userContentCard">
-        <div id="userContentNavContainer">
-          <div id="navTabs">
-            <span class="navTab" id="navTab1">All</span>
-            <span class="navTab" id="navTab2">Posts</span>
-            <span class="navTab" id="navTab3">Comments</span>
-          </div>
-        </div>
-        <div id="userContent">
-
-        </div>
-      </div>
+      <div id="userContent"></div>
+    </div>
   </div>
 </template>
 
 <script>
-import TokenService from '../service/token.service'
-
 export default {
   name: "Profile",
   computed: {
     currentUser() {
-      return TokenService.getUser();
+      return this.$store.state.auth.user;
     },
     getUserJoinDate() {
-      if(this.currentUser) {
+      if (this.currentUser) {
         const userJoinDate = new Date(this.currentUser.joinDate),
-        locale = 'en-us',
-        month = userJoinDate.toLocaleString(locale, { month: "short" }),
-        year = userJoinDate.toLocaleString(locale, { year: "numeric"}),
-        joined = month + " " + year;
+          locale = "en-us",
+          month = userJoinDate.toLocaleString(locale, { month: "short" }),
+          year = userJoinDate.toLocaleString(locale, { year: "numeric" }),
+          joined = month + " " + year;
         return joined;
       }
       return null;
-    }
+    },
   },
   mounted() {
-    if (TokenService.getUser() == null) {
-      this.$router.push("/login");
-    }
+     if (!this.currentUser) {
+       this.$router.push("/login");
+     }
   },
 };
 </script>
 <style scoped lang="scss">
-
 .container {
   display: flex;
   flex-direction: column;
@@ -84,7 +79,7 @@ export default {
   position: absolute;
   width: inherit;
   height: 55%;
-  background-color: $accentThree;
+  background-color: $accentTwo;
 }
 
 #userInfoCard {
@@ -111,22 +106,21 @@ export default {
   line-height: 1.6rem;
 }
 
-
 #usernameText {
   font-weight: bold;
+  color: $accentShade;
   font-size: 1.5rem;
-  
 }
 
 #joinDateText {
   color: $lightShade;
   font-size: 0.8rem;
-  }
+}
 
 #userContentNavContainer {
   border-top: 0;
   border-radius: 4px 4px 0 0;
-  height: fit-content;  
+  height: fit-content;
   background: $darkShade;
 }
 
@@ -139,7 +133,6 @@ export default {
   justify-content: space-around;
 }
 
-
 #navTabs > span {
   display: flex;
   align-items: center;
@@ -149,7 +142,6 @@ export default {
   background-color: $accentShade;
   color: $lightShade;
   padding: 2px;
-
 }
 
 #navTab1 {
@@ -172,6 +164,4 @@ export default {
   height: 68vh;
   background: $accentShade;
 }
-
-
 </style>

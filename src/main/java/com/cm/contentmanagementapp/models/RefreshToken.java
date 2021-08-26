@@ -1,6 +1,6 @@
-package com.cm.contentmanagementapp;
+package com.cm.contentmanagementapp.models;
 
-import com.cm.contentmanagementapp.user.User;
+import com.cm.contentmanagementapp.models.User;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,6 +1,6 @@
-package com.cm.contentmanagementapp.security;
+package com.cm.contentmanagementapp.services;
 
-import com.cm.contentmanagementapp.user.User;
+import com.cm.contentmanagementapp.models.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

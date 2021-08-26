@@ -26,7 +26,7 @@ export default {
   },
   computed: {
     currentUser() {
-      // readd user to local storage after refresh
+      // read user to local storage after refresh
       if (!TokenService.getUser()) {
         TokenService.setUser(this.$store.state.auth.user);
       }

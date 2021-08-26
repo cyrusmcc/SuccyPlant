@@ -1,5 +1,6 @@
-package com.cm.contentmanagementapp;
+package com.cm.contentmanagementapp.controllers;
 
+import com.cm.contentmanagementapp.models.ErrorMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;

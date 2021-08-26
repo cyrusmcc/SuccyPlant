@@ -1,4 +1,4 @@
-package com.cm.contentmanagementapp.security;
+package com.cm.contentmanagementapp.services;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

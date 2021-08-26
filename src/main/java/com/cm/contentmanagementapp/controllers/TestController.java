@@ -1,4 +1,4 @@
-package com.cm.contentmanagementapp;
+package com.cm.contentmanagementapp.controllers;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

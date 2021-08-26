@@ -1,6 +1,7 @@
-package com.cm.contentmanagementapp.user;
+package com.cm.contentmanagementapp.services;
 
-import java.time.LocalDate;
+import com.cm.contentmanagementapp.models.User;
+
 import java.util.List;
 import java.util.Optional;
 

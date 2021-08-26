@@ -2,6 +2,7 @@ package com.cm.contentmanagementapp.security;
 
 import com.cm.contentmanagementapp.security.jwt.AuthEntrypointJwt;
 import com.cm.contentmanagementapp.security.jwt.AuthTokenFilter;
+import com.cm.contentmanagementapp.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

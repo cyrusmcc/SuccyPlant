@@ -1,10 +1,10 @@
 package com.cm.contentmanagementapp;
 
+import com.cm.contentmanagementapp.controllers.AuthController;
 import com.cm.contentmanagementapp.payload.request.SignupRequest;
 import com.cm.contentmanagementapp.payload.response.MessageResponse;
-import com.cm.contentmanagementapp.user.User;
-import com.cm.contentmanagementapp.user.UserService;
-import com.cm.contentmanagementapp.user.UserServiceImpl;
+import com.cm.contentmanagementapp.models.User;
+import com.cm.contentmanagementapp.services.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

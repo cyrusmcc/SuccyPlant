@@ -1,4 +1,4 @@
-package com.cm.contentmanagementapp.user;
+package com.cm.contentmanagementapp.models;
 
 public enum EnumRole {
     ROLE_USER,
