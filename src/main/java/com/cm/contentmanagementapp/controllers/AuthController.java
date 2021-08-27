@@ -125,10 +125,12 @@ public class AuthController {
                         "Refresh token is not in db!"));
     }
 
-    @PostMapping
+    @PostMapping("/logout")
     public ResponseEntity<?> logoutUser(@Valid @RequestBody LogOutRequest logoutRequest) {
-        refreshTokenService.deleteByUserId(logoutRequest.getUserId());
-        log.info("User logout attempt: {} ", logoutRequest.getUserId());
+
+        System.out.println(logoutRequest.getId());
+        refreshTokenService.deleteByUserId(logoutRequest.getId());
+        //log.info("User logout attempt: {} ", logoutRequest.getUserId());
         return ResponseEntity.ok(new MessageResponse("Log out successful!"));
     }
 }

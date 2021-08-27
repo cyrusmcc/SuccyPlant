@@ -36,8 +36,12 @@ export default {
   },
   methods: {
     logOut() {
-      this.$store.dispatch("auth/logout");
-      this.$router.push("/login");
+      console.log(this.currentUser.id);
+      this.$store.dispatch("auth/logout", this.currentUser).then(
+        () => {
+          this.$router.push("/login");
+        }
+      );
     },
   },
   mounted() {

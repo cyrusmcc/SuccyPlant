@@ -21,9 +21,19 @@ export const auth = {
         }
       );
     },
-    logout({ commit }) {
-      AuthService.logout();
-      commit('logout');
+    logout({ commit }, user) {
+      return AuthService.logout(user).then(
+        user => {
+          commit('logout', user);
+          return Promise.resolve(user);
+        },
+        error => {
+          commit('logoutFailure');
+          return Promise.reject(error);
+        }
+      );
+      //AuthService.logout();
+      //commit('logout');
     },
     register({ commit }, user) {
       return AuthService.register(user).then(

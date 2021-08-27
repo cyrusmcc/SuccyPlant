@@ -1,9 +1,11 @@
 package com.cm.contentmanagementapp.payload.request;
 
-public class LogOutRequest {
-    private Long userId;
+import lombok.Getter;
+import lombok.Setter;
 
-    public Long getUserId() {
-        return this.userId;
-    }
+@Getter
+@Setter
+public class LogOutRequest {
+
+    private Long id;
 }

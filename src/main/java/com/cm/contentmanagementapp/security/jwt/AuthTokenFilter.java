@@ -35,7 +35,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         return null;
     }
 
-
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain)
             throws ServletException, IOException  {

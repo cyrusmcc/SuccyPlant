@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -74,7 +75,8 @@ public class UserServiceImpl implements UserService {
         Role userRole = roleRepository.findByName(EnumRole.ROLE_USER);
         Set<Role> roles = new HashSet<>();
         roles.add(userRole);
-        user.setUserRoles(roles);
+        user.setRoles(roles);
+        user.setUserJoinDate(LocalDate.now());
 
         userRepository.save(user);
     }
