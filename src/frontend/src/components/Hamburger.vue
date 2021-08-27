@@ -37,6 +37,13 @@ export default {
       }
     },
   },
+  watch:{
+    $route (to, from){
+        if (to !== from) {
+          this.displayHamburger = true;
+        }
+    }
+  } 
 };
 </script>
 

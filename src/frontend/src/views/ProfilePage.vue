@@ -6,7 +6,7 @@
         <img src="../assets/profilePicPlaceholder.jpg" alt="profile picture" />
       </div>
       <div id="userInfo">
-        <span id="usernameText">{{ currentUser.username }}</span>
+        <span id="usernameText" v-if="currentUser">{{ currentUser.username }}</span>
         <span id="joinDateText">user since {{ getUserJoinDate }}</span>
       </div>
     </div>
