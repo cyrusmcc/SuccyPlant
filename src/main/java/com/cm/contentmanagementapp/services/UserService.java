@@ -9,13 +9,13 @@ public interface UserService {
 
     List<User> findAll();
 
-    User findById(long id);
+    User findById(Long id);
 
     Optional<User> findByUsername(String username);
 
     void save(User theUser);
 
-    void deleteById(long id);
+    void deleteById(Long id);
 
     boolean existsByUsername(String username);
 

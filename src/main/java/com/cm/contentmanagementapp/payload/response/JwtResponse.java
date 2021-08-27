@@ -12,13 +12,13 @@ public class JwtResponse {
     private String token;
     private String type = "Bearer";
     private String refreshToken;
-    private long id;
+    private Long id;
     private String username;
     private String email;
     private List<String> roles;
     private String joinDate;
 
-    public JwtResponse(String accessToken, String refreshToken, long id, String username,
+    public JwtResponse(String accessToken, String refreshToken, Long id, String username,
                        String email, LocalDate joinDate, List<String> roles) {
         this.token = accessToken;
         this.refreshToken = refreshToken;

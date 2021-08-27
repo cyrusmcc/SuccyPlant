@@ -33,11 +33,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(long id) {
+    public User findById(Long id) {
 
         Optional<User> result = userRepository.findById(id);
 
-        User theUser = null;
+        User theUser;
 
         if (result.isPresent()) {
 
@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteById(long id) {
+    public void deleteById(Long id) {
         userRepository.deleteById(id);
     }
 
