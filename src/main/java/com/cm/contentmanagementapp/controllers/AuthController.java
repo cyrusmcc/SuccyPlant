@@ -130,7 +130,8 @@ public class AuthController {
 
         System.out.println(logoutRequest.getId());
         refreshTokenService.deleteByUserId(logoutRequest.getId());
-        //log.info("User logout attempt: {} ", logoutRequest.getUserId());
+        log.info("User logout attempt: {} ", logoutRequest.getId());
+
         return ResponseEntity.ok(new MessageResponse("Log out successful!"));
     }
 }

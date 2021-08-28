@@ -19,7 +19,6 @@ class AuthService {
       });
   }
   logout({ id }) {
-    console.log("id: " + id);
     return api
       .post(API_URL + "logout", {
         id

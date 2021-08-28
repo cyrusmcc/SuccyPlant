@@ -4,6 +4,7 @@ import Login from "../views/Login.vue"
 import Register from "../views/Register.vue"
 
 const Profile = () => import("../views/ProfilePage.vue");
+const Settings = () => import("../views/Settings.vue");
 
 const routes = [
   {
@@ -43,7 +44,12 @@ const routes = [
 
     component: Profile,
   },
-  // new here
+  {
+    path: "/settings",
+    name: "settings",
+
+    component: Settings,
+  },  // new here
 ]
 
 const router = createRouter({

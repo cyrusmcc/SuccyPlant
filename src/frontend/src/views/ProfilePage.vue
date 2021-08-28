@@ -2,9 +2,9 @@
   <div class="container">
     <div class="card" id="userInfoCard">
       <div id="loginCardAccent"></div>
-      <div class="imgCont">
-        <img src="../assets/profilePicPlaceholder.jpg" alt="profile picture" />
-      </div>
+      <profile-pic>
+        <img id="userPic" src="../assets/profilePicPlaceholder.jpg" alt="profile picture" />
+      </profile-pic>
       <div id="userInfo">
         <span id="usernameText" v-if="currentUser">{{ currentUser.username }}</span>
         <span id="joinDateText">user since {{ getUserJoinDate }}</span>
@@ -24,7 +24,10 @@
 </template>
 
 <script>
+import ProfilePic from "../components/ProfilePic.vue";
+
 export default {
+  components: { ProfilePic },
   name: "Profile",
   computed: {
     currentUser() {
@@ -61,17 +64,6 @@ export default {
   max-width: 90%;
 }
 
-.imgCont {
-  z-index: 3;
-  border-radius: 50%;
-  max-height: 4.5em;
-  width: 4.5rem;
-  overflow: hidden;
-  margin-left: 10px;
-  border: 4px solid;
-  border-color: $accentShade;
-}
-
 #loginCardAccent {
   z-index: 2;
   top: 0;
@@ -79,7 +71,7 @@ export default {
   position: absolute;
   width: inherit;
   height: 55%;
-  background-color: $accentTwo;
+  //background-color: $accentTwo;
 }
 
 #userInfoCard {
@@ -90,6 +82,9 @@ export default {
   overflow: hidden;
   padding: 10px 0 10px 0;
   margin-top: 50px;
+  background-color: $darkShade;
+  box-shadow: none;
+
 }
 
 #userContentCard {
@@ -104,6 +99,10 @@ export default {
   flex-direction: column;
   margin: 20px 0 0 10px;
   line-height: 1.6rem;
+}
+
+#userPic {
+  height: 4.8rem;
 }
 
 #usernameText {

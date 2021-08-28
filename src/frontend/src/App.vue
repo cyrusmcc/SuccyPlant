@@ -3,7 +3,7 @@
     <hamburger v-if="!$route.meta.hideNav">
       <router-link to="/"> Home </router-link>
       <router-link to="/profile"> profile </router-link>
-      <router-link class="nav-link" to="/about">About</router-link>
+      <router-link class="nav-link" to="/settings">User Settings</router-link>
       <div class="nav-link" v-if="!currentUser">
         <router-link to="/login">Login</router-link>
       </div>
@@ -36,7 +36,6 @@ export default {
   },
   methods: {
     logOut() {
-      console.log(this.currentUser.id);
       this.$store.dispatch("auth/logout", this.currentUser).then(
         () => {
           this.$router.push("/login");

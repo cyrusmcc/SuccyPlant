@@ -13,14 +13,13 @@
         +
       </div>
     </div>
-    <div class="hamburgerContent" v-if="!displayHamburger">
+    <div class="hamburgerContent" v-if="!displayHamburger" @click="toggleHamburger">
       <slot></slot>
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
   name: "Hamburger",
   data() {
@@ -37,25 +36,20 @@ export default {
       }
     },
   },
-  watch:{
-    $route (to, from){
-        if (to !== from) {
-          this.displayHamburger = true;
-        }
-    }
-  } 
 };
 </script>
 
 <style lang="scss" scoped>
 .container {
+  position: fixed;
+  top: 0;
   z-index: 4;
   width: 100%;
   max-height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.3);
   position: absolute;
   top: 0;
-  box-shadow: 0 4px 8px 0 RGB(0 0 0/20%), 0 6px 20px 0 RGB(0 0 0/19%);
+  box-shadow: $shadow;
 }
 
 .hamburgerIcon {
