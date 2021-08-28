@@ -37,10 +37,11 @@
         <div id="changePicture">
           <input type="file" id="picUploadBtn">
           <label for="picUploadBtn" id="picUploadLabel">Choose File</label>
+          <div> {{ modalState }}</div>
         </div>
       </div>
       <div id="accountOptions" class="option">
-        <modal> </modal>
+        <modal></modal>
         <modal></modal>
       </div>
     </div>
@@ -63,6 +64,9 @@ export default {
     currentUser() {
       return this.$store.state.auth.user;
     },
+    modalState() {
+      return this.$store.state.comp.displayModal;
+    }
   },
   mounted() {
     if (!this.currentUser) {

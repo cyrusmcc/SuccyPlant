@@ -32,8 +32,6 @@ export const auth = {
           return Promise.reject(error);
         }
       );
-      //AuthService.logout();
-      //commit('logout');
     },
     register({ commit }, user) {
       return AuthService.register(user).then(
