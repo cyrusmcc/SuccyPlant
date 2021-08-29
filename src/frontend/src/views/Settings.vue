@@ -1,12 +1,8 @@
 <template>
   <div class="container">
+    <modal v-if="getModalState"> </modal>
     <div id="settingTabPanel">
-      <div id="userInfo">
-      <profile-pic>
-        <img id="userPic" src="../assets/profilePicPlaceholder.jpg" alt="profile picture" />
-      </profile-pic>
-        <span v-if="currentUser">{{ currentUser.username }}'s settings</span>
-      </div>
+      <span v-if="currentUser">{{ currentUser.username }}'s settings</span>
       <div id="settingTabs">
         <div
           class="settingTab"
@@ -32,17 +28,25 @@
         </div>
       </div>
     </div>
-    <div id="settingTabOptions">
-      <div id="profileOptions" class="option" v-show="currentSettingTab == 'profile'">
+    <div class="settingTabOptions">
+      <div
+        id="profileOptions"
+        class="option"
+        v-show="currentSettingTab == 'profile'"
+      >
         <div id="changePicture">
-          <input type="file" id="picUploadBtn">
+          <profile-pic>
+            <img
+              id="userPic"
+              src="../assets/profilePicPlaceholder.jpg"
+              alt="profile picture"
+            />
+          </profile-pic>
+          <input type="file" id="picUploadBtn" />
           <label for="picUploadBtn" id="picUploadLabel">Choose File</label>
-          <div> {{ modalState }}</div>
         </div>
       </div>
       <div id="accountOptions" class="option">
-        <modal></modal>
-        <modal></modal>
       </div>
     </div>
   </div>
@@ -51,6 +55,7 @@
 <script>
 import ProfilePic from "../components/ProfilePic.vue";
 import Modal from "../components/Modal.vue";
+import { modalState } from "../store/comp.store";
 
 export default {
   components: { ProfilePic, Modal },
@@ -64,9 +69,9 @@ export default {
     currentUser() {
       return this.$store.state.auth.user;
     },
-    modalState() {
-      return this.$store.state.comp.displayModal;
-    }
+    getModalState() {
+      return modalState.modalActive;
+    },
   },
   mounted() {
     if (!this.currentUser) {
@@ -74,8 +79,12 @@ export default {
     }
   },
   methods: {
-    displayTab() {
-      console.log(this.currentSettingTab);
+    toggleModal() {
+      if (this.getModalState) {
+        modalState.modalActive = false;
+      } else {
+        modalState.modalActive = true;
+      }
     },
   },
 };
@@ -91,19 +100,21 @@ export default {
   color: $lightShade;
 }
 
-#userInfo {
-  font-size: 1.2rem;
+.settingTabOptions {
+  width: 80%;
+}
+
+.option {
+  width: 100%;
   display: flex;
-  flex-direction: row;
-  column-gap: 20px;
-  align-items: center;
+  justify-content: space-evenly;
 }
 
 #userPic {
   height: 4.8rem;
 }
 
-#settingTabPanel { 
+#settingTabPanel {
   margin-top: 50px;
   box-shadow: none;
   width: 80%;
@@ -123,8 +134,13 @@ export default {
   margin-bottom: 20px;
 }
 
-#profileOptions {
-  
+#changePicture {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: 30px;
 }
 
 #picUploadBtn {
@@ -136,5 +152,4 @@ export default {
   border-radius: 4px;
   padding: 5px;
 }
-
 </style>

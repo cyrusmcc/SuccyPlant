@@ -1,26 +1,28 @@
 <template>
-  <div id="modalBackground" v-if="displayModal" @click="toggleModal()">
+  <div id="modalBackground" v-if="getModalState" @click.self="toggleModal">
     <div class="card" id="modalContent">
-      <div id="modalClose" @click="toggleModal()">+</div>
+      <div id="modalClose" @click="toggleModal">+</div>
       <slot></slot>
     </div>
   </div>
 </template>
 
 <script>
+import { modalState } from "../store/comp.store";
+
 export default {
   name: "Modal",
-  data() {
-    return {
-      displayModal: false,
-    };
+  computed: {
+    getModalState() {
+      return modalState.modalActive;
+    }
   },
   methods: {
     toggleModal() {
-      if (this.displayModal) {
-        this.displayModal = false;
+      if (this.getModalState) {
+        modalState.modalActive = false;
       } else {
-        this.displayModal = true;
+        modalState.modalActive = true;
       }
     },
   },
@@ -40,6 +42,7 @@ export default {
 }
 #modalContent {
   position: relative;
+  margin: 150px auto;
   z-index: inherit;
   color: $lightShade;
   background-color: $accentShade;

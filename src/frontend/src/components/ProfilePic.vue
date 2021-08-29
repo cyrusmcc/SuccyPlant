@@ -20,6 +20,5 @@ export default {
   height: 4.5rem;
   width: 4.5rem;
   overflow: hidden;
-  margin-left: 10px;
-  box-shadow: -1px 1px 18px -2px rgba(255,255,255,0.08);}
+  box-shadow: -1px 1px 18px -2px rgba(15, 15, 15, 0.08);}
 </style>

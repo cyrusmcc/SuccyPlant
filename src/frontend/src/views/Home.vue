@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import UserService from "../service/user.service";
+//import UserService from "../service/user.service";
 
 export default {
   name: "Home",
@@ -13,6 +13,7 @@ export default {
     };
   },
 
+/*
   mounted() {
     UserService.getPublicContent().then(
       (response) => {
@@ -28,6 +29,7 @@ export default {
       }
     );
   },
+*/
 };
 </script>
 <style scoped lang="scss">
