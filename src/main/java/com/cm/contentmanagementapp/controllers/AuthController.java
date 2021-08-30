@@ -1,12 +1,9 @@
 package com.cm.contentmanagementapp.controllers;
 
 import com.cm.contentmanagementapp.models.RefreshToken;
+import com.cm.contentmanagementapp.payload.request.*;
 import com.cm.contentmanagementapp.services.RefreshTokenService;
 import com.cm.contentmanagementapp.TokenRefreshException;
-import com.cm.contentmanagementapp.payload.request.LogOutRequest;
-import com.cm.contentmanagementapp.payload.request.LoginRequest;
-import com.cm.contentmanagementapp.payload.request.SignupRequest;
-import com.cm.contentmanagementapp.payload.request.TokenRefreshRequest;
 import com.cm.contentmanagementapp.payload.response.JwtResponse;
 import com.cm.contentmanagementapp.payload.response.MessageResponse;
 import com.cm.contentmanagementapp.payload.response.TokenRefreshResponse;
@@ -103,11 +100,33 @@ public class AuthController {
         User user = new User(signupRequest.getUsername(), signupRequest.getEmail(),
                 encoder.encode(signupRequest.getPassword()));
 
-        userService.save(user);
+        userService.newUser(user);
 
         log.info("User register attempt: {} ", user.getId());
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully."));
+    }
+
+    @PostMapping("/changeEmail")
+    public ResponseEntity<?> changeEmail(@Valid @RequestBody ChangeEmailRequest changeEmailRequest) {
+
+        System.out.println(changeEmailRequest.getEmail() + " " + changeEmailRequest.getId());
+
+        if (userService.existsByEmail(changeEmailRequest.getEmail())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Email already in use"));
+        }
+
+        User user = userService.findById(changeEmailRequest.getId());
+
+        user.setEmail(changeEmailRequest.getEmail());
+        userService .save(user);
+
+        log.info("User email change attempt: {} ", user.getId());
+
+        return ResponseEntity.ok(new MessageResponse("Email changed"));
+
     }
 
     @PostMapping("/refreshToken")
@@ -128,7 +147,6 @@ public class AuthController {
     @PostMapping("/logout")
     public ResponseEntity<?> logoutUser(@Valid @RequestBody LogOutRequest logoutRequest) {
 
-        System.out.println(logoutRequest.getId());
         refreshTokenService.deleteByUserId(logoutRequest.getId());
         log.info("User logout attempt: {} ", logoutRequest.getId());
 

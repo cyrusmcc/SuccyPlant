@@ -6,7 +6,7 @@ const API_URL = 'http://localhost:8080/api/auth/';
 class AuthService {
   login({ username, password }) {
     return api
-      .post(API_URL + "login", {
+      .post(API_URL + 'login', {
         username,
         password
       })
@@ -19,10 +19,18 @@ class AuthService {
       });
   }
   logout({ id }) {
+    localStorage.removeItem('user');
     return api
-      .post(API_URL + "logout", {
+      .post(API_URL + 'logout', {
         id
       });
+  }
+  changeEmail({ id }, { email }) {    
+    return api
+      .post(API_URL + 'changeEmail', {
+        id,
+        email
+    });
   }
   register({ username, email, password }) {
       return api

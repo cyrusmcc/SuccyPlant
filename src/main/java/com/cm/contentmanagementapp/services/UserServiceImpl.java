@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void save(User user) {
+    public void newUser(User user) {
 
         user.setId(0L);
 
@@ -78,6 +78,11 @@ public class UserServiceImpl implements UserService {
         user.setRoles(roles);
         user.setUserJoinDate(LocalDate.now());
 
+        userRepository.save(user);
+    }
+
+    @Override
+    public void save(User user) {
         userRepository.save(user);
     }
 

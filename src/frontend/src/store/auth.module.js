@@ -22,13 +22,19 @@ export const auth = {
       );
     },
     logout({ commit }, user) {
-      return AuthService.logout(user).then(
-        user => {
-          commit('logout', user);
-          return Promise.resolve(user);
+      commit('logout');
+      AuthService.logout(user);
+    },
+    changeEmail({ commit }, values) {      
+      console.log(user.id);
+      return AuthService.changeEmail(user, values).then(
+        response => {
+          user.email = values.email;
+          commit('changeEmailSuccess');
+          return Promise.resolve(response.data);
         },
         error => {
-          commit('logoutFailure');
+          commit('changeEmailFailure');
           return Promise.reject(error);
         }
       );
@@ -54,19 +60,18 @@ export const auth = {
       state.status.loggedIn = true;
       state.user = user;
     },
-    loginFailure(state) {
-      state.status.loggedIn = false;
-      state.user = null;
-    },
     logout(state) {
       state.status.loggedIn = false;
       state.user = null;
     },
-    logoutFailure(state) {
-      state.status.loggedIn = true;
-    },
     registerSuccess(state) {
       state.status.loggedIn = false;
+    },
+    changeEmailSuccess(state) {
+      state.status.loggedIn = true
+    },
+    changeEmailFailure(state) {
+      state.status.loggedIn = true;
     },
     registerFailure(state) {
       state.status.loggedIn = false;

@@ -131,27 +131,6 @@ fieldset {
 
 }
 
-.form-in {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-  padding: 10px 0 10px 0;
-}
-
-.form-label {
-  padding-bottom: 5px;
-}
-
-.form-control {
-  background-color: $darkShade;
-  color: $lightShade;
-  border: none;
-  line-height: 2rem;
-  width: 100%;
-  border-radius: 3px;
-}
-
 .alert {
   margin-top: 5px;
 }

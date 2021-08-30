@@ -89,14 +89,14 @@ export default {
       this.successful = false;
       this.loading = true;
       this.message = "";
+      
 
-      this.$store.dispatch("auth/register", user).then(
+      this.$store.dispatch("auth/register", user, this.email).then(
         (data) => {
           this.message = data.message;
           this.successful = true;
           this.loading = false;
           this.$router.push("/login");
-          console.log(user.email)
         },
         (error) => {
           this.loading = false;
@@ -145,31 +145,6 @@ fieldset {
   flex-direction: column;
   align-content: center;
 
-}
-
-.form-in {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-  padding: 10px 0 10px 0;
-}
-
-.form-label {
-  padding-bottom: 5px;
-}
-
-.form-control {
-  background-color: $darkShade;
-  color: $lightShade;
-  border: none;
-  line-height: 2rem;
-  width: 100%;
-  border-radius: 3px;
-}
-
-.alert {
-  margin-top: 5px;
 }
 
 #registerButton {

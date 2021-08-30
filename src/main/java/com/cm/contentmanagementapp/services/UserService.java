@@ -13,6 +13,8 @@ public interface UserService {
 
     Optional<User> findByUsername(String username);
 
+    void newUser(User theUser);
+
     void save(User theUser);
 
     void deleteById(Long id);

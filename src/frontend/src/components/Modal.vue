@@ -49,14 +49,15 @@ export default {
   border-radius: 4px;
   text-align: center;
   position: relative;
+  padding: 40px 10px 10px 10px;
 }
 #modalClose {
   position: absolute;
   z-index: inherit;
   color: $lightShade;
   user-select: none;
-  bottom: -10px;
-  left: 10px;
+  top: -6px;
+  left: 6px;
   font-size: 2em;
   transform: rotate(45deg);
   cursor: pointer;

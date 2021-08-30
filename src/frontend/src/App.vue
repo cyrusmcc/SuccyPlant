@@ -2,8 +2,8 @@
   <div class="container">
     <hamburger v-if="!$route.meta.hideNav">
       <router-link to="/"> Home </router-link>
-      <router-link to="/profile"> profile </router-link>
-      <router-link class="nav-link" to="/settings">User Settings</router-link>
+      <router-link to="/profile" v-if="currentUser"> profile </router-link>
+      <router-link class="nav-link" to="/settings" v-if="currentUser">User Settings</router-link>
       <div class="nav-link" v-if="!currentUser">
         <router-link to="/login">Login</router-link>
       </div>
