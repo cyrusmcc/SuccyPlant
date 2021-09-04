@@ -107,7 +107,7 @@ export default {
 
 #usernameText {
   font-weight: bold;
-  color: $accentShade;
+  color: $accentOne;
   font-size: 1.5rem;
 }
 

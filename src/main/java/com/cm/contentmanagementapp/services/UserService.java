@@ -13,6 +13,8 @@ public interface UserService {
 
     Optional<User> findByUsername(String username);
 
+    User findByEmail(String email);
+
     void newUser(User theUser);
 
     void save(User theUser);

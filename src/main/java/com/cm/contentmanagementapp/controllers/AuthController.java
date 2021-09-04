@@ -1,17 +1,17 @@
 package com.cm.contentmanagementapp.controllers;
 
+import com.cm.contentmanagementapp.models.Mail;
+import com.cm.contentmanagementapp.models.PasswordResetToken;
 import com.cm.contentmanagementapp.models.RefreshToken;
 import com.cm.contentmanagementapp.payload.request.*;
-import com.cm.contentmanagementapp.services.RefreshTokenService;
+import com.cm.contentmanagementapp.repositories.PasswordResetTokenRepository;
+import com.cm.contentmanagementapp.services.*;
 import com.cm.contentmanagementapp.TokenRefreshException;
 import com.cm.contentmanagementapp.payload.response.JwtResponse;
 import com.cm.contentmanagementapp.payload.response.MessageResponse;
 import com.cm.contentmanagementapp.payload.response.TokenRefreshResponse;
-import com.cm.contentmanagementapp.services.UserDetailsImpl;
 import com.cm.contentmanagementapp.security.jwt.JwtUtils;
-import com.cm.contentmanagementapp.services.RoleService;
 import com.cm.contentmanagementapp.models.User;
-import com.cm.contentmanagementapp.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +23,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.List;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -33,27 +39,34 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    AuthenticationManager authManager;
+    private AuthenticationManager authManager;
 
-    UserService userService;
+    private UserService userService;
 
-    RoleService roleService;
+    private RoleService roleService;
 
-    PasswordEncoder encoder;
+    private PasswordEncoder encoder;
 
-    JwtUtils jwtUtils;
+    private JwtUtils jwtUtils;
 
-    RefreshTokenService refreshTokenService;
+    private RefreshTokenService refreshTokenService;
+
+    private PasswordResetTokenRepository passResetTokenRepo;
+
+    private MailService mailService;
 
     @Autowired
     public AuthController(AuthenticationManager authManager, UserService userService, RoleService roleService,
-                          PasswordEncoder encoder, JwtUtils utils, RefreshTokenService refreshTokenService) {
+                          PasswordEncoder encoder, JwtUtils utils, RefreshTokenService refreshTokenService,
+                          PasswordResetTokenRepository passResetTokenRepo, MailService mailService) {
         this.authManager = authManager;
         this.userService = userService;
         this.roleService = roleService;
         this.encoder = encoder;
         this.jwtUtils = utils;
         this.refreshTokenService = refreshTokenService;
+        this.passResetTokenRepo = passResetTokenRepo;
+        this.mailService = mailService;
     }
 
     @PostMapping("/login")
@@ -107,10 +120,54 @@ public class AuthController {
         return ResponseEntity.ok(new MessageResponse("User registered successfully."));
     }
 
+    @PostMapping("/forgotPassword")
+    public ResponseEntity<?> requestPasswordReset (@Valid @RequestBody PasswordResetRequest passwordResetRequest,
+                                             HttpServletRequest request)
+            throws NoSuchAlgorithmException {
+
+        if (!userService.existsByEmail(passwordResetRequest.getEmail())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("You will receive an email to reset your password if this email exists" +
+                            " in our system."));
+        }
+
+        User user = userService.findByEmail(passwordResetRequest.getEmail());
+
+        // create new token, hash string token before storing, send email with unhashed token.
+        PasswordResetToken passResetToken = new PasswordResetToken();
+        String token = UUID.randomUUID().toString();
+
+        MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+        byte hashBytes[] = messageDigest.digest(token.getBytes(StandardCharsets.UTF_8));
+        BigInteger noHash = new BigInteger(1, hashBytes);
+        String hashToken = noHash.toString(16);
+
+        passResetToken.setToken(hashToken);
+        passResetToken.setUser(user);
+        passResetToken.setExpireDate(60);
+        passResetTokenRepo.save(passResetToken);
+
+        Mail mail = new Mail();
+        mail.setFrom("netherlandstaxhaven@hotmail.com");
+        mail.setTo(user.getEmail());
+        mail.setSubject("Password reset request");
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("token", token);
+        model.put("user", user);
+        model.put("signature", "a signature here");
+        String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        model.put("resetUrl", url + "/reset-password?token=" + token);
+        mail.setModel(model);
+        mailService.sendEmail(mail);
+
+        return ResponseEntity.ok(new MessageResponse("You will receive an email to reset your password if this email exists" +
+                " in our system."));
+    }
+
     @PostMapping("/changeEmail")
     public ResponseEntity<?> changeEmail(@Valid @RequestBody ChangeEmailRequest changeEmailRequest) {
-
-        System.out.println(changeEmailRequest.getEmail() + " " + changeEmailRequest.getId());
 
         if (userService.existsByEmail(changeEmailRequest.getEmail())) {
             return ResponseEntity

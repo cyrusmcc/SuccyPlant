@@ -25,19 +25,19 @@ class AuthService {
         id
       });
   }
-  changeEmail({ id }, { email }) {    
+  changeEmail({ id }, { email }) {
     return api
       .post(API_URL + 'changeEmail', {
         id,
         email
-    });
+      });
   }
   register({ username, email, password }) {
-      return api
-        .post(API_URL + 'register', {
-          username,
-          email,
-          password
+    return api
+      .post(API_URL + 'register', {
+        username,
+        email,
+        password
       });
   }
 }

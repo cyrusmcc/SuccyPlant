@@ -31,13 +31,17 @@
       </Form>
     </div>
 
-    <div id="register-link">
-      <span>Don't have an account yet? </span>
-      <router-link to="/register">
-        Register one here
-     </router-link>
-    </div>
+    <div id="loginPageLinks">
+      <div class="loginPageLink">
+        <span>Don't have an account yet? </span>
+        <router-link to="/register"> Register one here </router-link>
+      </div>
 
+      <div class="loginPageLink">
+        <span>Forgot your password? </span>
+        <router-link to="/register"> Reset it here </router-link>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -68,7 +72,7 @@ export default {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
     },
-  }, 
+  },
   created() {
     if (this.loggedIn) {
       this.$router.push("/profile");
@@ -128,7 +132,6 @@ fieldset {
   display: flex;
   flex-direction: column;
   align-content: center;
-
 }
 
 .alert {
@@ -140,16 +143,21 @@ fieldset {
   align-self: flex-start;
 }
 
-#register-link {
+#loginPageLinks {
+  width: 80%;
+  align-self: center;
+  display: flex;
+  row-gap: 15px;
+  flex-direction: column;
+}
+
+.loginPageLink {
   font-size: 0.85rem;
   color: $lightShade;
-  display: flex;
-  justify-content: center;
   column-gap: 6px;
 }
 
-#register-link a {
+.loginPageLink a {
   color: $accentOne;
 }
-
 </style>
