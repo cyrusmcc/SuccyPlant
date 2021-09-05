@@ -25,6 +25,18 @@ export const auth = {
       commit('logout');
       AuthService.logout(user);
     },
+    resetPasswordRequest({ commit }, email) {      
+      return AuthService.resetPasswordRequest(email).then(
+        response => {
+          commit('resetPasswordRequestSuccess');
+          return Promise.resolve(response.data);
+        },
+        error => {
+          commit('resetPasswordRequestSuccessFailure');
+          return Promise.reject(error);
+        }
+      );
+    },
     changeEmail({ commit }, values) {      
       console.log(user.id);
       return AuthService.changeEmail(user, values).then(

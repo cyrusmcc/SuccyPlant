@@ -120,7 +120,7 @@ public class AuthController {
         return ResponseEntity.ok(new MessageResponse("User registered successfully."));
     }
 
-    @PostMapping("/forgotPassword")
+    @PostMapping("/resetPasswordRequest")
     public ResponseEntity<?> requestPasswordReset (@Valid @RequestBody PasswordResetRequest passwordResetRequest,
                                              HttpServletRequest request)
             throws NoSuchAlgorithmException {
@@ -149,7 +149,7 @@ public class AuthController {
         passResetTokenRepo.save(passResetToken);
 
         Mail mail = new Mail();
-        mail.setFrom("netherlandstaxhaven@hotmail.com");
+        mail.setFrom("defizzy@outlook.com");
         mail.setTo(user.getEmail());
         mail.setSubject("Password reset request");
 

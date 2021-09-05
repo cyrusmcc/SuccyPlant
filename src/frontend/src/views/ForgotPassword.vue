@@ -4,7 +4,7 @@
 
     <div class="card">
       <!-- only works with "handleX", not "handleX()"-->
-      <Form :validation-schema="schema">
+      <Form @submit="handlePasswordResetRequest" :validation-schema="schema">
         <p>Reset password</p>
 
         <div class="form-in">
@@ -64,6 +64,25 @@ export default {
   created() {
     if (this.loggedIn) {
       this.$router.push("/profile");
+    }
+  },
+  methods: {
+    handlePasswordResetRequest(values) {
+      this.message = "";
+      this.$store.dispatch("auth/resetPasswordRequest", values).then(
+        (data) => {
+          this.message = data.message;
+          //this.$router.push("/settings");
+        },
+        (error) => {
+          this.message =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+        }
+      );
     }
   },
 };
