@@ -1,0 +1,130 @@
+<template>
+  <div class="container">
+    <img src="../assets/user.svg" alt="user-icon" />
+
+    <div class="card">
+      <!-- only works with "handleX", not "handleX()"-->
+      <Form :validation-schema="schema">
+        <p>Reset password</p>
+
+        <div class="form-in">
+          <label for="email" class="form-label">Enter your Email</label>
+          <Field name="email" class="form-control" type="email" />
+          <ErrorMessage name="email" class="error-feedback" />
+        </div>
+
+        <div class="form-submit">
+          <button class="button-primary" id="resetButton">Reset password</button>
+        </div>
+
+        <div>
+          <div v-if="message" class="alert" role="alert">
+            {{ message }}
+          </div>
+        </div>
+      </Form>
+    </div>
+
+    <div id="pageLinks">
+      <div class="pageLink">
+        <span>Return to </span>
+        <router-link to="/login">Log in</router-link>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { Form, Field, ErrorMessage } from "vee-validate";
+import * as yup from "yup";
+
+export default {
+  name: "ForgotPassword",
+  components: {
+    Form,
+    Field,
+    ErrorMessage,
+  },
+  data() {
+    const schema = yup.object().shape({
+      email: yup.string().required("You must provide a valid email"),
+    });
+
+    return {
+      loading: false,
+      message: "",
+      schema,
+    };
+  },
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    },
+  },
+  created() {
+    if (this.loggedIn) {
+      this.$router.push("/profile");
+    }
+  },
+};
+</script>
+<style scoped lang="scss">
+img {
+  max-height: auto;
+  width: 4.5rem;
+  margin: 100px auto 15px auto;
+}
+
+p {
+  font-size: 1.5rem;
+}
+
+Form {
+  height: 100%;
+}
+
+fieldset {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.card {
+  color: $lightShade;
+  text-align: center;
+  padding: 15px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.alert {
+  margin-top: 5px;
+}
+
+#resetButton {
+  margin-top: 5px;
+  align-self: flex-start;
+}
+
+#pageLinks {
+  align-self: center;
+  display: flex;
+  row-gap: 15px;
+  flex-direction: column;
+}
+
+.pageLink {
+  font-size: 0.85rem;
+  color: $lightShade;
+  column-gap: 6px;
+}
+
+.pageLink a {
+  color: $accentOne;
+}
+</style>

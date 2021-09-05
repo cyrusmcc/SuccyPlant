@@ -39,7 +39,7 @@
 
       <div class="loginPageLink">
         <span>Forgot your password? </span>
-        <router-link to="/register"> Reset it here </router-link>
+        <router-link to="/forgot-password"> Reset it here </router-link>
       </div>
     </div>
   </div>
@@ -144,7 +144,6 @@ fieldset {
 }
 
 #loginPageLinks {
-  width: 80%;
   align-self: center;
   display: flex;
   row-gap: 15px;

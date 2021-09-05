@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue"
 import Register from "../views/Register.vue"
+import ForgotPassword from "../views/ForgotPassword.vue";
 
 const Profile = () => import("../views/ProfilePage.vue");
 const Settings = () => import("../views/Settings.vue");
@@ -37,6 +38,15 @@ const routes = [
     },
 
     component: Register,
+  },
+  {
+    path: "/forgot-password",
+    name: "forgotPassword",
+    meta: {
+      hideNav: true,
+    },
+
+    component: ForgotPassword,
   },
   {
     path: "/profile",

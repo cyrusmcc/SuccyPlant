@@ -8,7 +8,7 @@
         <router-link to="/login">Login</router-link>
       </div>
       <div v-if="currentUser">
-        <a class="nav-link" @click.prevent="logOut">Logout</a>
+        <a class="nav-link" @click.prevent="logOut">Logout</a>  
       </div>
     </hamburger>
     <router-view />
