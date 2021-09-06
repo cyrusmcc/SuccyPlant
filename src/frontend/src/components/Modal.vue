@@ -56,8 +56,8 @@ export default {
   z-index: inherit;
   color: $lightShade;
   user-select: none;
-  top: -6px;
-  left: 6px;
+  top: 0;
+  left: 10px;
   font-size: 2em;
   transform: rotate(45deg);
   cursor: pointer;

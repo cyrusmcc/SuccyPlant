@@ -3,9 +3,23 @@
     <modal v-if="getModalState">
       <div id="changeEmailModal" v-if="modalType == 'changeEmail'">
         <Form @submit="handleChangeEmail" :validation-schema="schema">
+          <span>Change account email</span>
           <div class="form-in">
-            <label for="email" class="form-label">New email</label>
-            <Field name="email" class="form-control" type="email" />
+            <Field
+              name="password"
+              class="form-control"
+              type="password"
+              placeholder="Current password"
+            />
+            <ErrorMessage name="password" class="error-feedback" />
+          </div>
+          <div class="form-in">
+            <Field
+              name="email"
+              class="form-control"
+              type="email"
+              placeholder="New email"
+            />
             <ErrorMessage name="email" class="error-feedback" />
           </div>
 
@@ -18,9 +32,14 @@
       </div>
       <div id="changePasswordModal" v-if="modalType == 'changePassword'">
         <Form>
+          <span>Change account password</span>
           <div class="form-in">
-            <label for="password" class="form-label">New password</label>
-            <Field name="password" class="form-control" type="password" />
+            <Field
+              name="password"
+              class="form-control"
+              type="password"
+              placeholder="New password"
+            />
             <ErrorMessage name="password" class="error-feedback" />
           </div>
 
@@ -65,11 +84,7 @@
       >
         <div id="changePicture">
           <profile-pic>
-            <img
-              id="userPic"
-              src="../assets/profilePicPlaceholder.jpg"
-              alt="profile picture"
-            />
+            <img id="userPic" src="../assets/user.svg" alt="profile picture" />
           </profile-pic>
           <input type="file" id="picUploadBtn" />
           <label for="picUploadBtn" class="labelButton">Choose File</label>
@@ -84,10 +99,7 @@
           <div id="changeEmailText">
             <label for="changeEmailText">Email address</label>
             <br />
-            <label
-              id="currentEmailLabel"
-              for="changeEmail"
-              v-if="currentUser"
+            <label id="currentEmailLabel" for="changeEmail" v-if="currentUser"
               >&nbsp;&nbsp;{{ currentUser.email }}</label
             >
           </div>
@@ -127,6 +139,7 @@ export default {
   data() {
     const schema = yup.object().shape({
       email: yup.string().email().required("You must provide a new email"),
+      password: yup.string().required(),
     });
 
     return {
@@ -257,5 +270,6 @@ export default {
 
 #currentEmailLabel {
   font-size: 0.7rem;
+  color: $accentOne;
 }
 </style>

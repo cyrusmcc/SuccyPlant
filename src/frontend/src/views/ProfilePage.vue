@@ -7,7 +7,7 @@
       <profile-pic>
         <img
           id="userPic"
-          src="../assets/profilePicPlaceholder.jpg"
+          src="../assets/user.svg"
           alt="profile picture"
         />
       </profile-pic>
