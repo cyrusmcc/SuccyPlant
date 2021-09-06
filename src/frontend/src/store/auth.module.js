@@ -37,11 +37,21 @@ export const auth = {
         }
       );
     },
+    handlePasswordReset({ commit }, values) {
+      return AuthService.handlePasswordReset(values, values).then(
+        response => {
+          commit('handlePasswordResetSuccess');
+          return Promise.resolve(response.data);
+        },
+        error => {
+          commit('handlePasswordResetFailure');
+          return Promise.reject(error);
+        }
+      )
+    },
     changeEmail({ commit }, values) {      
-      console.log(user.id);
       return AuthService.changeEmail(user, values).then(
         response => {
-          user.email = values.email;
           commit('changeEmailSuccess');
           return Promise.resolve(response.data);
         },

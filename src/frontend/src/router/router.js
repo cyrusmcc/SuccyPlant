@@ -4,8 +4,10 @@ import Login from "../views/Login.vue"
 import Register from "../views/Register.vue"
 import ForgotPassword from "../views/ForgotPassword.vue";
 
+
 const Profile = () => import("../views/ProfilePage.vue");
 const Settings = () => import("../views/Settings.vue");
+const ResetPassword = () => import("../views/ResetPassword.vue");
 
 const routes = [
   {
@@ -47,6 +49,15 @@ const routes = [
     },
 
     component: ForgotPassword,
+  },  
+  {
+    path: '/reset-password-token-:token(.*)',
+    name: "resetPassword",
+    meta: {
+      hideNav: true,
+    },
+
+    component: ResetPassword,
   },
   {
     path: "/profile",

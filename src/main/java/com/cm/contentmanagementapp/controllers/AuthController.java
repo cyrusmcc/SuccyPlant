@@ -51,21 +51,21 @@ public class AuthController {
 
     private RefreshTokenService refreshTokenService;
 
-    private PasswordResetTokenRepository passResetTokenRepo;
+    private PasswordResetTokenService passResetTokenService;
 
     private MailService mailService;
 
     @Autowired
     public AuthController(AuthenticationManager authManager, UserService userService, RoleService roleService,
                           PasswordEncoder encoder, JwtUtils utils, RefreshTokenService refreshTokenService,
-                          PasswordResetTokenRepository passResetTokenRepo, MailService mailService) {
+                          PasswordResetTokenService passResetTokenService, MailService mailService) {
         this.authManager = authManager;
         this.userService = userService;
         this.roleService = roleService;
         this.encoder = encoder;
         this.jwtUtils = utils;
         this.refreshTokenService = refreshTokenService;
-        this.passResetTokenRepo = passResetTokenRepo;
+        this.passResetTokenService = passResetTokenService;
         this.mailService = mailService;
     }
 
@@ -138,15 +138,10 @@ public class AuthController {
         PasswordResetToken passResetToken = new PasswordResetToken();
         String token = UUID.randomUUID().toString();
 
-        MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
-        byte hashBytes[] = messageDigest.digest(token.getBytes(StandardCharsets.UTF_8));
-        BigInteger noHash = new BigInteger(1, hashBytes);
-        String hashToken = noHash.toString(16);
-
-        passResetToken.setToken(hashToken);
+        passResetToken.setToken(passResetTokenService.hashToken(token));
         passResetToken.setUser(user);
         passResetToken.setExpireDate(60);
-        passResetTokenRepo.save(passResetToken);
+        passResetTokenService.save(passResetToken);
 
         Mail mail = new Mail();
         mail.setFrom("defizzy@outlook.com");
@@ -157,13 +152,45 @@ public class AuthController {
         model.put("token", token);
         model.put("user", user);
         model.put("signature", "a signature here");
-        String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        model.put("resetUrl", url + "/reset-password?token=" + token);
+                                                                                  // request.getServerPort();
+        String url = request.getScheme() + "://" + request.getServerName() + ":" + 3000;
+        model.put("resetUrl", url + "/reset-password-token-" + token);
         mail.setModel(model);
         mailService.sendEmail(mail);
 
+        log.info("User requested a password reset");
+
+
         return ResponseEntity.ok(new MessageResponse("You will receive an email to reset your password if this email exists" +
                 " in our system."));
+    }
+
+    @PostMapping("/handlePasswordReset")
+    public ResponseEntity<?> handlePasswordReset(@Valid @RequestBody HandlePasswordResetRequest handlePassResetReq) {
+
+        try {
+            if (!passResetTokenService.existsByToken(handlePassResetReq.getToken())) {
+                return ResponseEntity
+                        .badRequest()
+                        .body(new MessageResponse("Invalid password reset token. Please try again"));
+            }
+
+            System.out.println(handlePassResetReq.getToken());
+            PasswordResetToken token = passResetTokenService.findByToken(handlePassResetReq.getToken());
+            User user = token.getUser();
+            userService.updatePassword(user, token.getToken());
+
+            log.info("Handling user password reset");
+
+            return ResponseEntity.ok(new MessageResponse("Password successfully changed."));
+
+        } catch (NoSuchAlgorithmException nsae) {
+            log.info("No such hash algo: {}", nsae);
+        }
+
+        return ResponseEntity
+                .badRequest()
+                .body(new MessageResponse("handlePasswordReset hash error"));
     }
 
     @PostMapping("/changeEmail")

@@ -136,8 +136,12 @@ fieldset {
     border-radius: 3px;
   }
 
-  .alert {
-    margin-top: 5px;
+  .alert, .error-feedback {
+    background: #232121;
+    padding: 5px;
+    /* align-self: center; */
+    margin-top: 10px;
+    border-radius: 4px;
   }
 
 .form-submit {

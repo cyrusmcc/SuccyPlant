@@ -31,6 +31,13 @@ class AuthService {
         email
       });
   }
+  handlePasswordReset({ password }, { token }) {
+    return api
+    .post(API_URL + 'handlePasswordReset', {
+      token,
+      password
+    });
+  }
   changeEmail({ id }, { email }) {
     return api
       .post(API_URL + 'changeEmail', {

@@ -7,6 +7,8 @@ import com.cm.contentmanagementapp.repositories.RoleRepository;
 import com.cm.contentmanagementapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -22,10 +24,14 @@ public class UserServiceImpl implements UserService {
 
     private RoleRepository roleRepository;
 
+    private PasswordEncoder passwordEncoder;
+
     @Autowired
-    public UserServiceImpl(UserRepository theUserRepository, RoleRepository theRoleRepository) {
+    public UserServiceImpl(UserRepository theUserRepository, RoleRepository theRoleRepository,
+                           PasswordEncoder passwordEncoder) {
         this.userRepository = theUserRepository;
         this.roleRepository = theRoleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -97,6 +103,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(User user) {
         userRepository.save(user);
+    }
+
+    @Override
+    public void updatePassword(User user, String password) {
+
+        user.setPassword(passwordEncoder.encode(password));
+        userRepository.save(user);
+
     }
 
     @Override

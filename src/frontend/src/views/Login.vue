@@ -59,7 +59,7 @@ export default {
   data() {
     const schema = yup.object().shape({
       username: yup.string().required("Username is required!"),
-      password: yup.string().required("Password is required!"),
+      password: yup.string().required("Password is required!").min(8).max(256),
     });
 
     return {
