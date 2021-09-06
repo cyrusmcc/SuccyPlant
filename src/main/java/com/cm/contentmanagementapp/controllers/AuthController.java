@@ -160,7 +160,6 @@ public class AuthController {
 
         log.info("User requested a password reset");
 
-
         return ResponseEntity.ok(new MessageResponse("You will receive an email to reset your password if this email exists" +
                 " in our system."));
     }
@@ -175,10 +174,9 @@ public class AuthController {
                         .body(new MessageResponse("Invalid password reset token. Please try again"));
             }
 
-            System.out.println(handlePassResetReq.getToken());
             PasswordResetToken token = passResetTokenService.findByToken(handlePassResetReq.getToken());
             User user = token.getUser();
-            userService.updatePassword(user, token.getToken());
+            userService.updatePassword(user, handlePassResetReq.getPassword());
 
             log.info("Handling user password reset");
 

@@ -22,7 +22,6 @@ public class PasswordResetTokenServiceImpl implements PasswordResetTokenService 
         this.tokenRepository = tokenRepository;
     }
 
-
     @Override
     public String hashToken(String token) throws NoSuchAlgorithmException {
 
