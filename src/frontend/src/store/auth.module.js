@@ -82,6 +82,8 @@ export const auth = {
       state.status.loggedIn = true;
       state.user = user;
     },
+    logoutFailure() {
+    },
     logout(state) {
       state.status.loggedIn = false;
       state.user = null;
@@ -89,8 +91,14 @@ export const auth = {
     registerSuccess(state) {
       state.status.loggedIn = false;
     },
+    handlePasswordResetSuccess(state) {
+      state.status.loggedIn = false;
+    },
+    handlePasswordResetFailure(state) {
+      state.status.loggedIn = false;
+    },
     changeEmailSuccess(state) {
-      state.status.loggedIn = true
+      state.status.loggedIn = true;
     },
     changeEmailFailure(state) {
       state.status.loggedIn = true;

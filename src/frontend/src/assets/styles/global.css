@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Libre+Franklin&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 /* MIXINS */
 :root {
   font-size: 1rem;
@@ -13,7 +14,7 @@ html, body {
   max-width: 100%;
   max-height: 100%;
   scroll-behavior: smooth;
-  background-color: #232121;
+  background-color: #151516;
   position: relative;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -40,7 +41,7 @@ fieldset {
 }
 
 .card {
-  background-color: #353131;
+  background-color: #232121;
   border-radius: 4px;
   height: -webkit-fit-content;
   height: -moz-fit-content;
@@ -54,7 +55,7 @@ fieldset {
 }
 
 .button-primary {
-  background-color: #09725F;
+  background-color: #286bc8;
   color: #F5F5F5;
   border-radius: 4px;
   font-size: 1rem;
@@ -72,7 +73,7 @@ fieldset {
 }
 
 .labelButton {
-  border: #09725F 1px solid;
+  border: #286bc8 1px solid;
   border-radius: 4px;
   padding: 5px;
 }
@@ -97,7 +98,7 @@ fieldset {
 }
 
 .form-control {
-  background-color: #232121;
+  background-color: #151516;
   color: #F5F5F5;
   border: none;
   line-height: 2rem;
@@ -105,8 +106,12 @@ fieldset {
   border-radius: 3px;
 }
 
-.alert {
-  margin-top: 5px;
+.alert, .error-feedback {
+  background: #151516;
+  padding: 5px;
+  /* align-self: center; */
+  margin-top: 10px;
+  border-radius: 4px;
 }
 
 .form-submit {
@@ -118,5 +123,15 @@ fieldset {
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 1rem;
+}
+
+.backArrow {
+  max-width: 1.5rem;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  -webkit-filter: drop-shadow(2px 3px 3px rgba(0, 0, 0, 0.3));
+          filter: drop-shadow(2px 3px 3px rgba(0, 0, 0, 0.3));
 }
 /*# sourceMappingURL=global.css.map */

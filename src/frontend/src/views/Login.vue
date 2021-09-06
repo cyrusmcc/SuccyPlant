@@ -87,13 +87,19 @@ export default {
           this.$router.push("/profile");
         },
         (error) => {
+          console.log(error.response);
+          console.log(error.response.data);
+          console.log("responsedatamessage " + error.response.data.message);
+          console.log("responsemessage " + error.message);
+          console.log("responsemessage " + error.toString());
+
           this.loading = false;
-          this.message =
-            (error.response &&
+          this.message = "Bad credentials";
+            /*(error.response &&
               error.response.data &&
               error.response.data.message) ||
             error.message ||
-            error.toString();
+            error.toString();*/
         }
       );
     },
@@ -145,6 +151,7 @@ fieldset {
 
 #loginPageLinks {
   align-self: center;
+  text-align: center;
   display: flex;
   row-gap: 15px;
   flex-direction: column;

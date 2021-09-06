@@ -6,6 +6,7 @@
         <div class="hamburgerLine"></div>
         <div class="hamburgerLine"></div>
       </div>
+      <span id="navBarText">defizzy</span>
       <div
         class="closeHamburgerButton"
         v-if="!displayHamburger"
@@ -42,24 +43,32 @@ export default {
 <style lang="scss" scoped>
 .container {
   position: fixed;
-  top: 0;
   z-index: 4;
   width: 100%;
   max-height: 100%;
   background-color: rgba(0, 0, 0, 0.3);
-  position: absolute;
-  top: 0;
-  box-shadow: $shadow;
+  position: relative;
 }
 
 .hamburgerIcon {
   display: relative;
   height: 25px;
   max-width: 100%;
+  font-family: $lobster;
+  color: $lightShade;
+  font-size: 1.3rem;
   cursor: pointer;
   display: flex;
+  justify-content: center;
+  align-content: center;
   background: $accentOne;
   padding: 5px 0 5px 10px;
+}
+
+.hamburgerLineContainer {
+  position: absolute;
+  top: 6px;
+  left: 6px;
 }
 
 .hamburgerLine {
@@ -94,4 +103,5 @@ export default {
   width: auto;
   max-width: 100%;
 }
+
 </style>

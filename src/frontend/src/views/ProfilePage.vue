@@ -1,12 +1,20 @@
 <template>
   <div class="container">
-    <div class="card" id="userInfoCard">
-      <div id="loginCardAccent"></div>
+    <router-link to="/"
+      ><img class="backArrow" src="../assets/backarrow.svg" alt="back-arrow" />
+    </router-link>
+    <div id="userInfoCard">
       <profile-pic>
-        <img id="userPic" src="../assets/profilePicPlaceholder.jpg" alt="profile picture" />
+        <img
+          id="userPic"
+          src="../assets/profilePicPlaceholder.jpg"
+          alt="profile picture"
+        />
       </profile-pic>
       <div id="userInfo">
-        <span id="usernameText" v-if="currentUser">{{ currentUser.username }}</span>
+        <span id="usernameText" v-if="currentUser">{{
+          currentUser.username
+        }}</span>
         <span id="joinDateText">user since {{ getUserJoinDate }}</span>
       </div>
     </div>
@@ -46,9 +54,9 @@ export default {
     },
   },
   mounted() {
-     if (!this.currentUser) {
-       this.$router.push("/login");
-     }
+    if (!this.currentUser) {
+      this.$router.push("/login");
+    }
   },
 };
 </script>
@@ -61,34 +69,30 @@ export default {
 }
 
 .card {
-  max-width: 90%;
-}
-
-#loginCardAccent {
-  z-index: 2;
-  top: 0;
-  left: 0;
-  position: absolute;
-  width: inherit;
-  height: 55%;
-  //background-color: $accentTwo;
+  max-width: 95%;
 }
 
 #userInfoCard {
   z-index: 1;
   position: relative;
   display: flex;
-  align-content: center;
+  flex-direction: column;
+  height: 8rem;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
-  padding: 10px 0 10px 0;
-  margin-top: 50px;
-  background-color: $darkShade;
+  padding: 20px 0 5px 0;
+  width: 100%;
+  background-color: $accentOne;
   box-shadow: none;
+}
 
+#userInfoCard > * {
+  margin-bottom: 5px;
 }
 
 #userContentCard {
-  margin-top: 0;
+  margin-top: 20px;
   background-color: $darkShade;
   box-shadow: none;
 }
@@ -97,8 +101,8 @@ export default {
   z-index: 3;
   display: flex;
   flex-direction: column;
-  margin: 20px 0 0 10px;
   line-height: 1.6rem;
+  text-align: center;
 }
 
 #userPic {
@@ -107,7 +111,7 @@ export default {
 
 #usernameText {
   font-weight: bold;
-  color: $accentOne;
+  color: $lightShade;
   font-size: 1.5rem;
 }
 
@@ -160,7 +164,7 @@ export default {
 }
 
 #userContent {
-  height: 68vh;
-  background: $accentShade;
+  //height: 68vh;
+  //background: $accentShade;
 }
 </style>

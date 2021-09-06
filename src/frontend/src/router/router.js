@@ -62,7 +62,10 @@ const routes = [
   {
     path: "/profile",
     name: "profile",
-
+    meta: {
+      hideNav: true,
+    },
+    
     component: Profile,
   },
   {

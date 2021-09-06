@@ -1,8 +1,8 @@
 $lightShade: #F5F5F5;
-$accentShade: #353131;
-$darkShade: #232121;
-$accentOne: #09725F;
-$accentTwo: #F1E788;
+$accentShade: #232121;
+$darkShade: #151516;
+$accentOne: #286bc8;
+$accentTwo: #09725F;
 $accentThree: #67bed1;
 
 
@@ -18,9 +18,10 @@ $s3H: 165vh;
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Libre+Franklin&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 $libreFranklin: 'Libre Franklin', serif;
 $robotoSlab: 'Roboto Slab', serif;
-
+$lobster: 'Lobster', cursive;
 
 /* MIXINS */
 @mixin screen-md {
@@ -137,7 +138,7 @@ fieldset {
   }
 
   .alert, .error-feedback {
-    background: #232121;
+    background:$darkShade;
     padding: 5px;
     /* align-self: center; */
     margin-top: 10px;
@@ -148,4 +149,13 @@ fieldset {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+}
+
+.backArrow {
+    max-width: 1.5rem;
+    position:absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 2;
+    filter: drop-shadow( 2px 3px 3px rgba(0, 0, 0, 0.3));
 }

@@ -38,7 +38,7 @@
           @click="currentSettingTab = 'profile'"
           :style="[
             currentSettingTab == 'profile'
-              ? { color: '#09725F', fontWeight: 'bold' }
+              ? { color: '#286bc8', fontWeight: 'bold' }
               : { color: '#F5F5F5', fontWeight: 'normal' },
           ]"
         >
@@ -49,7 +49,7 @@
           @click="currentSettingTab = 'account'"
           :style="[
             currentSettingTab == 'account'
-              ? { color: '#09725F', fontWeight: 'bold' }
+              ? { color: '#286bc8', fontWeight: 'bold' }
               : { color: '#F5F5F5', fontWeight: 'normal' },
           ]"
         >
