@@ -2,7 +2,7 @@
   <div class="container">
     <modal v-if="getModalState">
       <div id="changeEmailModal" v-if="modalType == 'changeEmail'">
-        <Form @submit="handleChangeEmail" :validation-schema="schema">
+        <Form @submit="handleChangeEmailRequest" :validation-schema="schema">
           <span>Change account email</span>
           <div class="form-in">
             <Field
@@ -29,6 +29,13 @@
             {{ message }}
           </div>
         </Form>
+      </div>
+      <div
+        id="changeEmailModalSuccess"
+        v-if="modalType == 'changeEmailSuccess'"
+      >
+        We've sent a confirmation email to the address provided. Click the link
+        provided to update your account's email.
       </div>
       <div id="changePasswordModal" v-if="modalType == 'changePassword'">
         <Form>
@@ -172,12 +179,14 @@ export default {
         modalState.modalActive = true;
       }
     },
-    handleChangeEmail(values) {
+    handleChangeEmailRequest(values) {
       this.successful = false;
       this.loading = true;
       this.message = "";
-      this.$store.dispatch("auth/changeEmail", values).then(
+      
+      this.$store.dispatch("auth/changeEmailRequest", values).then(
         (data) => {
+          this.modalType= "changeEmailSuccess";
           this.message = data.message;
           this.successful = true;
           this.loading = false;
@@ -210,6 +219,11 @@ export default {
 
 .settingTabOptions {
   width: 80%;
+}
+
+.settingTab {
+  cursor: pointer;
+  width: fit-content;
 }
 
 .option {

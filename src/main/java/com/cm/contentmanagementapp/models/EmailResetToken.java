@@ -3,18 +3,21 @@ package com.cm.contentmanagementapp.models;
 import javax.persistence.*;
 import java.util.Date;
 
+
 @Entity
-public class PasswordResetToken {
+public class EmailResetToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String newEmail;
+
     @OneToOne(targetEntity = ResetToken.class, fetch = FetchType.EAGER, cascade=CascadeType.ALL , orphanRemoval=true)
     @JoinColumn(nullable = false, name = "reset_token_id")
     private ResetToken resetToken;
 
-    public PasswordResetToken() {
+    public EmailResetToken() {
         this.resetToken = new ResetToken();
     }
 
@@ -24,6 +27,14 @@ public class PasswordResetToken {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getNewEmail() {
+        return newEmail;
+    }
+
+    public void setNewEmail(String newEmail) {
+        this.newEmail = newEmail;
     }
 
     public String getToken() {

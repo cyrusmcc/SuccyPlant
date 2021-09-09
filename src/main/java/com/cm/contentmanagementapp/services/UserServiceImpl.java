@@ -115,6 +115,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean isValidPassword(User user, String password) {
+
+        if (passwordEncoder.matches(password, user.getPassword()))
+            return true;
+
+        return false;
+    }
+
+    @Override
     public void deleteById(Long id) {
         userRepository.deleteById(id);
     }

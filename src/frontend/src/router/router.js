@@ -8,6 +8,7 @@ import ForgotPassword from "../views/ForgotPassword.vue";
 const Profile = () => import("../views/ProfilePage.vue");
 const Settings = () => import("../views/Settings.vue");
 const ResetPassword = () => import("../views/ResetPassword.vue");
+const ChangeEmail = () => import("../views/ChangeEmailConfirmation.vue");
 
 const routes = [
   {
@@ -51,13 +52,22 @@ const routes = [
     component: ForgotPassword,
   },  
   {
-    path: '/reset-password-token-:token(.*)',
+    path: '/reset-password-token-:passToken(.*)',
     name: "resetPassword",
     meta: {
       hideNav: true,
     },
 
     component: ResetPassword,
+  },
+  {
+    path: '/email-change-confirmation-:emailToken(.*)',
+    name: "emailChangeConfirmation",
+    meta: {
+      hideNav: true,
+    },
+
+    component: ChangeEmail,
   },
   {
     path: "/profile",

@@ -21,6 +21,8 @@ public interface UserService {
 
     void updatePassword(User user, String password);
 
+    boolean isValidPassword(User user, String password);
+
     void deleteById(Long id);
 
     boolean existsByUsername(String username);

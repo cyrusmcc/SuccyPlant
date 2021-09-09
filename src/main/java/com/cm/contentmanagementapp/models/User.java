@@ -1,9 +1,5 @@
 package com.cm.contentmanagementapp.models;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.File;
@@ -12,7 +8,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@NoArgsConstructor
 @Table(name="users")
 public class User {
 
@@ -45,6 +40,9 @@ public class User {
     // private CommentList userCommentList;
 
     // private FavoriteList userFavoriteList;
+
+    public User() {
+    }
 
     public User(String username, String password) {
         this.username = username;

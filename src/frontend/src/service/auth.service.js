@@ -2,6 +2,7 @@ import api from "./api";
 import TokenService from "./token.service";
 
 const API_URL = 'http://localhost:8080/api/auth/';
+const API_URL_SETTING = 'http://localhost:8080/api/setting/'
 
 class AuthService {
   login({ username, password }) {
@@ -26,23 +27,33 @@ class AuthService {
       });
   }
   resetPasswordRequest({ email }) {
+
     return api
-      .post(API_URL + 'resetPasswordRequest', {
+      .post(API_URL_SETTING + 'resetPasswordRequest', {
         email
       });
+
   }
   handlePasswordReset({ password }, { token }) {
     return api
-    .post(API_URL + 'handlePasswordReset', {
+    .post(API_URL_SETTING + 'handlePasswordReset', {
       token,
       password
     });
   }
-  changeEmail({ id }, { email }) {
+  changeEmailRequest({ id }, { email }, { password }) {
+    console.log(id + " " + email + " " + password);
     return api
-      .post(API_URL + 'changeEmail', {
+      .post(API_URL_SETTING + 'changeEmailRequest', {
         id,
-        email
+        email,
+        password
+      });
+  }
+  handleEmailChange(token) {
+    return api
+      .post(API_URL_SETTING + 'handleEmailChange', {
+        token
       });
   }
   register({ username, email, password }) {

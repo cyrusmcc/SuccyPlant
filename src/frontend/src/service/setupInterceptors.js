@@ -22,11 +22,14 @@ const setup = (store) => {
     async (err) => {
       const originalConfig = err.config;
 
-      if (originalConfig.url !== "/auth/login" && err.response) {
+      if (err.response) {
 
         if (err.response.status === 401 && !originalConfig._retry) {
           originalConfig._retry = true;
 
+          //console.log("401 error");
+          //this.$router.push("/login");
+            
           try {
             const rs = await axiosInstance.post("/auth/refreshToken", {
               refreshToken: TokenService.getLocalRefreshToken(),
@@ -40,7 +43,7 @@ const setup = (store) => {
             return axiosInstance(originalConfig);
           } catch (_error) {
             return Promise.reject(_error);
-          }
+          } 
         }
       }
 

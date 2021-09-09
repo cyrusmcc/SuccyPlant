@@ -32,6 +32,7 @@ export const auth = {
           return Promise.resolve(response.data);
         },
         error => {
+          
           commit('resetPasswordRequestSuccessFailure');
           return Promise.reject(error);
         }
@@ -49,17 +50,29 @@ export const auth = {
         }
       )
     },
-    changeEmail({ commit }, values) {      
-      return AuthService.changeEmail(user, values).then(
+    changeEmailRequest({ commit }, values) {  
+      return AuthService.changeEmailRequest(user, values, values).then(
         response => {
-          commit('changeEmailSuccess');
+          commit('changeEmailRequestSuccess');
           return Promise.resolve(response.data);
         },
         error => {
-          commit('changeEmailFailure');
+          commit('changeEmailRequestFailure');
           return Promise.reject(error);
         }
       );
+    },
+    handleEmailChange({ commit }, token) {
+      return AuthService.handleEmailChange(token).then(
+        response => {
+          commit('handleEmailChangeSuccess');
+          return Promise.resolve(response.data);
+        },
+        error => {
+          commit('handleEmailChangeFailure');
+          return Promise.reject(error);
+        }
+      )
     },
     register({ commit }, user) {
       return AuthService.register(user).then(
@@ -97,11 +110,17 @@ export const auth = {
     handlePasswordResetFailure(state) {
       state.status.loggedIn = false;
     },
-    changeEmailSuccess(state) {
+    changeEmailRequestSuccess(state) {
       state.status.loggedIn = true;
     },
-    changeEmailFailure(state) {
+    changeEmailRequestFailure(state) {
       state.status.loggedIn = true;
+    },
+    handleEmailChangeSuccess(state) {
+      state.status.loggedIn = false;
+      state.user = null;
+    },
+    handleEmailChangeFailure() {
     },
     registerFailure(state) {
       state.status.loggedIn = false;

@@ -2,13 +2,10 @@ package com.cm.contentmanagementapp.payload.request;
 
 import javax.validation.constraints.NotBlank;
 
-public class HandlePasswordResetRequest {
+public class HandleEmailChangeRequest {
 
     @NotBlank
     String token;
-
-    @NotBlank
-    String password;
 
     public String getToken() {
         return token;
@@ -16,13 +13,5 @@ public class HandlePasswordResetRequest {
 
     public void setToken(String token) {
         this.token = token;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

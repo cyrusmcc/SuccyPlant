@@ -1,8 +1,10 @@
 package com.cm.contentmanagementapp.security.jwt;
 
+import com.cm.contentmanagementapp.controllers.AuthController;
 import com.cm.contentmanagementapp.services.UserDetailsImpl;
 import io.jsonwebtoken.*;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -10,14 +12,16 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 @Component
-@Slf4j
 public class JwtUtils {
 
-    @Value("${com.cm.jwtSecret")
+    @Value("${com.cm.jwtSecret}")
     private String jwtSecret;
 
     @Value("${com.cm.jwtExpirationMs}")
     private int jwtExpirationMs;
+
+    private static final Logger log = LoggerFactory.getLogger(JwtUtils.class);
+
 
     public String generateJwtToken(Authentication authentication) {
 

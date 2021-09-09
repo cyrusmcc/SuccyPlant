@@ -6,7 +6,7 @@
         <div class="hamburgerLine"></div>
         <div class="hamburgerLine"></div>
       </div>
-      <span id="navBarText">defizzy</span>
+      <router-link to="/" id="navBarText">DeFizzy</router-link>
       <div
         class="closeHamburgerButton"
         v-if="!displayHamburger"

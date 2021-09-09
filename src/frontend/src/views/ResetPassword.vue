@@ -46,7 +46,7 @@ export default {
 
     const formValues = {
       password: "",
-      token: this.$route.params.token,
+      token: this.$route.params.passToken,
     }
 
     return {

@@ -167,4 +167,11 @@ export default {
   //height: 68vh;
   //background: $accentShade;
 }
+
+@include screen-lg() {
+  #userInfoCard {
+    background-color: $accentTwo;
+  }
+}
+
 </style>

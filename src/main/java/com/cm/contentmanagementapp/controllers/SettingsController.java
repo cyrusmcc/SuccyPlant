@@ -1,0 +1,213 @@
+package com.cm.contentmanagementapp.controllers;
+
+import com.cm.contentmanagementapp.models.*;
+import com.cm.contentmanagementapp.payload.request.ChangeEmailRequest;
+import com.cm.contentmanagementapp.payload.request.HandleEmailChangeRequest;
+import com.cm.contentmanagementapp.payload.request.HandlePasswordResetRequest;
+import com.cm.contentmanagementapp.payload.request.PasswordResetRequest;
+import com.cm.contentmanagementapp.payload.response.MessageResponse;
+import com.cm.contentmanagementapp.services.MailService;
+import com.cm.contentmanagementapp.services.UserService;
+import com.cm.contentmanagementapp.services.resettoken.EmailResetTokenService;
+import com.cm.contentmanagementapp.services.resettoken.PasswordResetTokenService;
+import com.cm.contentmanagementapp.services.resettoken.ResetTokenService;
+import javassist.NotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RestController
+@RequestMapping("/api/setting")
+public class SettingsController {
+
+    private UserService userService;
+
+    private ResetTokenService resetTokenService;
+
+    private PasswordResetTokenService passwordTokenService;
+
+    private EmailResetTokenService emailTokenService;
+
+    private MailService mailService;
+
+    private static final Logger log = LoggerFactory.getLogger(SettingsController.class);
+
+
+    @Autowired
+    public SettingsController(UserService userService, ResetTokenService resetTokenService, PasswordResetTokenService passwordTokenService,
+                              EmailResetTokenService emailTokenService, MailService mailService) {
+        this.userService = userService;
+        this.resetTokenService = resetTokenService;
+        this.passwordTokenService = passwordTokenService;
+        this.emailTokenService = emailTokenService;
+        this.mailService = mailService;
+    }
+
+    @PostMapping("/resetPasswordRequest")
+    public ResponseEntity<?> requestPasswordReset (@Valid @RequestBody PasswordResetRequest passwordResetRequest,
+                                                   HttpServletRequest request)
+            throws NoSuchAlgorithmException {
+
+        if (!userService.existsByEmail(passwordResetRequest.getEmail())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("You will receive an email to reset your password if this email exists" +
+                            " in our system."));
+        }
+
+        User user = userService.findByEmail(passwordResetRequest.getEmail());
+
+        // create new token, hash string token before storing, send email with unhashed token.
+        PasswordResetToken passResetToken = new PasswordResetToken();
+        String token = UUID.randomUUID().toString();
+        passResetToken.setToken(resetTokenService.hashToken(token));
+        passResetToken.setUser(user);
+        passResetToken.setExpireDateByMinute(60);
+
+        passwordTokenService.save(passResetToken);
+
+        Mail mail = new Mail();
+        mail.setFrom("defizzy@outlook.com");
+        mail.setTo(user.getEmail());
+        mail.setSubject("Password reset request");
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("token", token);
+        model.put("user", user);
+        model.put("signature", "a signature here");
+        // replace 3000 w/ request.getServerPort() when done testing;
+        String url = request.getScheme() + "://" + request.getServerName() + ":" + 3000;
+        model.put("resetUrl", url + "/reset-password-token-" + token);
+        mail.setModel(model);
+        mailService.sendEmail(mail);
+
+        log.info("User requested a password reset");
+
+        return ResponseEntity.ok(new MessageResponse("You will receive an email to reset your password if this email exists" +
+                " in our system."));
+    }
+
+    @PostMapping("/handlePasswordReset")
+    public ResponseEntity<?> handlePasswordReset(@Valid @RequestBody HandlePasswordResetRequest handlePassResetReq) {
+
+        try {
+            if (!resetTokenService.existsByToken(handlePassResetReq.getToken())) {
+                return ResponseEntity
+                        .badRequest()
+                        .body(new MessageResponse("Invalid password reset token. Please try again"));
+            }
+
+            ResetToken token = resetTokenService.findByToken(handlePassResetReq.getToken());
+            User user = token.getUser();
+            userService.updatePassword(user, handlePassResetReq.getPassword());
+
+            log.info("Handling user password reset");
+
+            return ResponseEntity.ok(new MessageResponse("Password successfully changed."));
+
+        } catch (NoSuchAlgorithmException nsae) {
+            log.info("No such hash algo: {}", nsae);
+        }
+
+        return ResponseEntity
+                .badRequest()
+                .body(new MessageResponse("handlePasswordReset hash error"));
+    }
+
+    @PostMapping("/changeEmailRequest")
+    public ResponseEntity<?> changeEmailRequest(@Valid @RequestBody ChangeEmailRequest changeEmailRequest,
+                                         HttpServletRequest request) throws NoSuchAlgorithmException {
+
+        System.out.println(changeEmailRequest.getId() + " " + changeEmailRequest.getEmail() + " " + changeEmailRequest.getPassword());
+        if (userService.existsByEmail(changeEmailRequest.getEmail())) {
+            log.info("User attempted to change email but email already in use");
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Email already in use"));
+        }
+
+        User user = userService.findById(changeEmailRequest.getId());
+
+        if (!userService.isValidPassword(user, changeEmailRequest.getPassword())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Invalid password, please try again"));
+        }
+
+        EmailResetToken emailResetToken = new EmailResetToken();
+        String token = UUID.randomUUID().toString();
+        emailResetToken.setToken(resetTokenService.hashToken(token));
+        emailResetToken.setUser(user);
+        emailResetToken.setExpireDateByHour(48);
+        emailResetToken.setNewEmail(changeEmailRequest.getEmail());
+
+        emailTokenService.save(emailResetToken);
+
+        Mail mail = new Mail();
+        mail.setFrom("defizzy@outlook.com");
+        mail.setTo(changeEmailRequest.getEmail());
+        mail.setSubject("Change email request");
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("token", token);
+        model.put("user", user);
+        model.put("signature", "a signature here");
+        // replace 3000 w/ request.getServerPort() when done testing;
+        String url = request.getScheme() + "://" + request.getServerName() + ":" + 3000;
+        model.put("resetUrl", url + "/email-change-confirmation-" + token);
+        mail.setModel(model);
+        mailService.sendEmail(mail);
+
+        log.info("User requested an email change");
+
+        return ResponseEntity.ok(new MessageResponse("A confirmation email will be sent to your new address. Click" +
+                " the link provided link to update your email."));
+
+    }
+
+    @PostMapping("/handleEmailChange")
+    public ResponseEntity<?> handleEmailChange(@Valid @RequestBody HandleEmailChangeRequest emailChangeRequest) {
+
+        System.out.println(emailChangeRequest.getToken());
+
+        try {
+            if (!resetTokenService.existsByToken(emailChangeRequest.getToken())) {
+                return ResponseEntity
+                        .badRequest()
+                        .body(new MessageResponse("Link is invalid or expired, submit a new email change request"));
+            }
+
+            ResetToken resetToken = resetTokenService.findByToken(emailChangeRequest.getToken());
+            EmailResetToken emailResetToken = emailTokenService
+                    .findByResetToken(resetToken)
+                    .orElse(null);
+
+            User user = resetToken.getUser();
+            user.setEmail(emailResetToken.getNewEmail());
+            userService.save(user);
+
+            emailTokenService.delete(emailResetToken);
+
+            log.info("User email updated");
+
+        } catch (NoSuchAlgorithmException | NotFoundException e) {
+            log.info("Exception: {}", e);
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error encountered, try again"));
+        }
+
+        return ResponseEntity.ok(new MessageResponse("Email successfully changed."));
+    }
+
+}
