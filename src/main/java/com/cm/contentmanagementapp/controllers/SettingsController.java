@@ -1,10 +1,7 @@
 package com.cm.contentmanagementapp.controllers;
 
 import com.cm.contentmanagementapp.models.*;
-import com.cm.contentmanagementapp.payload.request.ChangeEmailRequest;
-import com.cm.contentmanagementapp.payload.request.HandleEmailChangeRequest;
-import com.cm.contentmanagementapp.payload.request.HandlePasswordResetRequest;
-import com.cm.contentmanagementapp.payload.request.PasswordResetRequest;
+import com.cm.contentmanagementapp.payload.request.*;
 import com.cm.contentmanagementapp.payload.response.MessageResponse;
 import com.cm.contentmanagementapp.services.MailService;
 import com.cm.contentmanagementapp.services.UserService;
@@ -54,18 +51,18 @@ public class SettingsController {
     }
 
     @PostMapping("/resetPasswordRequest")
-    public ResponseEntity<?> requestPasswordReset (@Valid @RequestBody PasswordResetRequest passwordResetRequest,
+    public ResponseEntity<?> requestLostPasswordReset (@Valid @RequestBody LostPasswordResetRequest lostPasswordResetRequest,
                                                    HttpServletRequest request)
             throws NoSuchAlgorithmException {
 
-        if (!userService.existsByEmail(passwordResetRequest.getEmail())) {
+        if (!userService.existsByEmail(lostPasswordResetRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("You will receive an email to reset your password if this email exists" +
                             " in our system."));
         }
 
-        User user = userService.findByEmail(passwordResetRequest.getEmail());
+        User user = userService.findByEmail(lostPasswordResetRequest.getEmail());
 
         // create new token, hash string token before storing, send email with unhashed token.
         PasswordResetToken passResetToken = new PasswordResetToken();
@@ -95,6 +92,36 @@ public class SettingsController {
 
         return ResponseEntity.ok(new MessageResponse("You will receive an email to reset your password if this email exists" +
                 " in our system."));
+    }
+
+    @PostMapping("/requestSettingPasswordReset")
+    public ResponseEntity<?> requestSettingPasswordReset(@Valid @RequestBody PasswordResetRequest passwordResetRequest) {
+
+        if (!userService.existsById(passwordResetRequest.getId())) {
+            log.info("No user found by id: {}", passwordResetRequest.getId());
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("No user found by usename"));
+        }
+
+        if (passwordResetRequest.getCurrentPassword() == passwordResetRequest.getNewPassword()) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Current and new password must be different."));
+        }
+
+        User user = userService.findById(passwordResetRequest.getId());
+
+        if (!userService.isValidPassword(user, passwordResetRequest.getCurrentPassword())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Invalid entry for current password"));
+        }
+
+        userService.updatePassword(user, passwordResetRequest.getNewPassword());
+        userService.save(user);
+
+        return ResponseEntity.ok(new MessageResponse("Account password has been updated."));
     }
 
     @PostMapping("/handlePasswordReset")

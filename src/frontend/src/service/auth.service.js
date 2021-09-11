@@ -26,13 +26,20 @@ class AuthService {
         id
       });
   }
-  resetPasswordRequest({ email }) {
-
+  requestLostPasswordReset({ email }) {
     return api
-      .post(API_URL_SETTING + 'resetPasswordRequest', {
+      .post(API_URL_SETTING + 'requestLostPasswordReset', {
         email
       });
 
+  }
+  requestSettingPasswordReset({ id }, { currentPassword }, { newPassword }) {
+    return api
+      .post(API_URL_SETTING + 'requestSettingPasswordReset', {
+        id,
+        currentPassword,
+        newPassword
+      });
   }
   handlePasswordReset({ password }, { token }) {
     return api
@@ -42,7 +49,6 @@ class AuthService {
     });
   }
   changeEmailRequest({ id }, { email }, { password }) {
-    console.log(id + " " + email + " " + password);
     return api
       .post(API_URL_SETTING + 'changeEmailRequest', {
         id,

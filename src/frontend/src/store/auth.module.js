@@ -25,15 +25,28 @@ export const auth = {
       commit('logout');
       AuthService.logout(user);
     },
-    resetPasswordRequest({ commit }, email) {      
-      return AuthService.resetPasswordRequest(email).then(
+    requestLostPasswordReset({ commit }, email) {      
+      return AuthService.requestLostPasswordReset(email).then(
         response => {
-          commit('resetPasswordRequestSuccess');
+          commit('requestLostPasswordResetSuccess');
           return Promise.resolve(response.data);
         },
         error => {
           
-          commit('resetPasswordRequestSuccessFailure');
+          commit('requestLostPasswordResetFailure');
+          return Promise.reject(error);
+        }
+      );
+    },
+    requestSettingPasswordReset({ commit }, values) {
+      return AuthService.requestSettingPasswordReset(user, values, values).then(
+        response => {
+          commit('requestSettingPasswordResetSuccess');
+          return Promise.resolve(response.data);
+        },
+        error => {
+          
+          commit('requestSettingPasswordResetFailure');
           return Promise.reject(error);
         }
       );
@@ -51,6 +64,7 @@ export const auth = {
       )
     },
     changeEmailRequest({ commit }, values) {  
+      console.log(user.username);
       return AuthService.changeEmailRequest(user, values, values).then(
         response => {
           commit('changeEmailRequestSuccess');
@@ -103,6 +117,16 @@ export const auth = {
     },
     registerSuccess(state) {
       state.status.loggedIn = false;
+    },
+    requestLostPasswordResetSuccess() {
+    },
+    requestLostPasswordResetFailure() {
+    },
+    requestSettingPasswordResetSuccess(state) {
+      state.status.loggedIn = false;
+      state.user = null;
+    },
+    requestSettingPasswordResetFailure() {
     },
     handlePasswordResetSuccess(state) {
       state.status.loggedIn = false;

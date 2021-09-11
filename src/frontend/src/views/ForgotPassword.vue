@@ -69,7 +69,7 @@ export default {
   methods: {
     handlePasswordResetRequest(values) {
       this.message = "";
-      this.$store.dispatch("auth/resetPasswordRequest", values).then(
+      this.$store.dispatch("auth/requestLostPasswordReset", values).then(
         (data) => {
           this.message = data.message;
           //this.$router.push("/settings");

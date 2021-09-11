@@ -7,7 +7,6 @@ import com.cm.contentmanagementapp.repositories.RoleRepository;
 import com.cm.contentmanagementapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -58,7 +57,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findByUsername(String username) {
+    public boolean existsById(Long id) {
+        if (userRepository.existsById(id)) return true;
+        else return false;
+    }
+
+    @Override
+    public User findByUsername(String username) {
 
         Optional<User> user = null;
 

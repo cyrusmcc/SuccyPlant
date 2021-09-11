@@ -2,7 +2,7 @@
   <div class="container">
     <modal v-if="getModalState">
       <div id="changeEmailModal" v-if="modalType == 'changeEmail'">
-        <Form @submit="handleChangeEmailRequest" :validation-schema="schema">
+        <Form @submit="handleChangeEmailRequest" :validation-schema="emailSchema">
           <span>Change account email</span>
           <div class="form-in">
             <Field
@@ -38,20 +38,43 @@
         provided to update your account's email.
       </div>
       <div id="changePasswordModal" v-if="modalType == 'changePassword'">
-        <Form>
+        <Form @Submit="handlePasswordResetRequest" :validation-schema="passwordSchema">
           <span>Change account password</span>
           <div class="form-in">
             <Field
-              name="password"
+              name="currentPassword"
+              class="form-control"
+              type="password"
+              placeholder="Current password"
+            />
+            <ErrorMessage name="currentPassword" class="error-feedback" />
+          </div>
+          <div class="form-in">
+            <Field
+              name="newPassword"
               class="form-control"
               type="password"
               placeholder="New password"
             />
-            <ErrorMessage name="password" class="error-feedback" />
+            <ErrorMessage name="newPassword" class="error-feedback" />
+          </div>
+          <div class="form-in">
+            <Field
+              name="confirmNewPassword"
+              class="form-control"
+              type="password"
+              placeholder="Confirm new password"
+              rules="confirmed:newpassword"
+            />
+            <ErrorMessage name="confirmNewPassword" class="error-feedback" />
           </div>
 
           <div class="form-submit">
             <button class="button-primary">Submit change</button>
+          </div>
+          
+          <div v-if="message" class="alert" role="alert">
+            {{ message }}
           </div>
         </Form>
       </div>
@@ -137,23 +160,37 @@
 import ProfilePic from "../components/ProfilePic.vue";
 import Modal from "../components/Modal.vue";
 import { modalState } from "../store/comp.store";
-import { Form, Field, ErrorMessage } from "vee-validate";
+import { Form, Field, ErrorMessage, defineRule } from "vee-validate";
 import * as yup from "yup";
+
+defineRule('confirmed', (value, [target], ctx) => {
+  if (value === ctx.form[target]) {
+    return true;
+  }
+
+  return 'Passwords must match';
+})
 
 export default {
   components: { ProfilePic, Modal, Form, Field, ErrorMessage },
   name: "Settings",
   data() {
-    const schema = yup.object().shape({
+    const emailSchema = yup.object().shape({
       email: yup.string().email().required("You must provide a new email"),
       password: yup.string().required(),
+    });
+
+    const passwordSchema = yup.object().shape({
+      currentPassword: yup.string().required("You must provide your current password"),
+      newPassword: yup.string().required("You must provide a new password"),
     });
 
     return {
       successful: false,
       loading: false,
       message: "",
-      schema,
+      emailSchema,
+      passwordSchema,
       currentSettingTab: "profile",
       modalType: "none",
     };
@@ -183,10 +220,10 @@ export default {
       this.successful = false;
       this.loading = true;
       this.message = "";
-      
+
       this.$store.dispatch("auth/changeEmailRequest", values).then(
         (data) => {
-          this.modalType= "changeEmailSuccess";
+          this.modalType = "changeEmailSuccess";
           this.message = data.message;
           this.successful = true;
           this.loading = false;
@@ -203,6 +240,23 @@ export default {
         }
       );
     },
+    handlePasswordResetRequest(values) {
+      this.message = "";
+      this.$store.dispatch("auth/requestSettingPasswordReset", values).then(
+        (data) => {
+          this.message = data.message;
+          this.$router.push("/login");
+        },
+        (error) => {
+          this.message =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+        }
+      );
+    }
   },
 };
 </script>
