@@ -25,7 +25,7 @@ const routes = [
     component: () => import("../views/About.vue"),
   },
   {
-    path: "/login",
+    path: '/login:loginFlash(.*)',
     name: "Login",
     meta: {
       hideNav: true,

@@ -6,6 +6,7 @@
       <!-- only works with "handleLogin", not "handeLogin()"-->
       <Form @submit="handleLogin" :validation-schema="schema">
         <p>Sign in</p>
+        <s v-if="$route.params.loginFlash"> {{ $route.params.loginFlash }}</s>
 
         <div class="form-in">
           <label for="username" class="form-label">Username</label>
@@ -87,19 +88,14 @@ export default {
           this.$router.push("/profile");
         },
         (error) => {
-          console.log(error.response);
-          console.log(error.response.data);
-          console.log("responsedatamessage " + error.response.data.message);
-          console.log("responsemessage " + error.message);
-          console.log("responsemessage " + error.toString());
 
           this.loading = false;
-          this.message = "Bad credentials";
-            /*(error.response &&
+          this.message = 
+            (error.response &&
               error.response.data &&
               error.response.data.message) ||
             error.message ||
-            error.toString();*/
+            error.toString();
         }
       );
     },

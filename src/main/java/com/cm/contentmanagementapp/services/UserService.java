@@ -3,6 +3,7 @@ package com.cm.contentmanagementapp.services;
 import com.cm.contentmanagementapp.models.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
@@ -10,7 +11,7 @@ public interface UserService {
 
     User findById(Long id);
 
-    User findByUsername(String username);
+    Optional<User> findByUsername(String username);
 
     User findByEmail(String email);
 

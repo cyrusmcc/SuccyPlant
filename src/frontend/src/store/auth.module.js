@@ -25,69 +25,6 @@ export const auth = {
       commit('logout');
       AuthService.logout(user);
     },
-    requestLostPasswordReset({ commit }, email) {      
-      return AuthService.requestLostPasswordReset(email).then(
-        response => {
-          commit('requestLostPasswordResetSuccess');
-          return Promise.resolve(response.data);
-        },
-        error => {
-          
-          commit('requestLostPasswordResetFailure');
-          return Promise.reject(error);
-        }
-      );
-    },
-    requestSettingPasswordReset({ commit }, values) {
-      return AuthService.requestSettingPasswordReset(user, values, values).then(
-        response => {
-          commit('requestSettingPasswordResetSuccess');
-          return Promise.resolve(response.data);
-        },
-        error => {
-          
-          commit('requestSettingPasswordResetFailure');
-          return Promise.reject(error);
-        }
-      );
-    },
-    handlePasswordReset({ commit }, values) {
-      return AuthService.handlePasswordReset(values, values).then(
-        response => {
-          commit('handlePasswordResetSuccess');
-          return Promise.resolve(response.data);
-        },
-        error => {
-          commit('handlePasswordResetFailure');
-          return Promise.reject(error);
-        }
-      )
-    },
-    changeEmailRequest({ commit }, values) {  
-      console.log(user.username);
-      return AuthService.changeEmailRequest(user, values, values).then(
-        response => {
-          commit('changeEmailRequestSuccess');
-          return Promise.resolve(response.data);
-        },
-        error => {
-          commit('changeEmailRequestFailure');
-          return Promise.reject(error);
-        }
-      );
-    },
-    handleEmailChange({ commit }, token) {
-      return AuthService.handleEmailChange(token).then(
-        response => {
-          commit('handleEmailChangeSuccess');
-          return Promise.resolve(response.data);
-        },
-        error => {
-          commit('handleEmailChangeFailure');
-          return Promise.reject(error);
-        }
-      )
-    },
     register({ commit }, user) {
       return AuthService.register(user).then(
         response => {
@@ -109,42 +46,14 @@ export const auth = {
       state.status.loggedIn = true;
       state.user = user;
     },
-    logoutFailure() {
-    },
     logout(state) {
       state.status.loggedIn = false;
       state.user = null;
     },
+    logoutFailure() {
+    },
     registerSuccess(state) {
       state.status.loggedIn = false;
-    },
-    requestLostPasswordResetSuccess() {
-    },
-    requestLostPasswordResetFailure() {
-    },
-    requestSettingPasswordResetSuccess(state) {
-      state.status.loggedIn = false;
-      state.user = null;
-    },
-    requestSettingPasswordResetFailure() {
-    },
-    handlePasswordResetSuccess(state) {
-      state.status.loggedIn = false;
-    },
-    handlePasswordResetFailure(state) {
-      state.status.loggedIn = false;
-    },
-    changeEmailRequestSuccess(state) {
-      state.status.loggedIn = true;
-    },
-    changeEmailRequestFailure(state) {
-      state.status.loggedIn = true;
-    },
-    handleEmailChangeSuccess(state) {
-      state.status.loggedIn = false;
-      state.user = null;
-    },
-    handleEmailChangeFailure() {
     },
     registerFailure(state) {
       state.status.loggedIn = false;
