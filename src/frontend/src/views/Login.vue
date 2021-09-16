@@ -87,15 +87,17 @@ export default {
         () => {
           this.$router.push("/profile");
         },
-        (error) => {
+        (/*error*/) => {
 
           this.loading = false;
-          this.message = 
+          this.message = "Invalid credentials";
+          /*
             (error.response &&
               error.response.data &&
               error.response.data.message) ||
             error.message ||
             error.toString();
+            */
         }
       );
     },

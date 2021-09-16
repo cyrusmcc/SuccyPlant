@@ -1,14 +1,7 @@
 import SettingsService from '../service/settings.service';
-import TokenService from '../service/token.service';
 
-const user = JSON.parse(localStorage.getItem('user'));
-const initialState = user
-  ? { status: { loggedIn: true }, user }
-  : { status: { loggedIn: false }, user: null };
-  
 export const settings = {
   namespaced: true,
-  state: initialState,
   actions: {
     requestLostPasswordReset({ commit }, email) {      
       return SettingsService.requestLostPasswordReset(email).then(
@@ -23,12 +16,11 @@ export const settings = {
         }
       );
     },
-    requestSettingPasswordReset({ commit }, values) {
-      return SettingsService.requestSettingPasswordReset(user, values, values).then(
+    requestSettingPasswordReset({ commit, rootState, dispatch }, values) { 
+      return SettingsService.requestSettingPasswordReset(rootState.auth.user, values, values).then(
         response => {
+          dispatch('auth/logout', rootState.auth.user, { root : true });
           commit('requestSettingPasswordResetSuccess');
-          TokenService.removeUser(user);
-          $router.push("/login");
           return Promise.resolve(response.data);
         },
         error => {
@@ -50,12 +42,10 @@ export const settings = {
         }
       )
     },
-    changeEmailRequest({ commit }, values) {  
-      return SettingsService.changeEmailRequest(user, values, values).then(
+    changeEmailRequest({ commit, rootState }, values) {  
+      return SettingsService.changeEmailRequest(rootState.auth.user, values, values).then(
         response => {
           commit('changeEmailRequestSuccess');
-          TokenService.removeUser(user);
-          $router.push("/login");
           return Promise.resolve(response.data);
         },
         error => {
@@ -64,9 +54,10 @@ export const settings = {
         }
       );
     },
-    handleEmailChange({ commit }, token) {
+    handleEmailChange({ commit, rootState, dispatch }, token) {
       return SettingsService.handleEmailChange(token).then(
         response => {
+          dispatch('auth/logout', rootState.auth.user, { root : true });
           commit('handleEmailChangeSuccess');
           return Promise.resolve(response.data);
         },
@@ -82,28 +73,19 @@ export const settings = {
     },
     requestLostPasswordResetFailure() {
     },
-    requestSettingPasswordResetSuccess(state) {
-      state.status.loggedIn = false;
-      state.user = null;
+    requestSettingPasswordResetSuccess() {
     },
     requestSettingPasswordResetFailure() {
     },
-    handlePasswordResetSuccess(state) {
-      state.status.loggedIn = false;
-      state.user = null;
+    handlePasswordResetSuccess() {
     },
-    handlePasswordResetFailure(state) {
-      state.status.loggedIn = true;
+    handlePasswordResetFailure() {
     },
-    changeEmailRequestSuccess(state) {
-      state.status.loggedIn = true;
+    changeEmailRequestSuccess() {
     },
-    changeEmailRequestFailure(state) {
-      state.status.loggedIn = true;
+    changeEmailRequestFailure() {
     },
-    handleEmailChangeSuccess(state) {
-      state.status.loggedIn = false;
-      state.user = null;
+    handleEmailChangeSuccess() {
     },
     handleEmailChangeFailure() {
     },

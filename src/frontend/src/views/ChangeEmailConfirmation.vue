@@ -4,7 +4,7 @@
       <div v-if="message" class="alert" role="alert">
         {{ message }}
       </div>
-      <router-link class="pageLink" to="/">Return</router-link>
+      <router-link class="pageLink" to="/login">Return to login</router-link>
     </div>
   </div>
 </template>
@@ -22,7 +22,6 @@ export default {
   created() {
     this.message = "";
     this.emailChangeToken = this.$route.params.emailToken;
-    console.log(this.emailChangeToken);
     this.$store
       .dispatch("settings/handleEmailChange", this.emailChangeToken)
       .then(

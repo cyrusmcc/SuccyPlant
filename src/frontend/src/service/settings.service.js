@@ -17,6 +17,7 @@ class SettingsService {
     });
   }
   requestSettingPasswordReset({ id }, { currentPassword }, { newPassword }) {
+    console.log(id + " " + currentPassword + " " + newPassword);
     return api
       .post(SETTING_API_URL + 'requestSettingPasswordReset', {
         id,

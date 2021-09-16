@@ -109,6 +109,13 @@ public class AuthController {
 
     @PostMapping("/refreshToken")
     public ResponseEntity<?> refreshToken(@Valid @RequestBody TokenRefreshRequest request) {
+
+        if (request.getRefreshToken() == null || request.getRefreshToken().isEmpty()) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Invalid request"));
+        }
+
         String requestRefreshToken = request.getRefreshToken();
 
         return refreshTokenService.findByToken(requestRefreshToken)
