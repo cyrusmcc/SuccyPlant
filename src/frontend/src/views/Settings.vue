@@ -2,7 +2,10 @@
   <div class="container">
     <modal v-if="getModalState">
       <div id="changeEmailModal" v-if="modalType == 'changeEmail'">
-        <Form @submit="handleChangeEmailRequest" :validation-schema="emailSchema">
+        <Form
+          @submit="handleChangeEmailRequest"
+          :validation-schema="emailSchema"
+        >
           <span>Change account email</span>
           <div class="form-in">
             <Field
@@ -38,7 +41,10 @@
         provided to update your account's email.
       </div>
       <div id="changePasswordModal" v-if="modalType == 'changePassword'">
-        <Form @Submit="handlePasswordResetRequest" :validation-schema="passwordSchema">
+        <Form
+          @Submit="handlePasswordResetRequest"
+          :validation-schema="passwordSchema"
+        >
           <span>Change account password</span>
           <div class="form-in">
             <Field
@@ -72,7 +78,7 @@
           <div class="form-submit">
             <button class="button-primary">Submit change</button>
           </div>
-          
+
           <div v-if="message" class="alert" role="alert">
             {{ message }}
           </div>
@@ -116,8 +122,7 @@
           <profile-pic>
             <img id="userPic" src="../assets/user.svg" alt="profile picture" />
           </profile-pic>
-          <input type="file" id="picUploadBtn" />
-          <label for="picUploadBtn" class="labelButton">Choose File</label>
+          <file-upload-button class="labelButton"/>
         </div>
       </div>
       <div
@@ -159,20 +164,25 @@
 <script>
 import ProfilePic from "../components/ProfilePic.vue";
 import Modal from "../components/Modal.vue";
+import FileUploadButton from "../components/FileUploadButton.vue";
 import { modalState } from "../store/comp.store";
 import { Form, Field, ErrorMessage, defineRule } from "vee-validate";
+import { dimensions } from "@vee-validate/rules";
+
 import * as yup from "yup";
 
-defineRule('confirmed', (value, [target], ctx) => {
+defineRule("confirmed", (value, [target], ctx) => {
   if (value === ctx.form[target]) {
     return true;
   }
 
-  return 'Passwords must match';
-})
+  return "Passwords must match";
+});
+
+defineRule('dimensions', dimensions);
 
 export default {
-  components: { ProfilePic, Modal, Form, Field, ErrorMessage },
+  components: { ProfilePic, Modal, FileUploadButton, Form, Field, ErrorMessage },
   name: "Settings",
   data() {
     const emailSchema = yup.object().shape({
@@ -181,7 +191,9 @@ export default {
     });
 
     const passwordSchema = yup.object().shape({
-      currentPassword: yup.string().required("You must provide your current password"),
+      currentPassword: yup
+        .string()
+        .required("You must provide your current password"),
       newPassword: yup.string().required("You must provide a new password"),
     });
 
@@ -193,6 +205,7 @@ export default {
       passwordSchema,
       currentSettingTab: "profile",
       modalType: "none",
+      fileName: "Choose File",
     };
   },
   computed: {
@@ -256,7 +269,7 @@ export default {
             error.toString();
         }
       );
-    }
+    },
   },
 };
 </script>
@@ -326,10 +339,6 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-}
-
-#picUploadBtn {
-  display: none;
 }
 
 #accountOptions > * {
