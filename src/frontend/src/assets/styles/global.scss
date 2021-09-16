@@ -3,7 +3,7 @@ $accentShade: #232121;
 $darkShade: #151516;
 $accentOne: #286bc8;
 $accentTwo: #09725F;
-$accentThree: #67bed1;
+$accentThree: #0f6132;
 
 
 $screen-md: 610px;
@@ -94,8 +94,25 @@ fieldset {
     box-shadow: 0 4px 8px 0 RGB(0 0 0/20%), 0 6px 20px 0 RGB(0 0 0/19%);
 }
 
+
 .button-primary {
     background-color: $accentOne;
+    color: $lightShade;
+    border-radius: 4px;
+    font-size: 1rem;
+    border: none;
+    line-height: 2rem;
+    width: 100%;
+    box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
+}
+
+.button-primary:hover {
+    cursor: pointer;
+    box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
+}
+
+.button-secondary {
+    background-color: $accentThree;
     color: $lightShade;
     border-radius: 4px;
     font-size: 1rem;

@@ -221,7 +221,7 @@ export default {
       this.loading = true;
       this.message = "";
 
-      this.$store.dispatch("auth/changeEmailRequest", values).then(
+      this.$store.dispatch("settings/changeEmailRequest", values).then(
         (data) => {
           this.modalType = "changeEmailSuccess";
           this.message = data.message;
@@ -242,7 +242,7 @@ export default {
     },
     handlePasswordResetRequest(values) {
       this.message = "";
-      this.$store.dispatch("auth/requestSettingPasswordReset", values).then(
+      this.$store.dispatch("settings/requestSettingPasswordReset", values).then(
         (data) => {
           this.message = data.message;
           this.$router.push("/login");

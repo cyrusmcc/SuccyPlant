@@ -14,7 +14,7 @@
         </div>
 
         <div class="form-submit">
-          <button class="button-primary" id="resetButton">Reset password</button>
+          <button class="button-secondary" id="resetButton">Reset password</button>
         </div>
 
         <div>
@@ -69,7 +69,7 @@ export default {
   methods: {
     handlePasswordResetRequest(values) {
       this.message = "";
-      this.$store.dispatch("auth/requestLostPasswordReset", values).then(
+      this.$store.dispatch("settings/requestLostPasswordReset", values).then(
         (data) => {
           this.message = data.message;
           //this.$router.push("/settings");

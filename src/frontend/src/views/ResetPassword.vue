@@ -58,7 +58,7 @@ export default {
   methods: {
     handleResetPassword(values) {
       this.message = "";
-      this.$store.dispatch('auth/handlePasswordReset', values).then(
+      this.$store.dispatch('settings/handlePasswordReset', values).then(
         (data) => {
           this.message = data.message;
           this.$router.push("/login");

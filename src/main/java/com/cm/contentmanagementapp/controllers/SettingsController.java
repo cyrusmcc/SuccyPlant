@@ -50,7 +50,7 @@ public class SettingsController {
         this.mailService = mailService;
     }
 
-    @PostMapping("/resetPasswordRequest")
+    @PostMapping("/requestLostPasswordReset")
     public ResponseEntity<?> requestLostPasswordReset (@Valid @RequestBody LostPasswordResetRequest lostPasswordResetRequest,
                                                    HttpServletRequest request)
             throws NoSuchAlgorithmException {
