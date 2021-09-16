@@ -1,6 +1,5 @@
 package com.cm.contentmanagementapp.controllers;
 
-import com.cm.contentmanagementapp.ContentManagementAppApplication;
 import com.cm.contentmanagementapp.models.*;
 import com.cm.contentmanagementapp.payload.request.*;
 import com.cm.contentmanagementapp.services.*;

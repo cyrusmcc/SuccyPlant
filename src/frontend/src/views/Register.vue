@@ -28,7 +28,7 @@
           <ErrorMessage name="email" class="error-feedback" />
         </div>
 
-        <button class="button-primary" id="registerButton">Register</button>
+        <button class="button-secondary" id="registerButton">Register</button>
 
         <div>
           <div v-if="message" class="alert" role="alert">
