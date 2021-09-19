@@ -1,7 +1,8 @@
 <template>
   <div class="container">
-    <modal v-if="getModalState">
-      <div id="changeEmailModal" v-if="modalType == 'changeEmail'">
+    <!-- setting forms hidden in modal -->
+    <modal>
+      <div id="changeEmailModal" v-if="getModalType == 'changeEmail'">
         <Form
           @submit="handleChangeEmailRequest"
           :validation-schema="emailSchema"
@@ -35,12 +36,12 @@
       </div>
       <div
         id="changeEmailModalSuccess"
-        v-if="modalType == 'changeEmailSuccess'"
+        v-if="getModalType == 'changeEmailSuccess'"
       >
         We've sent a confirmation email to the address provided. Click the link
         provided to update your account's email.
       </div>
-      <div id="changePasswordModal" v-if="modalType == 'changePassword'">
+      <div id="changePasswordModal" v-if="getModalType == 'changePassword'">
         <Form
           @Submit="handlePasswordResetRequest"
           :validation-schema="passwordSchema"
@@ -85,6 +86,7 @@
         </Form>
       </div>
     </modal>
+    <!-- setting options -->
     <div id="settingTabPanel">
       <span v-if="currentUser">{{ currentUser.username }}'s settings</span>
       <div id="settingTabs">
@@ -119,10 +121,7 @@
         v-show="currentSettingTab == 'profile'"
       >
         <div id="changePicture">
-          <profile-pic>
-            <img id="userPic" src="../assets/user.svg" alt="profile picture" />
-          </profile-pic>
-          <file-upload-button class="labelButton"/>
+          <profile-pic-upload/>
         </div>
       </div>
       <div
@@ -142,7 +141,7 @@
             for=""
             id="changeEmailButton"
             class="labelButton"
-            @click="(modalType = 'changeEmail'), toggleModal()"
+            @click="(setModalType('changeEmail'))"
             >Change</label
           >
         </div>
@@ -152,7 +151,7 @@
             for=""
             id="changePasswordButton"
             class="labelButton"
-            @click="(modalType = 'changePassword'), toggleModal()"
+            @click="(setModalType('changePassword'))"
             >Change</label
           >
         </div>
@@ -162,9 +161,8 @@
 </template>
 
 <script>
-import ProfilePic from "../components/ProfilePic.vue";
 import Modal from "../components/Modal.vue";
-import FileUploadButton from "../components/FileUploadButton.vue";
+import ProfilePicUpload from "../components/ProfilePicUpload.vue";
 import { modalState } from "../store/comp.store";
 import { Form, Field, ErrorMessage, defineRule } from "vee-validate";
 import { dimensions } from "@vee-validate/rules";
@@ -179,10 +177,16 @@ defineRule("confirmed", (value, [target], ctx) => {
   return "Passwords must match";
 });
 
-defineRule('dimensions', dimensions);
+defineRule("dimensions", dimensions);
 
 export default {
-  components: { ProfilePic, Modal, FileUploadButton, Form, Field, ErrorMessage },
+  components: {
+    Modal,
+    ProfilePicUpload,
+    Form,
+    Field,
+    ErrorMessage,
+  },
   name: "Settings",
   data() {
     const emailSchema = yup.object().shape({
@@ -203,8 +207,8 @@ export default {
       message: "",
       emailSchema,
       passwordSchema,
-      currentSettingTab: "profile",
       modalType: "none",
+      currentSettingTab: "profile",
       fileName: "Choose File",
     };
   },
@@ -212,8 +216,8 @@ export default {
     currentUser() {
       return this.$store.state.auth.user;
     },
-    getModalState() {
-      return modalState.modalActive;
+    getModalType() {
+      return modalState.modalType;
     },
   },
   mounted() {
@@ -222,12 +226,8 @@ export default {
     }
   },
   methods: {
-    toggleModal() {
-      if (this.getModalState) {
-        modalState.modalActive = false;
-      } else {
-        modalState.modalActive = true;
-      }
+    setModalType(type) {
+      modalState.modalType = type;
     },
     handleChangeEmailRequest(values) {
       this.successful = false;

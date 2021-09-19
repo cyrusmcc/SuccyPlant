@@ -1,5 +1,5 @@
 <template>
-  <div id="modalBackground" v-if="getModalState" @mousedown.self="toggleModal">
+  <div id="modalBackground" v-show="getModalType != 'none'" @mousedown.self="toggleModal">
     <div class="card" id="modalContent">
       <div id="modalClose" @click="toggleModal">+</div>
       <slot></slot>
@@ -13,17 +13,14 @@ import { modalState } from "../store/comp.store";
 export default {
   name: "Modal",
   computed: {
-    getModalState() {
-      return modalState.modalActive;
+    getModalType() {
+      return modalState.modalType;
     }
   },
   methods: {
     toggleModal() {
-      if (this.getModalState) {
-        modalState.modalActive = false;
-      } else {
-        modalState.modalActive = true;
-      }
+      document.getElementById("modalBackground").style.display = "none";
+      modalState.modalType = "none"
     },
   },
 };
