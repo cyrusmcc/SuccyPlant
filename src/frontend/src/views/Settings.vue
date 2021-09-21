@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!-- setting forms hidden in modal -->
-    <modal>
+    <modal v-if="showModal" @closeModal="toggleModal">
       <div id="changeEmailModal" v-if="getModalType == 'changeEmail'">
         <Form
           @submit="handleChangeEmailRequest"
@@ -141,7 +141,7 @@
             for=""
             id="changeEmailButton"
             class="labelButton"
-            @click="(setModalType('changeEmail'))"
+            @click="(toggleModal('changeEmail'))"
             >Change</label
           >
         </div>
@@ -151,7 +151,7 @@
             for=""
             id="changePasswordButton"
             class="labelButton"
-            @click="(setModalType('changePassword'))"
+            @click="(toggleModal('changePassword'))"
             >Change</label
           >
         </div>
@@ -163,7 +163,6 @@
 <script>
 import Modal from "../components/Modal.vue";
 import ProfilePicUpload from "../components/ProfilePicUpload.vue";
-import { modalState } from "../store/comp.store";
 import { Form, Field, ErrorMessage, defineRule } from "vee-validate";
 import { dimensions } from "@vee-validate/rules";
 
@@ -207,7 +206,8 @@ export default {
       message: "",
       emailSchema,
       passwordSchema,
-      modalType: "none",
+      modalType: "",
+      showModal: false,
       currentSettingTab: "profile",
       fileName: "Choose File",
     };
@@ -217,7 +217,7 @@ export default {
       return this.$store.state.auth.user;
     },
     getModalType() {
-      return modalState.modalType;
+      return this.modalType;
     },
   },
   mounted() {
@@ -226,8 +226,14 @@ export default {
     }
   },
   methods: {
-    setModalType(type) {
-      modalState.modalType = type;
+    toggleModal(type) {
+
+      this.showModal = !this.showModal;
+
+      if (this.showModal && type != null) {
+        this.modalType = type;
+      }
+
     },
     handleChangeEmailRequest(values) {
       this.successful = false;

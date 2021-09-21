@@ -33,7 +33,7 @@ public class User {
     @Column(name="email")
     private String email;
 
-    private File profileImage;
+    private String profileImageId;
 
     private LocalDate userJoinDate;
 
@@ -97,12 +97,12 @@ public class User {
         this.email = email;
     }
 
-    public File getProfileImage() {
-        return profileImage;
+    public String getProfileImageId() {
+        return profileImageId;
     }
 
-    public void setProfileImage(File profileImage) {
-        this.profileImage = profileImage;
+    public void setProfileImageId(String profileImageId) {
+        this.profileImageId = profileImageId;
     }
 
     public LocalDate getUserJoinDate() {

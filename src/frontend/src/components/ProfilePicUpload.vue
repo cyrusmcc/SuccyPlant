@@ -1,13 +1,5 @@
 <template>
   <div class="picUploadContainer">
-    <modal>
-      <div v-show="getModalType == 'profPicUpload'" id="modalContent">
-        <div id="previewImgWrap">
-          <img id="previewImgBackground" src="" alt="your img" />
-          <img id="previewImgCircle" src="" alt="your img" />
-        </div>
-      </div>
-    </modal>
 
     <div id="profilePicContainer">
       <profile-pic>
@@ -15,7 +7,7 @@
       </profile-pic>
     </div>
     <div class="fileContainer">
-      <Form id="fileInputForm" :validation-schema="schema" class="labelButton">
+      <Form ref="form" id="fileInputForm" :validation-schema="schema" @submit="handleProfilePictureUpload" class="labelButton">
         <Field
           id="fileInput"
           name="file"
@@ -25,6 +17,17 @@
         />
         <label for="fileInput" v-html="fileName" />
         <ErrorMessage name="file" class="error-feedback" />
+
+    <modal v-show="showModal" @closeModal="toggleModal">
+      <div id="modalContent">
+        <div id="previewImgWrap">
+          <img id="previewImgBackground" src="" alt="your img" />
+          <img id="previewImgCircle" src="" alt="your img" />
+        </div>
+          <button class="button-secondary">Update Profile Picture</button>
+      </div>
+    </modal>
+
       </Form>
     </div>
   </div>
@@ -33,7 +36,6 @@
 <script>
 import { Form, Field, defineRule, ErrorMessage } from "vee-validate";
 import { dimensions } from "@vee-validate/rules";
-import { modalState } from "../store/comp.store";
 import ProfilePic from "./ProfilePic.vue";
 import Modal from "./Modal.vue";
 
@@ -51,12 +53,12 @@ export default {
 
     return {
       fileName: "Choose File",
-      modalType: "none",
       schema,
+      showModal: false,
     };
   },
   methods: {
-    previewPic(modalType) {
+    previewPic() {
       // access name of file upload
       var picName = document.getElementById("fileInput");
       this.fileName = picName.files.item(0).name;
@@ -68,13 +70,30 @@ export default {
       document.getElementById("previewImgCircle").src = window.URL.createObjectURL(
         picName.files[0]
       );
-      modalState.modalType = modalType;
+
+      this.showModal = !this.showModal;
+
     },
-  },
-  computed: {
-    getModalType() {
-      return modalState.modalType;
+    handleProfilePictureUpload(values) {
+      this.message = "";
+      this.$store.dispatch("settings/handleProfilePictureUpload", values).then(
+        (data) => {
+          this.message = data.message;
+          this.$router.push("/settings");
+        },
+        (error) => {
+          this.message =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+        }
+      );
     },
+    toggleModal() {
+    this.showModal = !this.showModal;
+  }
   },
 };
 </script>
@@ -110,6 +129,7 @@ label {
 #modalContent {
   margin: 30px 0 30px 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
@@ -118,8 +138,8 @@ label {
   position: relative;
   border: thin solid $accentOne;
   box-shadow: $shadow;
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
 }
 
 #previewImgBackground, #previewImgCircle {

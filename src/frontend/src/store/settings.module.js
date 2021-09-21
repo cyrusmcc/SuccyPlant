@@ -67,6 +67,18 @@ export const settings = {
         }
       )
     },
+    handleProfilePictureUpload({ commit, rootState }, values) {
+      return SettingsService.handleProfilePictureUpload(rootState.auth.user, values).then(
+        response => {
+          commit('handleProfilePictureUploadSuccess');
+          return Promise.resolve(response.data);
+        },
+        error => {
+          commit('handleProfilePictureUploadFailure');
+          return Promise.reject(error);
+        }
+      );
+    }
   },
   mutations: {
     requestLostPasswordResetSuccess() {
@@ -88,6 +100,10 @@ export const settings = {
     handleEmailChangeSuccess() {
     },
     handleEmailChangeFailure() {
+    },
+    handleProfilePictureUploadSuccess() {
+    },
+    handleProfilePictureUploadFailure() {
     },
   }
 };

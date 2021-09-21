@@ -1,27 +1,21 @@
 <template>
-  <div id="modalBackground" v-show="getModalType != 'none'" @mousedown.self="toggleModal">
+  <div id="modalBackground" @mousedown.self.prevent="closeModal">
     <div class="card" id="modalContent">
-      <div id="modalClose" @click="toggleModal">+</div>
+      <div id="modalClose" @click.prevent="closeModal">+</div>
       <slot></slot>
     </div>
   </div>
 </template>
 
 <script>
-import { modalState } from "../store/comp.store";
+//import { modalState } from "../store/comp.store";
 
 export default {
   name: "Modal",
-  computed: {
-    getModalType() {
-      return modalState.modalType;
-    }
-  },
   methods: {
-    toggleModal() {
-      document.getElementById("modalBackground").style.display = "none";
-      modalState.modalType = "none"
-    },
+    closeModal() {
+      this.$emit("closeModal");
+    }
   },
 };
 </script>
@@ -36,6 +30,8 @@ export default {
   background-color: rgba(0, 0, 0, 0.7);
   position: absolute;
   top: 0;
+  left: 0;
+  right: 0;
 }
 #modalContent {
   position: relative;

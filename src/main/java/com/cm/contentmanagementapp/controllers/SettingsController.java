@@ -12,11 +12,18 @@ import javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
@@ -235,6 +242,52 @@ public class SettingsController {
         }
 
         return ResponseEntity.ok(new MessageResponse("Email successfully changed."));
+    }
+
+    @PostMapping("/handleProfilePictureUpload")
+    public ResponseEntity<?> handleProfilePictureUpload(@RequestParam("file") MultipartFile sourceFile) {
+
+        Path root = Paths.get("uploads");
+
+        try {
+            Files.copy(sourceFile.getInputStream(), root.resolve(sourceFile.getOriginalFilename()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return ResponseEntity.ok(new MessageResponse("t"));
+
+        /*
+        //String[] fileExtension = pPCR.getFile().getName().split("\\.", 1);
+        String path = "user-generated-images/profilepictures/";
+        String picId = UUID.randomUUID().toString();
+        //MultipartFile file = pPCR.getFile();
+        File newNameFile;
+
+        //picId.concat(".").concat(fileExtension[1]);
+        path.concat(picId);
+
+        //User user = userService.findById(pPCR.getId());
+
+        System.out.println(sourceFile.getOriginalFilename());
+        return ResponseEntity.ok(new MessageResponse("t"));
+
+        newNameFile = new File(path);
+        boolean flag = file.renameTo(newNameFile);
+
+        if (flag) {
+            System.out.println("set");
+            user.setProfileImageId(picId);
+            return ResponseEntity.ok(new MessageResponse("Profile picture changed"));
+        }
+        else {
+            log.info("Failed to save file, image id already exists");
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error encountered while uploading file, try again"));
+        }
+    */
     }
 
 }
