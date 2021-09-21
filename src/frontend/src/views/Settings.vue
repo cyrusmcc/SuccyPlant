@@ -121,7 +121,7 @@
         v-show="currentSettingTab == 'profile'"
       >
         <div id="changePicture">
-          <profile-pic-upload/>
+          <profile-pic-upload />
         </div>
       </div>
       <div
@@ -141,7 +141,7 @@
             for=""
             id="changeEmailButton"
             class="labelButton"
-            @click="(toggleModal('changeEmail'))"
+            @click="toggleModal('changeEmail')"
             >Change</label
           >
         </div>
@@ -151,7 +151,7 @@
             for=""
             id="changePasswordButton"
             class="labelButton"
-            @click="(toggleModal('changePassword'))"
+            @click="toggleModal('changePassword')"
             >Change</label
           >
         </div>
@@ -227,13 +227,11 @@ export default {
   },
   methods: {
     toggleModal(type) {
-
       this.showModal = !this.showModal;
 
       if (this.showModal && type != null) {
         this.modalType = type;
       }
-
     },
     handleChangeEmailRequest(values) {
       this.successful = false;
