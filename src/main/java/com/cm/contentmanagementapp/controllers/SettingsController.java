@@ -3,6 +3,7 @@ package com.cm.contentmanagementapp.controllers;
 import com.cm.contentmanagementapp.models.*;
 import com.cm.contentmanagementapp.payload.request.*;
 import com.cm.contentmanagementapp.payload.response.MessageResponse;
+import com.cm.contentmanagementapp.services.FileStorageService;
 import com.cm.contentmanagementapp.services.MailService;
 import com.cm.contentmanagementapp.services.UserService;
 import com.cm.contentmanagementapp.services.resettoken.EmailResetTokenService;
@@ -12,19 +13,17 @@ import javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -44,17 +43,21 @@ public class SettingsController {
 
     private MailService mailService;
 
+    private FileStorageService fileStorageService;
+
     private static final Logger log = LoggerFactory.getLogger(SettingsController.class);
 
 
     @Autowired
     public SettingsController(UserService userService, ResetTokenService resetTokenService, PasswordResetTokenService passwordTokenService,
-                              EmailResetTokenService emailTokenService, MailService mailService) {
+                              EmailResetTokenService emailTokenService, MailService mailService,
+                              FileStorageService fileStorageService) {
         this.userService = userService;
         this.resetTokenService = resetTokenService;
         this.passwordTokenService = passwordTokenService;
         this.emailTokenService = emailTokenService;
         this.mailService = mailService;
+        this.fileStorageService = fileStorageService;
     }
 
     @PostMapping("/requestLostPasswordReset")
@@ -244,17 +247,24 @@ public class SettingsController {
         return ResponseEntity.ok(new MessageResponse("Email successfully changed."));
     }
 
-    @PostMapping("/handleProfilePictureUpload")
-    public ResponseEntity<?> handleProfilePictureUpload(@RequestParam("file") MultipartFile sourceFile) {
+    @PostMapping(value = "/handleProfilePictureUpload")
+    public ResponseEntity<?> handleProfilePictureUpload(@RequestParam("file") MultipartFile file) {
 
-        Path root = Paths.get("uploads");
+        Path root = Paths.get("uploads/profilePictures");
 
         try {
-            Files.copy(sourceFile.getInputStream(), root.resolve(sourceFile.getOriginalFilename()));
-        } catch (IOException e) {
+            String[] fileExtension = file.getOriginalFilename().split("\\.");
+            String picId = UUID.randomUUID().toString();
+            String path = "" + picId + "." + fileExtension[1];
+            picId += "." + fileExtension[1];
+
+            Files.copy(file.getInputStream(), root.resolve(picId));
+
+            //fileStorageService.save(file);
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
 
         return ResponseEntity.ok(new MessageResponse("t"));
 

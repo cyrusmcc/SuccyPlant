@@ -39,19 +39,12 @@ class SettingsService {
         token
       });
   }
-  handleProfilePictureUpload({id}, {file}) {
-    console.log(id, file);
-    var formData = new FormData();
-    formData.append("image", file);
+  handleProfilePictureUpload({file}) {
+    const formData = new FormData();
+    formData.append('file', file[0]);
     return api
-    .post(SETTING_API_URL + 'handleProfilePictureUpload', {
-      headers: {
-        'Content-type': 'multipart/form-data'
-      },
-      formData
-    });
+    .post(SETTING_API_URL + 'handleProfilePictureUpload', formData);
   }
-
 }
 
 export default new SettingsService();

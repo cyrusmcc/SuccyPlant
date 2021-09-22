@@ -67,8 +67,8 @@ export const settings = {
         }
       )
     },
-    handleProfilePictureUpload({ commit, rootState }, values) {
-      return SettingsService.handleProfilePictureUpload(rootState.auth.user, values).then(
+    handleProfilePictureUpload({ commit }, values) {
+      return SettingsService.handleProfilePictureUpload(values).then(
         response => {
           commit('handleProfilePictureUploadSuccess');
           return Promise.resolve(response.data);

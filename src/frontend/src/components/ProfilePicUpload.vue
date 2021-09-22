@@ -1,13 +1,18 @@
 <template>
   <div class="picUploadContainer">
-
     <div id="profilePicContainer">
       <profile-pic>
         <img id="userPic" src="../assets/user.svg" alt="profile picture" />
       </profile-pic>
     </div>
     <div class="fileContainer">
-      <Form ref="form" id="fileInputForm" :validation-schema="schema" @submit="handleProfilePictureUpload" class="labelButton">
+      <Form
+        ref="form"
+        id="fileInputForm"
+        :validation-schema="schema"
+        @submit="handleProfilePictureUpload"
+        class="labelButton"
+      >
         <Field
           id="fileInput"
           name="file"
@@ -18,16 +23,15 @@
         <label for="fileInput" v-html="fileName" />
         <ErrorMessage name="file" class="error-feedback" />
 
-    <modal v-show="showModal" @closeModal="toggleModal">
-      <div id="modalContent">
-        <div id="previewImgWrap">
-          <img id="previewImgBackground" src="" alt="your img" />
-          <img id="previewImgCircle" src="" alt="your img" />
-        </div>
-          <button class="button-secondary">Update Profile Picture</button>
-      </div>
-    </modal>
-
+        <modal v-show="showModal" @closeModal="toggleModal">
+          <div id="modalContent">
+            <div id="previewImgWrap">
+              <img id="previewImgBackground" src="" alt="your img" />
+              <img id="previewImgCircle" src="" alt="your img" />
+            </div>
+            <button class="button-secondary">Update Profile Picture</button>
+          </div>
+        </modal>
       </Form>
     </div>
   </div>
@@ -64,15 +68,12 @@ export default {
       this.fileName = picName.files.item(0).name;
 
       // toggle image preview modal
-      document.getElementById("previewImgBackground").src = window.URL.createObjectURL(
-        picName.files[0]
-      );
-      document.getElementById("previewImgCircle").src = window.URL.createObjectURL(
-        picName.files[0]
-      );
+      document.getElementById("previewImgBackground").src =
+        window.URL.createObjectURL(picName.files[0]);
+      document.getElementById("previewImgCircle").src =
+        window.URL.createObjectURL(picName.files[0]);
 
       this.showModal = !this.showModal;
-
     },
     handleProfilePictureUpload(values) {
       this.message = "";
@@ -92,8 +93,8 @@ export default {
       );
     },
     toggleModal() {
-    this.showModal = !this.showModal;
-  }
+      this.showModal = !this.showModal;
+    },
   },
 };
 </script>
@@ -142,7 +143,8 @@ label {
   height: 250px;
 }
 
-#previewImgBackground, #previewImgCircle {
+#previewImgBackground,
+#previewImgCircle {
   display: block;
   width: 100%;
   height: 100%;
@@ -159,5 +161,4 @@ label {
   right: 0;
   border-radius: 10000px;
 }
-
 </style>
