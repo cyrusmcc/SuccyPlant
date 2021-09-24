@@ -1,6 +1,5 @@
 package com.cm.contentmanagementapp.security.jwt;
 
-import com.cm.contentmanagementapp.controllers.AuthController;
 import com.cm.contentmanagementapp.services.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

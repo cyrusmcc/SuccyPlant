@@ -29,7 +29,7 @@
               <img id="previewImgBackground" src="" alt="your img" />
               <img id="previewImgCircle" src="" alt="your img" />
             </div>
-            <button class="button-secondary">Update Profile Picture</button>
+            <button id="uploadButton" class="button-secondary">Update Profile Picture</button>
           </div>
         </modal>
       </Form>
@@ -128,7 +128,7 @@ label {
 }
 
 #modalContent {
-  margin: 30px 0 30px 0;
+  margin: 30px 0 10px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -160,5 +160,10 @@ label {
   left: 0;
   right: 0;
   border-radius: 10000px;
+}
+
+#uploadButton {
+  padding: 5px;
+  margin-top: 15px;
 }
 </style>

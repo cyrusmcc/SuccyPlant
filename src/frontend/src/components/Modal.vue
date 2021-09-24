@@ -23,6 +23,7 @@ export default {
 <style lang="scss" scoped>
 #modalBackground {
   z-index: 4;
+  display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;

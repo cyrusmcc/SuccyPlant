@@ -22,7 +22,6 @@ public class JwtUtils {
 
     private static final Logger log = LoggerFactory.getLogger(JwtUtils.class);
 
-
     public String generateJwtToken(Authentication authentication) {
 
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();

@@ -6,6 +6,7 @@ const setup = (store) => {
     (config) => {
       const token = TokenService.getLocalAccessToken();
       if (token) {
+        console.log(TokenService.getLocalAccessToken());
         config.headers["Authorization"] = 'Bearer ' + token;  // for Spring Boot back-end
       }
       return config;
