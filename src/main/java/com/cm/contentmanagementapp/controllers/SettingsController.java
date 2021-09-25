@@ -23,9 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,24 +43,19 @@ public class SettingsController {
 
     private MailService mailService;
 
-    private FileStorageService fileStorageService;
 
-    private JwtUtils utils;
 
     private static final Logger log = LoggerFactory.getLogger(SettingsController.class);
 
 
     @Autowired
     public SettingsController(UserService userService, ResetTokenService resetTokenService, PasswordResetTokenService passwordTokenService,
-                              EmailResetTokenService emailTokenService, MailService mailService,
-                              FileStorageService fileStorageService, JwtUtils utils) {
+                              EmailResetTokenService emailTokenService, MailService mailService) {
         this.userService = userService;
         this.resetTokenService = resetTokenService;
         this.passwordTokenService = passwordTokenService;
         this.emailTokenService = emailTokenService;
         this.mailService = mailService;
-        this.fileStorageService = fileStorageService;
-        this.utils = utils;
     }
 
     @PostMapping("/requestLostPasswordReset")
@@ -111,13 +103,8 @@ public class SettingsController {
     }
 
     @PostMapping("/requestSettingPasswordReset")
-    public ResponseEntity<?> requestSettingPasswordReset(@Valid @RequestBody PasswordResetRequest passwordResetRequest,
-                                                         HttpServletRequest request) {
+    public ResponseEntity<?> requestSettingPasswordReset(@Valid @RequestBody PasswordResetRequest passwordResetRequest) {
 
-        System.out.println(request.getHeader("Authorization"));
-        utils.validateJwtToken(request.getHeader("Authorization"));
-
-        /*
         if (!userService.existsById(passwordResetRequest.getId())) {
             log.info("No user found by id: {}", passwordResetRequest.getId());
             return ResponseEntity
@@ -141,7 +128,7 @@ public class SettingsController {
 
         userService.updatePassword(user, passwordResetRequest.getNewPassword());
         userService.save(user);
-        */
+
         return ResponseEntity.ok(new MessageResponse("Account password has been updated."));
     }
 
@@ -261,60 +248,27 @@ public class SettingsController {
     @PostMapping(value = "/handleProfilePictureUpload")
     public ResponseEntity<?> handleProfilePictureUpload(@RequestParam("file") MultipartFile file) {
 
-        Path root = Paths.get("uploads/profilePictures");
-
         try {
-            String[] fileExtension = file.getOriginalFilename().split("\\.");
-            String picId = UUID.randomUUID().toString();
-            String path = "" + picId + "." + fileExtension[1];
-            picId += "." + fileExtension[1];
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (!(authentication instanceof AnonymousAuthenticationToken)) {
+
                 String currentUserName = authentication.getName();
-                System.out.println(currentUserName);
+                User user = userService.findByUsername(currentUserName).get();
+                userService.updateProfilePicture(user, file);
+
+                return ResponseEntity.ok(new MessageResponse("Profile picture updated"));
             }
-
-            Files.copy(file.getInputStream(), root.resolve(picId));
-
-            //fileStorageService.save(file);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return ResponseEntity.ok(new MessageResponse("t"));
+        log.info("Error encountered while trying to upload profile image");
+        return ResponseEntity
+                .badRequest()
+                .body(new MessageResponse("Error encountered while uploading file, try again"));
 
-        /*
-        //String[] fileExtension = pPCR.getFile().getName().split("\\.", 1);
-        String path = "user-generated-images/profilepictures/";
-        String picId = UUID.randomUUID().toString();
-        //MultipartFile file = pPCR.getFile();
-        File newNameFile;
-
-        //picId.concat(".").concat(fileExtension[1]);
-        path.concat(picId);
-
-        //User user = userService.findById(pPCR.getId());
-
-        System.out.println(sourceFile.getOriginalFilename());
-        return ResponseEntity.ok(new MessageResponse("t"));
-
-        newNameFile = new File(path);
-        boolean flag = file.renameTo(newNameFile);
-
-        if (flag) {
-            System.out.println("set");
-            user.setProfileImageId(picId);
-            return ResponseEntity.ok(new MessageResponse("Profile picture changed"));
-        }
-        else {
-            log.info("Failed to save file, image id already exists");
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error encountered while uploading file, try again"));
-        }
-    */
     }
 
 }

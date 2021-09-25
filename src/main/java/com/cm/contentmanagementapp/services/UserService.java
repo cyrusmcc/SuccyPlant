@@ -1,6 +1,7 @@
 package com.cm.contentmanagementapp.services;
 
 import com.cm.contentmanagementapp.models.User;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,5 +31,7 @@ public interface UserService {
     boolean existsByEmail(String email);
 
     boolean existsById(Long id);
+
+    boolean updateProfilePicture(User user, MultipartFile file);
 
 }

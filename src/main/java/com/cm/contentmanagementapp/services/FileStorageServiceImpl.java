@@ -28,9 +28,18 @@ public class FileStorageServiceImpl implements FileStorageService{
     }
 
     @Override
-    public void save(MultipartFile file) {
+    public void save(MultipartFile file, String filePath) {
         try {
-            Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
+            Files.copy(file.getInputStream(), this.root.resolve(filePath));
+        } catch (IOException e) {
+            throw new RuntimeException("Could not store file. Error: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void save(MultipartFile file, Path path, String fileName) {
+        try {
+            Files.copy(file.getInputStream(), path.resolve(fileName));
         } catch (IOException e) {
             throw new RuntimeException("Could not store file. Error: " + e.getMessage());
         }
@@ -51,6 +60,33 @@ public class FileStorageServiceImpl implements FileStorageService{
         } catch (MalformedURLException e) {
             throw new RuntimeException("Error: " + e.getMessage());
         }    }
+
+    @Override
+    public Resource load(String fileName, Path path) {
+        try {
+            Path file = path.resolve(fileName);
+            Resource resource = new UrlResource(file.toUri());
+
+            if (resource.exists() || resource.isReadable()) {
+                return resource;
+            } else {
+                throw new RuntimeException("Could not read file");
+            }
+
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("Error: " + e.getMessage());
+        }    }
+
+    public boolean deleteIfExists(Path path, String fileName) {
+        try {
+            return Files.deleteIfExists(path.resolve(fileName));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 
     @Override
     public void deleteAll() {

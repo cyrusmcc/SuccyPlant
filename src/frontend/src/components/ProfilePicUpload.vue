@@ -29,7 +29,13 @@
               <img id="previewImgBackground" src="" alt="your img" />
               <img id="previewImgCircle" src="" alt="your img" />
             </div>
-            <button id="uploadButton" class="button-secondary">Update Profile Picture</button>
+            <button id="uploadButton" class="button-secondary">
+              Update Profile Picture
+            </button>
+          </div>
+
+          <div v-if="message" class="alert" role="alert">
+            {{ message }}
           </div>
         </modal>
       </Form>

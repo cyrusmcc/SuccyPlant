@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -25,12 +25,15 @@ public class UserServiceImpl implements UserService {
 
     private PasswordEncoder passwordEncoder;
 
+    FileStorageService fileService;
+
     @Autowired
     public UserServiceImpl(UserRepository theUserRepository, RoleRepository theRoleRepository,
-                           PasswordEncoder passwordEncoder) {
+                           PasswordEncoder passwordEncoder, FileStorageService fileService) {
         this.userRepository = theUserRepository;
         this.roleRepository = theRoleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.fileService = fileService;
     }
 
     @Override
@@ -60,6 +63,32 @@ public class UserServiceImpl implements UserService {
     public boolean existsById(Long id) {
         if (userRepository.existsById(id)) return true;
         else return false;
+    }
+
+    @Override
+    public boolean updateProfilePicture(User user, MultipartFile file) {
+
+        Path filePath = Paths.get("uploads/profilePictures");
+
+        if (user.getProfileImageId() != null) {
+            String oldFilePath = user.getProfileImageId();
+            fileService.deleteIfExists(filePath, oldFilePath);
+        }
+
+        try {
+            String[] fileExtension = file.getOriginalFilename().split("\\.");
+            String fileId = UUID.randomUUID().toString();
+            fileId += "." + fileExtension[1];
+
+            user.setProfileImageId(fileId);
+            save(user);
+            fileService.save(file, filePath, fileId);
+
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
