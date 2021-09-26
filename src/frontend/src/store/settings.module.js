@@ -17,7 +17,7 @@ export const settings = {
       );
     },
     requestSettingPasswordReset({ commit, rootState, dispatch }, values) { 
-      return SettingsService.requestSettingPasswordReset(rootState.auth.user, values, values).then(
+      return SettingsService.requestSettingPasswordReset(values, values).then(
         response => {
           dispatch('auth/logout', rootState.auth.user, { root : true });
           commit('requestSettingPasswordResetSuccess');
@@ -42,8 +42,8 @@ export const settings = {
         }
       )
     },
-    changeEmailRequest({ commit, rootState }, values) {  
-      return SettingsService.changeEmailRequest(rootState.auth.user, values, values).then(
+    changeEmailRequest({ commit }, values) {  
+      return SettingsService.changeEmailRequest(values, values).then(
         response => {
           commit('changeEmailRequestSuccess');
           return Promise.resolve(response.data);

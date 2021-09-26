@@ -6,22 +6,11 @@ import javax.validation.constraints.NotNull;
 /* Used for changing password while already authenticated (settings page)  */
 public class PasswordResetRequest {
 
-    @NotNull
-    Long id;
-
     @NotBlank
     String currentPassword;
 
     @NotBlank
     String newPassword;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getCurrentPassword() {
         return currentPassword;

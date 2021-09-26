@@ -1,18 +1,13 @@
-/*
 import api from './api';
 
-const API_URL = 'http://localhost:8080/api/test/';
+const USER_API_URL = 'http://localhost:8080/api/user/';
 
 class UserService {
-    getPublicContent() {
-        return api.get(API_URL + 'all');
-    }
-
-    getUserBoard() {
-        return api.get(API_URL + 'user');
+    getUserProfilePic({ username }) {
+        return api
+            .get(USER_API_URL + 'profPic/' + username);
     }
 
 }
 
 export default new UserService();
-*/

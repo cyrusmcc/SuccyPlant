@@ -3,8 +3,6 @@ package com.cm.contentmanagementapp.controllers;
 import com.cm.contentmanagementapp.models.*;
 import com.cm.contentmanagementapp.payload.request.*;
 import com.cm.contentmanagementapp.payload.response.MessageResponse;
-import com.cm.contentmanagementapp.security.jwt.JwtUtils;
-import com.cm.contentmanagementapp.services.FileStorageService;
 import com.cm.contentmanagementapp.services.MailService;
 import com.cm.contentmanagementapp.services.UserService;
 import com.cm.contentmanagementapp.services.resettoken.EmailResetTokenService;
@@ -105,31 +103,35 @@ public class SettingsController {
     @PostMapping("/requestSettingPasswordReset")
     public ResponseEntity<?> requestSettingPasswordReset(@Valid @RequestBody PasswordResetRequest passwordResetRequest) {
 
-        if (!userService.existsById(passwordResetRequest.getId())) {
-            log.info("No user found by id: {}", passwordResetRequest.getId());
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("No user found by usename"));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+
+            if (passwordResetRequest.getCurrentPassword() == passwordResetRequest.getNewPassword()) {
+                return ResponseEntity
+                        .badRequest()
+                        .body(new MessageResponse("Current and new password must be different."));
+            }
+
+            User user = userService.findByUsername(authentication.getName()).get();
+
+            if (!userService.isValidPassword(user, passwordResetRequest.getCurrentPassword())) {
+                return ResponseEntity
+                        .badRequest()
+                        .body(new MessageResponse("Invalid entry for current password"));
+            }
+
+            userService.updatePassword(user, passwordResetRequest.getNewPassword());
+            userService.save(user);
+
+            return ResponseEntity.ok(new MessageResponse("Account password has been updated."));
+
         }
 
-        if (passwordResetRequest.getCurrentPassword() == passwordResetRequest.getNewPassword()) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Current and new password must be different."));
-        }
+        return ResponseEntity
+                .badRequest()
+                .body(new MessageResponse("Error encountered while processing password reset," +
+                        " please try again"));
 
-        User user = userService.findById(passwordResetRequest.getId());
-
-        if (!userService.isValidPassword(user, passwordResetRequest.getCurrentPassword())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Invalid entry for current password"));
-        }
-
-        userService.updatePassword(user, passwordResetRequest.getNewPassword());
-        userService.save(user);
-
-        return ResponseEntity.ok(new MessageResponse("Account password has been updated."));
     }
 
     @PostMapping("/handlePasswordReset")
@@ -163,50 +165,59 @@ public class SettingsController {
     public ResponseEntity<?> changeEmailRequest(@Valid @RequestBody ChangeEmailRequest changeEmailRequest,
                                          HttpServletRequest request) throws NoSuchAlgorithmException {
 
-        System.out.println(changeEmailRequest.getId() + " " + changeEmailRequest.getEmail() + " " + changeEmailRequest.getPassword());
-        if (userService.existsByEmail(changeEmailRequest.getEmail())) {
-            log.info("User attempted to change email but email already in use");
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Email already in use"));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+
+            if (userService.existsByEmail(changeEmailRequest.getEmail())) {
+                log.info("User attempted to change email but email already in use");
+                return ResponseEntity
+                        .badRequest()
+                        .body(new MessageResponse("Error: Email already in use"));
+            }
+
+            User user = userService.findByUsername(authentication.getName()).get();
+
+            if (!userService.isValidPassword(user, changeEmailRequest.getPassword())) {
+                return ResponseEntity
+                        .badRequest()
+                        .body(new MessageResponse("Error: Invalid password, please try again"));
+            }
+
+            EmailResetToken emailResetToken = new EmailResetToken();
+            String token = UUID.randomUUID().toString();
+            emailResetToken.setToken(resetTokenService.hashToken(token));
+            emailResetToken.setUser(user);
+            emailResetToken.setExpireDateByHour(48);
+            emailResetToken.setNewEmail(changeEmailRequest.getEmail());
+
+            emailTokenService.save(emailResetToken);
+
+            Mail mail = new Mail();
+            mail.setFrom("defizzy@outlook.com");
+            mail.setTo(changeEmailRequest.getEmail());
+            mail.setSubject("Change email request");
+
+            Map<String, Object> model = new HashMap<>();
+            model.put("token", token);
+            model.put("user", user);
+            model.put("signature", "a signature here");
+            // replace 3000 w/ request.getServerPort() when done testing;
+            String url = request.getScheme() + "://" + request.getServerName() + ":" + 3000;
+            model.put("resetUrl", url + "/email-change-confirmation-" + token);
+            mail.setModel(model);
+            mailService.sendEmail(mail);
+
+            log.info("User requested an email change");
+
+            return ResponseEntity.ok(new MessageResponse("A confirmation email will be sent to your new address. Click" +
+                    " the link provided link to update your email."));
+
         }
 
-        User user = userService.findById(changeEmailRequest.getId());
-
-        if (!userService.isValidPassword(user, changeEmailRequest.getPassword())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Invalid password, please try again"));
-        }
-
-        EmailResetToken emailResetToken = new EmailResetToken();
-        String token = UUID.randomUUID().toString();
-        emailResetToken.setToken(resetTokenService.hashToken(token));
-        emailResetToken.setUser(user);
-        emailResetToken.setExpireDateByHour(48);
-        emailResetToken.setNewEmail(changeEmailRequest.getEmail());
-
-        emailTokenService.save(emailResetToken);
-
-        Mail mail = new Mail();
-        mail.setFrom("defizzy@outlook.com");
-        mail.setTo(changeEmailRequest.getEmail());
-        mail.setSubject("Change email request");
-
-        Map<String, Object> model = new HashMap<>();
-        model.put("token", token);
-        model.put("user", user);
-        model.put("signature", "a signature here");
-        // replace 3000 w/ request.getServerPort() when done testing;
-        String url = request.getScheme() + "://" + request.getServerName() + ":" + 3000;
-        model.put("resetUrl", url + "/email-change-confirmation-" + token);
-        mail.setModel(model);
-        mailService.sendEmail(mail);
-
-        log.info("User requested an email change");
-
-        return ResponseEntity.ok(new MessageResponse("A confirmation email will be sent to your new address. Click" +
-                " the link provided link to update your email."));
+        return ResponseEntity
+                .badRequest()
+                .body(new MessageResponse("Error encountered while processing email reset request," +
+                        " please try again"));
 
     }
 

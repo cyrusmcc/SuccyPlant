@@ -16,19 +16,16 @@ class SettingsService {
       password
     });
   }
-  requestSettingPasswordReset({ id }, { currentPassword }, { newPassword }) {
-    console.log(id + " " + currentPassword + " " + newPassword);
+  requestSettingPasswordReset({ currentPassword }, { newPassword }) {
     return api
       .post(SETTING_API_URL + 'requestSettingPasswordReset', {
-        id,
         currentPassword,
         newPassword
       });
   }
-  changeEmailRequest({ id }, { email }, { password }) {
+  changeEmailRequest({ email }, { password }) {
     return api
       .post(SETTING_API_URL + 'changeEmailRequest', {
-        id,
         email,
         password
       });
