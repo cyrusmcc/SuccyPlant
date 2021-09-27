@@ -186,7 +186,8 @@ label {
 #previewBackground,
 #previewImgCircle {
   display: block;
-  width: 20rem;
+  width: 250px;
+  min-height: 250px;
 }
 
 #previewBackground {
