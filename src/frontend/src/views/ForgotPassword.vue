@@ -63,7 +63,7 @@ export default {
   },
   created() {
     if (this.loggedIn) {
-      this.$router.push("/profile");
+      this.$router.push("/p/" + this.$store.state.auth.user.username);
     }
   },
   methods: {

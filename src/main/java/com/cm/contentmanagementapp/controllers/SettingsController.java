@@ -259,7 +259,15 @@ public class SettingsController {
     @PostMapping(value = "/handleProfilePictureUpload")
     public ResponseEntity<?> handleProfilePictureUpload(@RequestParam("file") MultipartFile file) {
 
+        System.out.println("y");
+
         try {
+
+            if (file.getSize() > 512000) {
+                return ResponseEntity
+                        .badRequest()
+                        .body(new MessageResponse("Image exceeds maximum size of 500kb"));
+            }
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (!(authentication instanceof AnonymousAuthenticationToken)) {
@@ -271,8 +279,10 @@ public class SettingsController {
                 return ResponseEntity.ok(new MessageResponse("Profile picture updated"));
             }
 
+
+
         } catch (Exception e) {
-            e.printStackTrace();
+            log.info("Error encountered while trying to upload profile image");
         }
 
         log.info("Error encountered while trying to upload profile image");

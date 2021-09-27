@@ -1,5 +1,5 @@
 <template>
-  <div class="container" id="imgCont">
+  <div class="container" id="userPicImgCont">
     <slot></slot>
   </div>
 </template>
@@ -10,8 +10,13 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-#imgCont {
+<style lang="scss">
+
+#userPic{
+  width: 5.5rem;
+}
+
+#userPicImgCont {
   display: flex;
   justify-content: center;
   align-items: center;

@@ -224,6 +224,7 @@ export default {
     if (!this.currentUser) {
       this.$router.push("/login");
     }
+  
   },
   methods: {
     toggleModal(type) {

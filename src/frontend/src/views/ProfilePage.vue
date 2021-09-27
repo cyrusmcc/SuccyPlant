@@ -7,7 +7,6 @@
       <profile-pic>
         <img
           id="userPic"
-          src="../assets/user.svg"
           alt="profile picture"
         />
       </profile-pic>
@@ -33,10 +32,17 @@
 
 <script>
 import ProfilePic from "../components/ProfilePic.vue";
+import UserService from "../service/user.service";
 
 export default {
   components: { ProfilePic },
   name: "Profile",
+  data() {
+
+    return {
+      content: "",
+    }
+  },
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
@@ -54,9 +60,22 @@ export default {
     },
   },
   mounted() {
-    if (!this.currentUser) {
-      this.$router.push("/login");
-    }
+    UserService.getUserProfilePic(this.$route.params.username).then(
+      (response) => {
+        let imageNode = document.getElementById('userPic');
+        let imgUrl = URL.createObjectURL(response.data);
+        imageNode.src = imgUrl;
+        console.log(this.content);
+      },
+      (error) => {
+        this.content =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();        
+      }
+    )
   },
 };
 </script>

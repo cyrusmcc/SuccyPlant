@@ -70,7 +70,7 @@ const routes = [
     component: ChangeEmail,
   },
   {
-    path: "/profile",
+    path: "/p/:username(.*)",
     name: "profile",
     meta: {
       hideNav: true,

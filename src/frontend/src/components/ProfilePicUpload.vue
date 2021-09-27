@@ -2,7 +2,7 @@
   <div class="picUploadContainer">
     <div id="profilePicContainer">
       <profile-pic>
-        <img id="userPic" src="../assets/user.svg" alt="profile picture" />
+        <img id="userPic" alt="profile picture" />
       </profile-pic>
     </div>
     <div class="fileContainer">
@@ -25,9 +25,13 @@
 
         <modal v-show="showModal" @closeModal="toggleModal">
           <div id="modalContent">
-            <div id="previewImgWrap">
-              <img id="previewImgBackground" src="" alt="your img" />
-              <img id="previewImgCircle" src="" alt="your img" />
+            <div id="previewContainer">
+              <div id="previewBackgroundWrap">
+                <img id="previewBackground" src="" alt="your img" />
+              </div>
+              <div id="previewImgWrap">
+                <img id="previewImgCircle" src="" alt="your img" />
+              </div>
             </div>
             <button id="uploadButton" class="button-secondary">
               Update Profile Picture
@@ -48,6 +52,7 @@ import { Form, Field, defineRule, ErrorMessage } from "vee-validate";
 import { dimensions } from "@vee-validate/rules";
 import ProfilePic from "./ProfilePic.vue";
 import Modal from "./Modal.vue";
+import UserService from "../service/user.service";
 
 import * as yup from "yup";
 
@@ -65,6 +70,7 @@ export default {
       fileName: "Choose File",
       schema,
       showModal: false,
+      message: "",
     };
   },
   methods: {
@@ -74,7 +80,7 @@ export default {
       this.fileName = picName.files.item(0).name;
 
       // toggle image preview modal
-      document.getElementById("previewImgBackground").src =
+      document.getElementById("previewBackground").src =
         window.URL.createObjectURL(picName.files[0]);
       document.getElementById("previewImgCircle").src =
         window.URL.createObjectURL(picName.files[0]);
@@ -89,18 +95,32 @@ export default {
           this.$router.push("/settings");
         },
         (error) => {
-          this.message =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
+          console.log(error);
+          this.message = "File must be an image under 5Mb in size";
         }
       );
     },
     toggleModal() {
       this.showModal = !this.showModal;
     },
+  },
+  mounted() {
+    UserService.getUserProfilePic(this.$root.currentUser.username).then(
+      (response) => {
+        let imageNode = document.getElementById("userPic");
+        let imgUrl = URL.createObjectURL(response.data);
+        imageNode.src = imgUrl;
+        console.log(this.content);
+      },
+      (error) => {
+        this.message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+      }
+    );
   },
 };
 </script>
@@ -141,31 +161,40 @@ label {
   justify-content: center;
 }
 
-#previewImgWrap {
-  position: relative;
+#previewContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 250px;
+  width: 250px;
+  overflow: hidden;
   border: thin solid $accentOne;
+}
+
+#previewImgWrap {
+  position: absolute;
   box-shadow: $shadow;
   width: 250px;
   height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 100%;
 }
 
-#previewImgBackground,
+#previewBackground,
 #previewImgCircle {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: 20rem;
 }
 
-#previewImgBackground {
+#previewBackground {
   opacity: 50%;
 }
 
 #previewImgCircle {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  border-radius: 10000px;
 }
 
 #uploadButton {

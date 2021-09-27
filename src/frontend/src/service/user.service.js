@@ -3,9 +3,9 @@ import api from './api';
 const USER_API_URL = 'http://localhost:8080/api/user/';
 
 class UserService {
-    getUserProfilePic({ username }) {
+    getUserProfilePic(username) {
         return api
-            .get(USER_API_URL + 'profPic/' + username);
+            .get(USER_API_URL + 'profPic/' + username, { responseType: 'blob'});
     }
 
 }
