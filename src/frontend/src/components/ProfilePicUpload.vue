@@ -2,7 +2,7 @@
   <div class="picUploadContainer">
     <div id="profilePicContainer">
       <profile-pic>
-        <img id="userPic" alt="profile picture" />
+        <img id="userPic" alt="profile picture" src="../assets/user.svg" />
       </profile-pic>
     </div>
     <div class="fileContainer">

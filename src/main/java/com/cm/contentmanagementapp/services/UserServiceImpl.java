@@ -130,6 +130,7 @@ public class UserServiceImpl implements UserService {
         roles.add(userRole);
         user.setRoles(roles);
         user.setUserJoinDate(LocalDate.now());
+        user.setProfileImageId("default-user.png");
 
         userRepository.save(user);
     }

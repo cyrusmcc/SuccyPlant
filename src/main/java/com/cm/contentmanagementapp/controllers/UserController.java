@@ -3,6 +3,7 @@ package com.cm.contentmanagementapp.controllers;
 
 import com.cm.contentmanagementapp.models.User;
 import com.cm.contentmanagementapp.payload.response.MessageResponse;
+import com.cm.contentmanagementapp.payload.response.UserInfoResponse;
 import com.cm.contentmanagementapp.services.FileStorageService;
 import com.cm.contentmanagementapp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,22 @@ public class UserController {
     public UserController(FileStorageService fileStorageService, UserService userService) {
         this.fileService = fileStorageService;
         this.userService = userService;
+    }
+
+    @GetMapping("/profile/{username}")
+    public ResponseEntity<?> getUserProfileInfo(@PathVariable String username) {
+
+        if (!userService.existsByUsername(username)) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("User does not exist"));
+        }
+
+        return ResponseEntity.ok(new UserInfoResponse(
+                username,
+                userService.findByUsername(username).get().getUserJoinDate()
+        ));
+
     }
 
     @GetMapping("/profPic/{username}")

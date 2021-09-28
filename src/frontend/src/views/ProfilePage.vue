@@ -3,29 +3,31 @@
     <router-link to="/"
       ><img class="backArrow" src="../assets/backarrow.svg" alt="back-arrow" />
     </router-link>
-    <div id="userInfoCard">
-      <profile-pic>
-        <img
-          id="userPic"
-          alt="profile picture"
-        />
-      </profile-pic>
-      <div id="userInfo">
-        <span id="usernameText" v-if="currentUser">{{
-          currentUser.username
-        }}</span>
-        <span id="joinDateText">user since {{ getUserJoinDate }}</span>
-      </div>
-    </div>
-    <div class="card" id="userContentCard">
-      <div id="userContentNavContainer">
-        <div id="navTabs">
-          <span class="navTab" id="navTab1">All</span>
-          <span class="navTab" id="navTab2">Posts</span>
-          <span class="navTab" id="navTab3">Comments</span>
+    <div id="profile" v-if="!noProfile">
+      <div id="userInfoCard">
+        <profile-pic>
+          <img id="userPic" alt="profile picture" src="../assets/user.svg" />
+        </profile-pic>
+        <div id="userInfo">
+          <span id="usernameText" v-if="username">{{ username }}</span>
+          <span id="joinDateText">user since {{ joinDate }}</span>
         </div>
       </div>
-      <div id="userContent"></div>
+      <div class="card" id="userContentCard">
+        <div id="userContentNavContainer">
+          <div id="navTabs">
+            <span class="navTab" id="navTab1">All</span>
+            <span class="navTab" id="navTab2">Posts</span>
+            <span class="navTab" id="navTab3">Comments</span>
+          </div>
+        </div>
+        <div id="userContent"></div>
+      </div>
+    </div>
+    <div id="noProfile" class="card" v-if="noProfile">
+      <img src="../assets/exclamation.svg" alt="exclamation point">
+      <span>We could not find user</span>
+      <span id ="noProfileUsername">"<span>{{ username }}</span>"</span>
     </div>
   </div>
 </template>
@@ -38,15 +40,13 @@ export default {
   components: { ProfilePic },
   name: "Profile",
   data() {
-
     return {
-      content: "",
-    }
+      joinDate: "",
+      username: this.$route.params.username,
+      noProfile: false,
+    };
   },
   computed: {
-    currentUser() {
-      return this.$store.state.auth.user;
-    },
     getUserJoinDate() {
       if (this.currentUser) {
         const userJoinDate = new Date(this.currentUser.joinDate),
@@ -62,33 +62,58 @@ export default {
   mounted() {
     UserService.getUserProfilePic(this.$route.params.username).then(
       (response) => {
-        let imageNode = document.getElementById('userPic');
+        let imageNode = document.getElementById("userPic");
         let imgUrl = URL.createObjectURL(response.data);
         imageNode.src = imgUrl;
-        console.log(this.content);
       },
       (error) => {
-        this.content =
+        this.message =
           (error.response &&
             error.response.data &&
             error.response.data.message) ||
           error.message ||
-          error.toString();        
+          error.toString();
+        this.noProfile = true;
       }
-    )
+    ),
+      UserService.getUserProfileInfo(this.$route.params.username).then(
+        (response) => {
+          const userJoinDate = new Date(response.data.joinDate),
+            locale = "en-us",
+            month = userJoinDate.toLocaleString(locale, { month: "short" }),
+            year = userJoinDate.toLocaleString(locale, { year: "numeric" }),
+            joined = month + " " + year;
+          this.joinDate = joined;
+          this.username = response.data.username;
+        }
+      );
   },
 };
 </script>
 <style scoped lang="scss">
 .container {
   display: flex;
-  flex-direction: column;
-  align-content: flex-start;
-  flex-flow: wrap;
 }
 
 .card {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
   max-width: 95%;
+  height: fit-content;
+  color: $lightShade;
+  padding: 1.5rem 0 1.5rem 0;
+  font: 2rem;
+}
+
+#profile {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  flex-flow: wrap;
 }
 
 #userInfoCard {
@@ -122,10 +147,6 @@ export default {
   flex-direction: column;
   line-height: 1.6rem;
   text-align: center;
-}
-
-#userPic {
-  height: 4.8rem;
 }
 
 #usernameText {
@@ -182,9 +203,12 @@ export default {
   opacity: 0.6;
 }
 
-#userContent {
-  //height: 68vh;
-  //background: $accentShade;
+#noProfileUsername {
+  font-size: 3rem;
+}
+
+#noProfileUsername > span{
+  color: $accentOne;
 }
 
 @include screen-lg() {
@@ -192,5 +216,4 @@ export default {
     background-color: $accentTwo;
   }
 }
-
 </style>

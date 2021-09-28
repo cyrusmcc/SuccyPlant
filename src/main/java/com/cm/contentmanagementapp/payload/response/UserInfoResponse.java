@@ -6,24 +6,13 @@ import java.time.LocalDate;
 
 public class UserInfoResponse {
 
-    private Resource profilePic;
-
     private String username;
 
     private LocalDate joinDate;
 
-    public UserInfoResponse(Resource profilePic, String username, LocalDate joinDate) {
-        this.profilePic = profilePic;
+    public UserInfoResponse(String username, LocalDate joinDate) {
         this.username = username;
         this.joinDate = joinDate;
-    }
-
-    public Resource getProfilePic() {
-        return profilePic;
-    }
-
-    public void setProfilePic(Resource profilePic) {
-        this.profilePic = profilePic;
     }
 
     public String getUsername() {
