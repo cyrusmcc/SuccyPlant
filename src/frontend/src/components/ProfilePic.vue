@@ -13,7 +13,7 @@ export default {
 <style lang="scss">
 
 #userPic{
-  width: 4.5rem;
+  width: 4.2rem;
 }
 
 #userPicImgCont {

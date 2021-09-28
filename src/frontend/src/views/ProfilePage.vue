@@ -114,6 +114,7 @@ export default {
   flex-direction: column;
   align-content: flex-start;
   flex-flow: wrap;
+  width: 100%;
 }
 
 #userInfoCard {
@@ -172,7 +173,6 @@ export default {
   align-items: flex-end;
   width: 100%;
   height: 4vh;
-  display: flex;
   justify-content: space-around;
 }
 
