@@ -5,7 +5,7 @@
     <div class="card">
       <!-- only works with "handleX", not "handleX()"-->
       <Form @submit="handlePasswordResetRequest" :validation-schema="schema">
-        <p>Reset password</p>
+        <p class="form-title">Reset password</p>
 
         <div class="form-in">
           <label for="email" class="form-label">Enter your Email</label>
@@ -92,10 +92,6 @@ img {
   max-height: auto;
   width: 4.5rem;
   margin: 100px auto 15px auto;
-}
-
-p {
-  font-size: 1.5rem;
 }
 
 Form {

@@ -259,8 +259,6 @@ public class SettingsController {
     @PostMapping(value = "/handleProfilePictureUpload")
     public ResponseEntity<?> handleProfilePictureUpload(@RequestParam("file") MultipartFile file) {
 
-        System.out.println("y");
-
         try {
 
             if (file.getSize() > 512000) {

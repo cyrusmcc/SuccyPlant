@@ -13,7 +13,10 @@ export default {
 <style lang="scss">
 
 #userPic{
-  width: 4.2rem;
+  width: 85px;
+  height: 85px;
+  object-fit: cover;
+  float: left;
 }
 
 #userPicImgCont {

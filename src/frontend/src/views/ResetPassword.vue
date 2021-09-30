@@ -2,7 +2,7 @@
   <div class="container">
     <div class="card">
       <Form @submit="handleResetPassword" :validation-schema="schema" :initial-values="formValues">
-        <p>Reset password</p>
+        <p class="form-title">Reset password</p>
 
         <div class="form-in">
           <label for="password" class="form-label">Enter new password</label>
@@ -78,10 +78,6 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-p {
-  font-size: 1.5rem;
-}
-
 Form {
   height: 100%;
 }

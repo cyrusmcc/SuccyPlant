@@ -5,7 +5,7 @@
     <div class="card" id="registerCard">
       <!-- only works with "handleX", not "handeX()"-->
       <Form @submit="handleRegister" :validation-schema="schema">
-        <p>Register new account</p>
+        <p class="form-title">Register new account</p>
 
         <div class="form-in">
           <label for="username" class="form-label">Username</label>
@@ -117,10 +117,6 @@ img {
   max-height: auto;
   width: 4.5rem;
   margin: 100px auto 15px auto;
-}
-
-p {
-  font-size: 1.5rem;
 }
 
 Form {

@@ -7,7 +7,7 @@
           @submit="handleChangeEmailRequest"
           :validation-schema="emailSchema"
         >
-          <span>Change account email</span>
+          <p class="form-title">Change account email</p>
           <div class="form-in">
             <Field
               name="password"
@@ -29,6 +29,7 @@
 
           <button class="button-primary">Submit change</button>
 
+          <div v-if="loading" class="alert" role="alert">Submitting request...</div>
           <div v-if="message" class="alert" role="alert">
             {{ message }}
           </div>
@@ -46,7 +47,7 @@
           @Submit="handlePasswordResetRequest"
           :validation-schema="passwordSchema"
         >
-          <span>Change account password</span>
+          <p class="form-title">Change account password</p>
           <div class="form-in">
             <Field
               name="currentPassword"

@@ -135,6 +135,11 @@ fieldset {
     cursor: pointer;
 }
 
+.form-title {
+    margin-bottom: 50px;
+    font-size: 1.5rem;
+}
+
 .form-in {
     display: flex;
     flex-direction: column;
@@ -146,7 +151,7 @@ fieldset {
 }
 
 .form-label {
-    padding-bottom: 5px;
+    padding-bottom: 10px;
 }
 
 .form-control {

@@ -5,7 +5,7 @@
     <div class="card" id="loginCard">
       <!-- only works with "handleLogin", not "handeLogin()"-->
       <Form @submit="handleLogin" :validation-schema="schema">
-        <p>Sign in</p>
+        <p class="form-title">Sign in</p>
         <s v-if="$route.params.loginFlash"> {{ $route.params.loginFlash }}</s>
 
         <div class="form-in">
@@ -49,6 +49,7 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
+//import tokenService from "../service/token.service";
 
 export default {
   name: "Login",
@@ -88,7 +89,6 @@ export default {
           this.$router.push("/p/" + user.username);
         },
         (/*error*/) => {
-
           this.loading = false;
           this.message = "Invalid credentials";
           /*
@@ -111,12 +111,9 @@ img {
   margin: 100px auto 15px auto;
 }
 
-p {
-  font-size: 1.5rem;
-}
-
 Form {
   height: 100%;
+  width: 100%;
 }
 
 fieldset {
