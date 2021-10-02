@@ -42,7 +42,6 @@ export default {
 
 <style lang="scss" scoped>
 .hamburger {
-  position: fixed;
   z-index: 4;
   width: 100%;
   max-height: 100%;
@@ -50,7 +49,6 @@ export default {
 }
 
 .hamburgerIcon {
-  display: relative;
   height: 25px;
   max-width: 100%;
   font-family: $lobster;

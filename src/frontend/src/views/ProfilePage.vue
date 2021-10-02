@@ -1,8 +1,5 @@
 <template>
   <div class="container">
-    <router-link to="/"
-      ><img class="backArrow" src="../assets/backarrow.svg" alt="back-arrow" />
-    </router-link>
     <div id="profile" v-if="!noProfile">
       <div id="userInfoCard">
         <profile-pic>
@@ -21,13 +18,17 @@
             <span class="navTab" id="navTab3">Comments</span>
           </div>
         </div>
-        <div id="userContent"></div>
+        <div id="userContent">
+        </div>
       </div>
     </div>
     <div id="noProfile" class="card" v-if="noProfile">
-      <img src="../assets/exclamation.svg" alt="exclamation point">
+      <img src="../assets/exclamation.svg" alt="exclamation point" />
       <span>We could not find user</span>
-      <span id ="noProfileUsername">"<span>{{ username }}</span>"</span>
+      <span id="noProfileUsername"
+        >"<span>{{ username }}</span
+        >"</span
+      >
     </div>
   </div>
 </template>
@@ -44,6 +45,7 @@ export default {
       joinDate: "",
       username: this.$route.params.username,
       noProfile: false,
+
     };
   },
   computed: {
@@ -207,13 +209,38 @@ export default {
   font-size: 3rem;
 }
 
-#noProfileUsername > span{
+#noProfileUsername > span {
   color: $accentOne;
 }
 
 @include screen-lg() {
+.container {
+  justify-content: center;
+}
+#profile {
+  width: 65rem;
+  margin-top: 20px;
+  background: $accentShade;
+  flex-direction: row;
+}
+
+
   #userInfoCard {
+    border-radius: 4px 4px 0 0;
     background-color: $accentTwo;
+    width: 25rem;
   }
+
+  #userContentCard {
+    justify-content: flex-start;
+    height: 100%;
+    margin: 0;
+    width: 40rem;
+    align-self: unset;
+  }
+
+
+
+
 }
 </style>

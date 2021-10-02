@@ -13,8 +13,8 @@ export default {
 <style lang="scss">
 
 #userPic{
-  width: 85px;
-  height: 85px;
+  width: 64px;
+  height: 64px;
   object-fit: cover;
   float: left;
 }

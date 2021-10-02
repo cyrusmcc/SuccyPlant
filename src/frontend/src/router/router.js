@@ -73,7 +73,7 @@ const routes = [
     path: "/p/:username(.*)",
     name: "profile",
     meta: {
-      hideNav: true,
+      //hideNav: true,
     },
     
     component: Profile,

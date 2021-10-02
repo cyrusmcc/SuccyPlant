@@ -2,7 +2,6 @@ package com.cm.contentmanagementapp.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.io.File;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -37,17 +36,23 @@ public class User {
 
     private LocalDate userJoinDate;
 
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "post_list_id")
+    private PostList postList;
+
     // private CommentList userCommentList;
 
     // private FavoriteList userFavoriteList;
 
     public User() {
+        postList = new PostList();
     }
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
         userJoinDate = LocalDate.now();
+        postList = new PostList();
     }
 
     public User(String username, String email, String password) {
@@ -55,6 +60,7 @@ public class User {
         this.password = password;
         this.email = email;
         userJoinDate = LocalDate.now();
+        postList = new PostList();
     }
 
     public Long getId() {
@@ -111,5 +117,13 @@ public class User {
 
     public void setUserJoinDate(LocalDate userJoinDate) {
         this.userJoinDate = userJoinDate;
+    }
+
+    public PostList getPostList() {
+        return postList;
+    }
+
+    public void setPostList(PostList postList) {
+        this.postList = postList;
     }
 }

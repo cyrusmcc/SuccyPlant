@@ -1,6 +1,7 @@
 package com.cm.contentmanagementapp.services;
 
 import com.cm.contentmanagementapp.models.EnumRole;
+import com.cm.contentmanagementapp.models.PostList;
 import com.cm.contentmanagementapp.models.Role;
 import com.cm.contentmanagementapp.models.User;
 import com.cm.contentmanagementapp.repositories.RoleRepository;
