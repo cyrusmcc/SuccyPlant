@@ -1,11 +1,17 @@
 <template>
-  <div></div>
+  <div>
+    hi
+    <blog-feed />
+  </div>
 </template>
 
 <script>
-//import UserService from "../service/user.service";
+import BlogFeed from "../components/BlogFeed.vue";
 
 export default {
+  components: {
+    BlogFeed,
+  },
   name: "Home",
   data() {
     return {
@@ -13,25 +19,8 @@ export default {
     };
   },
 
-/*
-  mounted() {
-    UserService.getPublicContent().then(
-      (response) => {
-        this.content = response.data;
-      },
-      (error) => {
-        this.content = 
-          (error.response &&
-           error.response.data &&
-           error.response.data.message) ||
-          error.message ||
-          error.toString();
-      }
-    );
-  },
-*/
+  
 };
 </script>
 <style scoped lang="scss">
-
 </style>

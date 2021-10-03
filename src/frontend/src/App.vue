@@ -12,8 +12,6 @@
       </div>
     </hamburger>
 
-    <blog-feed />
-
     <router-view />
   
   
@@ -24,12 +22,10 @@
 import TokenService from "./service/token.service";
 import EventBus from "./EventBus";
 import Hamburger from "./components/Hamburger.vue";
-import BlogFeed from "./components/BlogFeed.vue";
 
 export default {
   components: {
     Hamburger,
-    BlogFeed,
   },
   computed: {
     currentUser() {
