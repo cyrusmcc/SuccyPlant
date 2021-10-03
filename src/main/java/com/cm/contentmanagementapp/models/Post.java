@@ -1,7 +1,6 @@
 package com.cm.contentmanagementapp.models;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,14 +17,14 @@ public class Post {
     @Column(name = "post_id")
     private Long id;
 
+    @Column(name="title")
+    private String title;
+
     @Column(name="authUsername")
     private String authorUsername;
 
     @Column(name="type")
     private PostType type;
-
-    @Column(name="postDate")
-    private LocalDate postDate;
 
     @ElementCollection
     private List<String> imageIds;
@@ -60,14 +59,6 @@ public class Post {
 
     public void setPostType(PostType type) {
         this.type = type;
-    }
-
-    public LocalDate getPostDate() {
-        return postDate;
-    }
-
-    public void setPostDate(LocalDate postDate) {
-        this.postDate = postDate;
     }
 
     public List<String> getImageIds() {

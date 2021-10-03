@@ -9,7 +9,7 @@ public interface PostService {
 
     Post findById(Long postId);
 
-    List<Post> findAllByPostListId(Long postListId);
+    List<BlogPost> findAllBlogPosts(Integer pageNum, Integer pageSize);
 
     void saveBlog(BlogPost post);
 

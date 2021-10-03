@@ -14,6 +14,9 @@ public class BlogPost {
 
     private String bodyText;
 
+    @Column(name="postDate")
+    private LocalDate postDate;
+
     @OneToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "post_id")
     private Post post;
@@ -21,7 +24,7 @@ public class BlogPost {
     public BlogPost() {
         this.post = new Post();
         this.post.setPostType(PostType.BLOG);
-        this.post.setPostDate(LocalDate.now());
+        this.setPostDate(LocalDate.now());
     }
 
     public Long getId() {
@@ -40,33 +43,12 @@ public class BlogPost {
         return post;
     }
 
-    public Long getPostId() {
-        return this.post.getId();
-    }
-
-    public String getAuthorUsername() {
-        return this.post.getAuthorUsername();
-    }
-
-    public void setAuthorUsername(String authorUsername) {
-        this.post.setAuthorUsername(authorUsername);
-    }
-
     public LocalDate getPostDate() {
-        return this.post.getPostDate();
+        return postDate;
     }
 
-    public void setImageIds(List<String> imageIds) {
-        this.post.setImageIds(imageIds);
+    public void setPostDate(LocalDate postDate) {
+        this.postDate = postDate;
     }
-
-    public List<String> getImageIds() {
-        return this.post.getImageIds();
-    }
-
-    public PostList getPostList() {
-        return this.post.getPostList();
-    }
-
 
 }

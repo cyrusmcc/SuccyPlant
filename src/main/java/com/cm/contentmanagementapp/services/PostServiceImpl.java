@@ -9,8 +9,10 @@ import com.cm.contentmanagementapp.repositories.PostRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -46,8 +48,17 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public List<Post> findAllByPostListId(Long postListId) {
-        return postListRepository.findAllByPostListId(postListId);
+    public List<BlogPost> findAllBlogPosts(Integer pageNum, Integer pageSize) {
+
+        Pageable paging = PageRequest.of(pageNum, pageSize, Sort.by("id").descending());
+
+        Slice<BlogPost> sliceResult = blogPostRepository.findAll(paging);
+
+        if (sliceResult.hasContent()) {
+            return sliceResult.getContent();
+        } else {
+            return new ArrayList<BlogPost>();
+        }
     }
 
     @Override
