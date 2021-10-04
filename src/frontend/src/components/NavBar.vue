@@ -1,6 +1,7 @@
 <template>
-  <div class="hamburger" :style="[displayHamburger ? {'height': 'fit-content'} : {'height': '100%'}]" @click.self="toggleHamburger">
-    <div class="hamburgerIcon">
+    <div class="navBarContainer">
+    <div class="modalBackground" v-if="!displayHamburger" @click.self="toggleHamburger()"></div>
+    <div class="navBar">
       <div class="hamburgerLineContainer" v-if="displayHamburger" @click="toggleHamburger">
         <div class="hamburgerLine"></div>
         <div class="hamburgerLine"></div>
@@ -30,25 +31,27 @@ export default {
   },
   methods: {
     toggleHamburger() {
-      if (this.displayHamburger) {
-        this.displayHamburger = false;
-      } else {
-        this.displayHamburger = true;
-      }
+      this.displayHamburger = !this.displayHamburger;
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.hamburger {
+
+.navBarContainer {
   z-index: 4;
   width: 100%;
+  height: fit-content;
+  position: sticky;
+  top: 0;
   max-height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
+  background: $darkShade;
 }
 
-.hamburgerIcon {
+.navBar {
+  position: relative;
+  z-index: 5;
   height: 25px;
   max-width: 100%;
   font-family: $lobster;
@@ -58,8 +61,8 @@ export default {
   display: flex;
   justify-content: center;
   align-content: center;
-  background: $accentOne;
   padding: 5px 0 5px 10px;
+  background: $darkShade;
 }
 
 .hamburgerLineContainer {
@@ -89,15 +92,16 @@ export default {
 }
 
 .hamburgerContent {
+  position: relative;
+  z-index: 5;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   padding: 15px;
   row-gap: 10px;
-  background: $accentOne;
+  background: $darkShade;
   height: fit-content;
-  width: auto;
   max-width: 100%;
 }
 

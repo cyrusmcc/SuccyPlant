@@ -1,12 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Libre+Franklin&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400&display=swap");
 /* MIXINS */
 :root {
   font-size: 1rem;
 }
 
-html, body {
+html,
+body {
   font-family: "Roboto Slab", serif;
   margin: 0;
   padding: 0;
@@ -26,11 +28,12 @@ h2 {
 
 a {
   cursor: pointer;
-  color: #F5F5F5;
+  color: #f5f5f5;
   text-decoration: none;
 }
 
-a:hover, a:focus {
+a:hover,
+a:focus {
   font-weight: bold;
 }
 
@@ -54,9 +57,31 @@ fieldset {
           box-shadow: 0 4px 8px 0 RGB(0 0 0/20%), 0 6px 20px 0 RGB(0 0 0/19%);
 }
 
+.container {
+  height: 100%;
+}
+
 .button-primary {
   background-color: #286bc8;
-  color: #F5F5F5;
+  color: #f5f5f5;
+  border-radius: 4px;
+  font-size: 1rem;
+  border: none;
+  line-height: 2rem;
+  width: 100%;
+  -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
+          box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
+}
+
+.button-primary:hover {
+  cursor: pointer;
+  -webkit-box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
+          box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
+}
+
+.button-secondary {
+  background-color: #0f6132;
+  color: #f5f5f5;
   border-radius: 4px;
   font-size: 1rem;
   border: none;
@@ -79,6 +104,11 @@ fieldset {
   cursor: pointer;
 }
 
+.form-title {
+  margin-bottom: 50px;
+  font-size: 1.5rem;
+}
+
 .form-in {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -96,24 +126,27 @@ fieldset {
 }
 
 .form-label {
-  padding-bottom: 5px;
+  padding-bottom: 10px;
 }
 
 .form-control {
   background-color: #151516;
-  color: #F5F5F5;
+  color: #f5f5f5;
   border: none;
   line-height: 2rem;
   width: 100%;
   border-radius: 3px;
 }
 
-.alert, .error-feedback {
+.alert,
+.error-feedback {
   background: #151516;
   padding: 5px;
   /* align-self: center; */
   margin-top: 10px;
   border-radius: 4px;
+  width: 100%;
+  text-align: left;
 }
 
 .form-submit {
@@ -135,5 +168,25 @@ fieldset {
   z-index: 2;
   -webkit-filter: drop-shadow(2px 3px 3px rgba(0, 0, 0, 0.3));
           filter: drop-shadow(2px 3px 3px rgba(0, 0, 0, 0.3));
+}
+
+.modalBackground {
+  z-index: 4;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 /*# sourceMappingURL=global.css.map */

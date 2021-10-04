@@ -1,10 +1,10 @@
 import axiosInstance from "./api";
-import TokenService from "./token.service";
+import tokenService from "./token.service";
 
 const setup = (store) => {
   axiosInstance.interceptors.request.use(
     (config) => {
-      const token = TokenService.getLocalAccessToken();
+      const token = tokenService.getLocalAccessToken();
       if (token) {
         config.headers["Authorization"] = 'Bearer ' + token;  // for Spring Boot back-end
       }
@@ -32,16 +32,21 @@ const setup = (store) => {
             
           try {
             const rs = await axiosInstance.post("/auth/refreshToken", {
-              refreshToken: TokenService.getLocalRefreshToken(),
+              refreshToken: tokenService.getLocalRefreshToken(),
             });
 
             const { accessToken } = rs.data;
 
             store.dispatch('auth/refreshToken', accessToken);
-            TokenService.updateLocalAccessToken(accessToken);
+            tokenService.updateLocalAccessToken(accessToken);
 
             return axiosInstance(originalConfig);
           } catch (_error) {
+
+            if (tokenService.getUser()) {
+              tokenService.removeUser();
+            }
+            
             return Promise.reject(_error);
           } 
         }

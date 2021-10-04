@@ -1,6 +1,5 @@
 <template>
   <div>
-    hi
     <blog-feed />
   </div>
 </template>

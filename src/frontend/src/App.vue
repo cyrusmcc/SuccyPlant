@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <hamburger v-show="!$route.meta.hideNav">
+    <nav-bar v-show="!$route.meta.hideNav">
       <router-link to="/"> Home </router-link>
       <router-link :to="'/p/' + currentUser.username" v-if="currentUser"> profile </router-link>
       <router-link class="nav-link" to="/settings" v-if="currentUser">User Settings</router-link>
@@ -10,7 +10,7 @@
       <div v-if="currentUser">
         <a class="nav-link" @click.prevent="logOut">Logout</a>  
       </div>
-    </hamburger>
+    </nav-bar>
 
     <router-view />
   
@@ -21,11 +21,11 @@
 <script>
 import TokenService from "./service/token.service";
 import EventBus from "./EventBus";
-import Hamburger from "./components/Hamburger.vue";
+import NavBar from "./components/NavBar.vue";
 
 export default {
   components: {
-    Hamburger,
+    NavBar,
   },
   computed: {
     currentUser() {

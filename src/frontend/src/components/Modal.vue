@@ -1,5 +1,5 @@
 <template>
-  <div id="modalBackground" @mousedown.self.prevent="closeModal">
+  <div class="modalBackground" @mousedown.self.prevent="closeModal">
     <div class="card" id="modalContent">
       <div id="modalClose" @click.prevent="closeModal">+</div>
       <slot></slot>
@@ -21,19 +21,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#modalBackground {
-  z-index: 4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-}
 #modalContent {
   position: relative;
   margin: 150px auto;

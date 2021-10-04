@@ -5,7 +5,7 @@
         <img id="blogImg" src="../assets/blogplacehold.jpg" alt="" />
       </div>
       <div id="blogTextContainer">
-        <div id="blogTitle">title here {{ blog.id }}</div>
+        <router-link :to="'/blog/' + blog.id">title here {{ blog.id }}</router-link>
         <div id="blogPostDate">Posted on {{ blog.postDate }}</div>
         <div id="blogBody">
           this is the blog body summary {{ blog.bodyText }}
@@ -28,17 +28,29 @@ export default {
 
   methods: {
     getBlogs() {
-      const b = async () => {
+      const blogs = async () => {
         const arr = await blogService.getBlogPosts();
 
         for (let i = 0; i < arr.length; i++) {
           this.blogArr.push(arr[i]);
         }
       };
-      b();
+      blogs();
     },
+    getBlogById(id) {
+      console.log(id);
+    }
   },
-  mounted() {},
+  mounted() {
+      const initialBlogs = async () => {
+        const arr = await blogService.getBlogPosts();
+
+        for (let i = 0; i < arr.length; i++) {
+          this.blogArr.push(arr[i]);
+        }
+      };
+      initialBlogs();
+  },
 };
 </script>
 

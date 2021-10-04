@@ -9,12 +9,17 @@ const Profile = () => import("../views/ProfilePage.vue");
 const Settings = () => import("../views/Settings.vue");
 const ResetPassword = () => import("../views/ResetPassword.vue");
 const ChangeEmail = () => import("../views/ChangeEmailConfirmation.vue");
+const BlogPost = () => import("../views/BlogPost.vue");
 
 const routes = [
   {
     path: "/",
     name: "Home",
     component: Home,
+
+    meta: {
+      //hideNav: true
+    }
   },
   {
     path: "/about",
@@ -83,7 +88,13 @@ const routes = [
     name: "settings",
 
     component: Settings,
-  },  // new here
+  },
+  {
+    path: "/blog/:id(.*)",
+    name: "blog",
+
+    component: BlogPost,
+  },// new here
 ]
 
 const router = createRouter({
