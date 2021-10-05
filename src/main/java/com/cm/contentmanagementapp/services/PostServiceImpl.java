@@ -47,6 +47,8 @@ public class PostServiceImpl implements PostService{
         }
     }
 
+
+
     @Override
     public List<BlogPost> findAllBlogPosts(Integer pageNum, Integer pageSize) {
 
@@ -59,6 +61,11 @@ public class PostServiceImpl implements PostService{
         } else {
             return new ArrayList<BlogPost>();
         }
+    }
+
+    @Override
+    public BlogPost findBlogPostById(Long id) {
+        return blogPostRepository.findById(id).get();
     }
 
     @Override

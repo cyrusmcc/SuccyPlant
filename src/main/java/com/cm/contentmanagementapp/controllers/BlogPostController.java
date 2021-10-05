@@ -66,6 +66,15 @@ public class BlogPostController {
         return new ResponseEntity<>(list, new HttpHeaders(), HttpStatus.OK);
     }
 
+    @GetMapping("/get/{id}")
+    public ResponseEntity<?> getBlogById(@Valid @PathVariable Long id) {
 
+        if (postService.findBlogPostById(id) != null) {
+            return new ResponseEntity<>(postService.findBlogPostById(id), HttpStatus.OK);
+        }
+
+        return ResponseEntity.badRequest().body(new MessageResponse("Bad request"));
+
+    }
 
 }

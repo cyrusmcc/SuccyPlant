@@ -2,17 +2,18 @@
   <div class="container">
     <li v-for="blog in blogArr" :key="blog.id">
       <div id="blogImgContainer">
-        <img id="blogImg" src="../assets/blogplacehold.jpg" alt="" />
+        <img id="blogImg" src="../assets/blogplacehold.webp" alt="" />
       </div>
       <div id="blogTextContainer">
-        <router-link :to="'/blog/' + blog.id">title here {{ blog.id }}</router-link>
+        <router-link :to="'/blog/' + blog.id"
+          >title here {{ blog.id }}</router-link
+        >
         <div id="blogPostDate">Posted on {{ blog.postDate }}</div>
-        <div id="blogBody">
-          this is the blog body summary {{ blog.bodyText }}
-        </div>
       </div>
     </li>
-    <button @click="getBlogs" id="loadBlogButton" class="button-primary">Load More</button>
+    <button @click="getBlogs" id="loadBlogButton" class="button-primary">
+      Load More
+    </button>
   </div>
 </template>
 
@@ -22,34 +23,38 @@ import blogService from "../service/blog.service";
 export default {
   data() {
     return {
-      blogArr: [],
+      initialLoad: false,
     };
   },
+  computed: {
+    blogArr() {
+      return this.$store.getters['blogs/getBlogs'];
+    },
+  },
 
+  // if blogArr store does not contain any posts, perform initial get request
+  mounted() {
+    if (!this.blogArr) {
+
+      const blogs = async () => {
+        const arr = await blogService.getBlogPosts();
+        this.$store.state.blogs.blogArr = arr;
+
+      }
+      blogs();
+    }
+  },
   methods: {
     getBlogs() {
       const blogs = async () => {
         const arr = await blogService.getBlogPosts();
 
         for (let i = 0; i < arr.length; i++) {
-          this.blogArr.push(arr[i]);
+          this.$store.state.blogs.blogArr.push(arr[i]);
         }
       };
       blogs();
     },
-    getBlogById(id) {
-      console.log(id);
-    }
-  },
-  mounted() {
-      const initialBlogs = async () => {
-        const arr = await blogService.getBlogPosts();
-
-        for (let i = 0; i < arr.length; i++) {
-          this.blogArr.push(arr[i]);
-        }
-      };
-      initialBlogs();
   },
 };
 </script>
@@ -60,7 +65,7 @@ li {
   flex-direction: column;
   align-items: center;
   list-style-type: none;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   height: fit-content;
   border-radius: 3px;
   font-style: $rubik;

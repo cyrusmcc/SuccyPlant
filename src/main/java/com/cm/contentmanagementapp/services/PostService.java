@@ -11,6 +11,8 @@ public interface PostService {
 
     List<BlogPost> findAllBlogPosts(Integer pageNum, Integer pageSize);
 
+    BlogPost findBlogPostById(Long id);
+
     void saveBlog(BlogPost post);
 
 }

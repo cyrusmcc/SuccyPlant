@@ -239,8 +239,5 @@ export default {
     align-self: unset;
   }
 
-
-
-
 }
 </style>
