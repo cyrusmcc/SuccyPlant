@@ -36,7 +36,7 @@ class SettingsService {
         token
       });
   }
-  handleProfilePictureUpload({file}) {
+  handleProfilePictureUpload({ file }) {
     const formData = new FormData();
     formData.append('file', file[0]);
     return api

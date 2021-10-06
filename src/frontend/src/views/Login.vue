@@ -49,7 +49,6 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
-//import tokenService from "../service/token.service";
 
 export default {
   name: "Login",

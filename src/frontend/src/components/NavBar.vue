@@ -61,14 +61,14 @@ export default {
   display: flex;
   justify-content: center;
   align-content: center;
-  padding: 5px 0 5px 10px;
+  padding: 10px 0 10px 10px;
   background: $darkShade;
 }
 
 .hamburgerLineContainer {
   position: absolute;
-  top: 6px;
-  left: 6px;
+  top: 10px;
+  left: 10px;
 }
 
 .hamburgerLine {

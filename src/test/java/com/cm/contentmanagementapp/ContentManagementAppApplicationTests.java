@@ -5,7 +5,7 @@ import com.cm.contentmanagementapp.models.BlogPost;
 import com.cm.contentmanagementapp.payload.request.SignupRequest;
 import com.cm.contentmanagementapp.payload.response.MessageResponse;
 import com.cm.contentmanagementapp.models.User;
-import com.cm.contentmanagementapp.services.PostService;
+import com.cm.contentmanagementapp.services.BlogPostService;
 import com.cm.contentmanagementapp.services.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ class ContentManagementAppApplicationTests {
 	AuthController authController;
 
 	@Autowired
-	PostService postService;
+    BlogPostService blogPostService;
 
 	@Test
 	void contextLoads() {
@@ -66,12 +66,12 @@ class ContentManagementAppApplicationTests {
 	@Test
 	void blogSliceTest() {
 
-		List<BlogPost> list = postService.findAllBlogPosts(0,5);
+		List<BlogPost> list = blogPostService.findAllBlogPosts(0,5);
 
 		System.out.println(list.size());
 
 		for (BlogPost b : list) {
-			System.out.println(b.getId() + " " + b.getBodyText());
+			System.out.println(b.getId());
 		}
 
 	}

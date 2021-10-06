@@ -61,7 +61,7 @@ public class UserController {
         User user = userService.findByUsername(username).get();
         Path filePath = Paths.get("uploads/profilePictures");
 
-        File file = fileService.load(user.getProfileImageId(), filePath).getFile();
+        File file = fileService.load(user.getProfileImageUrl(), filePath).getFile();
 
         return ResponseEntity.ok()
                 .header("Content-Disposition", "attachment; filename=" + file.getName())

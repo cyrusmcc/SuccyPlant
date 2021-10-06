@@ -33,8 +33,6 @@ public class AuthController {
 
     private UserService userService;
 
-    private RoleService roleService;
-
     private PasswordEncoder encoder;
 
     private JwtUtils jwtUtils;
@@ -45,11 +43,10 @@ public class AuthController {
 
 
     @Autowired
-    public AuthController(AuthenticationManager authManager, UserService userService, RoleService roleService,
+    public AuthController(AuthenticationManager authManager, UserService userService,
                           PasswordEncoder encoder, JwtUtils utils, RefreshTokenService refreshTokenService) {
         this.authManager = authManager;
         this.userService = userService;
-        this.roleService = roleService;
         this.encoder = encoder;
         this.jwtUtils = utils;
         this.refreshTokenService = refreshTokenService;

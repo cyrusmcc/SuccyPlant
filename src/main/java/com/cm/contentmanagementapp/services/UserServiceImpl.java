@@ -1,10 +1,6 @@
 package com.cm.contentmanagementapp.services;
 
-import com.cm.contentmanagementapp.models.EnumRole;
-import com.cm.contentmanagementapp.models.PostList;
-import com.cm.contentmanagementapp.models.Role;
 import com.cm.contentmanagementapp.models.User;
-import com.cm.contentmanagementapp.repositories.RoleRepository;
 import com.cm.contentmanagementapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,17 +18,14 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
 
-    private RoleRepository roleRepository;
-
     private PasswordEncoder passwordEncoder;
 
     FileStorageService fileService;
 
     @Autowired
-    public UserServiceImpl(UserRepository theUserRepository, RoleRepository theRoleRepository,
+    public UserServiceImpl(UserRepository theUserRepository,
                            PasswordEncoder passwordEncoder, FileStorageService fileService) {
         this.userRepository = theUserRepository;
-        this.roleRepository = theRoleRepository;
         this.passwordEncoder = passwordEncoder;
         this.fileService = fileService;
     }
@@ -71,8 +64,8 @@ public class UserServiceImpl implements UserService {
 
         Path filePath = Paths.get("uploads/profilePictures");
 
-        if (user.getProfileImageId() != null) {
-            String oldFilePath = user.getProfileImageId();
+        if (user.getProfileImageUrl() != null) {
+            String oldFilePath = user.getProfileImageUrl();
             fileService.deleteIfExists(filePath, oldFilePath);
         }
 
@@ -81,7 +74,7 @@ public class UserServiceImpl implements UserService {
             String fileId = UUID.randomUUID().toString();
             fileId += "." + fileExtension[1];
 
-            user.setProfileImageId(fileId);
+            user.setProfileImageUrl(fileId);
             save(user);
             fileService.save(file, filePath, fileId);
 
@@ -126,12 +119,8 @@ public class UserServiceImpl implements UserService {
 
         user.setId(0L);
 
-        Role userRole = roleRepository.findByName(EnumRole.ROLE_USER);
-        Set<Role> roles = new HashSet<>();
-        roles.add(userRole);
-        user.setRoles(roles);
         user.setUserJoinDate(LocalDate.now());
-        user.setProfileImageId("default-user.png");
+        user.setProfileImageUrl("default-user.png");
 
         userRepository.save(user);
     }

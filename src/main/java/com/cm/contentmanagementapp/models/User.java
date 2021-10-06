@@ -3,8 +3,6 @@ package com.cm.contentmanagementapp.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name="users")
@@ -15,11 +13,7 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(	name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
+    private EnumRole role;
 
     @NotBlank
     @Column(name="username")
@@ -32,7 +26,7 @@ public class User {
     @Column(name="email")
     private String email;
 
-    private String profileImageId;
+    private String profileImageUrl;
 
     private LocalDate userJoinDate;
 
@@ -40,11 +34,8 @@ public class User {
     @JoinColumn(name = "post_list_id")
     private PostList postList;
 
-    // private CommentList userCommentList;
-
-    // private FavoriteList userFavoriteList;
-
     public User() {
+        this.role = EnumRole.ROLE_USER;
         postList = new PostList();
     }
 
@@ -52,6 +43,7 @@ public class User {
         this.username = username;
         this.password = password;
         userJoinDate = LocalDate.now();
+        this.role = EnumRole.ROLE_USER;
         postList = new PostList();
     }
 
@@ -60,6 +52,7 @@ public class User {
         this.password = password;
         this.email = email;
         userJoinDate = LocalDate.now();
+        this.role = EnumRole.ROLE_USER;
         postList = new PostList();
     }
 
@@ -71,12 +64,12 @@ public class User {
         this.id = id;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public EnumRole getRole() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRole(EnumRole role) {
+        this.role = role;
     }
 
     public String getUsername() {
@@ -103,12 +96,12 @@ public class User {
         this.email = email;
     }
 
-    public String getProfileImageId() {
-        return profileImageId;
+    public String getProfileImageUrl() {
+        return profileImageUrl;
     }
 
-    public void setProfileImageId(String profileImageId) {
-        this.profileImageId = profileImageId;
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
     }
 
     public LocalDate getUserJoinDate() {
