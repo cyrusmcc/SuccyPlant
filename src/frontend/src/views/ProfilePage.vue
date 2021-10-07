@@ -18,8 +18,7 @@
             <span class="navTab" id="navTab3">Comments</span>
           </div>
         </div>
-        <div id="userContent">
-        </div>
+        <div id="userContent"></div>
       </div>
     </div>
     <div id="noProfile" class="card" v-if="noProfile">
@@ -45,7 +44,6 @@ export default {
       joinDate: "",
       username: this.$route.params.username,
       noProfile: false,
-
     };
   },
   computed: {
@@ -214,16 +212,15 @@ export default {
 }
 
 @include screen-lg() {
-.container {
-  justify-content: center;
-}
-#profile {
-  width: 65rem;
-  margin-top: 20px;
-  background: $accentShade;
-  flex-direction: row;
-}
-
+  .container {
+    justify-content: center;
+  }
+  #profile {
+    width: 65rem;
+    margin-top: 20px;
+    background: $accentShade;
+    flex-direction: row;
+  }
 
   #userInfoCard {
     border-radius: 4px 4px 0 0;
@@ -238,6 +235,5 @@ export default {
     width: 40rem;
     align-self: unset;
   }
-
 }
 </style>

@@ -40,12 +40,8 @@
 
     <div id="login-link">
       <span>Already have an account?</span>
-      <router-link to="/login">
-        Login
-     </router-link>
+      <router-link to="/login"> Login </router-link>
     </div>
-
-
   </div>
 </template>
 
@@ -62,7 +58,11 @@ export default {
   },
   data() {
     const schema = yup.object().shape({
-      username: yup.string().required("Username is required!").min(3).max(16,"Username cannot be greater than 16 characters long."),
+      username: yup
+        .string()
+        .required("Username is required!")
+        .min(3)
+        .max(16, "Username cannot be greater than 16 characters long."),
       email: yup.string().email("Email is invalid."),
       password: yup.string().required("Password is required!").min(8).max(256),
     });
@@ -89,7 +89,6 @@ export default {
       this.successful = false;
       this.loading = true;
       this.message = "";
-      
 
       this.$store.dispatch("auth/register", user, this.email).then(
         (data) => {
@@ -140,7 +139,6 @@ fieldset {
   display: flex;
   flex-direction: column;
   align-content: center;
-
 }
 
 #registerButton {
@@ -171,5 +169,4 @@ fieldset {
   padding-bottom: 5px;
   align-self: center;
 }
-
 </style>

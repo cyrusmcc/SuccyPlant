@@ -2,7 +2,7 @@ package com.cm.contentmanagementapp.models;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.UUID;
 
 @Entity
 public class BlogPost {
@@ -12,7 +12,7 @@ public class BlogPost {
     @Column(name = "blog_id")
     private Long id;
 
-    private String bodyText;
+    private String bodyTextFileUrl;
 
     @Column(name="postDate")
     private LocalDate postDate;
@@ -24,6 +24,7 @@ public class BlogPost {
     public BlogPost() {
         this.post = new Post();
         this.post.setPostType(PostType.BLOG);
+        this.bodyTextFileUrl = UUID.randomUUID()+ ".md";
         this.setPostDate(LocalDate.now());
     }
 
@@ -31,16 +32,32 @@ public class BlogPost {
         return id;
     }
 
-    public String getBodyText() {
-        return bodyText;
+    public String getBodyTextFileId() {
+        return bodyTextFileUrl;
     }
 
-    public void setBodyText(String bodyText) {
-        this.bodyText = bodyText;
+    public void setBodyTextFileId(String bodyTextFileId) {
+        this.bodyTextFileUrl = bodyTextFileId;
     }
 
     public Post getPost() {
         return post;
+    }
+
+    public void setPostTitle(String title) {
+        this.post.setTitle(title);
+    }
+
+    public void setPostAuthor(String author) {
+        this.post.setAuthorUsername(author);
+    }
+
+    public void setPostImageId(String imageId) {
+        this.post.setImageId(imageId);
+    }
+
+    public void setPostList(PostList list) {
+        this.post.setPostList(list);
     }
 
     public LocalDate getPostDate() {

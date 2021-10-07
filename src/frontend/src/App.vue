@@ -2,19 +2,21 @@
   <div class="container">
     <nav-bar v-show="!$route.meta.hideNav">
       <router-link to="/"> Home </router-link>
-      <router-link :to="'/p/' + currentUser.username" v-if="currentUser"> profile </router-link>
-      <router-link class="nav-link" to="/settings" v-if="currentUser">User Settings</router-link>
+      <router-link :to="'/p/' + currentUser.username" v-if="currentUser">
+        profile
+      </router-link>
+      <router-link class="nav-link" to="/settings" v-if="currentUser"
+        >User Settings</router-link
+      >
       <div class="nav-link" v-if="!currentUser">
         <router-link to="/login">Login</router-link>
       </div>
       <div v-if="currentUser">
-        <a class="nav-link" @click.prevent="logOut">Logout</a>  
+        <a class="nav-link" @click.prevent="logOut">Logout</a>
       </div>
     </nav-bar>
 
     <router-view />
-  
-  
   </div>
 </template>
 
@@ -39,11 +41,9 @@ export default {
   },
   methods: {
     logOut() {
-      this.$store.dispatch("auth/logout", this.currentUser).then(
-        () => {
-          this.$router.push("/login");
-        }
-      );
+      this.$store.dispatch("auth/logout", this.currentUser).then(() => {
+        this.$router.push("/login");
+      });
     },
   },
   mounted() {

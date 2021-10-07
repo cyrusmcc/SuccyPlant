@@ -14,7 +14,9 @@
         </div>
 
         <div class="form-submit">
-          <button class="button-secondary" id="resetButton">Reset password</button>
+          <button class="button-secondary" id="resetButton">
+            Reset password
+          </button>
         </div>
 
         <div>
@@ -83,7 +85,7 @@ export default {
             error.toString();
         }
       );
-    }
+    },
   },
 };
 </script>

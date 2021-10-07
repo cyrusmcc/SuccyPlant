@@ -11,12 +11,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
-public class PostServiceImpl implements PostService{
+public class BlogPostServiceImpl implements BlogPostService {
 
 
     private PostRepository postRepository;
@@ -25,15 +30,18 @@ public class PostServiceImpl implements PostService{
 
     private PostListRepository postListRepository;
 
+    private FileStorageService fileService;
+
     private static final Logger log = LoggerFactory.getLogger(SettingsController.class);
 
 
     @Autowired
-    public PostServiceImpl(PostRepository postRepository, PostListRepository postListRepository,
-                           BlogPostRepository blogPostRepository) {
+    public BlogPostServiceImpl(PostRepository postRepository, PostListRepository postListRepository,
+                               BlogPostRepository blogPostRepository, FileStorageService fileStorageService) {
         this.postRepository = postRepository;
         this.postListRepository = postListRepository;
         this.blogPostRepository = blogPostRepository;
+        this.fileService = fileStorageService;
     }
 
     @Override
@@ -59,7 +67,7 @@ public class PostServiceImpl implements PostService{
         if (sliceResult.hasContent()) {
             return sliceResult.getContent();
         } else {
-            return new ArrayList<BlogPost>();
+            return new ArrayList<>();
         }
     }
 
@@ -72,5 +80,22 @@ public class PostServiceImpl implements PostService{
     public void saveBlog(BlogPost post) {
         blogPostRepository.save(post);
     }
+
+    @Override
+    public boolean updateBlogTextFile(String fileId, MultipartFile file) {
+
+        try {
+
+            Path filePath = Paths.get("uploads/blogs");
+            fileService.save(file, filePath, fileId);
+
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    //public boolean saveBlogImages(String )
 
 }

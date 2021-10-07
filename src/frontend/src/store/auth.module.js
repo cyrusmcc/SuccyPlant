@@ -1,10 +1,9 @@
-import AuthService from '../service/auth.service';
+import AuthService from "../service/auth.service";
 
-const user = JSON.parse(localStorage.getItem('user'));
+const user = JSON.parse(localStorage.getItem("user"));
 const initialState = user
   ? { status: { loggedIn: true }, user }
   : { status: { loggedIn: false }, user: null };
-
 
 export const auth = {
   namespaced: true,
@@ -12,49 +11,47 @@ export const auth = {
   actions: {
     login({ commit }, user) {
       return AuthService.login(user).then(
-        user => {
-          commit('loginSuccess', user);
+        (user) => {
+          commit("loginSuccess", user);
           return Promise.resolve(user);
         },
-        error => {
-          commit('loginFailure');
+        (error) => {
+          commit("loginFailure");
           return Promise.reject(error);
         }
       );
     },
     logout({ commit }, user) {
-      commit('logout');
+      commit("logout");
       AuthService.logout(user);
     },
     register({ commit }, user) {
       return AuthService.register(user).then(
-        response => {
-          commit('registerSuccess');
+        (response) => {
+          commit("registerSuccess");
           return Promise.resolve(response.data);
         },
-        error => {
-          commit('registerFailure');
+        (error) => {
+          commit("registerFailure");
           return Promise.reject(error);
         }
       );
     },
     refreshToken({ commit }, accessToken) {
-      commit('refreshToken', accessToken);
-    }
+      commit("refreshToken", accessToken);
+    },
   },
   mutations: {
     loginSuccess(state, user) {
       state.status.loggedIn = true;
       state.user = user;
     },
-    loginFailure(){
-    },
+    loginFailure() {},
     logout(state) {
       state.status.loggedIn = false;
       state.user = null;
     },
-    logoutFailure() {
-    },
+    logoutFailure() {},
     registerSuccess(state) {
       state.status.loggedIn = false;
     },
@@ -63,8 +60,7 @@ export const auth = {
     },
     refreshToken(state, accessToken) {
       state.status.loggedIn = true;
-      state.user = { ...state.user, accessToken: accessToken }
+      state.user = { ...state.user, accessToken: accessToken };
     },
-
-  }
+  },
 };

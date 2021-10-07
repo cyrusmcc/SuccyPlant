@@ -29,7 +29,9 @@
 
           <button class="button-primary">Submit change</button>
 
-          <div v-if="loading" class="alert" role="alert">Submitting request...</div>
+          <div v-if="loading" class="alert" role="alert">
+            Submitting request...
+          </div>
           <div v-if="message" class="alert" role="alert">
             {{ message }}
           </div>
@@ -225,7 +227,6 @@ export default {
     if (!this.currentUser) {
       this.$router.push("/login");
     }
-  
   },
   methods: {
     toggleModal(type) {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <keep-alive>
-          <blog-feed />
+      <blog-feed />
     </keep-alive>
   </div>
 </template>
@@ -19,9 +19,6 @@ export default {
       content: "",
     };
   },
-
-  
 };
 </script>
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

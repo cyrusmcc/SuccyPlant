@@ -4,11 +4,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-enum PostType {
-    BLOG,
-}
-
-
 @Entity
 public class Post {
 
@@ -26,15 +21,13 @@ public class Post {
     @Column(name="type")
     private PostType type;
 
-    @ElementCollection
-    private List<String> imageIds;
+    private String imageId;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_list_id")
     private PostList postList;
 
     public Post() {
-        imageIds = new ArrayList<>();
     }
 
     public Long getId() {
@@ -69,12 +62,12 @@ public class Post {
         this.type = type;
     }
 
-    public List<String> getImageIds() {
-        return imageIds;
+    public String getImageId() {
+        return imageId;
     }
 
-    public void setImageIds(List<String> imageIds) {
-        this.imageIds = imageIds;
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
     }
 
     public PostList getPostList() {

@@ -1,5 +1,9 @@
 <template>
   <div class="container">
+    <router-link to="/new-blog" v-if="$root.currentUser.roles[0] == 'ROLE_USER'"
+      >new blog</router-link
+    >
+    <div id="blogFeedHead">Recent articles</div>
     <li v-for="blog in blogArr" :key="blog.id">
       <div id="blogImgContainer">
         <img id="blogImg" src="../assets/blogplacehold.webp" alt="" />
@@ -28,19 +32,17 @@ export default {
   },
   computed: {
     blogArr() {
-      return this.$store.getters['blogs/getBlogs'];
+      return this.$store.getters["blogs/getBlogs"];
     },
   },
 
   // if blogArr store does not contain any posts, perform initial get request
   mounted() {
     if (!this.blogArr) {
-
       const blogs = async () => {
         const arr = await blogService.getBlogPosts();
         this.$store.state.blogs.blogArr = arr;
-
-      }
+      };
       blogs();
     }
   },
@@ -68,7 +70,6 @@ li {
   margin-bottom: 20px;
   height: fit-content;
   border-radius: 3px;
-  font-style: $rubik;
   width: 85%;
 }
 
@@ -78,6 +79,11 @@ li {
   align-items: center;
   width: 100%;
   margin: 10px auto;
+}
+
+#blogFeedHead {
+  color: $lightShade;
+  font-size: 1.5rem;
 }
 
 #blogImgContainer {
@@ -124,6 +130,7 @@ li {
   width: fit-content;
   margin-bottom: 30px;
   background-color: $darkShade;
-  border: thin solid $accentOne;
+  border: thin solid $accentTwo;
 }
-</style>>
+</style>
+>

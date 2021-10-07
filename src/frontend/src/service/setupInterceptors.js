@@ -6,7 +6,7 @@ const setup = (store) => {
     (config) => {
       const token = tokenService.getLocalAccessToken();
       if (token) {
-        config.headers["Authorization"] = 'Bearer ' + token;  // for Spring Boot back-end
+        config.headers["Authorization"] = "Bearer " + token; // for Spring Boot back-end
       }
       return config;
     },
@@ -23,13 +23,12 @@ const setup = (store) => {
       const originalConfig = err.config;
 
       if (err.response) {
-
         if (err.response.status === 401 && !originalConfig._retry) {
           originalConfig._retry = true;
 
           //console.log("401 error");
           //this.$router.push("/login");
-            
+
           try {
             const rs = await axiosInstance.post("/auth/refreshToken", {
               refreshToken: tokenService.getLocalRefreshToken(),
@@ -37,18 +36,17 @@ const setup = (store) => {
 
             const { accessToken } = rs.data;
 
-            store.dispatch('auth/refreshToken', accessToken);
+            store.dispatch("auth/refreshToken", accessToken);
             tokenService.updateLocalAccessToken(accessToken);
 
             return axiosInstance(originalConfig);
           } catch (_error) {
-
             if (tokenService.getUser()) {
               tokenService.removeUser();
             }
-            
+
             return Promise.reject(_error);
-          } 
+          }
         }
       }
 

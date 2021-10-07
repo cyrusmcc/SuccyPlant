@@ -1,8 +1,16 @@
 <template>
-    <div class="navBarContainer">
-    <div class="modalBackground" v-if="!displayHamburger" @click.self="toggleHamburger()"></div>
+  <div class="navBarContainer">
+    <div
+      class="modalBackground"
+      v-if="!displayHamburger"
+      @click.self="toggleHamburger()"
+    ></div>
     <div class="navBar">
-      <div class="hamburgerLineContainer" v-if="displayHamburger" @click="toggleHamburger">
+      <div
+        class="hamburgerLineContainer"
+        v-if="displayHamburger"
+        @click="toggleHamburger"
+      >
         <div class="hamburgerLine"></div>
         <div class="hamburgerLine"></div>
         <div class="hamburgerLine"></div>
@@ -11,11 +19,16 @@
       <div
         class="closeHamburgerButton"
         v-if="!displayHamburger"
-        @click="toggleHamburger">
+        @click="toggleHamburger"
+      >
         +
       </div>
     </div>
-    <div class="hamburgerContent" v-if="!displayHamburger" @click="toggleHamburger">
+    <div
+      class="hamburgerContent"
+      v-if="!displayHamburger"
+      @click="toggleHamburger"
+    >
       <slot></slot>
     </div>
   </div>
@@ -38,7 +51,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .navBarContainer {
   z-index: 4;
   width: 100%;
@@ -104,5 +116,4 @@ export default {
   height: fit-content;
   max-width: 100%;
 }
-
 </style>

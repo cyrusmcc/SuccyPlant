@@ -4,9 +4,8 @@ import com.cm.contentmanagementapp.models.BlogPost;
 import com.cm.contentmanagementapp.models.User;
 import com.cm.contentmanagementapp.payload.request.BlogPostRequest;
 import com.cm.contentmanagementapp.payload.response.MessageResponse;
-import com.cm.contentmanagementapp.services.PostService;
+import com.cm.contentmanagementapp.services.BlogPostService;
 import com.cm.contentmanagementapp.services.UserService;
-import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,25 +16,29 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/blog")
 public class BlogPostController {
 
-    private PostService postService;
+    private BlogPostService blogPostService;
 
     private UserService userService;
 
     @Autowired
-    public BlogPostController(PostService postService, UserService userService) {
-        this.postService = postService;
+    public BlogPostController(BlogPostService blogPostService, UserService userService) {
+        this.blogPostService = blogPostService;
         this.userService = userService;
     }
 
 
     @PostMapping("/new-post")
-    public ResponseEntity<?> newBlogPost(@Valid @RequestBody BlogPostRequest request) {
+    public ResponseEntity<?> newBlogPost(@Valid @ModelAttribute BlogPostRequest request) throws IOException {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
@@ -43,10 +46,19 @@ public class BlogPostController {
             User user = userService.findByUsername(authentication.getName()).get();
 
             BlogPost post = new BlogPost();
-            post.getPost().setAuthorUsername(user.getUsername());
-            post.setBodyText(request.getBodyText());
-            post.getPost().setPostList(user.getPostList());
-            postService.saveBlog(post);
+            post.setPostTitle(request.getTitle());
+            post.setPostAuthor(request.getAuthorUsername());
+            post.setPostList(user.getPostList());
+
+            // save blog text
+            blogPostService.updateBlogTextFile(post.getBodyTextFileId(), request.getBodyText());
+
+            // save blog images
+            if (!request.getImage().isEmpty()) {
+
+            }
+
+            blogPostService.saveBlog(post);
 
             return ResponseEntity.ok(new MessageResponse("Blog post created"));
 
@@ -57,11 +69,10 @@ public class BlogPostController {
     }
 
     @GetMapping("/get-all")
-    //TODO fix ddos thing
     public ResponseEntity<?> getBlogPosts(@RequestHeader(defaultValue = "0") Integer pageNum,
                                           @RequestHeader(defaultValue = "3") Integer pageSize) {
 
-        List<BlogPost> list = postService.findAllBlogPosts(pageNum, pageSize);
+        List<BlogPost> list = blogPostService.findAllBlogPosts(pageNum, pageSize);
 
         return new ResponseEntity<>(list, new HttpHeaders(), HttpStatus.OK);
     }
@@ -69,8 +80,8 @@ public class BlogPostController {
     @GetMapping("/get/{id}")
     public ResponseEntity<?> getBlogById(@Valid @PathVariable Long id) {
 
-        if (postService.findBlogPostById(id) != null) {
-            return new ResponseEntity<>(postService.findBlogPostById(id), HttpStatus.OK);
+        if (blogPostService.findBlogPostById(id) != null) {
+            return new ResponseEntity<>(blogPostService.findBlogPostById(id), HttpStatus.OK);
         }
 
         return ResponseEntity.badRequest().body(new MessageResponse("Bad request"));

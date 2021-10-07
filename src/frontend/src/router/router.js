@@ -1,15 +1,15 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
-import Login from "../views/Login.vue"
-import Register from "../views/Register.vue"
+import Login from "../views/Login.vue";
+import Register from "../views/Register.vue";
 import ForgotPassword from "../views/ForgotPassword.vue";
-
 
 const Profile = () => import("../views/ProfilePage.vue");
 const Settings = () => import("../views/Settings.vue");
 const ResetPassword = () => import("../views/ResetPassword.vue");
 const ChangeEmail = () => import("../views/ChangeEmailConfirmation.vue");
 const BlogPost = () => import("../views/BlogPost.vue");
+const NewBlogPost = () => import("../views/NewBlogPost.vue");
 
 const routes = [
   {
@@ -19,7 +19,7 @@ const routes = [
 
     meta: {
       //hideNav: true
-    }
+    },
   },
   {
     path: "/about",
@@ -30,7 +30,7 @@ const routes = [
     component: () => import("../views/About.vue"),
   },
   {
-    path: '/login:loginFlash(.*)',
+    path: "/login:loginFlash(.*)",
     name: "Login",
     meta: {
       hideNav: true,
@@ -55,9 +55,9 @@ const routes = [
     },
 
     component: ForgotPassword,
-  },  
+  },
   {
-    path: '/reset-password-token-:passToken(.*)',
+    path: "/reset-password-token-:passToken(.*)",
     name: "resetPassword",
     meta: {
       hideNav: true,
@@ -66,7 +66,7 @@ const routes = [
     component: ResetPassword,
   },
   {
-    path: '/email-change-confirmation-:emailToken(.*)',
+    path: "/email-change-confirmation-:emailToken(.*)",
     name: "emailChangeConfirmation",
     meta: {
       hideNav: true,
@@ -80,7 +80,7 @@ const routes = [
     meta: {
       //hideNav: true,
     },
-    
+
     component: Profile,
   },
   {
@@ -94,8 +94,14 @@ const routes = [
     name: "blog",
 
     component: BlogPost,
-  },// new here
-]
+  },
+  {
+    path: "/new-blog",
+    name: "newBlogPost",
+
+    component: NewBlogPost,
+  }, // new here
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

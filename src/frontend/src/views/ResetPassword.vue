@@ -1,7 +1,11 @@
 <template>
   <div class="container">
     <div class="card">
-      <Form @submit="handleResetPassword" :validation-schema="schema" :initial-values="formValues">
+      <Form
+        @submit="handleResetPassword"
+        :validation-schema="schema"
+        :initial-values="formValues"
+      >
         <p class="form-title">Reset password</p>
 
         <div class="form-in">
@@ -34,20 +38,19 @@ export default {
   components: { Form, Field, ErrorMessage },
   name: "ResetPassword",
   data() {
-    
     const schema = yup.object().shape({
       password: yup
         .string()
         .required("You must provide a new password")
         .min(8)
         .max(256),
-      token: yup.string().required()
+      token: yup.string().required(),
     });
 
     const formValues = {
       password: "",
       token: this.$route.params.passToken,
-    }
+    };
 
     return {
       message: "",
@@ -58,19 +61,18 @@ export default {
   methods: {
     handleResetPassword(values) {
       this.message = "";
-      this.$store.dispatch('settings/handlePasswordReset', values).then(
+      this.$store.dispatch("settings/handlePasswordReset", values).then(
         (data) => {
           this.message = data.message;
           this.$router.push("/login");
         },
         (error) => {
-          this.message = 
+          this.message =
             (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
+              error.response.data &&
+              error.response.data.message) ||
             error.message ||
             error.toString();
-          
         }
       );
     },

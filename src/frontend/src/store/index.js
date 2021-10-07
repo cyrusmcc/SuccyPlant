@@ -7,7 +7,7 @@ const store = createStore({
   modules: {
     auth,
     settings,
-    blogs
+    blogs,
   },
 });
 

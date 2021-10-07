@@ -6,13 +6,12 @@
 
 <script>
 export default {
-  name: "ProfilePic"
-}
+  name: "ProfilePic",
+};
 </script>
 
 <style lang="scss">
-
-#userPic{
+#userPic {
   width: 64px;
   height: 64px;
   object-fit: cover;
@@ -28,5 +27,6 @@ export default {
   height: 4.5rem;
   width: 4.5rem;
   overflow: hidden;
-  box-shadow: -1px 1px 18px -2px rgba(15, 15, 15, 0.08);}
+  box-shadow: -1px 1px 18px -2px rgba(15, 15, 15, 0.08);
+}
 </style>

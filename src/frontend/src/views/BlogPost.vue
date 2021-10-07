@@ -9,7 +9,7 @@
           <span id="postDate"> {{ date }}</span>
         </div>
       </header>
-      <div id="imgContainer">
+      <div id="imgContainer" v-if="blogPost.imageIds">
         <img id="blogImg" src="../assets/blogplacehold.webp" alt="" />
         <div id="imgInfo"></div>
       </div>
@@ -30,6 +30,7 @@ export default {
   name: "BlogPost",
   data() {
     return {
+      blogPost: "",
       title: "",
       author: "",
       date: "",
@@ -42,12 +43,13 @@ export default {
   },
   mounted() {
     if (this.blog) {
+      this.blogPost = this.blog;
       this.title = this.blog.post.title;
       this.author = this.blog.post.authorUsername;
       this.date = this.blog.postDate;
     } else {
       blogService.getBlogPostById(this.$route.params.id).then((response) => {
-        this.blog = response.data;
+        this.blogPost = response.data;
         this.title = response.data.post.title;
         this.author = response.data.post.authorUsername;
         this.date = response.data.postDate;
@@ -76,7 +78,6 @@ header {
   flex-direction: column;
   align-items: center;
   color: $lightShade;
-  font-family: $rubik;
 }
 
 .dot {

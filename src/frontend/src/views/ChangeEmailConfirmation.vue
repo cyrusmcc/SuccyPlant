@@ -10,7 +10,6 @@
 </template>
 
 <script>
-
 export default {
   name: "ChangeEmailConfirmation",
   data() {
@@ -66,5 +65,4 @@ export default {
 .pageLink a {
   color: $lightShade;
 }
-
 </style>
