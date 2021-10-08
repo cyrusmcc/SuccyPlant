@@ -1,5 +1,7 @@
 package com.cm.contentmanagementapp.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
@@ -32,6 +34,7 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "post_list_id")
+    @JsonManagedReference
     private PostList postList;
 
     public User() {

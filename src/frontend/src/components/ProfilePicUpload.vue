@@ -110,7 +110,6 @@ export default {
         let imageNode = document.getElementById("userPic");
         let imgUrl = URL.createObjectURL(response.data);
         imageNode.src = imgUrl;
-        console.log(this.content);
       },
       (error) => {
         this.message =

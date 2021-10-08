@@ -28,7 +28,7 @@ h2 {
 
 a {
   cursor: pointer;
-  color: #f5f5f5;
+  color: #EFEDE3;
   text-decoration: none;
 }
 
@@ -44,7 +44,7 @@ fieldset {
 }
 
 .card {
-  background-color: #232121;
+  background-color: #353537;
   border-radius: 4px;
   height: -webkit-fit-content;
   height: -moz-fit-content;
@@ -62,8 +62,8 @@ fieldset {
 }
 
 .button-primary {
-  background-color: #286bc8;
-  color: #f5f5f5;
+  background-color: #4d74a0;
+  color: #EFEDE3;
   border-radius: 4px;
   font-size: 1rem;
   border: none;
@@ -81,7 +81,7 @@ fieldset {
 
 .button-secondary {
   background-color: #0f6132;
-  color: #f5f5f5;
+  color: #EFEDE3;
   border-radius: 4px;
   font-size: 1rem;
   border: none;
@@ -98,7 +98,8 @@ fieldset {
 }
 
 .labelButton {
-  border: #286bc8 1px solid;
+  border: #4d74a0 1px solid;
+  color: #EFEDE3;
   border-radius: 4px;
   padding: 5px;
   cursor: pointer;
@@ -110,6 +111,8 @@ fieldset {
 }
 
 .form-in {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -126,24 +129,34 @@ fieldset {
 }
 
 .form-label {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   padding-bottom: 10px;
+  color: #EFEDE3;
+  border-radius: 4px;
 }
 
 .form-control {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   background-color: #151516;
-  color: #f5f5f5;
+  color: #EFEDE3;
   border: none;
   line-height: 2rem;
   width: 100%;
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 .alert,
 .error-feedback {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   background: #151516;
+  color: #EFEDE3;
   padding: 5px;
   /* align-self: center; */
   margin-top: 10px;
+  margin-bottom: 10px;
   border-radius: 4px;
   width: 100%;
   text-align: left;

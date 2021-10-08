@@ -48,4 +48,6 @@ npm-debug.log
 yarn-error.log
 
 ### User Generated ###
-uploads
+uploads/blogs/blogImg/**
+uploads/blogs/blogText/**
+uploads/profilePictures/**

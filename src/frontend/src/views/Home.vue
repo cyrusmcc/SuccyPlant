@@ -1,8 +1,6 @@
 <template>
   <div>
-    <keep-alive>
-      <blog-feed />
-    </keep-alive>
+    <blog-feed />
   </div>
 </template>
 

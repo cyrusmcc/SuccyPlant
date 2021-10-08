@@ -14,6 +14,8 @@ public interface FileStorageService {
 
     public void save(MultipartFile file, Path path, String fileName);
 
+    public void saveString(String content, Path path, String fileId);
+
     public Resource load(String fileName);
 
     public Resource load(String fileName, Path path);

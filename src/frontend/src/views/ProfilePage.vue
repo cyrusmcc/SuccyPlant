@@ -46,20 +46,7 @@ export default {
       noProfile: false,
     };
   },
-  computed: {
-    getUserJoinDate() {
-      if (this.currentUser) {
-        const userJoinDate = new Date(this.currentUser.joinDate),
-          locale = "en-us",
-          month = userJoinDate.toLocaleString(locale, { month: "short" }),
-          year = userJoinDate.toLocaleString(locale, { year: "numeric" }),
-          joined = month + " " + year;
-        return joined;
-      }
-      return null;
-    },
-  },
-  mounted() {
+  created() {
     UserService.getUserProfilePic(this.$route.params.username).then(
       (response) => {
         let imageNode = document.getElementById("userPic");

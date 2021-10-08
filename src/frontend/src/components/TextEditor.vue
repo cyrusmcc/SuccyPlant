@@ -38,9 +38,16 @@ export default {
   methods: {
     togglePreview() {
       this.displayPreview = !this.displayPreview;
+
+      if (this.displayPreview) {
+        document.getElementById("body").style.display = "none";
+      } else {
+        document.getElementById("body").style.display = "block";
+      }
     },
     update: function (e) {
       this.bodyText = e.target.value;
+      this.$emit("bodyText", DOMPurify.sanitize(marked(this.bodyText)));
     },
   },
 };
@@ -87,7 +94,7 @@ export default {
   border: none;
   outline: none;
   border-radius: 4px;
-  padding: 0;
+  padding: 1px;
 }
 
 #previewIcon {
@@ -106,6 +113,6 @@ export default {
   background-color: $darkShade;
   color: $lightShade;
   border: none;
+  overflow: scroll;
 }
-
 </style>

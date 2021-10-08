@@ -20,18 +20,26 @@
             for="fileInput"
             v-html="fileName"
           />
-          <ErrorMessage name="file" class="error-feedback" />
         </div>
 
         <div id="imgContainer">
           <span id="imgContainerText">Cover image</span>
           <img id="imagePreview" src="" alt="blog image preview" />
         </div>
-        <text-editor />
+
+        <ErrorMessage name="image" class="error-feedback" />
+
+        <text-editor name="bodyText" @bodyText="setBodyText" />
+
+        <ErrorMessage name="bodyText" class="error-feedback" />
 
         <button id="submitBlogButton" class="button-primary">
           Submit blog
         </button>
+
+        <div v-if="message" class="alert" role="alert">
+          {{ message }}
+        </div>
       </Form>
     </div>
   </div>
@@ -41,6 +49,7 @@
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 import textEditor from "../components/TextEditor.vue";
+import blogService from "../service/blog.service";
 
 export default {
   name: "NewBlogPost",
@@ -52,32 +61,52 @@ export default {
   },
   data() {
     const schema = yup.object().shape({
-      title: yup.string().required("Title is required"),
-      bodyText: yup.string().required("Blog body text is required"),
+      title: yup.string().required("Title is required").min(3),
       image: yup.mixed().required("Image is required"),
-      //authorUsername: this.$root.currentUser.username,
-      // image: yup.mixed().required("Image required"),
     });
 
     return {
       schema,
       fileName: "Choose image",
+      // validate bodytext
+      bodyText: "",
+      authorUsername: this.$root.currentUser.username,
+      message: "",
     };
   },
   methods: {
-    handleNewBlog() {},
+    handleNewBlog(values) {
+      this.message = "";
+      blogService.newBlogPost(values, this.authorUsername, this.bodyText).then(
+        (data) => {
+          this.message = data.message;
+          this.$router.push("/?create-blog-success");
+        },
+        (error) => {
+          this.message =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+        }
+      );
+    },
     previewPic() {
       // access name of file upload
       var picName = document.getElementById("fileInput");
       this.fileName = picName.files.item(0).name;
 
-      document.getElementById("imgContainer").style.border = "none";
+      document.getElementById("imgContainer").style.background = "#151516";
 
       // toggle image preview modal
       document.getElementById("imagePreview").src = window.URL.createObjectURL(
         picName.files[0]
       );
       document.getElementById("imagePreview").style.display = "block";
+    },
+    setBodyText(body) {
+      this.bodyText = body;
     },
   },
 };
@@ -104,6 +133,10 @@ form {
   background-color: $accentShade;
 }
 
+.form-in {
+  margin-bottom: 10px;
+}
+
 #fileInput {
   display: none;
 }
@@ -116,11 +149,11 @@ form {
 }
 
 #imageUploadButton {
-  margin-top: 20px;
-  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 #imgContainer {
+  background-color: $lightShade;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -129,19 +162,17 @@ form {
   position: relative;
   height: 160px;
   width: 98%;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   border-radius: 3px;
-  border: medium dashed $accentOne;
 }
 
 #imgContainerText {
-  color: $accentOne;
+  color: $darkShade;
   opacity: 0.8;
   text-align: center;
 }
 
 #imagePreview {
-  border: medium dashed $accentOne;
   border-radius: 3px;
   position: absolute;
   top: 0;
@@ -153,5 +184,6 @@ form {
 
 #submitBlogButton {
   margin-top: 20px;
+  margin-bottom: 10px;
 }
 </style>

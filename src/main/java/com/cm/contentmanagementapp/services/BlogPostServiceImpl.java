@@ -13,7 +13,6 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -55,6 +54,12 @@ public class BlogPostServiceImpl implements BlogPostService {
         }
     }
 
+    @Override
+    public boolean existsById(Long id) {
+        if (blogPostRepository.existsById(id))
+            return true;
+        return false;
+    }
 
 
     @Override
@@ -82,12 +87,38 @@ public class BlogPostServiceImpl implements BlogPostService {
     }
 
     @Override
-    public boolean updateBlogTextFile(String fileId, MultipartFile file) {
+    public boolean updateBlogTextFile(String fileId, String bodyText) {
 
         try {
 
-            Path filePath = Paths.get("uploads/blogs");
-            fileService.save(file, filePath, fileId);
+            Path filePath = Paths.get("uploads/blogs/blogText");
+            fileService.saveString(bodyText, filePath, fileId);
+
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateBlogImage(BlogPost blogPost, MultipartFile file) {
+
+        Path filePath = Paths.get("uploads/blogs/blogImg");
+
+        if (blogPost.getPost().getImageId() != null) {
+            fileService.deleteIfExists(filePath, blogPost.getPost().getImageId());
+        }
+
+        try {
+
+            String[] fileExtension = file.getOriginalFilename().split("\\.");
+            String fileId = UUID.randomUUID().toString();
+            fileId += "." + fileExtension[1];
+
+            blogPost.setPostImageId(fileId);
+            fileService.save(file,filePath,fileId);
+            saveBlog(blogPost);
 
             return true;
         } catch (Exception e) {

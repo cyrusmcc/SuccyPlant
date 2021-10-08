@@ -6,12 +6,12 @@
     <div id="blogFeedHead">Recent articles</div>
     <li v-for="blog in blogArr" :key="blog.id">
       <div id="blogImgContainer">
-        <img id="blogImg" src="../assets/blogplacehold.webp" alt="" />
+        <img class="blogImg" :src="getImg(blog.id)" alt="" />
       </div>
       <div id="blogTextContainer">
-        <router-link :to="'/blog/' + blog.id"
-          >title here {{ blog.id }}</router-link
-        >
+        <router-link :to="'/blog/' + blog.id">{{
+          blog.post.title
+        }}</router-link>
         <div id="blogPostDate">Posted on {{ blog.postDate }}</div>
       </div>
     </li>
@@ -27,7 +27,7 @@ import blogService from "../service/blog.service";
 export default {
   data() {
     return {
-      initialLoad: false,
+      img: "",
     };
   },
   computed: {
@@ -41,7 +41,19 @@ export default {
     if (!this.blogArr) {
       const blogs = async () => {
         const arr = await blogService.getBlogPosts();
+
         this.$store.state.blogs.blogArr = arr;
+
+        /*
+        for (let i = 0; i < arr.length; i++) {
+          blogService.getBlogImageById(arr[i].id).then((response) => {
+            this.$store.state.blogs.blogArr[i] = {
+              info: arr[i],
+              img: window.URL.createObjectURL(response.data),
+            };
+          });
+        }
+        */
       };
       blogs();
     }
@@ -52,10 +64,17 @@ export default {
         const arr = await blogService.getBlogPosts();
 
         for (let i = 0; i < arr.length; i++) {
+          this.getBlogImgById(arr[i].id);
           this.$store.state.blogs.blogArr.push(arr[i]);
         }
       };
       blogs();
+    },
+    getImg(id) {
+      blogService.getBlogImageById(id).then((response) => {
+        this.img = window.URL.createObjectURL(response.data);
+      });
+      return this.img;
     },
   },
 };
@@ -83,7 +102,8 @@ li {
 
 #blogFeedHead {
   color: $lightShade;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  margin-bottom: 25px;
 }
 
 #blogImgContainer {
@@ -94,15 +114,18 @@ li {
   width: 100%;
 }
 
-#blogImg {
+.blogImg {
   height: inherit;
-  object-fit: cover;
   width: inherit;
+  object-fit: cover;
 }
 
 #blogTextContainer {
+  height: fit-content;
   width: 100%;
-  padding: 10px;
+  box-shadow: $shadow;
+  box-sizing: border-box;
+  padding: 10px 0 10px 5px;
 }
 
 #blogTextContainer > * {
@@ -118,7 +141,6 @@ li {
 #blogPostDate {
   font-size: small;
   color: $accentTwo;
-  margin-bottom: 15px;
 }
 
 #blogBody {

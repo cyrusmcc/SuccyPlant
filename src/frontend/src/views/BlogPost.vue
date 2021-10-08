@@ -9,8 +9,8 @@
           <span id="postDate"> {{ date }}</span>
         </div>
       </header>
-      <div id="imgContainer" v-if="blogPost.imageIds">
-        <img id="blogImg" src="../assets/blogplacehold.webp" alt="" />
+      <div id="imgContainer" v-if="imgUrl">
+        <img id="blogImg" :src="imgUrl" alt="" />
         <div id="imgInfo"></div>
       </div>
       <div id="blogBody">
@@ -34,6 +34,7 @@ export default {
       title: "",
       author: "",
       date: "",
+      imgUrl: "",
     };
   },
   computed: {
@@ -41,20 +42,26 @@ export default {
       return this.$store.getters["blogs/getBlogById"](this.$route.params.id);
     },
   },
-  mounted() {
+  created() {
+    /*
     if (this.blog) {
       this.blogPost = this.blog;
       this.title = this.blog.post.title;
       this.author = this.blog.post.authorUsername;
       this.date = this.blog.postDate;
+      console.log(this.blog.img);
+      document.getElementById("blogImg").src = this.blog.img;
     } else {
-      blogService.getBlogPostById(this.$route.params.id).then((response) => {
-        this.blogPost = response.data;
-        this.title = response.data.post.title;
-        this.author = response.data.post.authorUsername;
-        this.date = response.data.postDate;
-      });
-    }
+    }*/
+    blogService.getBlogPostById(this.$route.params.id).then((response) => {
+      this.blogPost = response.data;
+      this.title = response.data.post.title;
+      this.author = response.data.post.authorUsername;
+      this.date = response.data.postDate;
+    });
+    blogService.getBlogImageById(this.$route.params.id).then((response) => {
+      this.imgUrl = URL.createObjectURL(response.data);
+    });
 
     if (this.date != "") {
       const blogDate = new Date(this.date),

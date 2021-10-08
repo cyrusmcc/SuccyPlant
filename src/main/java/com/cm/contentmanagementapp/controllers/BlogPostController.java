@@ -5,17 +5,23 @@ import com.cm.contentmanagementapp.models.User;
 import com.cm.contentmanagementapp.payload.request.BlogPostRequest;
 import com.cm.contentmanagementapp.payload.response.MessageResponse;
 import com.cm.contentmanagementapp.services.BlogPostService;
+import com.cm.contentmanagementapp.services.FileStorageService;
 import com.cm.contentmanagementapp.services.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.activation.FileTypeMap;
 import javax.validation.Valid;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -30,10 +36,16 @@ public class BlogPostController {
 
     private UserService userService;
 
+    private FileStorageService fileService;
+
+    private static final Logger log = LoggerFactory.getLogger(AuthController.class);
+
+
     @Autowired
-    public BlogPostController(BlogPostService blogPostService, UserService userService) {
+    public BlogPostController(BlogPostService blogPostService, UserService userService, FileStorageService fileService) {
         this.blogPostService = blogPostService;
         this.userService = userService;
+        this.fileService = fileService;
     }
 
 
@@ -55,7 +67,8 @@ public class BlogPostController {
 
             // save blog images
             if (!request.getImage().isEmpty()) {
-
+                System.out.println("IN");
+                blogPostService.updateBlogImage(post, request.getImage());
             }
 
             blogPostService.saveBlog(post);
@@ -64,7 +77,7 @@ public class BlogPostController {
 
         }
 
-        return ResponseEntity.badRequest().body(new MessageResponse("Bad request"));
+        return ResponseEntity.badRequest().body(new MessageResponse("ayo - its ok"));
 
     }
 
@@ -86,6 +99,32 @@ public class BlogPostController {
 
         return ResponseEntity.badRequest().body(new MessageResponse("Bad request"));
 
+    }
+
+    @GetMapping("get-image/{id}")
+    @ResponseBody
+    public ResponseEntity<?> getBlogImage(@PathVariable Long id) {
+
+        try {
+            if (!blogPostService.existsById(id)) {
+                return ResponseEntity
+                        .badRequest()
+                        .body(new MessageResponse("Blog does not exist"));
+            }
+
+            BlogPost post = blogPostService.findBlogPostById(id);
+            Path filePath = Paths.get("uploads/blogs/blogImg");
+
+            File file = fileService.load(post.getPost().getImageId(), filePath).getFile();
+
+            return ResponseEntity.ok()
+                    .header("Content-Disposition", "attachment; filename=" + file.getName())
+                    .contentType(MediaType.valueOf(FileTypeMap.getDefaultFileTypeMap().getContentType(file)))
+                    .body(Files.readAllBytes(file.toPath()));
+        } catch (Exception e) {
+            log.info("Failed to load blog image: {}", e);
+            return ResponseEntity.badRequest().body(new MessageResponse("Failed to load blog image"));
+        }
     }
 
 }

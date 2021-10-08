@@ -22,12 +22,19 @@ class BlogService {
       return response;
     });
   }
-  newBlogPost({ title }, { authorUsername }, { bodyTextFile }, { image }) {
+  getBlogImageById(id) {
+    return api.get(BLOG_API_URL + "get-image/" + id, {
+      responseType: "blob",
+    });
+  }
+  newBlogPost(values, authorUsername, bodyText) {
     const formData = new FormData();
-    formData.append("title", title);
+    formData.append("title", values.title);
     formData.append("authorUsername", authorUsername);
-    formData.append("bodyText", bodyTextFile[0]);
-    formData.append("image", image[0]);
+    formData.append("bodyText", bodyText);
+    formData.append("image", values.image[0]);
+
+    return api.post(BLOG_API_URL + "new-post", formData);
   }
 }
 

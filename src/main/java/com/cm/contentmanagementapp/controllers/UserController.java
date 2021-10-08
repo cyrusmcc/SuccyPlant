@@ -48,7 +48,7 @@ public class UserController {
 
     }
 
-    @GetMapping("/profPic/{username}")
+    @GetMapping("/get-image/{username}")
     @ResponseBody
     public ResponseEntity<?> getUserProfilePicture(@PathVariable String username) throws IOException {
 

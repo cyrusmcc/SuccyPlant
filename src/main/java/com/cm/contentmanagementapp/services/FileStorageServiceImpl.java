@@ -1,5 +1,8 @@
 package com.cm.contentmanagementapp.services;
 
+import com.cm.contentmanagementapp.controllers.AuthController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,9 @@ public class FileStorageServiceImpl implements FileStorageService{
 
     private final Path root = Paths.get("uploads");
 
+    private static final Logger log = LoggerFactory.getLogger(AuthController.class);
+
+
     @Override
     public void init() {
         try {
@@ -31,6 +37,17 @@ public class FileStorageServiceImpl implements FileStorageService{
     public void save(MultipartFile file, String filePath) {
         try {
             Files.copy(file.getInputStream(), this.root.resolve(filePath));
+            log.info("Saving file: {} to path: {}", file.getName(), filePath);
+        } catch (IOException e) {
+            throw new RuntimeException("Could not store file. Error: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void saveString(String content, Path path, String fileId) {
+        try {
+            Files.writeString(path.resolve(fileId), content);
+            log.info("Saving file: {} to path: {}", fileId, path);
         } catch (IOException e) {
             throw new RuntimeException("Could not store file. Error: " + e.getMessage());
         }
@@ -40,6 +57,7 @@ public class FileStorageServiceImpl implements FileStorageService{
     public void save(MultipartFile file, Path path, String fileName) {
         try {
             Files.copy(file.getInputStream(), path.resolve(fileName));
+            log.info("Saving file: {} to path: {}", file.getName(), path);
         } catch (IOException e) {
             throw new RuntimeException("Could not store file. Error: " + e.getMessage());
         }

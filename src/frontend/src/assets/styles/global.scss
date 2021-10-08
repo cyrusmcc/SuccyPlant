@@ -1,8 +1,8 @@
-$lightShade: #f5f5f5;
-$accentShade: #232121;
+$lightShade: #EFEDE3;
+$accentShade: #353537;
 $darkShade: #151516;
-$accentOne: #286bc8;
-$accentTwo: #9BC1BC;
+$accentOne: #4d74a0;
+$accentTwo: #86c2b6;
 $accentThree: #0f6132;
 
 $screen-md: 610px;
@@ -144,6 +144,7 @@ fieldset {
 }
 
 .form-in {
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -154,26 +155,31 @@ fieldset {
 }
 
 .form-label {
+    box-sizing: border-box;
     padding-bottom: 10px;
     color: $lightShade;
+    border-radius: 4px;
 }
 
 .form-control {
+    box-sizing: border-box;
     background-color: $darkShade;
     color: $lightShade;
     border: none;
     line-height: 2rem;
     width: 100%;
-    border-radius: 3px;
+    border-radius: 4px;
 }
 
 .alert,
 .error-feedback {
+    box-sizing: border-box;
     background: $darkShade;
     color: $lightShade;
     padding: 5px;
     /* align-self: center; */
     margin-top: 10px;
+    margin-bottom: 10px;
     border-radius: 4px;
     width: 100%;
     text-align: left;

@@ -17,7 +17,7 @@ public class BlogPostRequest {
     MultipartFile image;
 
     @NotNull
-    MultipartFile bodyText;
+    String bodyText;
 
     public String getTitle() {
         return title;
@@ -43,11 +43,11 @@ public class BlogPostRequest {
         this.image = image;
     }
 
-    public MultipartFile getBodyText() {
+    public String getBodyText() {
         return bodyText;
     }
 
-    public void setBodyText(MultipartFile bodyText) {
+    public void setBodyText(String bodyText) {
         this.bodyText = bodyText;
     }
 }
