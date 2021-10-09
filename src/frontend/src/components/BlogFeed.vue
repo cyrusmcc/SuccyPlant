@@ -1,20 +1,24 @@
 <template>
   <div class="container">
-    <router-link to="/new-blog" v-if="$root.currentUser.roles[0] == 'ROLE_USER'"
-      >new blog</router-link
-    >
+    <router-link to="/new-blog">new blog</router-link>
     <div id="blogFeedHead">Recent articles</div>
-    <li v-for="blog in blogArr" :key="blog.id">
-      <div id="blogImgContainer">
-        <img class="blogImg" :src="getImg(blog.id)" alt="" />
-      </div>
-      <div id="blogTextContainer">
-        <router-link :to="'/blog/' + blog.id">{{
-          blog.post.title
-        }}</router-link>
-        <div id="blogPostDate">Posted on {{ blog.postDate }}</div>
-      </div>
-    </li>
+    <ol>
+      <li v-for="(blog, index) in blogArr" :key="index">
+        <div id="blogImgContainer">
+          <img
+            class="blogImg"
+            :src="getImgFromBlogId(index, blog.id)"
+            alt="blog post cover image"
+          />
+        </div>
+        <div id="blogTextContainer">
+          <router-link :to="'/blog/' + blog.id">{{
+            blog.post.title
+          }}</router-link>
+          <div id="blogPostDate">Posted on {{ blog.postDate }}</div>
+        </div>
+      </li>
+    </ol>
     <button @click="getBlogs" id="loadBlogButton" class="button-primary">
       Load More
     </button>
@@ -22,20 +26,23 @@
 </template>
 
 <script>
+import { reactive } from "@vue/reactivity";
 import blogService from "../service/blog.service";
 
+const imgStore = reactive({
+  imgArray: [
+    {
+      id: 1,
+    },
+  ],
+});
+
 export default {
-  data() {
-    return {
-      img: "",
-    };
-  },
   computed: {
     blogArr() {
       return this.$store.getters["blogs/getBlogs"];
     },
   },
-
   // if blogArr store does not contain any posts, perform initial get request
   mounted() {
     if (!this.blogArr) {
@@ -43,17 +50,6 @@ export default {
         const arr = await blogService.getBlogPosts();
 
         this.$store.state.blogs.blogArr = arr;
-
-        /*
-        for (let i = 0; i < arr.length; i++) {
-          blogService.getBlogImageById(arr[i].id).then((response) => {
-            this.$store.state.blogs.blogArr[i] = {
-              info: arr[i],
-              img: window.URL.createObjectURL(response.data),
-            };
-          });
-        }
-        */
       };
       blogs();
     }
@@ -70,11 +66,15 @@ export default {
       };
       blogs();
     },
-    getImg(id) {
-      blogService.getBlogImageById(id).then((response) => {
-        this.img = window.URL.createObjectURL(response.data);
-      });
-      return this.img;
+    getImgFromBlogId(index, blogId) {
+      let temp = imgStore.imgArray[index];
+      if (!temp.img) {
+        temp.img = null;
+        blogService.getBlogImageById(blogId).then((response) => {
+          temp.img = URL.createObjectURL(response.data);
+        });
+      }
+      return imgStore.imgArray[index].img;
     },
   },
 };
