@@ -7,7 +7,7 @@
         </profile-pic>
         <div id="userInfo">
           <span id="usernameText" v-if="username">{{ username }}</span>
-          <span id="joinDateText">user since {{ joinDate }}</span>
+          <span id="joinDateText" v-if="joinDate">user since&nbsp; <formatted-date :date="joinDate" :format="'month'" /></span>
         </div>
       </div>
       <div class="card" id="userContentCard">
@@ -33,11 +33,12 @@
 </template>
 
 <script>
-import ProfilePic from "../components/ProfilePic.vue";
+import profilePic from "../components/ProfilePic.vue";
+import formattedDate from "../components/FormattedDate.vue";
 import UserService from "../service/user.service";
 
 export default {
-  components: { ProfilePic },
+  components: { profilePic, formattedDate },
   name: "Profile",
   data() {
     return {
@@ -65,12 +66,7 @@ export default {
     ),
       UserService.getUserProfileInfo(this.$route.params.username).then(
         (response) => {
-          const userJoinDate = new Date(response.data.joinDate),
-            locale = "en-us",
-            month = userJoinDate.toLocaleString(locale, { month: "short" }),
-            year = userJoinDate.toLocaleString(locale, { year: "numeric" }),
-            joined = month + " " + year;
-          this.joinDate = joined;
+          this.joinDate = response.data.joinDate;
           this.username = response.data.username;
         }
       );
@@ -144,6 +140,8 @@ export default {
 }
 
 #joinDateText {
+  display: flex;
+  flex-direction: row;
   color: $primaryLight;
   font-size: 0.8rem;
 }

@@ -22,8 +22,9 @@ export const auth = {
       );
     },
     logout({ commit }, user) {
-      commit("logout");
       AuthService.logout(user);
+      commit('logout');
+
     },
     register({ commit }, user) {
       return AuthService.register(user).then(

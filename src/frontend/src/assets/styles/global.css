@@ -56,6 +56,7 @@ fieldset {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
+  cursor: pointer;
   -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
           box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
 }
@@ -71,6 +72,7 @@ fieldset {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
+  cursor: pointer;
   -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
           box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
 }
@@ -86,6 +88,7 @@ fieldset {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
+  cursor: pointer;
   -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
           box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
 }
@@ -101,6 +104,7 @@ fieldset {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
+  cursor: pointer;
   -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
           box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
 }
@@ -116,6 +120,7 @@ fieldset {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
+  cursor: pointer;
   -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
           box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
 }
@@ -131,6 +136,7 @@ fieldset {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
+  cursor: pointer;
   -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
           box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
 }
@@ -146,6 +152,7 @@ fieldset {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
+  cursor: pointer;
   -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
           box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
 }
@@ -161,6 +168,7 @@ fieldset {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
+  cursor: pointer;
   -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
           box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
 }
@@ -176,12 +184,13 @@ fieldset {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
+  cursor: pointer;
   -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
           box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
 }
 
-.button-primaryLight-accentOne:hover, .button-primaryLight-accentThree:hover, .button-primaryLight-accentThree:hover {
-  cursor: pointer;
+.button-primaryLight-accentOne:hover, .button-primaryLight-accentTwo:hover, .button-primaryLight-accentThree:hover,
+.button-primaryDark-accentOne:hover, .button-primaryDark-accentTwo:hover, .button-primaryDark-accentThree:hover {
   -webkit-box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
           box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
 }
@@ -265,13 +274,10 @@ fieldset {
 html::-webkit-scrollbar {
   width: 10px;
   background-color: #151516;
-  border-right: medium solid #353537;
-  border-radius: 6px 0 0 6px;
 }
 
 html::-webkit-scrollbar-thumb {
-  background-color: #8caed3;
-  border-right: medium solid #353537;
+  background-color: #353537;
   border-radius: 4px 0 0 4px;
 }
 

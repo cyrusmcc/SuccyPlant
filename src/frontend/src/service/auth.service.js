@@ -18,11 +18,8 @@ class AuthService {
         return response.data;
       });
   }
-  logout({ id }) {
-    localStorage.removeItem("user");
-    return api.post(AUTH_API_URL + "logout", {
-      id,
-    });
+  logout() {
+    TokenService.removeUser();
   }
   register({ username, email, password }) {
     return api.post(AUTH_API_URL + "register", {

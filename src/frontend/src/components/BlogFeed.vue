@@ -10,13 +10,16 @@
             class="blogImg"
             :src="getImgFromBlogId(index, blog.id)"
             alt="blog post cover image"
+            onload="this.style.display='block'"
           />
         </div>
         <div id="blogTextContainer">
           <router-link :to="'/blog/' + blog.id">{{
             blog.post.title
           }}</router-link>
-          <div id="blogPostDate">Posted on {{ blog.postDate }}</div>
+          <div id="blogPostDate">
+            Posted on&nbsp; <formatted-date :date="blog.postDate" :format="'full'" />
+          </div>
         </div>
       </li>
     </ol>
@@ -29,12 +32,16 @@
 <script>
 import { reactive } from "@vue/reactivity";
 import blogService from "../service/blog.service";
+import formattedDate from "../components/FormattedDate.vue";
 
 const imgStore = reactive({});
 
 export default {
   data() {
     return {};
+  },
+  components: {
+    formattedDate,
   },
   computed: {
     blogArr() {
@@ -102,6 +109,10 @@ li {
   width: 100%;
 }
 
+img {
+  display: none;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -139,10 +150,6 @@ li {
   padding: 10px 0 10px 5px;
 }
 
-#blogTextContainer > * {
-  margin-bottom: 2px;
-}
-
 #blogTitle {
   font-size: 1.2rem;
   color: $primaryLight;
@@ -150,6 +157,8 @@ li {
 }
 
 #blogPostDate {
+  display: flex;
+  flex-direction: row;
   font-size: small;
   color: $accentOne;
 }
