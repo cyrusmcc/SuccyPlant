@@ -91,7 +91,7 @@ export default {
   align-self: center;
   max-width: 95%;
   height: fit-content;
-  color: $lightShade;
+  color: $primaryLight;
   padding: 1.5rem 0 1.5rem 0;
   font: 2rem;
 }
@@ -125,7 +125,7 @@ export default {
 
 #userContentCard {
   margin-top: 20px;
-  background-color: $darkShade;
+  background-color: $primaryDark;
   box-shadow: none;
 }
 
@@ -139,12 +139,12 @@ export default {
 
 #usernameText {
   font-weight: bold;
-  color: $lightShade;
+  color: $primaryLight;
   font-size: 1.5rem;
 }
 
 #joinDateText {
-  color: $lightShade;
+  color: $primaryLight;
   font-size: 0.8rem;
 }
 
@@ -152,7 +152,7 @@ export default {
   border-top: 0;
   border-radius: 4px 4px 0 0;
   height: fit-content;
-  background: $darkShade;
+  background: $primaryDark;
 }
 
 #navTabs {
@@ -169,8 +169,8 @@ export default {
   justify-content: center;
   width: 100%;
   border-radius: 3px 3px 0 0;
-  background-color: $accentShade;
-  color: $lightShade;
+  background-color: $accentDark;
+  color: $primaryLight;
   padding: 2px;
 }
 
@@ -180,7 +180,7 @@ export default {
 }
 
 #navTab2 {
-  border: thin solid $darkShade;
+  border: thin solid $primaryDark;
   border-bottom: 0;
   border-radius: 3px;
   opacity: 0.6;
@@ -205,7 +205,7 @@ export default {
   #profile {
     width: 65rem;
     margin-top: 20px;
-    background: $accentShade;
+    background: $accentDark;
     flex-direction: row;
   }
 

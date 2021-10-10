@@ -20,7 +20,7 @@
         </div>
       </li>
     </ol>
-    <button @click="getBlogs" id="loadBlogButton" class="button-primary">
+    <button @click="getBlogs" class="button-primaryDark-accentOne">
       Load More
     </button>
   </div>
@@ -112,7 +112,7 @@ li {
 
 #blogFeedHead {
   align-self: flex-start;
-  color: $lightShade;
+  color: $primaryLight;
   font-size: 1.2rem;
   margin-bottom: 20px;
 }
@@ -145,27 +145,19 @@ li {
 
 #blogTitle {
   font-size: 1.2rem;
-  color: $lightShade;
+  color: $primaryLight;
   font-style: italic;
 }
 
 #blogPostDate {
   font-size: small;
-  color: $accentTwo;
+  color: $accentOne;
 }
 
 #blogBody {
-  color: $lightShade;
+  color: $primaryLight;
   font-size: 0.8rem;
 }
-
-#loadBlogButton {
-  width: fit-content;
-  margin-bottom: 30px;
-  background-color: $darkShade;
-  border: thin solid $accentTwo;
-}
-
 @include screen-md() {
   ol {
     width: 40rem;

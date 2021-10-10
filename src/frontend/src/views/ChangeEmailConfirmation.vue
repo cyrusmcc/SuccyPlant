@@ -50,7 +50,7 @@ export default {
   height: 5rem;
   padding: 15px;
   margin: 150px auto;
-  color: $lightShade;
+  color: $primaryLight;
 }
 .alert {
   background: none;
@@ -63,6 +63,6 @@ export default {
 }
 
 .pageLink a {
-  color: $lightShade;
+  color: $primaryLight;
 }
 </style>

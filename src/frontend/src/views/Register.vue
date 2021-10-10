@@ -28,7 +28,7 @@
           <ErrorMessage name="email" class="error-feedback" />
         </div>
 
-        <button class="button-secondary" id="registerButton">Register</button>
+        <button class="button-accentThree-primaryLight" id="registerButton">Register</button>
 
         <div>
           <div v-if="message" class="alert" role="alert">
@@ -130,7 +130,7 @@ fieldset {
 }
 
 .card {
-  color: $lightShade;
+  color: $primaryLight;
   text-align: center;
   padding: 15px;
 }
@@ -142,13 +142,14 @@ fieldset {
 }
 
 #registerButton {
-  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 100%;
   align-self: flex-start;
 }
 
 #login-link {
   font-size: 0.85rem;
-  color: $lightShade;
+  color: $primaryLight;
   display: flex;
   justify-content: center;
   column-gap: 6px;

@@ -25,8 +25,8 @@ export default {
   position: relative;
   margin: 150px auto;
   z-index: inherit;
-  color: $lightShade;
-  background-color: $accentShade;
+  color: $primaryLight;
+  background-color: $accentDark;
   border-radius: 4px;
   text-align: center;
   position: relative;
@@ -35,7 +35,7 @@ export default {
 #modalClose {
   position: absolute;
   z-index: inherit;
-  color: $lightShade;
+  color: $primaryLight;
   user-select: none;
   top: 0;
   left: 10px;

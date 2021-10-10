@@ -12,6 +12,7 @@
       <textarea id="body" :value="bodyText" @input="update"></textarea>
       <div
         id="previewBodyText"
+        class="scrollContainer"
         v-html="compiledMarkdown"
         v-if="displayPreview"
       ></div>
@@ -64,7 +65,7 @@ export default {
 }
 
 #editor > * {
-  background-color: $lightShade;
+  background-color: $primaryLight;
 }
 
 #editorToolBar {
@@ -74,19 +75,19 @@ export default {
   height: 2rem;
   border-radius: 4px 4px 0 0;
   width: 100%;
-  border-bottom: thick solid $darkShade;
-  background-color: $accentShade;
+  border-bottom: thick solid $primaryDark;
+  background-color: $accentDark;
 }
 
 #bodyContainer {
-  background-color: $accentShade;
+  background-color: $accentDark;
   position: relative;
   height: 15rem;
 }
 
 #body {
-  background-color: $accentShade;
-  color: $lightShade;
+  background-color: $accentDark;
+  color: $primaryLight;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -110,9 +111,10 @@ export default {
   width: 100%;
   height: 100%;
   position: absolute;
-  background-color: $darkShade;
-  color: $lightShade;
+  background-color: $primaryDark;
+  color: $primaryLight;
   border: none;
   overflow: scroll;
+  overflow-x: hidden;
 }
 </style>

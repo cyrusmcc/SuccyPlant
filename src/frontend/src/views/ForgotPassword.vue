@@ -14,7 +14,7 @@
         </div>
 
         <div class="form-submit">
-          <button class="button-secondary" id="resetButton">
+          <button class="button-accentThree-primaryLight" id="resetButton">
             Reset password
           </button>
         </div>
@@ -108,7 +108,7 @@ fieldset {
 }
 
 .card {
-  color: $lightShade;
+  color: $primaryLight;
   text-align: center;
   padding: 15px;
 }
@@ -124,7 +124,8 @@ fieldset {
 }
 
 #resetButton {
-  margin-top: 5px;
+  margin-bottom: 5px;
+  width:100%;
   align-self: flex-start;
 }
 
@@ -137,7 +138,7 @@ fieldset {
 
 .pageLink {
   font-size: 0.85rem;
-  color: $lightShade;
+  color: $primaryLight;
   column-gap: 6px;
 }
 

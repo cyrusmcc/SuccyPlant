@@ -76,13 +76,13 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: $lightShade;
+  color: $primaryLight;
 }
 
 .dot {
   height: 5px;
   width: 5px;
-  background-color: $lightShade;
+  background-color: $primaryLight;
   border-radius: 50%;
   display: inline-block;
 }

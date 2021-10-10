@@ -33,7 +33,7 @@
 
         <ErrorMessage name="bodyText" class="error-feedback" />
 
-        <button id="submitBlogButton" class="button-primary">
+        <button id="submitBlogButton" class="button-accentOne-primaryLight">
           Submit blog
         </button>
 
@@ -140,11 +140,11 @@ form {
   align-items: center;
 }
 .form-control {
-  background-color: $accentShade;
+  background-color: $accentDark;
   overflow: hidden;
 }
 .error-feedback {
-  background-color: $accentShade;
+  background-color: $accentDark;
 }
 
 .form-in {
@@ -167,7 +167,7 @@ form {
 }
 
 #imgContainer {
-  background-color: $lightShade;
+  background-color: $primaryLight;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -181,7 +181,7 @@ form {
 }
 
 #imgContainerText {
-  color: $darkShade;
+  color: $primaryDark;
   opacity: 0.8;
   text-align: center;
 }
@@ -210,6 +210,9 @@ form {
   }
   #bodyContainer {
     height: 20rem;
+  }
+  #submitBlogButton {
+    align-self: flex-start;
   }
 }
 

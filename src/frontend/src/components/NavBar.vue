@@ -58,7 +58,7 @@ export default {
   position: sticky;
   top: 0;
   max-height: 100%;
-  background: $darkShade;
+  background: $primaryDark;
 }
 
 .navBar {
@@ -67,14 +67,14 @@ export default {
   height: 25px;
   max-width: 100%;
   font-family: $lobster;
-  color: $lightShade;
+  color: $primaryLight;
   font-size: 1.3rem;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-content: center;
   padding: 10px 0 10px 10px;
-  background: $darkShade;
+  background: $primaryDark;
 }
 
 .hamburgerLineContainer {
@@ -96,7 +96,7 @@ export default {
   top: -7px;
   left: 10px;
   transform: rotate(45deg);
-  color: $lightShade;
+  color: $primaryLight;
   user-select: none;
   font-size: 45px;
   cursor: pointer;
@@ -111,7 +111,7 @@ export default {
   align-items: flex-start;
   padding: 15px;
   row-gap: 10px;
-  background: $darkShade;
+  background: $primaryDark;
   height: fit-content;
   max-width: 100%;
 }

@@ -27,7 +27,7 @@
             <ErrorMessage name="email" class="error-feedback" />
           </div>
 
-          <button class="button-primary">Submit change</button>
+          <button class="button-primaryLight-accentTwo">Submit change</button>
 
           <div v-if="loading" class="alert" role="alert">
             Submitting request...
@@ -80,7 +80,7 @@
           </div>
 
           <div class="form-submit">
-            <button class="button-primary">Submit change</button>
+            <button class="button-primaryLight-accentTwo">Submit change</button>
           </div>
 
           <div v-if="message" class="alert" role="alert">
@@ -288,7 +288,7 @@ export default {
   align-items: center;
   height: 100%;
   width: 100%;
-  color: $lightShade;
+  color: $primaryLight;
 }
 
 .settingTabOptions {
@@ -330,7 +330,7 @@ export default {
 }
 
 #settingTabs {
-  border: $accentShade solid 1px;
+  border: $accentDark solid 1px;
   border-radius: 4px;
   padding: 10px;
   display: flex;
