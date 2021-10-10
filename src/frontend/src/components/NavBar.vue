@@ -96,7 +96,6 @@ export default {
   top: -7px;
   left: 10px;
   transform: rotate(45deg);
-  font-family: $libreFranklin;
   color: $lightShade;
   user-select: none;
   font-size: 45px;

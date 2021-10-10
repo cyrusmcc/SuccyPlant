@@ -70,9 +70,23 @@ export default {
       fileName: "Choose image",
       // validate bodytext
       bodyText: "",
-      authorUsername: this.$root.currentUser.username,
+      authorUsername: "",
       message: "",
     };
+  },
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    },
+  },
+  created() {
+    if (!this.loggedIn) {
+      this.$router.push("/");
+      return;
+    }
+
+    this.authorUsername = this.$root.currentUser.username;
+
   },
   methods: {
     handleNewBlog(values) {
@@ -145,7 +159,7 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 95%;
+  width: 85%;
 }
 
 #imageUploadButton {
@@ -161,7 +175,7 @@ form {
   font-size: 1.2rem;
   position: relative;
   height: 160px;
-  width: 98%;
+  width: 100%;
   margin-bottom: 15px;
   border-radius: 3px;
 }
@@ -186,4 +200,17 @@ form {
   margin-top: 20px;
   margin-bottom: 10px;
 }
+
+@include screen-md() {
+  #newBlog {
+    width: 45rem;
+  }
+  #imgContainer {
+    height: 300px;
+  }
+  #bodyContainer {
+    height: 20rem;
+  }
+}
+
 </style>

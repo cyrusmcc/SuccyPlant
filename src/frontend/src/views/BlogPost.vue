@@ -13,12 +13,7 @@
         <img id="blogImg" :src="imgUrl" alt="" />
         <div id="imgInfo"></div>
       </div>
-      <div id="blogBody">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa possimus
-        cum nesciunt. Ab voluptatibus necessitatibus, praesentium quibusdam
-        explicabo illum nisi iure perspiciatis, nam, alias neque inventore sit
-        dolore et fugit!
-      </div>
+      <div id="blogBody" v-html="bodyText"></div>
     </div>
   </div>
 </template>
@@ -35,6 +30,7 @@ export default {
       author: "",
       date: "",
       imgUrl: "",
+      bodyText: "",
     };
   },
   computed: {
@@ -43,24 +39,20 @@ export default {
     },
   },
   created() {
-    /*
-    if (this.blog) {
-      this.blogPost = this.blog;
-      this.title = this.blog.post.title;
-      this.author = this.blog.post.authorUsername;
-      this.date = this.blog.postDate;
-      console.log(this.blog.img);
-      document.getElementById("blogImg").src = this.blog.img;
-    } else {
-    }*/
     blogService.getBlogPostById(this.$route.params.id).then((response) => {
       this.blogPost = response.data;
       this.title = response.data.post.title;
       this.author = response.data.post.authorUsername;
       this.date = response.data.postDate;
+      console.log(response.data);
     });
+
     blogService.getBlogImageById(this.$route.params.id).then((response) => {
       this.imgUrl = URL.createObjectURL(response.data);
+    });
+
+    blogService.getBlogTextById(this.$route.params.id).then((response) => {
+      this.bodyText = response.data;
     });
 
     if (this.date != "") {
@@ -118,7 +110,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 160px;
+  height: 400px;
   width: 100%;
   margin-bottom: 30px;
 }
@@ -127,5 +119,11 @@ header {
   height: inherit;
   object-fit: cover;
   width: inherit;
+}
+
+@include screen-md() {
+  #blogContainer {
+    width: 45rem;
+  }
 }
 </style>

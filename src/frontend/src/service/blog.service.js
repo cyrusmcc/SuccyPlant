@@ -27,6 +27,9 @@ class BlogService {
       responseType: "blob",
     });
   }
+  getBlogTextById(id) {
+    return api.get(BLOG_API_URL + "get-text/" + id);
+  }
   newBlogPost(values, authorUsername, bodyText) {
     const formData = new FormData();
     formData.append("title", values.title);

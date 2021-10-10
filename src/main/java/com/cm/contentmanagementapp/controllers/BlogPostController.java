@@ -127,4 +127,30 @@ public class BlogPostController {
         }
     }
 
+    @GetMapping("get-text/{id}")
+    @ResponseBody
+    public ResponseEntity<?> getBlogText(@PathVariable Long id) {
+
+        try {
+            if (!blogPostService.existsById(id)) {
+                return ResponseEntity
+                        .badRequest()
+                        .body(new MessageResponse("Blog does not exist"));
+            }
+
+            BlogPost post = blogPostService.findBlogPostById(id);
+            Path filePath = Paths.get("uploads/blogs/blogText");
+
+            File file = fileService.load(post.getBodyTextFileId(), filePath).getFile();
+
+            return ResponseEntity.ok()
+                    .header("Content-Disposition", "attachment; filename=" + file.getName())
+                    .contentType(MediaType.valueOf(FileTypeMap.getDefaultFileTypeMap().getContentType(file)))
+                    .body(Files.readAllBytes(file.toPath()));
+        } catch (Exception e) {
+            log.info("Failed to load blog text: {}", e);
+            return ResponseEntity.badRequest().body(new MessageResponse("Failed to load blog text"));
+        }
+    }
+
 }

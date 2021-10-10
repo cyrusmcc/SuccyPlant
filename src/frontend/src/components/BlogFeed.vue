@@ -1,8 +1,9 @@
 <template>
   <div class="container">
     <router-link to="/new-blog">new blog</router-link>
-    <div id="blogFeedHead">Recent articles</div>
     <ol>
+      <div id="blogFeedHead">Recent articles</div>
+
       <li v-for="(blog, index) in blogArr" :key="index">
         <div id="blogImgContainer">
           <img
@@ -29,15 +30,12 @@
 import { reactive } from "@vue/reactivity";
 import blogService from "../service/blog.service";
 
-const imgStore = reactive({
-  imgArray: [
-    {
-      id: 1,
-    },
-  ],
-});
+const imgStore = reactive({});
 
 export default {
+  data() {
+    return {};
+  },
   computed: {
     blogArr() {
       return this.$store.getters["blogs/getBlogs"];
@@ -58,29 +56,41 @@ export default {
     getBlogs() {
       const blogs = async () => {
         const arr = await blogService.getBlogPosts();
-
         for (let i = 0; i < arr.length; i++) {
-          this.getBlogImgById(arr[i].id);
           this.$store.state.blogs.blogArr.push(arr[i]);
         }
       };
       blogs();
     },
+    // calls twice because of imgstore assignment reactivity, figure out fix
     getImgFromBlogId(index, blogId) {
-      let temp = imgStore.imgArray[index];
+      if (imgStore[index] === undefined) {
+        imgStore[index] = {
+          img: "",
+        };
+      }
+      let temp = imgStore[index];
+
       if (!temp.img) {
-        temp.img = null;
         blogService.getBlogImageById(blogId).then((response) => {
           temp.img = URL.createObjectURL(response.data);
         });
       }
-      return imgStore.imgArray[index].img;
+      return imgStore[index].img;
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+ol {
+  width: 85%;
+  margin-top: 50px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 li {
   display: flex;
   flex-direction: column;
@@ -89,7 +99,7 @@ li {
   margin-bottom: 20px;
   height: fit-content;
   border-radius: 3px;
-  width: 85%;
+  width: 100%;
 }
 
 .container {
@@ -101,16 +111,17 @@ li {
 }
 
 #blogFeedHead {
+  align-self: flex-start;
   color: $lightShade;
   font-size: 1.2rem;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
 #blogImgContainer {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 160px;
+  height: 250px;
   width: 100%;
 }
 
@@ -154,5 +165,11 @@ li {
   background-color: $darkShade;
   border: thin solid $accentTwo;
 }
+
+@include screen-md() {
+  ol {
+    width: 40rem;
+  }
+}
 </style>
->
+
