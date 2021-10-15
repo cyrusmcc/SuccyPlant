@@ -27,7 +27,7 @@
             <ErrorMessage name="email" class="error-feedback" />
           </div>
 
-          <button class="button-primaryLight-accentTwo">Submit change</button>
+          <button class="button-accentThree-primaryLight">Submit change</button>
 
           <div v-if="loading" class="alert" role="alert">
             Submitting request...
@@ -80,7 +80,7 @@
           </div>
 
           <div class="form-submit">
-            <button class="button-primaryLight-accentTwo">Submit change</button>
+            <button class="button-accentThree-primaryLight">Submit change</button>
           </div>
 
           <div v-if="message" class="alert" role="alert">
@@ -90,73 +90,75 @@
       </div>
     </modal>
     <!-- setting options -->
-    <div id="settingTabPanel">
-      <span v-if="currentUser">{{ currentUser.username }}'s settings</span>
-      <div id="settingTabs">
-        <div
-          class="settingTab"
-          @click="currentSettingTab = 'profile'"
-          :style="[
-            currentSettingTab == 'profile'
-              ? { color: '#286bc8', fontWeight: 'bold' }
-              : { color: '#F5F5F5', fontWeight: 'normal' },
-          ]"
-        >
-          Profile
-        </div>
-        <div
-          class="settingTab"
-          @click="currentSettingTab = 'account'"
-          :style="[
-            currentSettingTab == 'account'
-              ? { color: '#286bc8', fontWeight: 'bold' }
-              : { color: '#F5F5F5', fontWeight: 'normal' },
-          ]"
-        >
-          Account
-        </div>
-      </div>
-    </div>
-    <div class="settingTabOptions">
-      <div
-        id="profileOptions"
-        class="option"
-        v-show="currentSettingTab == 'profile'"
-      >
-        <div id="changePicture">
-          <profile-pic-upload />
+    <div id="settingContainer">
+      <div id="settingTabPanel">
+        <span v-if="currentUser">{{ currentUser.username }}'s settings</span>
+        <div id="settingTabs">
+          <div
+            class="settingTab"
+            @click="currentSettingTab = 'profile'"
+            :style="[
+              currentSettingTab == 'profile'
+                ? { color: '#286bc8', fontWeight: 'bold' }
+                : { color: '#F5F5F5', fontWeight: 'normal' },
+            ]"
+          >
+            Profile
+          </div>
+          <div
+            class="settingTab"
+            @click="currentSettingTab = 'account'"
+            :style="[
+              currentSettingTab == 'account'
+                ? { color: '#286bc8', fontWeight: 'bold' }
+                : { color: '#F5F5F5', fontWeight: 'normal' },
+            ]"
+          >
+            Account
+          </div>
         </div>
       </div>
-      <div
-        id="accountOptions"
-        class="option"
-        v-show="currentSettingTab == 'account'"
-      >
-        <div id="changeEmailContainer" class="settingContainer">
-          <div id="changeEmailText">
-            <label for="changeEmailText">Email address</label>
-            <br />
-            <label id="currentEmailLabel" for="changeEmail" v-if="currentUser"
-              >&nbsp;&nbsp;{{ currentUser.email }}</label
+      <div class="settingTabOptions">
+        <div
+          id="profileOptions"
+          class="option"
+          v-show="currentSettingTab == 'profile'"
+        >
+          <div id="changePicture">
+            <profile-pic-upload />
+          </div>
+        </div>
+        <div
+          id="accountOptions"
+          class="option"
+          v-show="currentSettingTab == 'account'"
+        >
+          <div id="changeEmailContainer" class="settingContainer">
+            <div id="changeEmailText">
+              <label for="changeEmailText">Email address</label>
+              <br />
+              <label id="currentEmailLabel" for="changeEmail" v-if="currentUser"
+                >&nbsp;&nbsp;{{ currentUser.email }}</label
+              >
+            </div>
+            <label
+              for=""
+              id="changeEmailButton"
+              class="labelButton"
+              @click="toggleModal('changeEmail')"
+              >Change</label
             >
           </div>
-          <label
-            for=""
-            id="changeEmailButton"
-            class="labelButton"
-            @click="toggleModal('changeEmail')"
-            >Change</label
-          >
-        </div>
-        <div id="changePasswordContainer" class="settingContainer">
-          <div id="changePasswordText">Account password</div>
-          <label
-            for=""
-            id="changePasswordButton"
-            class="labelButton"
-            @click="toggleModal('changePassword')"
-            >Change</label
-          >
+          <div id="changePasswordContainer" class="settingContainer">
+            <div id="changePasswordText">Account password</div>
+            <label
+              for=""
+              id="changePasswordButton"
+              class="labelButton"
+              @click="toggleModal('changePassword')"
+              >Change</label
+            >
+          </div>
         </div>
       </div>
     </div>
@@ -291,10 +293,6 @@ export default {
   color: $primaryLight;
 }
 
-.settingTabOptions {
-  width: 80%;
-}
-
 .settingTab {
   cursor: pointer;
   width: fit-content;
@@ -315,6 +313,16 @@ export default {
   align-items: center;
 }
 
+.button-accentThree-primaryLight {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+#settingContainer {
+  width: 85%;
+  max-width: 50rem;
+}
+
 #userPic {
   height: 4.8rem;
 }
@@ -322,8 +330,6 @@ export default {
 #settingTabPanel {
   margin-top: 50px;
   box-shadow: none;
-  width: 80%;
-  max-width: 80%;
   display: flex;
   flex-direction: column;
   row-gap: 20px;

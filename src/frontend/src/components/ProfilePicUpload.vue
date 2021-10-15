@@ -33,7 +33,7 @@
                 <img id="previewImgCircle" src="" alt="your img" />
               </div>
             </div>
-            <button id="uploadButton" class="button-secondary">
+            <button id="uploadButton" class="button-accentThree-primaryLight">
               Update Profile Picture
             </button>
           </div>
@@ -129,6 +129,11 @@ label {
   cursor: pointer;
 }
 
+.button-accentThree-primaryLight {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
 .picUploadContainer {
   display: flex;
   flex-direction: row;
@@ -153,7 +158,7 @@ label {
 }
 
 #modalContent {
-  margin: 30px 0 10px 0;
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;

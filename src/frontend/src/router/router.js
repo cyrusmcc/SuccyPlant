@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
+import Wiki from "../views/Wiki.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import ForgotPassword from "../views/ForgotPassword.vue";
@@ -100,6 +101,12 @@ const routes = [
     name: "newBlogPost",
 
     component: NewBlogPost,
+  }, 
+  {
+    path: "/wiki",
+    name: "wiki",
+
+    component: Wiki,
   }, // new here
 ];
 

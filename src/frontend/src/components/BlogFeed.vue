@@ -103,7 +103,7 @@ li {
   flex-direction: column;
   align-items: center;
   list-style-type: none;
-  margin-bottom: 20px;
+  margin-bottom: 60px;
   height: fit-content;
   border-radius: 3px;
   width: 100%;

@@ -33,7 +33,7 @@
 
         <ErrorMessage name="bodyText" class="error-feedback" />
 
-        <button id="submitBlogButton" class="button-accentOne-primaryLight">
+        <button id="submitBlogButton" class="button-accentThree-primaryLight">
           Submit blog
         </button>
 
@@ -86,7 +86,6 @@ export default {
     }
 
     this.authorUsername = this.$root.currentUser.username;
-
   },
   methods: {
     handleNewBlog(values) {
@@ -160,6 +159,7 @@ form {
   flex-direction: column;
   align-items: center;
   width: 85%;
+  max-width: 45rem;
 }
 
 #imageUploadButton {
@@ -199,6 +199,7 @@ form {
 #submitBlogButton {
   margin-top: 20px;
   margin-bottom: 10px;
+  width: 100%;
 }
 
 @include screen-md() {
@@ -213,7 +214,7 @@ form {
   }
   #submitBlogButton {
     align-self: flex-start;
+    width: fit-content;
   }
 }
-
 </style>
