@@ -2,7 +2,7 @@
   <div class="container">
     <nav-bar v-show="!$route.meta.hideNav">
       <router-link to="/"> Home </router-link>
-      <router-link to="/wiki"> Wiki </router-link>
+      <router-link to="/gallery"> Gallery </router-link>
       <router-link :to="'/p/' + currentUser.username" v-if="currentUser">
         profile
       </router-link>

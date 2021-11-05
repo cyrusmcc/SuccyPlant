@@ -1,19 +1,20 @@
 package com.cm.contentmanagementapp;
 
 import com.cm.contentmanagementapp.controllers.AuthController;
-import com.cm.contentmanagementapp.models.BlogPost;
+import com.cm.contentmanagementapp.models.*;
 import com.cm.contentmanagementapp.payload.request.SignupRequest;
 import com.cm.contentmanagementapp.payload.response.MessageResponse;
-import com.cm.contentmanagementapp.models.User;
-import com.cm.contentmanagementapp.services.BlogPostService;
-import com.cm.contentmanagementapp.services.UserService;
+import com.cm.contentmanagementapp.services.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @SpringBootTest
 class ContentManagementAppApplicationTests {
@@ -32,6 +33,16 @@ class ContentManagementAppApplicationTests {
 
 	@Autowired
     BlogPostService blogPostService;
+
+	@Autowired
+	GalleryPostService galleryPostService;
+
+	@Autowired
+	PostService postService;
+
+
+	@Autowired
+	ContentTagService contentTagService;
 
 	@Test
 	void contextLoads() {
@@ -73,6 +84,32 @@ class ContentManagementAppApplicationTests {
 		for (BlogPost b : list) {
 			System.out.println(b.getId());
 		}
+
+	}
+
+	@Test
+	void newTag() {
+
+		contentTagService.newTag(EnumTags.BLACK);
+
+	}
+
+	@Test
+	@Transactional
+	void postTagsTest() {
+
+		Post post = new Post();
+		ContentTag tag = contentTagService.findByValue(EnumTags.BLACK);
+
+		post.setTitle("gallpostasdtest");
+
+		postService.save(post);
+
+		postService.addTag(post, tag);
+		contentTagService.addPostToTag(post, tag);
+
+		GalleryPost gp = new GalleryPost(post);
+		galleryPostService.save(gp);
 
 	}
 

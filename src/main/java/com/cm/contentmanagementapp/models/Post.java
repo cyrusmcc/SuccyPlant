@@ -1,8 +1,8 @@
 package com.cm.contentmanagementapp.models;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Post {
@@ -23,11 +23,21 @@ public class Post {
 
     private String imageId;
 
+    @ManyToMany
+    @JoinTable(
+            name = "post_tag",
+            joinColumns = @JoinColumn(name = "post_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+
+    )
+    private Set<ContentTag> contentTags;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_list_id")
     private PostList postList;
 
     public Post() {
+        this.contentTags = new HashSet<>();
     }
 
     public Long getId() {
@@ -76,5 +86,13 @@ public class Post {
 
     public void setPostList(PostList postList) {
         this.postList = postList;
+    }
+
+    public Set<ContentTag> getTags() {
+        return contentTags;
+    }
+
+    public void setTags(Set<ContentTag> contentTags) {
+        this.contentTags = contentTags;
     }
 }

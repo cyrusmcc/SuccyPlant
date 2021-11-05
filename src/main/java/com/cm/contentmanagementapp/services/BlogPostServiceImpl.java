@@ -61,7 +61,6 @@ public class BlogPostServiceImpl implements BlogPostService {
         return false;
     }
 
-
     @Override
     public List<BlogPost> findAllBlogPosts(Integer pageNum, Integer pageSize) {
 
