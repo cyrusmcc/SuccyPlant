@@ -15,10 +15,8 @@ public class GalleryPost {
     private Post post;
 
     public GalleryPost() {
-    }
-
-    public GalleryPost(Post post) {
-        this.post = post;
+        this.post = new Post();
+        this.post.setPostType(PostType.GALLERY);
     }
 
     public Long getId() {
@@ -33,7 +31,20 @@ public class GalleryPost {
         return post;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
+    public void setTitle(String title) {
+        this.post.setTitle(title);
     }
+
+    public void setAuthor(String author) {
+        this.post.setAuthorUsername(author);
+    }
+
+    public void setPostImageId(String imageId) {
+        this.post.setImageId(imageId);
+    }
+
+    public void setPostList(PostList list) {
+        this.post.setPostList(list);
+    }
+
 }

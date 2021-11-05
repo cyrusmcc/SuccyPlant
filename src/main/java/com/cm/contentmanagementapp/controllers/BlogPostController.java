@@ -58,8 +58,8 @@ public class BlogPostController {
             User user = userService.findByUsername(authentication.getName()).get();
 
             BlogPost post = new BlogPost();
-            post.setPostTitle(request.getTitle());
-            post.setPostAuthor(request.getAuthorUsername());
+            post.setTitle(request.getTitle());
+            post.setAuthor(request.getAuthorUsername());
             post.setPostList(user.getPostList());
 
             // save blog text
@@ -67,7 +67,6 @@ public class BlogPostController {
 
             // save blog images
             if (!request.getImage().isEmpty()) {
-                System.out.println("IN");
                 blogPostService.updateBlogImage(post, request.getImage());
             }
 

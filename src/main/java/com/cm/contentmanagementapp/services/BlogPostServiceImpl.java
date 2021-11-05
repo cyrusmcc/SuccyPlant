@@ -27,8 +27,6 @@ public class BlogPostServiceImpl implements BlogPostService {
 
     private BlogPostRepository blogPostRepository;
 
-    private PostListRepository postListRepository;
-
     private FileStorageService fileService;
 
     private static final Logger log = LoggerFactory.getLogger(SettingsController.class);
@@ -38,7 +36,6 @@ public class BlogPostServiceImpl implements BlogPostService {
     public BlogPostServiceImpl(PostRepository postRepository, PostListRepository postListRepository,
                                BlogPostRepository blogPostRepository, FileStorageService fileStorageService) {
         this.postRepository = postRepository;
-        this.postListRepository = postListRepository;
         this.blogPostRepository = blogPostRepository;
         this.fileService = fileStorageService;
     }
@@ -125,7 +122,5 @@ public class BlogPostServiceImpl implements BlogPostService {
             return false;
         }
     }
-
-    //public boolean saveBlogImages(String )
 
 }

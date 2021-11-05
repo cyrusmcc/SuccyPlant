@@ -4,14 +4,17 @@ import com.cm.contentmanagementapp.controllers.AuthController;
 import com.cm.contentmanagementapp.models.*;
 import com.cm.contentmanagementapp.payload.request.SignupRequest;
 import com.cm.contentmanagementapp.payload.response.MessageResponse;
+import com.cm.contentmanagementapp.repositories.GalleryPostRepository;
 import com.cm.contentmanagementapp.services.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -43,6 +46,9 @@ class ContentManagementAppApplicationTests {
 
 	@Autowired
 	ContentTagService contentTagService;
+
+	@Autowired
+	GalleryPostRepository gpRepo;
 
 	@Test
 	void contextLoads() {
@@ -96,20 +102,26 @@ class ContentManagementAppApplicationTests {
 
 	@Test
 	@Transactional
-	void postTagsTest() {
+	@Rollback(value = false)
+	void galleryPostTest() {
 
-		Post post = new Post();
-		ContentTag tag = contentTagService.findByValue(EnumTags.BLACK);
+		GalleryPost post = new GalleryPost();
+		post.setTitle("galpooost");
+		post.getPost().addTag(contentTagService.findByValue(EnumTags.BLACK));
 
-		post.setTitle("gallpostasdtest");
+		galleryPostService.save(post);
 
-		postService.save(post);
+	}
 
-		postService.addTag(post, tag);
-		contentTagService.addPostToTag(post, tag);
+	@Test
+	void findGalleryPostByPostContentTag() {
 
-		GalleryPost gp = new GalleryPost(post);
-		galleryPostService.save(gp);
+		List<GalleryPost> test = galleryPostService.findAllByContentTag(0, 10,
+				contentTagService.findByValue(EnumTags.BLACK));
+
+		for (GalleryPost gp : test) {
+			System.out.println(gp.getPost().getTitle());
+		}
 
 	}
 

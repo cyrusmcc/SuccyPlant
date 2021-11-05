@@ -40,15 +40,23 @@ public class BlogPost {
         this.bodyTextFileUrl = bodyTextFileId;
     }
 
+    public LocalDate getPostDate() {
+        return postDate;
+    }
+
+    public void setPostDate(LocalDate postDate) {
+        this.postDate = postDate;
+    }
+
     public Post getPost() {
         return post;
     }
 
-    public void setPostTitle(String title) {
+    public void setTitle(String title) {
         this.post.setTitle(title);
     }
 
-    public void setPostAuthor(String author) {
+    public void setAuthor(String author) {
         this.post.setAuthorUsername(author);
     }
 
@@ -58,14 +66,6 @@ public class BlogPost {
 
     public void setPostList(PostList list) {
         this.post.setPostList(list);
-    }
-
-    public LocalDate getPostDate() {
-        return postDate;
-    }
-
-    public void setPostDate(LocalDate postDate) {
-        this.postDate = postDate;
     }
 
 }

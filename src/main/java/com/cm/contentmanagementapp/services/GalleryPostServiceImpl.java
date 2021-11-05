@@ -1,9 +1,17 @@
 package com.cm.contentmanagementapp.services;
 
+import com.cm.contentmanagementapp.models.ContentTag;
 import com.cm.contentmanagementapp.models.GalleryPost;
 import com.cm.contentmanagementapp.repositories.GalleryPostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class GalleryPostServiceImpl implements GalleryPostService {
@@ -21,6 +29,20 @@ public class GalleryPostServiceImpl implements GalleryPostService {
             return gPRepo.findById(postId).get();
 
         else return null;
+    }
+
+    @Override
+    public List<GalleryPost> findAllByContentTag(Integer pageNum, Integer pageSize, ContentTag tag) {
+
+        Pageable paging = PageRequest.of(pageNum, pageSize, Sort.by("id").descending());
+
+        Slice<GalleryPost> sliceResult = gPRepo.findGalleryPostsByPostContentTagsContaining(tag, paging);
+
+        if (sliceResult.hasContent()) {
+            return sliceResult.getContent();
+        } else {
+            return new ArrayList<>();
+        }
     }
 
     @Override

@@ -95,4 +95,13 @@ public class Post {
     public void setTags(Set<ContentTag> contentTags) {
         this.contentTags = contentTags;
     }
+
+    public void addTag(ContentTag tag) {
+
+        if (contentTags.contains(tag))
+            throw new IllegalArgumentException();
+
+        contentTags.add(tag);
+    }
+
 }
