@@ -1,6 +1,6 @@
 package com.cm.contentmanagementapp.models;
 
-import org.springframework.transaction.annotation.Transactional;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -48,6 +48,7 @@ public class ContentTag {
         this.value = value;
     }
 
+    @JsonBackReference
     public Set<Post> getPosts() {
         return posts;
     }

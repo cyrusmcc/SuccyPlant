@@ -13,6 +13,8 @@ public interface GalleryPostService {
 
     void save(GalleryPost post);
 
-    List<GalleryPost> findAllByContentTag(Integer pageNum, Integer pageSize, ContentTag tag);
+    List<GalleryPost> findAllByContentTags(Integer pageNum, Integer pageSize, List<ContentTag> tags);
+
+    List<GalleryPost> findAllByAlphabetical(Integer pageNum, Integer pageSize);
 
 }

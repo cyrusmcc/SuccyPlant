@@ -6,8 +6,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface GalleryPostRepository extends JpaRepository<GalleryPost, Long> {
 
-    Slice<GalleryPost> findGalleryPostsByPostContentTagsContaining(ContentTag tag, Pageable paging);
+    Slice<GalleryPost> findGalleryPostsByPostContentTagsIn(List<ContentTag> tags, Pageable paging);
 
 }

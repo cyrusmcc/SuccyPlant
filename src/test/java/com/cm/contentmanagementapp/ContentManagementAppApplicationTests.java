@@ -106,8 +106,8 @@ class ContentManagementAppApplicationTests {
 	void galleryPostTest() {
 
 		GalleryPost post = new GalleryPost();
-		post.setTitle("galpooost");
-		post.getPost().addTag(contentTagService.findByValue(EnumTags.BLACK));
+		post.setTitle("whitepost");
+		post.getPost().addTag(contentTagService.findByValue(EnumTags.WHITE));
 
 		galleryPostService.save(post);
 
@@ -116,13 +116,27 @@ class ContentManagementAppApplicationTests {
 	@Test
 	void findGalleryPostByPostContentTag() {
 
-		List<GalleryPost> test = galleryPostService.findAllByContentTag(0, 10,
-				contentTagService.findByValue(EnumTags.BLACK));
+		List<ContentTag> tags = new ArrayList<>();
+		tags.add(contentTagService.findByValue(EnumTags.WHITE));
+		tags.add(contentTagService.findByValue(EnumTags.BLACK));
+
+		List<GalleryPost> test = galleryPostService.findAllByContentTags(0, 10,
+				tags);
 
 		for (GalleryPost gp : test) {
 			System.out.println(gp.getPost().getTitle());
 		}
 
+	}
+
+	@Test
+	void findAllGalleryPosts() {
+
+		List<GalleryPost> test = galleryPostService.findAllByAlphabetical(0, 10);
+
+		for (GalleryPost gp : test) {
+			System.out.println(gp.getPost().getTitle());
+		}
 	}
 
 }

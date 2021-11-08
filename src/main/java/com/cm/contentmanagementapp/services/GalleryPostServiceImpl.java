@@ -1,5 +1,6 @@
 package com.cm.contentmanagementapp.services;
 
+import com.cm.contentmanagementapp.models.BlogPost;
 import com.cm.contentmanagementapp.models.ContentTag;
 import com.cm.contentmanagementapp.models.GalleryPost;
 import com.cm.contentmanagementapp.repositories.GalleryPostRepository;
@@ -32,11 +33,25 @@ public class GalleryPostServiceImpl implements GalleryPostService {
     }
 
     @Override
-    public List<GalleryPost> findAllByContentTag(Integer pageNum, Integer pageSize, ContentTag tag) {
+    public List<GalleryPost> findAllByContentTags(Integer pageNum, Integer pageSize, List<ContentTag> tags) {
 
         Pageable paging = PageRequest.of(pageNum, pageSize, Sort.by("id").descending());
 
-        Slice<GalleryPost> sliceResult = gPRepo.findGalleryPostsByPostContentTagsContaining(tag, paging);
+        Slice<GalleryPost> sliceResult = gPRepo.findGalleryPostsByPostContentTagsIn(tags, paging);
+
+        if (sliceResult.hasContent()) {
+            return sliceResult.getContent();
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<GalleryPost> findAllByAlphabetical(Integer pageNum, Integer pageSize) {
+
+        Pageable paging = PageRequest.of(pageNum, pageSize, Sort.by("id").descending());
+
+        Slice<GalleryPost> sliceResult = gPRepo.findAll(paging);
 
         if (sliceResult.hasContent()) {
             return sliceResult.getContent();
