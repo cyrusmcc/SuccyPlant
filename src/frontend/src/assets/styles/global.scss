@@ -80,6 +80,17 @@ fieldset {
     border: none;
 }
 
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    border: 1px solid $primaryLight;
+}
+
+td, th {
+    border: 1px solid $primaryLight;
+    padding: 5px;
+}
+
 .container {
     height: 100%;
 }
@@ -258,3 +269,4 @@ html::-webkit-scrollbar {
     padding-bottom: 5px;
     box-shadow: 0 4px 8px 0 RGB(0 0 0/20%), 0 6px 20px 0 RGB(0 0 0/19%);
 }
+

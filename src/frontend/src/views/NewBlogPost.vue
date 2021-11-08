@@ -158,8 +158,9 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 85%;
-  max-width: 45rem;
+  width: 50rem;
+  min-width: 200px;
+  max-width: 85%;
 }
 
 #imageUploadButton {
@@ -204,7 +205,7 @@ form {
 
 @include screen-md() {
   #newBlog {
-    width: 45rem;
+    //width: 45rem;
   }
   #imgContainer {
     height: 300px;

@@ -55,7 +55,7 @@ export default {
   z-index: 4;
   width: 100%;
   height: fit-content;
-  position: sticky;
+  position: fixed;
   top: 0;
   max-height: 100%;
   background: $primaryDark;

@@ -163,10 +163,6 @@ img {
   color: $accentOne;
 }
 
-#blogBody {
-  color: $primaryLight;
-  font-size: 0.8rem;
-}
 @include screen-md() {
   ol {
     width: 40rem;

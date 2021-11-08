@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="profileContainer">
     <div id="profile" v-if="!noProfile">
       <div id="userInfoCard">
         <profile-pic>
@@ -74,8 +74,9 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-.container {
+.profileContainer {
   display: flex;
+  padding-top: 40px;
 }
 
 .card {
