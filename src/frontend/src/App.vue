@@ -15,7 +15,6 @@
       <div v-if="currentUser">
         <a class="nav-link" @click.prevent="logOut">Logout</a>
       </div>
-      <search-bar></search-bar> 
     </nav-bar>
 
     <router-view />
@@ -26,12 +25,10 @@
 import TokenService from "./service/token.service";
 import EventBus from "./EventBus";
 import NavBar from "./components/NavBar.vue";
-import searchBar from "./components/SearchBar";
 
 export default {
   components: {
     NavBar,
-    searchBar
   },
   computed: {
     currentUser() {

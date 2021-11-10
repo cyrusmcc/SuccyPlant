@@ -29,7 +29,7 @@ public class PostServiceImpl implements PostService {
         Set<ContentTag> postTags = post.getTags();
 
         if (postTags.contains(tag)) {
-            log.info("Post {} already contains tag {}", post.getTitle(), tag.getValue().getText());
+            log.info("Post {} already contains tag {}", post.getTitle(), tag.getValue());
             throw new IllegalArgumentException();
         }
 

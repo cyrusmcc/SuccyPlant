@@ -15,9 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @SpringBootTest
 class ContentManagementAppApplicationTests {
@@ -96,7 +94,7 @@ class ContentManagementAppApplicationTests {
 	@Test
 	void newTag() {
 
-		contentTagService.newTag(EnumTags.BLACK);
+		contentTagService.newTag("Aeonium", EnumTagCategory.GENUS);
 
 	}
 
@@ -106,19 +104,18 @@ class ContentManagementAppApplicationTests {
 	void galleryPostTest() {
 
 		GalleryPost post = new GalleryPost();
-		post.setTitle("whitepost");
-		post.getPost().addTag(contentTagService.findByValue(EnumTags.WHITE));
+		post.setTitle("Aeonium urbicum");
+		post.getPost().addTag(contentTagService.findByValueAndCategory("Aeonium", EnumTagCategory.GENUS));
 
 		galleryPostService.save(post);
 
 	}
 
 	@Test
-	void findGalleryPostByPostContentTag() {
+	void findGalleryPostByContentTagValueAndCategory() {
 
 		List<ContentTag> tags = new ArrayList<>();
-		tags.add(contentTagService.findByValue(EnumTags.WHITE));
-		tags.add(contentTagService.findByValue(EnumTags.BLACK));
+		tags.add(contentTagService.findByValueAndCategory("Aeonium", EnumTagCategory.GENUS));
 
 		List<GalleryPost> test = galleryPostService.findAllByContentTags(0, 10,
 				tags);

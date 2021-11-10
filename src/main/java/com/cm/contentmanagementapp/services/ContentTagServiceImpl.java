@@ -2,7 +2,7 @@ package com.cm.contentmanagementapp.services;
 
 import com.cm.contentmanagementapp.controllers.AuthController;
 import com.cm.contentmanagementapp.models.ContentTag;
-import com.cm.contentmanagementapp.models.EnumTags;
+import com.cm.contentmanagementapp.models.EnumTagCategory;
 import com.cm.contentmanagementapp.models.Post;
 import com.cm.contentmanagementapp.repositories.ContentTagRepository;
 import org.slf4j.Logger;
@@ -10,8 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.NoSuchElementException;
-import java.util.Set;
+import java.util.List;
 
 @Service
 public class ContentTagServiceImpl implements  ContentTagService{
@@ -26,31 +25,35 @@ public class ContentTagServiceImpl implements  ContentTagService{
     private static final Logger log = LoggerFactory.getLogger(AuthController.class);
 
     @Override
-    public void newTag(EnumTags value) {
+    public void newTag(String value, EnumTagCategory category) {
 
-        if (exists(value)) {
-            log.info("Tag by value {} already exists", value);
+        if (exists(value, category)) {
+            log.info("Tag by value {} in category {} already exists", value, category);
             throw new IllegalArgumentException();
         }
 
-        ContentTag tag = new ContentTag(value);
+        ContentTag tag = new ContentTag(value, category);
         tagRepo.save(tag);
-
     }
 
     @Override
-    public boolean exists(EnumTags value) {
-        return tagRepo.existsContentTagByValue(value);
+    public boolean exists(String value, EnumTagCategory category) {
+        return tagRepo.existsContentTagByValueAndCategory(value, category);
     }
 
     @Override
-    public ContentTag findByValue(EnumTags value) {
+    public ContentTag findByValueAndCategory(String value, EnumTagCategory category) {
 
-        if (!exists(value)) {
-            newTag(value);
+        if (!exists(value, category)) {
+            newTag(value, category);
         }
 
-        return tagRepo.findContentTagByValue(value);
+        return tagRepo.findContentTagByValueAndCategory(value, category);
+    }
+
+    @Override
+    public List<ContentTag> findAllByCategory(EnumTagCategory category) {
+        return tagRepo.findContentTagsByCategory(category);
     }
 
     @Override

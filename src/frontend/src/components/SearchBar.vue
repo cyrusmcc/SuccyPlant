@@ -32,12 +32,13 @@ export default {
 
 <style lang="scss" scoped>
 .searchBar {
+  padding-top: 40px;
   margin-top: 10px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 95%;
   height: fit-content;
 }
 

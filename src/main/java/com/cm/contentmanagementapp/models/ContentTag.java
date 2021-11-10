@@ -14,7 +14,9 @@ public class ContentTag {
     @Column(name = "tag_id")
     private long id;
 
-    private EnumTags value;
+    private String value;
+
+    private EnumTagCategory category;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -27,8 +29,9 @@ public class ContentTag {
     public ContentTag() {
     }
 
-    public ContentTag(EnumTags value) {
+    public ContentTag(String value, EnumTagCategory category) {
         this.value = value;
+        this.category = category;
         posts = new HashSet<>();
     }
 
@@ -40,12 +43,20 @@ public class ContentTag {
         this.id = id;
     }
 
-    public EnumTags getValue() {
+    public String getValue() {
         return value;
     }
 
-    public void setValue(EnumTags value) {
+    public void setValue(String value) {
         this.value = value;
+    }
+
+    public EnumTagCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(EnumTagCategory category) {
+        this.category = category;
     }
 
     @JsonBackReference

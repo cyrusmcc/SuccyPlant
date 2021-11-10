@@ -10,15 +10,16 @@ $screen-md: 610px;
 $screen-lg: 1115px;
 
 $shadow: 0 4px 8px 0 RGB(0 0 0/20%), 0 6px 20px 0 RGB(0 0 0/19%);
+$shadowLight: 0 4px 8px 0 RGB(0 0 0/4%), 0 6px 20px 0 RGB(0 0 0/4%);
 
 $pHeight: 405vh;
 $s1H: 100vh;
 $s2H: 105vh;
 $s3H: 165vh;
 
-@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400&display=swap');
-$lobster: "Lobster", cursive;
+$amatic: 'Amatic SC', cursive;
 $rubik: 'Rubik', sans-serif;
 
 /* MIXINS */

@@ -1,6 +1,6 @@
 <template>
   <div class="gridContainer">
-    <ol>
+    <ol id="galPostList">
       <li v-for="(galPost, index) in galleryArr" :key="index">
         <div id="galleryImgContainer">
           <img src="../assets/blogplacehold.webp" class="galPostImg" alt="" />
@@ -13,12 +13,17 @@
           />
           -->
         </div>
-        <div id="galPostTextContainer">
+        <div id="galPostInfoContainer">
           <div id="galPostTitle">
             <router-link :to="'/g/' + galPost.id">{{
               galPost.post.title
             }}</router-link>
           </div>
+          <ol id="galPostTagList">
+            <li v-for="(tag, index) in galPost.post.tags" :key="index">
+              <div class="galPostTag">{{ tag.value }}</div>
+            </li>
+          </ol>
         </div>
       </li>
     </ol>
@@ -62,10 +67,11 @@ export default {
 
 <style scoped lang="scss">
 .gridContainer {
+  width: 100%;
   margin-top: 50px;
 }
 
-ol {
+#galPostList {
   width: 100%;
   margin-top: 20px;
   padding: 0;
@@ -74,7 +80,8 @@ ol {
   justify-content: center;
   align-items: center;
 }
-li {
+
+#galPostList > li {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -82,6 +89,7 @@ li {
   margin-bottom: 10px;
   height: 150px;
   width: 95%;
+  box-shadow: $shadowLight;
 }
 
 .container {
@@ -106,25 +114,44 @@ li {
   object-fit: cover;
 }
 
-#galPostTextContainer {
-  height: 100%;
+#galPostInfoContainer {
+  height: 90%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
 }
+
+#galPostTagList {
+  width: 95%;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  column-gap: 5px;
+}
+
+#galPostTagList > li {
+  list-style-type: none;
+}
+
+.galPostTag {
+  height: fit-content;
+  width: fit-content;
+  background-color: $accentTwo;
+  padding: 3px;
+  font-size: 0.8rem;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
 
 #galPostTitle {
   text-align: center;
-  height: 100%;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 10px 0 10px 5px;
-}
-
-
-
-#galPostTitle {
-  font-size: 1.2rem;
+  font-style: italic;
   color: $primaryLight;
   font-style: italic;
 }

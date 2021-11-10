@@ -1,14 +1,15 @@
 package com.cm.contentmanagementapp.models;
 
-public enum EnumTags {
-    BLACK("Black"),
-    GREEN("Green"),
-    WHITE("White"),
-    OOLONG("Oolong");
+public enum EnumTagCategory {
+    LIGHT("Light"),
+    WATER("Water"),
+    DIFFICULTY("Difficulty"),
+    TYPE("Type"),
+    GENUS("Genus");
 
     private String text;
 
-    EnumTags(String text) {
+    EnumTagCategory(String text) {
         this.text = text;
     }
 
@@ -16,8 +17,8 @@ public enum EnumTags {
         return this.text;
     }
 
-    public static EnumTags fromString(String text) {
-        for (EnumTags b : EnumTags.values()) {
+    public static EnumTagCategory fromString(String text) {
+        for (EnumTagCategory b : EnumTagCategory.values()) {
             if (b.text.equalsIgnoreCase(text)) {
                 return b;
             }

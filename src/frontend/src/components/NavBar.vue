@@ -15,7 +15,7 @@
         <div class="hamburgerLine"></div>
         <div class="hamburgerLine"></div>
       </div>
-      <router-link to="/" id="navBarText">icdtea</router-link>
+      <router-link to="/" id="navBarText">succyplant</router-link>
       <div
         class="closeHamburgerButton"
         v-if="!displayHamburger"
@@ -66,9 +66,9 @@ export default {
   z-index: 5;
   height: 25px;
   max-width: 100%;
-  font-family: $lobster;
+  font-family: $amatic;
   color: $primaryLight;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   cursor: pointer;
   display: flex;
   justify-content: center;
