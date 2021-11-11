@@ -3,7 +3,7 @@
     <div id="profile" v-if="!noProfile">
       <div id="userInfoCard">
         <profile-pic>
-          <img id="userPic" alt="profile picture" src="../assets/user.svg" />
+          <img id="userPic" alt="profile picture" src="../assets/imgs/userDark.svg" />
         </profile-pic>
         <div id="userInfo">
           <span id="usernameText" v-if="username">{{ username }}</span>
@@ -22,7 +22,7 @@
       </div>
     </div>
     <div id="noProfile" class="card" v-if="noProfile">
-      <img src="../assets/exclamation.svg" alt="exclamation point" />
+      <img src="../assets/imgs/exclamationDark.svg" alt="exclamation point" />
       <span>We could not find user</span>
       <span id="noProfileUsername"
         >"<span>{{ username }}</span
@@ -61,13 +61,22 @@ export default {
             error.response.data.message) ||
           error.message ||
           error.toString();
-        this.noProfile = true;
+
       }
     ),
       UserService.getUserProfileInfo(this.$route.params.username).then(
         (response) => {
           this.joinDate = response.data.joinDate;
           this.username = response.data.username;
+        },
+        (error) => {
+          this.message =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+          this.noProfile = true;
         }
       );
   },
@@ -88,7 +97,6 @@ export default {
   align-self: center;
   max-width: 95%;
   height: fit-content;
-  color: $primaryLight;
   padding: 1.5rem 0 1.5rem 0;
   font: 2rem;
 }
@@ -122,7 +130,7 @@ export default {
 
 #userContentCard {
   margin-top: 20px;
-  background-color: $primaryDark;
+  background-color: button-primaryLight-accentTwo;
   box-shadow: none;
 }
 
@@ -151,7 +159,7 @@ export default {
   border-top: 0;
   border-radius: 4px 4px 0 0;
   height: fit-content;
-  background: $primaryDark;
+  background: button-primaryLight-accentTwo;
 }
 
 #navTabs {
@@ -179,7 +187,7 @@ export default {
 }
 
 #navTab2 {
-  border: thin solid $primaryDark;
+  border: thin solid button-primaryLight-accentTwo;
   border-bottom: 0;
   border-radius: 3px;
   opacity: 0.6;
