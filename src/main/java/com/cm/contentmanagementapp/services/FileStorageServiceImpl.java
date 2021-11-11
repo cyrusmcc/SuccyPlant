@@ -88,7 +88,8 @@ public class FileStorageServiceImpl implements FileStorageService{
             if (resource.exists() || resource.isReadable()) {
                 return resource;
             } else {
-                throw new RuntimeException("Could not read file");
+                log.info("Could not read file {} at path: {}", file, path);
+                return null;
             }
 
         } catch (MalformedURLException e) {

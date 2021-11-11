@@ -61,7 +61,14 @@ public class UserController {
         User user = userService.findByUsername(username).get();
         Path filePath = Paths.get("uploads/profilePictures");
 
+        if (fileService.load(user.getProfileImageUrl(), filePath) == null) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Profile picture failed to load."));
+        }
+
         File file = fileService.load(user.getProfileImageUrl(), filePath).getFile();
+
 
         return ResponseEntity.ok()
                 .header("Content-Disposition", "attachment; filename=" + file.getName())
