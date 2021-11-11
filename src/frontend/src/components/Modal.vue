@@ -8,7 +8,6 @@
 </template>
 
 <script>
-//import { modalState } from "../store/comp.store";
 
 export default {
   name: "Modal",
@@ -25,8 +24,8 @@ export default {
   position: relative;
   margin: 150px auto;
   z-index: inherit;
-  color: $primaryLight;
-  background-color: $accentDark;
+  color: $primaryDark;
+  background-color: $primaryLight;
   border-radius: 4px;
   text-align: center;
   position: relative;
@@ -35,7 +34,7 @@ export default {
 #modalClose {
   position: absolute;
   z-index: inherit;
-  color: $primaryLight;
+  color: $primaryDark;
   user-select: none;
   top: 0;
   left: 10px;

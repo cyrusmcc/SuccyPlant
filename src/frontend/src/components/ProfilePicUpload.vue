@@ -2,7 +2,7 @@
   <div class="picUploadContainer">
     <div id="profilePicContainer">
       <profile-pic>
-        <img id="userPic" alt="profile picture" src="../assets/user.svg" />
+        <img id="userPic" alt="profile picture" src="../assets/imgs/userDark.svg" />
       </profile-pic>
     </div>
     <div class="fileContainer">
@@ -11,7 +11,7 @@
         id="fileInputForm"
         :validation-schema="schema"
         @submit="handleProfilePictureUpload"
-        class="labelButton"
+        class="button-primaryLight-highlightOne"
       >
         <Field
           id="fileInput"
@@ -33,7 +33,7 @@
                 <img id="previewImgCircle" src="" alt="your img" />
               </div>
             </div>
-            <button id="uploadButton" class="button-accentThree-primaryLight">
+            <button id="uploadButton" class="button-accentTwo-primaryDark">
               Update Profile Picture
             </button>
           </div>
@@ -129,7 +129,7 @@ label {
   cursor: pointer;
 }
 
-.button-accentThree-primaryLight {
+.button-accentTwo-primaryDark {
   margin-bottom: 10px;
   width: 100%;
 }
@@ -148,6 +148,8 @@ label {
 }
 
 #fileInputForm {
+  margin-bottom: 0;
+  padding: 0px 3px 0px 3px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

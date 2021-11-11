@@ -23,7 +23,7 @@
         </div>
       </li>
     </ol>
-    <button @click="getBlogs" class="button-primaryDark-accentOne">
+    <button @click="getBlogs" class="button-primaryLight-accentTwo">
       Load More
     </button>
   </div>
@@ -123,7 +123,7 @@ img {
 
 #blogFeedHead {
   align-self: flex-start;
-  color: $primaryLight;
+  color: $primaryDark;
   font-size: 1.2rem;
   margin-bottom: 20px;
 }
@@ -152,7 +152,7 @@ img {
 
 #blogTitle {
   font-size: 1.2rem;
-  color: $primaryLight;
+  color: $primaryDark;
   font-style: italic;
 }
 

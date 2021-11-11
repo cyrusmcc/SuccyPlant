@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <img src="../assets/user.svg" alt="user-icon" />
+    <img src="../assets/imgs/potCactusStripeDark.svg" alt="user-icon" />
 
     <div class="card">
       <!-- only works with "handleX", not "handleX()"-->
@@ -14,7 +14,7 @@
         </div>
 
         <div class="form-submit">
-          <button class="button-accentThree-primaryLight" id="resetButton">
+          <button class="button-accentTwo-primaryDark" id="resetButton">
             Reset password
           </button>
         </div>
@@ -92,8 +92,8 @@ export default {
 <style scoped lang="scss">
 img {
   max-height: auto;
-  width: 4.5rem;
-  margin: 100px auto 15px auto;
+  width: 7.5rem;
+  margin: 0 auto 15px auto;
 }
 
 Form {
@@ -108,7 +108,6 @@ fieldset {
 }
 
 .card {
-  color: $primaryLight;
   text-align: center;
   padding: 15px;
 }
@@ -117,6 +116,7 @@ fieldset {
   display: flex;
   flex-direction: column;
   align-content: center;
+  justify-content: center;
 }
 
 .alert {
@@ -138,11 +138,11 @@ fieldset {
 
 .pageLink {
   font-size: 0.85rem;
-  color: $primaryLight;
+  color: $primaryDark;
   column-gap: 6px;
 }
 
 .pageLink a {
-  color: $accentOne;
+  color: $highlightOne;
 }
 </style>

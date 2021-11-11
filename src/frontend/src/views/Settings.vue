@@ -27,7 +27,7 @@
             <ErrorMessage name="email" class="error-feedback" />
           </div>
 
-          <button class="button-accentThree-primaryLight">Submit change</button>
+          <button class="button-accentTwo-primaryDark">Submit change</button>
 
           <div v-if="loading" class="alert" role="alert">
             Submitting request...
@@ -80,7 +80,7 @@
           </div>
 
           <div class="form-submit">
-            <button class="button-accentThree-primaryLight">Submit change</button>
+            <button class="button-accentTwo-primaryDark">Submit change</button>
           </div>
 
           <div v-if="message" class="alert" role="alert">
@@ -99,8 +99,8 @@
             @click="currentSettingTab = 'profile'"
             :style="[
               currentSettingTab == 'profile'
-                ? { color: '#286bc8', fontWeight: 'bold' }
-                : { color: '#F5F5F5', fontWeight: 'normal' },
+                ? { color: '#004da2', fontWeight: 'bold' }
+                : { color: '#121113', fontWeight: 'normal' },
             ]"
           >
             Profile
@@ -110,8 +110,8 @@
             @click="currentSettingTab = 'account'"
             :style="[
               currentSettingTab == 'account'
-                ? { color: '#286bc8', fontWeight: 'bold' }
-                : { color: '#F5F5F5', fontWeight: 'normal' },
+                ? { color: '#004da2', fontWeight: 'bold' }
+                : { color: '#121113', fontWeight: 'normal' },
             ]"
           >
             Account
@@ -144,7 +144,7 @@
             <label
               for=""
               id="changeEmailButton"
-              class="labelButton"
+              class="button-primaryLight-highlightOne"
               @click="toggleModal('changeEmail')"
               >Change</label
             >
@@ -154,7 +154,7 @@
             <label
               for=""
               id="changePasswordButton"
-              class="labelButton"
+              class="button-primaryLight-highlightOne"
               @click="toggleModal('changePassword')"
               >Change</label
             >
@@ -290,7 +290,6 @@ export default {
   align-items: center;
   height: 100%;
   width: 100%;
-  color: $primaryLight;
 }
 
 .settingTab {
@@ -313,7 +312,11 @@ export default {
   align-items: center;
 }
 
-.button-accentThree-primaryLight {
+.button-primaryLight-highlightOne {
+  padding: 0 3px 0 3px;
+}
+
+.button-accentTwo-primaryDark {
   margin-bottom: 10px;
   width: 100%;
 }
@@ -359,6 +362,6 @@ export default {
 
 #currentEmailLabel {
   font-size: 0.7rem;
-  color: $accentOne;
+  color: $highlightOne;
 }
 </style>

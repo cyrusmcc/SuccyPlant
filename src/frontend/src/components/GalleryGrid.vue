@@ -68,7 +68,6 @@ export default {
 <style scoped lang="scss">
 .gridContainer {
   width: 100%;
-  margin-top: 50px;
 }
 
 #galPostList {

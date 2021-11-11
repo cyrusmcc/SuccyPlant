@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400&display=swap");
 /* MIXINS */
 :root {
@@ -14,7 +14,7 @@ body {
   max-width: 100%;
   max-height: 100%;
   scroll-behavior: smooth;
-  background-color: #151516;
+  background-color: #F4F4F3;
   position: relative;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -26,7 +26,7 @@ h2 {
 
 a {
   cursor: pointer;
-  color: #f7f6f1;
+  color: #121113;
   text-decoration: none;
 }
 
@@ -44,11 +44,11 @@ fieldset {
 table {
   border-spacing: 0;
   border-collapse: collapse;
-  border: 1px solid #f7f6f1;
+  border: 1px solid #F4F4F3;
 }
 
 td, th {
-  border: 1px solid #f7f6f1;
+  border: 1px solid #F4F4F3;
   padding: 5px;
 }
 
@@ -57,25 +57,25 @@ td, th {
 }
 
 .button-primaryLight-accentOne {
-  background-color: #f7f6f1;
-  color: #151516;
-  border-radius: 4px;
+  background-color: #F4F4F3;
+  color: #121113;
+  border-radius: 10px;
   font-size: 1rem;
-  border: thin solid #8caed3;
+  border: thin solid #8CAED3;
   line-height: 2rem;
   margin-bottom: 20px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   cursor: pointer;
-  -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
-          box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
+  -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
+          box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
 }
 
 .button-primaryLight-accentTwo {
-  background-color: #f7f6f1;
-  color: #151516;
-  border-radius: 4px;
+  background-color: #F4F4F3;
+  color: #121113;
+  border-radius: 10px;
   font-size: 1rem;
   border: thin solid #86c2b6;
   line-height: 2rem;
@@ -84,46 +84,62 @@ td, th {
   width: -moz-fit-content;
   width: fit-content;
   cursor: pointer;
-  -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
-          box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
+  -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
+          box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
 }
 
 .button-primaryLight-accentThree {
-  background-color: #f7f6f1;
-  color: #0f6132;
-  border-radius: 4px;
+  background-color: #F4F4F3;
+  color: #FFC9B9;
+  border-radius: 10px;
   font-size: 1rem;
-  border: thin solid #0f6132;
+  border: thin solid #FFC9B9;
   line-height: 2rem;
   margin-bottom: 20px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   cursor: pointer;
-  -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
-          box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
+  -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
+          box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
+}
+
+.button-primaryLight-highlightOne {
+  background-color: #F4F4F3;
+  color: #004da2;
+  border-radius: 10px;
+  font-size: 1rem;
+  border: thin solid #004da2;
+  line-height: 2rem;
+  margin-bottom: 20px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  cursor: pointer;
+  -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
+          box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
 }
 
 .button-primaryDark-accentOne {
-  background-color: #151516;
-  color: #f7f6f1;
-  border-radius: 4px;
+  background-color: #121113;
+  color: #F4F4F3;
+  border-radius: 10px;
   font-size: 1rem;
-  border: thin solid #8caed3;
+  border: thin solid #8CAED3;
   line-height: 2rem;
   margin-bottom: 20px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   cursor: pointer;
-  -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
-          box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
+  -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
+          box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
 }
 
 .button-primaryDark-accentTwo {
-  background-color: #151516;
-  color: #f7f6f1;
-  border-radius: 4px;
+  background-color: #121113;
+  color: #F4F4F3;
+  border-radius: 10px;
   font-size: 1rem;
   border: thin solid #86c2b6;
   line-height: 2rem;
@@ -132,46 +148,46 @@ td, th {
   width: -moz-fit-content;
   width: fit-content;
   cursor: pointer;
-  -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
-          box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
+  -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
+          box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
 }
 
 .button-primaryDark-accentThree {
-  background-color: #151516;
-  color: #f7f6f1;
-  border-radius: 4px;
+  background-color: #121113;
+  color: #F4F4F3;
+  border-radius: 10px;
   font-size: 1rem;
-  border: thin solid #0f6132;
+  border: thin solid #FFC9B9;
   line-height: 2rem;
   margin-bottom: 20px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   cursor: pointer;
-  -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
-          box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
+  -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
+          box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
 }
 
 .button-accentOne-primaryLight {
-  background-color: #8caed3;
-  color: #f7f6f1;
-  border-radius: 4px;
+  background-color: #8CAED3;
+  color: #F4F4F3;
+  border-radius: 10px;
   font-size: 1rem;
-  border: thin solid #8caed3;
+  border: thin solid #8CAED3;
   line-height: 2rem;
   margin-bottom: 20px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   cursor: pointer;
-  -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
-          box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
+  -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
+          box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
 }
 
 .button-accentTwo-primaryLight {
   background-color: #86c2b6;
-  color: #f7f6f1;
-  border-radius: 4px;
+  color: #F4F4F3;
+  border-radius: 10px;
   font-size: 1rem;
   border: thin solid #86c2b6;
   line-height: 2rem;
@@ -180,24 +196,72 @@ td, th {
   width: -moz-fit-content;
   width: fit-content;
   cursor: pointer;
-  -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
-          box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
+  -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
+          box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
 }
 
 .button-accentThree-primaryLight {
-  background-color: #0f6132;
-  color: #f7f6f1;
-  border-radius: 4px;
+  background-color: #FFC9B9;
+  color: #F4F4F3;
+  border-radius: 10px;
   font-size: 1rem;
-  border: thin solid #0f6132;
+  border: thin solid #FFC9B9;
   line-height: 2rem;
   margin-bottom: 20px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   cursor: pointer;
-  -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
-          box-shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/8%);
+  -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
+          box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
+}
+
+.button-accentOne-primaryDark {
+  background-color: #8CAED3;
+  color: #121113;
+  border-radius: 10px;
+  font-size: 1rem;
+  border: thin solid #8CAED3;
+  line-height: 2rem;
+  margin-bottom: 20px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  cursor: pointer;
+  -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
+          box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
+}
+
+.button-accentTwo-primaryDark {
+  background-color: #86c2b6;
+  color: #121113;
+  border-radius: 10px;
+  font-size: 1rem;
+  border: thin solid #86c2b6;
+  line-height: 2rem;
+  margin-bottom: 20px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  cursor: pointer;
+  -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
+          box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
+}
+
+.button-accentThree-primaryDark {
+  background-color: #FFC9B9;
+  color: #121113;
+  border-radius: 10px;
+  font-size: 1rem;
+  border: thin solid #FFC9B9;
+  line-height: 2rem;
+  margin-bottom: 20px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  cursor: pointer;
+  -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
+          box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
 }
 
 .button-primaryLight-accentOne:hover, .button-primaryLight-accentTwo:hover, .button-primaryLight-accentThree:hover,
@@ -207,15 +271,15 @@ td, th {
 }
 
 .labelButton {
-  border: #8caed3 1px solid;
-  color: #f7f6f1;
+  border: #8CAED3 1px solid;
+  color: #F4F4F3;
   border-radius: 4px;
   padding: 5px;
   cursor: pointer;
 }
 
 .form-title {
-  margin-bottom: 50px;
+  margin-bottom: 25px;
   font-size: 1.5rem;
 }
 
@@ -241,18 +305,18 @@ td, th {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   padding-bottom: 10px;
-  color: #f7f6f1;
+  color: #121113;
   border-radius: 4px;
 }
 
 .form-control {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  background-color: #151516;
-  color: #f7f6f1;
+  color: #121113;
   border: none;
   line-height: 2rem;
   width: 100%;
+  border: medium solid #353537;
   border-radius: 4px;
 }
 
@@ -260,8 +324,8 @@ td, th {
 .error-feedback {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  background: #151516;
-  color: #f7f6f1;
+  background: #353537;
+  color: #F4F4F3;
   padding: 5px;
   /* align-self: center; */
   margin-top: 10px;
@@ -284,7 +348,7 @@ td, th {
 
 html::-webkit-scrollbar {
   width: 10px;
-  background-color: #151516;
+  background-color: #121113;
 }
 
 html::-webkit-scrollbar-thumb {
@@ -294,7 +358,7 @@ html::-webkit-scrollbar-thumb {
 
 .scrollContainer::-webkit-scrollbar {
   width: 8px;
-  background-color: #151516;
+  background-color: #121113;
   border-left: medium solid #353537;
   border-radius: 0 6px 6px 0;
 }
@@ -336,7 +400,8 @@ html::-webkit-scrollbar-thumb {
 }
 
 .card {
-  background-color: #353537;
+  background-color: #F4F4F3;
+  color: #121113;
   border-radius: 4px;
   height: -webkit-fit-content;
   height: -moz-fit-content;

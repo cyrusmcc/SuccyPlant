@@ -58,7 +58,7 @@ export default {
   position: fixed;
   top: 0;
   max-height: 100%;
-  background: $primaryDark;
+  background: $primaryLight;
 }
 
 .navBar {
@@ -67,14 +67,14 @@ export default {
   height: 25px;
   max-width: 100%;
   font-family: $amatic;
-  color: $primaryLight;
+  color: $primaryDark;
   font-size: 1.5rem;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-content: center;
   padding: 10px 0 10px 10px;
-  background: $primaryDark;
+  background: $primaryLight;
 }
 
 .hamburgerLineContainer {
@@ -88,7 +88,7 @@ export default {
   margin: 4px;
   height: 3px;
   border-radius: 4px;
-  background-color: #f5f5f5;
+  background-color: $primaryDark;
 }
 
 .closeHamburgerButton {
@@ -96,7 +96,7 @@ export default {
   top: -7px;
   left: 10px;
   transform: rotate(45deg);
-  color: $primaryLight;
+  color: $primaryDark;
   user-select: none;
   font-size: 45px;
   cursor: pointer;
@@ -111,7 +111,7 @@ export default {
   align-items: flex-start;
   padding: 15px;
   row-gap: 10px;
-  background: $primaryDark;
+  background: $primaryLight;
   height: fit-content;
   max-width: 100%;
 }

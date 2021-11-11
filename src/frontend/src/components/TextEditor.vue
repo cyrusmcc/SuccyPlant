@@ -3,7 +3,7 @@
     <div id="editorToolBar">
       <img
         id="previewIcon"
-        src="../assets/preview.svg"
+        src="../assets/imgs/previewDark.svg"
         alt="preview icon"
         @click="togglePreview"
       />
@@ -75,7 +75,7 @@ export default {
   height: 2rem;
   border-radius: 4px 4px 0 0;
   width: 100%;
-  border-bottom: thick solid $primaryDark;
+  border-bottom: thick solid button-primaryLight-accentTwo;
   background-color: $accentDark;
 }
 
@@ -111,7 +111,7 @@ export default {
   width: 100%;
   height: 100%;
   position: absolute;
-  background-color: $primaryDark;
+  background-color: button-primaryLight-accentTwo;
   color: $primaryLight;
   border: none;
   overflow: scroll;

@@ -168,7 +168,7 @@ form {
 }
 
 #imgContainer {
-  background-color: $primaryLight;
+  background-color: $primaryDark;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <img src="../assets/users.svg" alt="user-icon" />
+    <img src="../assets/imgs/potSuccZigDark.svg" alt="user-icon" />
 
     <div class="card" id="registerCard">
       <!-- only works with "handleX", not "handeX()"-->
@@ -28,7 +28,7 @@
           <ErrorMessage name="email" class="error-feedback" />
         </div>
 
-        <button class="button-accentThree-primaryLight" id="registerButton">Register</button>
+        <button class="button-accentTwo-primaryDark" id="registerButton">Register</button>
 
         <div>
           <div v-if="message" class="alert" role="alert">
@@ -114,8 +114,8 @@ export default {
 <style scoped lang="scss">
 img {
   max-height: auto;
-  width: 4.5rem;
-  margin: 100px auto 15px auto;
+  width: 7.5rem;
+  margin: 0 auto 15px auto;
 }
 
 Form {
@@ -130,7 +130,6 @@ fieldset {
 }
 
 .card {
-  color: $primaryLight;
   text-align: center;
   padding: 15px;
 }
@@ -139,6 +138,7 @@ fieldset {
   display: flex;
   flex-direction: column;
   align-content: center;
+  justify-content: center;
 }
 
 #registerButton {
@@ -149,14 +149,14 @@ fieldset {
 
 #login-link {
   font-size: 0.85rem;
-  color: $primaryLight;
+  color: $primaryDark;
   display: flex;
   justify-content: center;
   column-gap: 6px;
 }
 
 #login-link a {
-  color: $accentOne;
+  color: $highlightOne;
 }
 
 #email-label {
