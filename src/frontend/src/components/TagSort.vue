@@ -1,52 +1,80 @@
 <template>
   <div class="tagSort">
-    <div class="dropBox">
-      <div class="tagtype">Type</div>
-      <div class="imgContainer">
-        <img class="downArrow" src="../assets/imgs/downArrowDark.svg" />
-      </div>
-    </div>
-    <div class="dropBox">
-      <div class="tagtype">Genus</div>
-      <div class="imgContainer">
-        <img class="downArrow" src="../assets/imgs/downArrowDark.svg" />
-      </div>
-    </div>
-    <div class="dropBox">
-      <div class="tagtype">Difficulty</div>
-      <div class="imgContainer">
-        <img class="downArrow" src="../assets/imgs/downArrowDark.svg" />
-      </div>
-    </div>
-    <div class="dropBox">
-      <div class="tagtype">Size</div>
-      <div class="imgContainer">
-        <img class="downArrow" src="../assets/imgs/downArrowDark.svg" />
-      </div>
-    </div>
-    <div class="dropBox">
-      <div class="tagtype">Pet Friendly</div>
-      <div class="imgContainer">
-        <img class="downArrow" src="../assets/imgs/downArrowDark.svg" />
-      </div>
-    </div>
-    <div class="dropBox">
-      <div class="tagtype">Light</div>
-      <div class="imgContainer">
-        <img class="downArrow" src="../assets/imgs/downArrowDark.svg" />
-      </div>
-    </div>
-    <div class="dropBox">
-      <div class="tagtype">Water</div>
-      <div class="imgContainer">
-        <img class="downArrow" src="../assets/imgs/downArrowDark.svg" />
-      </div>
-    </div>
+    <drop-down
+      label="Type"
+      :options="['House Plant', 'Succ', 'Cactus']"
+      @select-tag="addTagChip"
+    ></drop-down>
+    <drop-down
+      label="Genus"
+      :options="genusValues"
+      @select-tag="addTagChip"
+    ></drop-down>
+    <drop-down
+      label="Size"
+      :options="['Small', 'Medium', 'Large']"
+      @select-tag="addTagChip"
+    ></drop-down>
+    <drop-down
+      label="Difficulty"
+      :options="['Beginner Friendly', 'Advanced']"
+      @select-tag="addTagChip"
+    ></drop-down>
+    <drop-down
+      label="Light"
+      :options="['Low', 'Medium', 'High']"
+      @select-tag="addTagChip"
+    ></drop-down>
+    <drop-down
+      label="Pet Friendly"
+      :options="['Yes', 'No']"
+      @select-tag="addTagChip"
+    ></drop-down>
+    <div class="selectedTags"></div>
   </div>
 </template>
 
 <script>
-export default {};
+import dropDown from "../components/dropdown.vue";
+import galleryService from "../service/gallery.service";
+
+export default {
+  name: "TagSort",
+  components: {
+    dropDown,
+  },
+  data() {
+    return {
+      selectedTags: [],
+      genusValues: [],
+    };
+  },
+  created() {
+    const genusVals = async () => {
+      const arr = await galleryService.getTagsByCategory("genus");
+      this.genusValues = arr;
+    };
+    genusVals();
+  },
+  methods: {
+    addTagChip(label, option) {
+      let params = new URLSearchParams(this.$router.currentRoute.value.query);
+
+      if (!params.has(label) && !window.location.search) {
+        params.set(label, option);
+        params.sort();
+        this.$router.push("/plants" + "?" + params.toString());
+      }
+      if (params.has(label) && !params.getAll(label).includes(option)) {
+        params.append(label, option);
+        params.sort();
+        this.$router.push("/plants" + "?" + params.toString());
+      }
+
+      this.$emit("sort-posts-by-tag", params.toString());
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -56,34 +84,11 @@ export default {};
   row-gap: 10px;
   column-gap: 10px;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: wrap;
   margin-top: 10px;
   border-radius: 4px;
   height: fit-content;
   width: 95%;
-}
-
-.dropBox {
-  display: flex;
-  flex-direction: row;
-  column-gap: 5px;
-  align-items: center;
-  background-color: $accentTwo;
-  border-radius: 4px;
-  padding: 3px 0 3px 5px;
-}
-
-.imgContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: fit-content;
-  width: fit-content;
-}
-
-.downArrow {
-  width: 80%;
-  height: auto;
 }
 </style>
