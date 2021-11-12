@@ -7,12 +7,12 @@
 
 <script>
 import BlogFeed from "../components/BlogFeed.vue";
-import SearchBar from "../components/SearchBar.vue"
+import SearchBar from "../components/SearchBar.vue";
 
 export default {
   components: {
     BlogFeed,
-    SearchBar
+    SearchBar,
   },
   name: "Home",
   data() {

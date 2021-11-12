@@ -76,13 +76,13 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: $primaryLight;
+  color: $primaryDark;
 }
 
 .dot {
   height: 5px;
   width: 5px;
-  background-color: $primaryLight;
+  background-color: $primaryDark;
   border-radius: 50%;
   display: inline-block;
 }
@@ -110,7 +110,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 400px;
+  height: 250px;
   width: 100%;
   margin-bottom: 30px;
 }

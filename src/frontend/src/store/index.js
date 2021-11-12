@@ -4,13 +4,12 @@ import { settings } from "./settings.module";
 import { blogs } from "./blog.module";
 import { gallery } from "./gallery.module";
 
-
 const store = createStore({
   modules: {
     auth,
     settings,
     blogs,
-    gallery
+    gallery,
   },
 });
 

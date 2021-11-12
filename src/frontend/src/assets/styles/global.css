@@ -64,6 +64,7 @@ td, th {
   border: thin solid #8CAED3;
   line-height: 2rem;
   margin-bottom: 20px;
+  padding: 0 3px 0 3px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -80,6 +81,7 @@ td, th {
   border: thin solid #86c2b6;
   line-height: 2rem;
   margin-bottom: 20px;
+  padding: 0 3px 0 3px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -96,6 +98,7 @@ td, th {
   border: thin solid #FFC9B9;
   line-height: 2rem;
   margin-bottom: 20px;
+  padding: 0 3px 0 3px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -112,6 +115,7 @@ td, th {
   border: thin solid #004da2;
   line-height: 2rem;
   margin-bottom: 20px;
+  padding: 0 3px 0 3px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -128,6 +132,7 @@ td, th {
   border: thin solid #8CAED3;
   line-height: 2rem;
   margin-bottom: 20px;
+  padding: 0 3px 0 3px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -144,6 +149,7 @@ td, th {
   border: thin solid #86c2b6;
   line-height: 2rem;
   margin-bottom: 20px;
+  padding: 0 3px 0 3px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -160,6 +166,7 @@ td, th {
   border: thin solid #FFC9B9;
   line-height: 2rem;
   margin-bottom: 20px;
+  padding: 0 3px 0 3px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -176,6 +183,7 @@ td, th {
   border: thin solid #8CAED3;
   line-height: 2rem;
   margin-bottom: 20px;
+  padding: 0 3px 0 3px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -192,6 +200,7 @@ td, th {
   border: thin solid #86c2b6;
   line-height: 2rem;
   margin-bottom: 20px;
+  padding: 0 3px 0 3px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -208,6 +217,7 @@ td, th {
   border: thin solid #FFC9B9;
   line-height: 2rem;
   margin-bottom: 20px;
+  padding: 0 3px 0 3px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -224,6 +234,7 @@ td, th {
   border: thin solid #8CAED3;
   line-height: 2rem;
   margin-bottom: 20px;
+  padding: 0 3px 0 3px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -240,6 +251,7 @@ td, th {
   border: thin solid #86c2b6;
   line-height: 2rem;
   margin-bottom: 20px;
+  padding: 0 3px 0 3px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -256,6 +268,7 @@ td, th {
   border: thin solid #FFC9B9;
   line-height: 2rem;
   margin-bottom: 20px;
+  padding: 0 3px 0 3px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -265,7 +278,10 @@ td, th {
 }
 
 .button-primaryLight-accentOne:hover, .button-primaryLight-accentTwo:hover, .button-primaryLight-accentThree:hover,
-.button-primaryDark-accentOne:hover, .button-primaryDark-accentTwo:hover, .button-primaryDark-accentThree:hover {
+.button-primaryLight-highlightOne:hover, .button-primaryDark-accentOne:hover, .button-primaryDark-accentTwo:hover,
+.button-primaryDark-accentThree:hover, .button-primaryDark-highlightOne:hover, .button-accentOne-primaryLight:hover,
+.button-accentTwo-primaryLight:hover, .button-accentThree-primaryLight:hover, .button-accentOne-primaryDark:hover,
+.button-accentTwo-primaryDark:hover, .button-accentThree-primaryDark:hover {
   -webkit-box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
           box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
 }
@@ -348,7 +364,7 @@ td, th {
 
 html::-webkit-scrollbar {
   width: 10px;
-  background-color: #121113;
+  background-color: #F4F4F3;
 }
 
 html::-webkit-scrollbar-thumb {
@@ -358,7 +374,7 @@ html::-webkit-scrollbar-thumb {
 
 .scrollContainer::-webkit-scrollbar {
   width: 8px;
-  background-color: #121113;
+  background-color: #F4F4F3;
   border-left: medium solid #353537;
   border-radius: 0 6px 6px 0;
 }

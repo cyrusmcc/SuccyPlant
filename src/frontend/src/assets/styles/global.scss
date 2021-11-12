@@ -1,6 +1,7 @@
 $primaryLight: #F4F4F3;
 $primaryDark: #121113;
 $highlightOne: #004da2;
+$highlightTwo: #29a525;
 $accentDark: #353537;
 $accentOne: #8CAED3;
 $accentTwo: #86c2b6;
@@ -14,7 +15,7 @@ $screen-md: 610px;
 $screen-lg: 1115px;
 
 $shadow: 0 4px 8px 0 RGB(0 0 0/20%), 0 6px 20px 0 RGB(0 0 0/19%);
-$shadowLight: 0 4px 8px 0 RGB(0 0 0/4%), 0 6px 20px 0 RGB(0 0 0/4%);
+$shadowLight: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
 
 $pHeight: 405vh;
 $s1H: 100vh;
@@ -109,12 +110,13 @@ td, th {
     border: thin solid $brdrColor;
     line-height: 2rem;
     margin-bottom: 20px;
+    padding: 0 3px 0 3px;
     width: fit-content;
     cursor: pointer;
-    box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
+    box-shadow: $shadowLight;
 }
 
-.button-primaryLight-accentOne{
+.button-primaryLight-accentOne {
     @include buttonBase($primaryLight, $primaryDark, $accentOne);
 }
 
@@ -130,7 +132,7 @@ td, th {
     @include buttonBase($primaryLight, $highlightOne, $highlightOne);
 }
 
-.button-primaryDark-accentOne{
+.button-primaryDark-accentOne {
     @include buttonBase($primaryDark, $primaryLight, $accentOne);
 }
 
@@ -167,7 +169,10 @@ td, th {
 }
 
 .button-primaryLight-accentOne:hover, .button-primaryLight-accentTwo:hover, .button-primaryLight-accentThree:hover,
-.button-primaryDark-accentOne:hover, .button-primaryDark-accentTwo:hover, .button-primaryDark-accentThree:hover {
+.button-primaryLight-highlightOne:hover, .button-primaryDark-accentOne:hover, .button-primaryDark-accentTwo:hover,
+.button-primaryDark-accentThree:hover, .button-primaryDark-highlightOne:hover, .button-accentOne-primaryLight:hover,
+.button-accentTwo-primaryLight:hover, .button-accentThree-primaryLight:hover, .button-accentOne-primaryDark:hover,
+.button-accentTwo-primaryDark:hover, .button-accentThree-primaryDark:hover {
     box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
 }
 
@@ -235,17 +240,17 @@ td, th {
 // SCROLL BAR 
 html::-webkit-scrollbar {
     width: 10px;
-    background-color: $primaryDark;
+    background-color: $primaryLight;
   }
 
-  html::-webkit-scrollbar-thumb {
+html::-webkit-scrollbar-thumb {
     background-color: $accentDark;
     border-radius: 4px 0 0 4px;
-  }
+}
 
   .scrollContainer::-webkit-scrollbar {
     width: 8px;
-    background-color: $primaryDark;
+    background-color: $primaryLight;
     border-left: medium solid $accentDark;
     border-radius: 0 6px 6px 0;
   }

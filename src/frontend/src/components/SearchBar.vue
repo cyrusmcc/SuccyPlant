@@ -9,7 +9,7 @@
         placeholder="Search"
       />
       <button class="searchBarButton" @click="search">
-        <img class="searchBarIcon" src="../assets/magnifyingGlass.svg" />
+        <img class="searchBarIcon" src="../assets/imgs/magGlassDark.svg" />
       </button>
     </div>
   </div>
@@ -52,9 +52,10 @@ export default {
   width: 100%;
   height: 100%;
   padding: 0.5rem;
-  border: none;
-  border-radius: 4px 0 0 4px;
-  background-color: $accentDark;
+  border: medium solid $accentDark;
+  border-right: none;
+  border-radius: 8px 0 0 8px;
+  background-color: $primaryLight;
   font-family: inherit;
   font-weight: 400;
   color: $primaryLight;
@@ -62,12 +63,13 @@ export default {
 }
 
 .searchBarButton {
-  background-color: $accentDark;
+  background-color: $primaryLight;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: none;
-  border-radius: 0 4px 4px 0;
+  border: medium solid $accentDark;
+  border-left: none;
+  border-radius: 0 8px 8px 0;
 }
 
 .searchBarIcon {

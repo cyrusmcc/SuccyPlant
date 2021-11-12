@@ -23,10 +23,7 @@ const setup = (store) => {
       const originalConfig = err.config;
 
       if (err.response) {
-        if (
-          (err.response.status === 401) &&
-          !originalConfig._retry
-        ) {
+        if (err.response.status === 401 && !originalConfig._retry) {
           originalConfig._retry = true;
 
           //console.log("401 error");

@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
-import Gallery from "../views/Gallery.vue";
+import PlantGallery from "../views/Gallery.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import ForgotPassword from "../views/ForgotPassword.vue";
@@ -101,12 +101,11 @@ const routes = [
     name: "newBlogPost",
 
     component: NewBlogPost,
-  }, 
+  },
   {
-    path: "/gallery",
-    name: "gallery",
-
-    component: Gallery,
+    path: "/plants",
+    name: "plantGallery",
+    component: PlantGallery,
   }, // new here
 ];
 

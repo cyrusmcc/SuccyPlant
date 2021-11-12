@@ -16,7 +16,7 @@
           />
           <label
             id="imageUploadButton"
-            class="labelButton"
+            class="button-primaryLight-highlightOne"
             for="fileInput"
             v-html="fileName"
           />
@@ -33,7 +33,7 @@
 
         <ErrorMessage name="bodyText" class="error-feedback" />
 
-        <button id="submitBlogButton" class="button-accentThree-primaryLight">
+        <button id="submitBlogButton" class="button-accentTwo-primaryDark">
           Submit blog
         </button>
 
@@ -137,9 +137,9 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 40px;
 }
 .form-control {
-  background-color: $accentDark;
   overflow: hidden;
 }
 .error-feedback {
@@ -168,7 +168,7 @@ form {
 }
 
 #imgContainer {
-  background-color: $primaryDark;
+  background-color: $accentDark;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -182,7 +182,7 @@ form {
 }
 
 #imgContainerText {
-  color: $primaryDark;
+  color: $primaryLight;
   opacity: 0.8;
   text-align: center;
 }

@@ -1,5 +1,6 @@
 <template>
   <div class="gridContainer">
+    <tag-sort @sort-posts-by-tag="getSortedGalPosts"></tag-sort>
     <ol id="galPostList">
       <li v-for="(galPost, index) in galleryArr" :key="index">
         <div id="galleryImgContainer">
@@ -32,11 +33,17 @@
 
 <script>
 import galleryService from "../service/gallery.service";
+import tagSort from "../components/TagSort.vue";
 
 export default {
   name: "GalleryGrid",
+  components: {
+    tagSort,
+  },
   data() {
-    return {};
+    return {
+      sortedArr: [],
+    };
   },
   computed: {
     galleryArr() {
@@ -46,7 +53,7 @@ export default {
   mounted() {
     if (!this.galleryArr) {
       const galPosts = async () => {
-        const arr = await galleryService.getGalleryPosts();
+        const arr = await galleryService.getPosts();
 
         this.$store.state.gallery.galleryArr = arr;
       };
@@ -55,18 +62,30 @@ export default {
   },
   getGalPosts() {
     const galPosts = async () => {
-      const arr = await galleryService.getGalleryPosts();
+      const arr = await galleryService.getPosts();
       for (let i = 0; i < arr.length; i++) {
         this.$store.state.gallery.galleryArr.push(arr[i]);
       }
     };
     galPosts();
   },
+  methods: {
+    getSortedGalPosts(params) {
+      const sortedGalPosts = async () => {
+        const arr = await galleryService.getSortedPosts(params);
+        this.$store.state.gallery.galleryArr = arr;
+      };
+      sortedGalPosts();
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
 .gridContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
 }
 
@@ -146,7 +165,6 @@ export default {
   border-radius: 8px;
   margin-top: 10px;
 }
-
 
 #galPostTitle {
   text-align: center;

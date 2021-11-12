@@ -109,7 +109,7 @@ fieldset {
 
 #resetButton {
   margin-bottom: 5px;
-  width:100%;
+  width: 100%;
   align-self: flex-start;
 }
 

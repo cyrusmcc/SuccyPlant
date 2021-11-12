@@ -3,9 +3,10 @@ import api from "./api";
 const BLOG_API_URL = "http://localhost:8080/api/gallery/";
 
 var pageNum = 0;
+var sortedPageNum = 0;
 
 class GalleryService {
-  getGalleryPosts() {
+  getPosts() {
     return api
       .get(BLOG_API_URL + "get-all", {
         headers: {
@@ -17,10 +18,21 @@ class GalleryService {
         return response.data;
       });
   }
-  getBlogPostByTags(tags) {
-    return api.get(BLOG_API_URL + "get/" + tags).then((response) => {
-      return response;
-    });
+  getSortedPosts(params) {
+    return api
+      .get(BLOG_API_URL + "plants" + "?" + params, {
+        sortedPageNum,
+      })
+      .then((response) => {
+        return response.data;
+      });
+  }
+  getTagsByCategory(category) {
+    return api
+      .get(BLOG_API_URL + "get-tags-by-category/" + category)
+      .then((response) => {
+        return response.data;
+      });
   }
 }
 

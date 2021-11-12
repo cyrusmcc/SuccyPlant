@@ -3,11 +3,18 @@
     <div id="profile" v-if="!noProfile">
       <div id="userInfoCard">
         <profile-pic>
-          <img id="userPic" alt="profile picture" src="../assets/imgs/userDark.svg" />
+          <img
+            id="userPic"
+            alt="profile picture"
+            src="../assets/imgs/userDark.svg"
+          />
         </profile-pic>
         <div id="userInfo">
           <span id="usernameText" v-if="username">{{ username }}</span>
-          <span id="joinDateText" v-if="joinDate">user since&nbsp; <formatted-date :date="joinDate" :format="'month'" /></span>
+          <span id="joinDateText" v-if="joinDate"
+            >user since&nbsp;
+            <formatted-date :date="joinDate" :format="'month'"
+          /></span>
         </div>
       </div>
       <div class="card" id="userContentCard">
@@ -61,7 +68,6 @@ export default {
             error.response.data.message) ||
           error.message ||
           error.toString();
-
       }
     ),
       UserService.getUserProfileInfo(this.$route.params.username).then(

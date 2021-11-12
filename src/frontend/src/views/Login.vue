@@ -21,7 +21,9 @@
         </div>
 
         <div class="form-submit">
-          <button class="button-accentTwo-primaryDark" id="loginButton">Log in</button>
+          <button class="button-accentTwo-primaryDark" id="loginButton">
+            Log in
+          </button>
         </div>
 
         <div>

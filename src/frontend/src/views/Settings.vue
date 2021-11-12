@@ -312,10 +312,6 @@ export default {
   align-items: center;
 }
 
-.button-primaryLight-highlightOne {
-  padding: 0 3px 0 3px;
-}
-
 .button-accentTwo-primaryDark {
   margin-bottom: 10px;
   width: 100%;

@@ -18,7 +18,8 @@
             blog.post.title
           }}</router-link>
           <div id="blogPostDate">
-            Posted on&nbsp; <formatted-date :date="blog.postDate" :format="'full'" />
+            Posted on&nbsp;
+            <formatted-date :date="blog.postDate" :format="'full'" />
           </div>
         </div>
       </li>
@@ -160,7 +161,7 @@ img {
   display: flex;
   flex-direction: row;
   font-size: small;
-  color: $accentOne;
+  color: $highlightTwo;
 }
 
 @include screen-md() {
@@ -169,4 +170,3 @@ img {
   }
 }
 </style>
-
