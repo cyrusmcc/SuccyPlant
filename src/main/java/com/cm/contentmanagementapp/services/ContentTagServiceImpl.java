@@ -38,7 +38,7 @@ public class ContentTagServiceImpl implements  ContentTagService{
 
     @Override
     public boolean exists(String value, EnumTagCategory category) {
-        return tagRepo.existsContentTagByValueAndCategory(value, category);
+        return tagRepo.existsContentTagByValueAndCategory(value, category.getText());
     }
 
     @Override
@@ -48,12 +48,17 @@ public class ContentTagServiceImpl implements  ContentTagService{
             newTag(value, category);
         }
 
-        return tagRepo.findContentTagByValueAndCategory(value, category);
+        return tagRepo.findContentTagByValueAndCategory(value, category.getText());
     }
 
     @Override
     public List<ContentTag> findAllByCategory(EnumTagCategory category) {
-        return tagRepo.findContentTagsByCategory(category);
+        return tagRepo.findContentTagsByCategory(category.getText());
+    }
+
+    @Override
+    public List<ContentTag> findContentTagsByCategoryAndValue(EnumTagCategory category, String value) {
+        return tagRepo.findContentTagsByCategoryAndValue(category.getText(), value);
     }
 
     @Override

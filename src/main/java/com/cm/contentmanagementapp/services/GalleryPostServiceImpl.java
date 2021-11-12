@@ -1,6 +1,5 @@
 package com.cm.contentmanagementapp.services;
 
-import com.cm.contentmanagementapp.models.BlogPost;
 import com.cm.contentmanagementapp.models.ContentTag;
 import com.cm.contentmanagementapp.models.GalleryPost;
 import com.cm.contentmanagementapp.repositories.GalleryPostRepository;

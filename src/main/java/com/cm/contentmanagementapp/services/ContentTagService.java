@@ -17,6 +17,8 @@ public interface ContentTagService {
 
     List<ContentTag> findAllByCategory(EnumTagCategory category);
 
+    List<ContentTag> findContentTagsByCategoryAndValue(EnumTagCategory category, String value);
+
     void addPostToTag(Post post, ContentTag tag);
 
 }

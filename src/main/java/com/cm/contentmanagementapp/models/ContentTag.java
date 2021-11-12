@@ -16,7 +16,7 @@ public class ContentTag {
 
     private String value;
 
-    private EnumTagCategory category;
+    private String category;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -31,7 +31,7 @@ public class ContentTag {
 
     public ContentTag(String value, EnumTagCategory category) {
         this.value = value;
-        this.category = category;
+        this.category = category.getText();
         posts = new HashSet<>();
     }
 
@@ -51,11 +51,11 @@ public class ContentTag {
         this.value = value;
     }
 
-    public EnumTagCategory getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(EnumTagCategory category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 

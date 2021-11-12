@@ -94,7 +94,7 @@ class ContentManagementAppApplicationTests {
 	@Test
 	void newTag() {
 
-		contentTagService.newTag("Aeonium", EnumTagCategory.GENUS);
+		contentTagService.newTag("Aloe", EnumTagCategory.GENUS);
 
 	}
 
@@ -104,10 +104,21 @@ class ContentManagementAppApplicationTests {
 	void galleryPostTest() {
 
 		GalleryPost post = new GalleryPost();
-		post.setTitle("Aeonium urbicum");
-		post.getPost().addTag(contentTagService.findByValueAndCategory("Aeonium", EnumTagCategory.GENUS));
+		post.setTitle("Aloe jucunda");
+		post.getPost().addTag(contentTagService.findByValueAndCategory("Aloe", EnumTagCategory.GENUS));
 
 		galleryPostService.save(post);
+
+	}
+
+	@Test
+	void findContentTagByCategoryAndValue() {
+
+		List<ContentTag> tags = contentTagService.findContentTagsByCategoryAndValue(EnumTagCategory.GENUS, "Aeonium");
+
+		for (ContentTag t : tags) {
+			System.out.println(t.getValue());
+		}
 
 	}
 
