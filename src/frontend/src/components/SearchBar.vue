@@ -58,7 +58,7 @@ export default {
   background-color: $primaryLight;
   font-family: inherit;
   font-weight: 400;
-  color: $primaryLight;
+  color: $primaryDark;
   outline: none;
 }
 

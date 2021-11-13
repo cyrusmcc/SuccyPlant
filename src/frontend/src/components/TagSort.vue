@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import dropDown from "../components/dropdown.vue";
+import dropDown from "../components/Dropdown";
 import galleryService from "../service/gallery.service";
 
 export default {

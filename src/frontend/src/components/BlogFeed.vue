@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <router-link to="/new-blog">new blog</router-link>
     <ol>
       <div id="blogFeedHead">Recent articles</div>
 

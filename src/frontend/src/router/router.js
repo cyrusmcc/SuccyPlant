@@ -11,6 +11,8 @@ const ResetPassword = () => import("../views/ResetPassword.vue");
 const ChangeEmail = () => import("../views/ChangeEmailConfirmation.vue");
 const BlogPost = () => import("../views/BlogPost.vue");
 const NewBlogPost = () => import("../views/NewBlogPost.vue");
+const Admin = () => import("../views/Admin.vue");
+
 
 const routes = [
   {
@@ -106,6 +108,11 @@ const routes = [
     path: "/plants",
     name: "plantGallery",
     component: PlantGallery,
+  },
+  {
+    path: "/admin",
+    name: "admin",
+    component: Admin,
   }, // new here
 ];
 

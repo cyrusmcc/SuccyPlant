@@ -51,7 +51,13 @@ export default {
     },
   },
   mounted() {
-    if (!this.galleryArr) {
+    // load query if user directly visits queried url
+    if (window.location.search) {
+      let params = new URLSearchParams(this.$router.currentRoute.value.query);
+      this.getSortedGalPosts(params);
+    }
+    // else populate with default posts
+    else if (!this.galleryArr) {
       const galPosts = async () => {
         const arr = await galleryService.getPosts();
 
