@@ -6,14 +6,27 @@
         class="contentBanner"
         alt=""
       />
-      <span class="text">Browse House Plants</span>
+      <div class="textContainer">
+        <span class="text">Browse</span>
+        <span class="text">House Plants</span>
+      </div>
     </router-link>
-    <router-link to="/plants?type=house+plant"
+    <router-link class="link" to="/plants?type=succ"
       ><img src="../assets/imgs/bluePattern.svg" class="contentBanner" alt=""
-    /></router-link>
-    <router-link to="/plants?type=house+plant"
+    />
+      <div class="textContainer">
+        <span class="text">Browse</span>
+        <span class="text">Succulents</span>
+      </div>
+    </router-link>
+    <router-link class="link" to="/plants?type=cactus"
       ><img src="../assets/imgs/orangePattern.svg" class="contentBanner" alt=""
-    /></router-link>
+    />
+      <div class="textContainer">
+        <span class="text">Browse</span>
+        <span class="text">Cactuses</span>
+      </div>    
+    </router-link>
   </div>
 </template>
 
@@ -36,7 +49,11 @@ export default {};
   position: relative;
 }
 
-.text {
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  text-align: center;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -44,6 +61,7 @@ export default {};
   font-size: 1.5rem;
   font-family: $lobster;
   color: $primaryLight;
+  text-shadow: -1px 2px 5px black;
 }
 
 .contentBanner {
