@@ -55,6 +55,8 @@ export default {
   flex-direction: column;
   column-gap: 5px;
   row-gap: 2px;
+  width: 6rem;
+  border-radius: 4px;
   align-items: flex-start;
   justify-content: center;
 }
@@ -64,17 +66,19 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   background-color: $accentTwo;
   padding: 3px;
-  width: fit-content;
+  width: 6rem;
   border-radius: 4px;
 }
 
 .dropBoxOptionsContainer {
   display: flex;
   flex-direction: column;
-  row-gap: 5px;
-  width: fit-content;
+  row-gap: 10px;
+  width: 6rem;
+  text-overflow: ellipsis;
   max-height: 100px;
   overflow: scroll;
   overflow-x: hidden;

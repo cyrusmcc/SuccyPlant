@@ -4,33 +4,39 @@
       label="Type"
       :options="['House Plant', 'Succ', 'Cactus']"
       @select-tag="addTagChip"
+      id="type"
     ></drop-down>
     <drop-down
       label="Genus"
       :options="genusValues"
       @select-tag="addTagChip"
+      id="genus"
     ></drop-down>
     <drop-down
       label="Size"
       :options="['Small', 'Medium', 'Large']"
       @select-tag="addTagChip"
+      id="size"
     ></drop-down>
     <drop-down
       label="Difficulty"
       :options="['Beginner Friendly', 'Advanced']"
       @select-tag="addTagChip"
+      id="difficulty"
     ></drop-down>
     <drop-down
       label="Light"
       :options="['Low', 'Medium', 'High']"
       @select-tag="addTagChip"
+      id="light"
     ></drop-down>
     <drop-down
-      label="Pet Friendly"
+      label="Pet Safe"
       :options="['Yes', 'No']"
       @select-tag="addTagChip"
+      id="petSafe"
     ></drop-down>
-    <div class="selectedTags"></div>
+    <div id="selectedTags"></div>
   </div>
 </template>
 
@@ -60,7 +66,7 @@ export default {
     addTagChip(label, option) {
       let params = new URLSearchParams(this.$router.currentRoute.value.query);
 
-      if (!params.has(label) && !window.location.search) {
+      if (!params.has(label)) {
         params.set(label, option);
         params.sort();
         this.$router.push("/plants" + "?" + params.toString());
@@ -70,6 +76,24 @@ export default {
         params.sort();
         this.$router.push("/plants" + "?" + params.toString());
       }
+
+      let selectedTagContainer = document.getElementById("selectedTags");
+      let tagChip = document.createElement("div");
+      let tagChipLabel = document.createElement("span");
+      let tagChipOption = document.createElement("span");
+      let chipId = label.toString().toLowerCase().replace(/\s/g, "");
+
+      tagChip.classList.add("tagChip");
+      tagChip.setAttribute("id", chipId);
+      tagChipLabel.classList.add("tagChipLabel");
+      tagChipOption.classList.add("tagChipOption");
+
+      tagChipLabel.innerHTML = label;
+      tagChipOption.innerHTML = option;
+      
+      tagChip.appendChild(tagChipLabel);
+      tagChip.appendChild(tagChipOption);
+      selectedTagContainer.appendChild(tagChip);
 
       this.$emit("sort-posts-by-tag", params.toString());
     },
@@ -90,5 +114,72 @@ export default {
   border-radius: 4px;
   height: fit-content;
   width: 95%;
+}
+
+#selectedTags {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 10px;
+  border-radius: 4px;
+  height: fit-content;
+  width: 100%;
+  background-color: $accentDark;
+}
+
+/deep/ .tagChip {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  padding: 3px;
+  border-radius: 4px;
+  background-color: $accentOne;
+  color: $primaryDark;
+  font-size: 0.8rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/deep/ .tagChipLabel {
+  display: none;
+}
+
+/deep/ #selectedTags > #type {
+  background-color: $accentTwo;
+}
+
+/deep/ #selectedTags > #genus,
+/deep/ #genus > div,
+/deep/ #genus > .scrollContainer::-webkit-scrollbar {
+  background-color: $accentOne;
+}
+
+/deep/ #selectedTags > #size,
+/deep/ #size > div,
+/deep/ #size > .scrollContainer::-webkit-scrollbar {
+  background-color: $accentThree;
+}
+
+/deep/ #selectedTags > #difficulty,
+/deep/ #difficulty > div,
+/deep/ #difficulty > .scrollContainer::-webkit-scrollbar {
+  background-color: $accentFour;
+}
+
+
+/deep/ #selectedTags > #light,
+/deep/ #light > div,
+/deep/ #light > .scrollContainer::-webkit-scrollbar {
+  background-color: $accentFive;
+}
+
+/deep/ #selectedTags > #petsafe,
+/deep/ #petSafe > div,
+/deep/ #petSafe > .scrollContainer::-webkit-scrollbar {
+  background-color: $accentSix;
 }
 </style>

@@ -13,7 +13,6 @@ const BlogPost = () => import("../views/BlogPost.vue");
 const NewBlogPost = () => import("../views/NewBlogPost.vue");
 const Admin = () => import("../views/Admin.vue");
 
-
 const routes = [
   {
     path: "/",

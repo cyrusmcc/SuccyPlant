@@ -15,7 +15,7 @@ export default {
   components: {
     BlogFeed,
     SearchBar,
-    SquareGrid
+    SquareGrid,
   },
   name: "Home",
   data() {
