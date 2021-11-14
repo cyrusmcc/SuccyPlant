@@ -43,6 +43,7 @@
 <script>
 import dropDown from "../components/Dropdown";
 import galleryService from "../service/gallery.service";
+import router from "../router/router";
 
 export default {
   name: "TagSort",
@@ -77,20 +78,38 @@ export default {
         this.$router.push("/plants" + "?" + params.toString());
       }
 
+      console.log("add " + params.toString());
+
       let selectedTagContainer = document.getElementById("selectedTags");
       let tagChip = document.createElement("div");
       let tagChipLabel = document.createElement("span");
       let tagChipOption = document.createElement("span");
-      let chipId = label.toString().toLowerCase().replace(/\s/g, "");
+      let chipId = label.toString().toLowerCase().replace(/\s/g, "") + "Chip";
 
       tagChip.classList.add("tagChip");
       tagChip.setAttribute("id", chipId);
+      tagChip.addEventListener(
+        "click",
+        function () {
+          console.log("ff");
+
+          const tags = params.getAll(label).filter((tag) => tag !== option);
+          params.delete(label);
+          for (const tag of tags) params.append(label, tag);
+
+          console.log(router);
+          router.push("/plants" + "?" + params.toString());
+          document.getElementById(chipId).remove();
+        },
+        0
+      );
+
       tagChipLabel.classList.add("tagChipLabel");
       tagChipOption.classList.add("tagChipOption");
 
       tagChipLabel.innerHTML = label;
       tagChipOption.innerHTML = option;
-      
+
       tagChip.appendChild(tagChipLabel);
       tagChip.appendChild(tagChipOption);
       selectedTagContainer.appendChild(tagChip);
@@ -152,32 +171,31 @@ export default {
   background-color: $accentTwo;
 }
 
-/deep/ #selectedTags > #genus,
+/deep/ #selectedTags > #genusChip,
 /deep/ #genus > div,
 /deep/ #genus > .scrollContainer::-webkit-scrollbar {
   background-color: $accentOne;
 }
 
-/deep/ #selectedTags > #size,
+/deep/ #selectedTags > #sizeChip,
 /deep/ #size > div,
 /deep/ #size > .scrollContainer::-webkit-scrollbar {
   background-color: $accentThree;
 }
 
-/deep/ #selectedTags > #difficulty,
+/deep/ #selectedTags > #difficultyChip,
 /deep/ #difficulty > div,
 /deep/ #difficulty > .scrollContainer::-webkit-scrollbar {
   background-color: $accentFour;
 }
 
-
-/deep/ #selectedTags > #light,
+/deep/ #selectedTags > #lightChip,
 /deep/ #light > div,
 /deep/ #light > .scrollContainer::-webkit-scrollbar {
   background-color: $accentFive;
 }
 
-/deep/ #selectedTags > #petsafe,
+/deep/ #selectedTags > #petsafeChip,
 /deep/ #petSafe > div,
 /deep/ #petSafe > .scrollContainer::-webkit-scrollbar {
   background-color: $accentSix;

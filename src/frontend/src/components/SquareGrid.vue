@@ -12,20 +12,22 @@
       </div>
     </router-link>
     <router-link class="link" to="/plants?type=succ"
-      ><img src="../assets/imgs/bluePattern.svg" class="contentBanner" alt=""
-    />
+      ><img src="../assets/imgs/bluePattern.svg" class="contentBanner" alt="" />
       <div class="textContainer">
         <span class="text">Browse</span>
         <span class="text">Succulents</span>
       </div>
     </router-link>
     <router-link class="link" to="/plants?type=cactus"
-      ><img src="../assets/imgs/orangePattern.svg" class="contentBanner" alt=""
-    />
+      ><img
+        src="../assets/imgs/orangePattern.svg"
+        class="contentBanner"
+        alt=""
+      />
       <div class="textContainer">
         <span class="text">Browse</span>
         <span class="text">Cactuses</span>
-      </div>    
+      </div>
     </router-link>
   </div>
 </template>
