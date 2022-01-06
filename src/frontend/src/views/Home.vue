@@ -1,5 +1,5 @@
 <template>
-  <carousel :images="images"></carousel>
+  <carousel :images="images" :autoplay="true" :arrows="true"></carousel>
   <div class="parent">
     <square-grid></square-grid>
     <blog-feed />
