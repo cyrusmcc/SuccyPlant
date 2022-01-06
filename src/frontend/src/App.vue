@@ -16,7 +16,6 @@
         <a class="nav-link" @click.prevent="logOut">Logout</a>
       </div>
     </nav-bar>
-
     <router-view />
   </div>
 </template>

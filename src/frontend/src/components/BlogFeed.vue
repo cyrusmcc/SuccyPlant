@@ -1,8 +1,9 @@
 <template>
   <div class="container">
     <ol>
+      <!--
       <div id="blogFeedHead">Recent articles</div>
-
+      -->
       <li v-for="(blog, index) in blogArr" :key="index">
         <div id="blogImgContainer">
           <img
@@ -17,13 +18,17 @@
             blog.post.title
           }}</router-link>
           <div id="blogPostDate">
-            Posted on&nbsp;
-            <formatted-date :date="blog.postDate" :format="'full'" />
+            <span id="postedOn">Posted on&nbsp;</span>
+            <formatted-date
+              :date="blog.postDate"
+              :format="'full'"
+              class="formattedDate"
+            />
           </div>
         </div>
       </li>
     </ol>
-    <button @click="getBlogs" class="button-primaryLight-accentTwo">
+    <button @click="getBlogs" class="button-primaryDark-noBorder">
       Load More
     </button>
   </div>
@@ -91,21 +96,26 @@ export default {
 
 <style lang="scss" scoped>
 ol {
-  width: 85%;
-  margin-top: 50px;
+  width: 100%;
+  max-width: 800px;
   padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-weight: 500;
+  margin-top: 0;
 }
 li {
   display: flex;
   flex-direction: column;
   align-items: center;
   list-style-type: none;
-  margin-bottom: 60px;
   height: fit-content;
-  border-radius: 3px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 2px solid $accentTwo;
+  box-sizing: border-box;
+  box-shadow: $shadowLight;
   width: 100%;
 }
 
@@ -147,7 +157,7 @@ img {
   width: 100%;
   box-shadow: $shadow;
   box-sizing: border-box;
-  padding: 10px 0 10px 5px;
+  padding: 10px 0 10px 10px;
 }
 
 #blogTitle {
@@ -157,15 +167,18 @@ img {
 }
 
 #blogPostDate {
+  margin-top: 5px;
   display: flex;
   flex-direction: row;
   font-size: small;
-  color: $highlightTwo;
 }
 
-@include screen-md() {
-  ol {
-    width: 40rem;
-  }
+#postedOn {
+  color: $primaryDark;
+}
+
+.formattedDate {
+  color: $accentTwo;
+  font-weight: bold;
 }
 </style>

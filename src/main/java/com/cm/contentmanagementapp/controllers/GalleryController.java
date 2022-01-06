@@ -23,7 +23,6 @@ public class GalleryController {
 
     private ContentTagService tagService;
 
-
     @Autowired
     public GalleryController(GalleryPostService galPostService, ContentTagService tagService) {
         this.galPostService = galPostService;

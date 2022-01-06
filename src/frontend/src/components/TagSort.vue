@@ -91,8 +91,6 @@ export default {
       tagChip.addEventListener(
         "click",
         function () {
-          console.log("ff");
-
           const tags = params.getAll(label).filter((tag) => tag !== option);
           params.delete(label);
           for (const tag of tags) params.append(label, tag);
@@ -100,6 +98,10 @@ export default {
           console.log(router);
           router.push("/plants" + "?" + params.toString());
           document.getElementById(chipId).remove();
+
+          // hack to force re-render after removing chip, investigate
+          // other solutions that don't force re-render
+          router.go();
         },
         0
       );

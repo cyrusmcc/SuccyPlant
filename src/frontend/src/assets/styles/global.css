@@ -9,14 +9,13 @@
 html,
 body {
   font-family: "Rubik", sans-serif;
+  font-size: 100%;
   margin: 0;
   padding: 0;
   height: 100%;
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
   scroll-behavior: smooth;
-  background-color: #F4F4F3;
-  position: relative;
+  background-color: #f4f4f3;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
@@ -45,11 +44,12 @@ fieldset {
 table {
   border-spacing: 0;
   border-collapse: collapse;
-  border: 1px solid #F4F4F3;
+  border: 1px solid #f4f4f3;
 }
 
-td, th {
-  border: 1px solid #F4F4F3;
+td,
+th {
+  border: 1px solid #f4f4f3;
   padding: 5px;
 }
 
@@ -58,14 +58,13 @@ td, th {
 }
 
 .button-primaryLight-accentOne {
-  background-color: #F4F4F3;
+  background-color: #f4f4f3;
   color: #121113;
-  border-radius: 10px;
+  border-radius: 20px;
   font-size: 1rem;
-  border: thin solid #8CAED3;
+  border: 2px solid #8caed3;
   line-height: 2rem;
-  margin-bottom: 20px;
-  padding: 0 3px 0 3px;
+  padding: 2px 10px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -75,14 +74,13 @@ td, th {
 }
 
 .button-primaryLight-accentTwo {
-  background-color: #F4F4F3;
+  background-color: #f4f4f3;
   color: #121113;
-  border-radius: 10px;
+  border-radius: 20px;
   font-size: 1rem;
-  border: thin solid #86c2b6;
+  border: 2px solid #86c2b6;
   line-height: 2rem;
-  margin-bottom: 20px;
-  padding: 0 3px 0 3px;
+  padding: 2px 10px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -92,14 +90,13 @@ td, th {
 }
 
 .button-primaryLight-accentThree {
-  background-color: #F4F4F3;
-  color: #FFC9B9;
-  border-radius: 10px;
+  background-color: #f4f4f3;
+  color: #f5c881;
+  border-radius: 20px;
   font-size: 1rem;
-  border: thin solid #FFC9B9;
+  border: 2px solid #f5c881;
   line-height: 2rem;
-  margin-bottom: 20px;
-  padding: 0 3px 0 3px;
+  padding: 2px 10px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -109,14 +106,13 @@ td, th {
 }
 
 .button-primaryLight-highlightOne {
-  background-color: #F4F4F3;
+  background-color: #f4f4f3;
   color: #004da2;
-  border-radius: 10px;
+  border-radius: 20px;
   font-size: 1rem;
-  border: thin solid #004da2;
+  border: 2px solid #004da2;
   line-height: 2rem;
-  margin-bottom: 20px;
-  padding: 0 3px 0 3px;
+  padding: 2px 10px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -125,15 +121,31 @@ td, th {
           box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
 }
 
+.button-primaryDark-noBorder {
+  background-color: #121113;
+  color: #f4f4f3;
+  border-radius: 20px;
+  font-size: 1rem;
+  border: 2px solid transparent;
+  line-height: 2rem;
+  padding: 2px 10px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  cursor: pointer;
+  -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
+          box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
+  border: none;
+}
+
 .button-primaryDark-accentOne {
   background-color: #121113;
-  color: #F4F4F3;
-  border-radius: 10px;
+  color: #f4f4f3;
+  border-radius: 20px;
   font-size: 1rem;
-  border: thin solid #8CAED3;
+  border: 2px solid #8caed3;
   line-height: 2rem;
-  margin-bottom: 20px;
-  padding: 0 3px 0 3px;
+  padding: 2px 10px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -144,13 +156,12 @@ td, th {
 
 .button-primaryDark-accentTwo {
   background-color: #121113;
-  color: #F4F4F3;
-  border-radius: 10px;
+  color: #f4f4f3;
+  border-radius: 20px;
   font-size: 1rem;
-  border: thin solid #86c2b6;
+  border: 2px solid #86c2b6;
   line-height: 2rem;
-  margin-bottom: 20px;
-  padding: 0 3px 0 3px;
+  padding: 2px 10px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -161,13 +172,12 @@ td, th {
 
 .button-primaryDark-accentThree {
   background-color: #121113;
-  color: #F4F4F3;
-  border-radius: 10px;
+  color: #f4f4f3;
+  border-radius: 20px;
   font-size: 1rem;
-  border: thin solid #FFC9B9;
+  border: 2px solid #f5c881;
   line-height: 2rem;
-  margin-bottom: 20px;
-  padding: 0 3px 0 3px;
+  padding: 2px 10px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -177,14 +187,13 @@ td, th {
 }
 
 .button-accentOne-primaryLight {
-  background-color: #8CAED3;
-  color: #F4F4F3;
-  border-radius: 10px;
+  background-color: #8caed3;
+  color: #f4f4f3;
+  border-radius: 20px;
   font-size: 1rem;
-  border: thin solid #8CAED3;
+  border: 2px solid #8caed3;
   line-height: 2rem;
-  margin-bottom: 20px;
-  padding: 0 3px 0 3px;
+  padding: 2px 10px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -195,13 +204,12 @@ td, th {
 
 .button-accentTwo-primaryLight {
   background-color: #86c2b6;
-  color: #F4F4F3;
-  border-radius: 10px;
+  color: #f4f4f3;
+  border-radius: 20px;
   font-size: 1rem;
-  border: thin solid #86c2b6;
+  border: 2px solid #86c2b6;
   line-height: 2rem;
-  margin-bottom: 20px;
-  padding: 0 3px 0 3px;
+  padding: 2px 10px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -211,14 +219,13 @@ td, th {
 }
 
 .button-accentThree-primaryLight {
-  background-color: #FFC9B9;
-  color: #F4F4F3;
-  border-radius: 10px;
+  background-color: #f5c881;
+  color: #f4f4f3;
+  border-radius: 20px;
   font-size: 1rem;
-  border: thin solid #FFC9B9;
+  border: 2px solid #f5c881;
   line-height: 2rem;
-  margin-bottom: 20px;
-  padding: 0 3px 0 3px;
+  padding: 2px 10px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -228,14 +235,13 @@ td, th {
 }
 
 .button-accentOne-primaryDark {
-  background-color: #8CAED3;
+  background-color: #8caed3;
   color: #121113;
-  border-radius: 10px;
+  border-radius: 20px;
   font-size: 1rem;
-  border: thin solid #8CAED3;
+  border: 2px solid #8caed3;
   line-height: 2rem;
-  margin-bottom: 20px;
-  padding: 0 3px 0 3px;
+  padding: 2px 10px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -247,12 +253,11 @@ td, th {
 .button-accentTwo-primaryDark {
   background-color: #86c2b6;
   color: #121113;
-  border-radius: 10px;
+  border-radius: 20px;
   font-size: 1rem;
-  border: thin solid #86c2b6;
+  border: 2px solid #86c2b6;
   line-height: 2rem;
-  margin-bottom: 20px;
-  padding: 0 3px 0 3px;
+  padding: 2px 10px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -262,14 +267,13 @@ td, th {
 }
 
 .button-accentThree-primaryDark {
-  background-color: #FFC9B9;
+  background-color: #f5c881;
   color: #121113;
-  border-radius: 10px;
+  border-radius: 20px;
   font-size: 1rem;
-  border: thin solid #FFC9B9;
+  border: 2px solid #f5c881;
   line-height: 2rem;
-  margin-bottom: 20px;
-  padding: 0 3px 0 3px;
+  padding: 2px 10px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -278,18 +282,27 @@ td, th {
           box-shadow: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
 }
 
-.button-primaryLight-accentOne:hover, .button-primaryLight-accentTwo:hover, .button-primaryLight-accentThree:hover,
-.button-primaryLight-highlightOne:hover, .button-primaryDark-accentOne:hover, .button-primaryDark-accentTwo:hover,
-.button-primaryDark-accentThree:hover, .button-primaryDark-highlightOne:hover, .button-accentOne-primaryLight:hover,
-.button-accentTwo-primaryLight:hover, .button-accentThree-primaryLight:hover, .button-accentOne-primaryDark:hover,
-.button-accentTwo-primaryDark:hover, .button-accentThree-primaryDark:hover {
+.button-primaryLight-accentOne:hover,
+.button-primaryLight-accentTwo:hover,
+.button-primaryLight-accentThree:hover,
+.button-primaryLight-highlightOne:hover,
+.button-primaryDark-accentOne:hover,
+.button-primaryDark-accentTwo:hover,
+.button-primaryDark-accentThree:hover,
+.button-primaryDark-highlightOne:hover,
+.button-accentOne-primaryLight:hover,
+.button-accentTwo-primaryLight:hover,
+.button-accentThree-primaryLight:hover,
+.button-accentOne-primaryDark:hover,
+.button-accentTwo-primaryDark:hover,
+.button-accentThree-primaryDark:hover {
   -webkit-box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
           box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
 }
 
 .labelButton {
-  border: #8CAED3 1px solid;
-  color: #F4F4F3;
+  border: #8caed3 1px solid;
+  color: #f4f4f3;
   border-radius: 4px;
   padding: 5px;
   cursor: pointer;
@@ -342,7 +355,7 @@ td, th {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   background: #353537;
-  color: #F4F4F3;
+  color: #f4f4f3;
   padding: 5px;
   /* align-self: center; */
   margin-top: 10px;
@@ -365,7 +378,7 @@ td, th {
 
 html::-webkit-scrollbar {
   width: 10px;
-  background-color: #F4F4F3;
+  background-color: #f4f4f3;
 }
 
 html::-webkit-scrollbar-thumb {
@@ -375,7 +388,7 @@ html::-webkit-scrollbar-thumb {
 
 .scrollContainer::-webkit-scrollbar {
   width: 8px;
-  background-color: #F4F4F3;
+  background-color: #f4f4f3;
   border-left: medium solid #353537;
   border-radius: 0 6px 6px 0;
 }
@@ -417,7 +430,7 @@ html::-webkit-scrollbar-thumb {
 }
 
 .card {
-  background-color: #F4F4F3;
+  background-color: #f4f4f3;
   color: #121113;
   border-radius: 4px;
   height: -webkit-fit-content;

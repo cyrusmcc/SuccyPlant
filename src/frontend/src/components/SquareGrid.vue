@@ -38,38 +38,56 @@ export default {};
 
 <style scoped lang="scss">
 .gridContainer {
-  margin-top: 15px;
-  width: fit-content;
+  height: fit-content;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(10px, 1fr));
+  gap: 10px;
+}
+
+.gridContainer > * {
+  width: 30rem;
+  max-width: 100%;
+  min-height: 85px;
+  height: 5rem;
+  overflow: hidden;
+  border-radius: 4px;
+  box-shadow: $shadowLight;
+  position: relative;
 }
 
 .link {
-  height: fit-content;
-  width: fit-content;
   position: relative;
 }
 
 .textContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  width: fit-content;
-  text-align: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
   font-family: $lobster;
-  color: $primaryLight;
   text-shadow: -1px 2px 5px black;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.textContainer:hover {
+  background-color: rgba(0, 0, 0, 0);
+  font-size: 1.6rem;
+  box-shadow: $shadow;
 }
 
 .contentBanner {
-  width: 10rem;
+  width: 100%;
   height: auto;
-  border-radius: 4px;
-  box-shadow: -4px 4px 8px 0 RGB(0 0 0/10%), 0 8px 16px 0 RGB(0 0 0/17%);
 }
 </style>
