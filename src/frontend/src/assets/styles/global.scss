@@ -98,10 +98,6 @@ th {
     padding: 5px;
 }
 
-.container {
-    height: 100%;
-}
-
 // BUTTON STYLES
 @mixin buttonBase($bgColor, $txtColor, $brdrColor) {
     background-color: $bgColor;

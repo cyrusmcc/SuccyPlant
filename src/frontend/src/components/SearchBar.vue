@@ -1,79 +1,66 @@
 <template>
   <div class="searchBar">
-    <div class="searchBarInputWrapper">
-      <input
-        type="text"
-        class="searchBarInput"
-        v-model="searchQuery"
-        @keyup.enter="search"
-        placeholder="Search"
+    <input
+      class="searchBarInput"
+      placeholder="Search plants"
+      v-model="content"
+      @keyup.enter="$emit('search', content)"
+    />
+    <div class="searchBarIcon">
+      <img
+        class="magGlassImg"
+        src="@/assets/imgs/magGlassDark.svg"
+        alt="search icon"
       />
-      <button class="searchBarButton" @click="search">
-        <img class="searchBarIcon" src="../assets/imgs/magGlassDark.svg" />
-      </button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      searchQuery: "",
-    };
-  },
-  methods: {
-    search() {
-      this.$emit("search", this.searchQuery);
-    },
-  },
+  name: "SearchBar",
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
 .searchBar {
-  padding-top: 40px;
-  margin-top: 10px;
+  @include flexCenter();
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 95%;
-  height: fit-content;
+  width: 90%;
+  height: 20px;
+  padding: 6px;
+  border: medium solid $primaryDark;
+  border-radius: 20px;
+  margin-top: 20px;
+  background-color: $primaryLight;
+  max-width: 40rem;
 }
-
-.searchBarInputWrapper {
-  width: 100%;
-  position: relative;
-  display: flex;
-}
-
 .searchBarInput {
   width: 100%;
   height: 100%;
-  padding: 0.5rem;
-  border: medium solid $accentDark;
-  border-right: none;
-  border-radius: 8px 0 0 8px;
-  background-color: $primaryLight;
-  font-family: inherit;
-  font-weight: 400;
-  color: $primaryDark;
+  font-size: 1rem;
+  margin-left: 15px;
+  border: none;
   outline: none;
-}
-
-.searchBarButton {
-  background-color: $primaryLight;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: medium solid $accentDark;
-  border-left: none;
-  border-radius: 0 8px 8px 0;
+  background: transparent;
 }
 
 .searchBarIcon {
-  width: 1.2em;
-  height: 1.2rem;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 30px;
+  height: 100%;
+  cursor: pointer;
+}
+
+.magGlassImg {
+  height: auto;
+  width: 1rem;
 }
 </style>

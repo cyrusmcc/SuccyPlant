@@ -110,9 +110,10 @@ export default {
   justify-content: flex-start;
   align-items: flex-start;
   padding: 15px;
-  row-gap: 10px;
+  row-gap: 20px;
   background: $primaryLight;
   height: fit-content;
   max-width: 100%;
+  font-size: 1.2rem;
 }
 </style>

@@ -1,19 +1,19 @@
 <template>
-  <div class="container">
+  <div class="viewContainer">
     <nav-bar v-show="!$route.meta.hideNav">
-      <router-link to="/"> Home </router-link>
-      <router-link to="/plants"> Plants </router-link>
-      <router-link :to="'/p/' + currentUser.username" v-if="currentUser">
+      <router-link class="navLink" to="/"> Home </router-link>
+      <router-link class="navLink" to="/plants"> Plants </router-link>
+      <router-link class="navLink" :to="'/p/' + currentUser.username" v-if="currentUser">
         profile
       </router-link>
-      <router-link class="nav-link" to="/settings" v-if="currentUser"
+      <router-link class="navLink" to="/settings" v-if="currentUser"
         >User Settings</router-link
       >
-      <div class="nav-link" v-if="!currentUser">
+      <div class="navLink" v-if="!currentUser">
         <router-link to="/login">Login</router-link>
       </div>
       <div v-if="currentUser">
-        <a class="nav-link" @click.prevent="logOut">Logout</a>
+        <a class="navLink" @click.prevent="logOut">Logout</a>
       </div>
     </nav-bar>
     <router-view />
@@ -59,6 +59,17 @@ export default {
 
 <style lang="scss">
 #app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   height: 100%;
+}
+.viewContainer {
+  max-width: 1500px;
+  width: 100%;
+  padding-top: 45px;
+}
+.navLink:hover {
+  border-bottom: 2px solid $highlightTwo;
 }
 </style>

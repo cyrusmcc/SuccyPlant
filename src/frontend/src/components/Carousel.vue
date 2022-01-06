@@ -57,16 +57,13 @@ export default {
 </script>
 
 <style scoped style="scss">
-.homeContainer {
-  padding-top: 45px;
-}
 img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 .carousel {
-  height: 20rem;
+  height: 17rem;
   width: 100%;
   position: relative;
 }

@@ -1,5 +1,5 @@
 <template>
-  <carousel :images="images" :autoplay="true" :arrows="true"></carousel>
+  <search-carousel-card></search-carousel-card>
   <div class="parent">
     <square-grid></square-grid>
     <blog-feed />
@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Carousel from "../components/Carousel.vue";
+import SearchCarouselCard from "../components/SearchCarouselCard.vue";
 import BlogFeed from "../components/BlogFeed.vue";
 import SquareGrid from "../components/SquareGrid.vue";
 
@@ -15,23 +15,12 @@ export default {
   components: {
     BlogFeed,
     SquareGrid,
-    Carousel,
+    SearchCarouselCard,
   },
   name: "Home",
   data() {
     return {
       content: "",
-      images: [
-        {
-          url: require("@/assets/imgs/house.jpg"),
-        },
-        {
-          url: require("@/assets/imgs/house2.jpg"),
-        },
-        {
-          url: require("@/assets/imgs/house3.jpg"),
-        },
-      ],
     };
   },
 };
