@@ -10,6 +10,8 @@ $accentFour: #ffb2b2;
 $accentFive: #bdb2ff;
 $accentSix: #cbb7ac;
 
+$outline: #e4ebf8;
+
 $screen-md: 610px;
 $screen-lg: 1115px;
 
@@ -305,3 +307,11 @@ html::-webkit-scrollbar-thumb {
     padding-bottom: 5px;
     box-shadow: 0 4px 8px 0 RGB(0 0 0/20%), 0 6px 20px 0 RGB(0 0 0/19%);
 }
+
+.navLink {
+    border: 2px solid transparent;
+}
+
+.navLink:hover {
+    border-bottom: 2px solid $highlightTwo;
+  }

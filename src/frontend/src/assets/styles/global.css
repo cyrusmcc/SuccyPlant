@@ -439,4 +439,12 @@ html::-webkit-scrollbar-thumb {
   -webkit-box-shadow: 0 4px 8px 0 RGB(0 0 0/20%), 0 6px 20px 0 RGB(0 0 0/19%);
           box-shadow: 0 4px 8px 0 RGB(0 0 0/20%), 0 6px 20px 0 RGB(0 0 0/19%);
 }
+
+.navLink {
+  border: 2px solid transparent;
+}
+
+.navLink:hover {
+  border-bottom: 2px solid #29a525;
+}
 /*# sourceMappingURL=global.css.map */
