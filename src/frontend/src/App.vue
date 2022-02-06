@@ -3,11 +3,15 @@
     <nav-bar v-show="!$route.meta.hideNav">
       <router-link class="navLink" to="/"> Home </router-link>
       <router-link class="navLink" to="/plants"> Plants </router-link>
-      <router-link class="navLink" :to="'/p/' + currentUser.username" v-if="currentUser">
-        profile
+      <router-link
+        class="navLink"
+        :to="'/p/' + currentUser.username"
+        v-if="currentUser"
+      >
+        Profile
       </router-link>
       <router-link class="navLink" to="/settings" v-if="currentUser"
-        >User Settings</router-link
+        >Settings</router-link
       >
       <div class="navLink" v-if="!currentUser">
         <router-link to="/login">Login</router-link>
@@ -68,8 +72,5 @@ export default {
   max-width: 1500px;
   width: 100%;
   padding-top: 45px;
-}
-.navLink:hover {
-  border-bottom: 2px solid $highlightTwo;
 }
 </style>

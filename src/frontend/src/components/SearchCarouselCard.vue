@@ -22,12 +22,6 @@ export default {
         {
           url: require("@/assets/imgs/house.jpg"),
         },
-        {
-          url: require("@/assets/imgs/house2.jpg"),
-        },
-        {
-          url: require("@/assets/imgs/house3.jpg"),
-        },
       ],
     };
   },
