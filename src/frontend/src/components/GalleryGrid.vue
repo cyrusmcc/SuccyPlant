@@ -1,7 +1,6 @@
 <template>
   <div class="gridContainer">
-    <tag-sort @sort-posts-by-tag="getSortedGalPosts"></tag-sort>
-    <ol id="galPostList">
+    <ol class="galPostList">
       <li v-for="(galPost, index) in galleryArr" :key="index">
         <div id="galleryImgContainer">
           <img src="../assets/blogplacehold.webp" class="galPostImg" alt="" />
@@ -33,13 +32,10 @@
 
 <script>
 import galleryService from "../service/gallery.service";
-import tagSort from "../components/TagSort.vue";
 
 export default {
   name: "GalleryGrid",
-  components: {
-    tagSort,
-  },
+  components: {},
   data() {
     return {
       sortedArr: [],
@@ -94,28 +90,30 @@ export default {
   align-items: center;
   width: 100%;
 }
-
-#galPostList {
+.galPostList {
   width: 100%;
   margin-top: 20px;
   padding: 0;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  gap: 20px;
 }
-
-#galPostList > li {
+.galPostList > li {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   list-style-type: none;
   margin-bottom: 10px;
-  height: 150px;
-  width: 95%;
+  height: fit-content;
+  width: fit-content;
   box-shadow: $shadowLight;
+  border-radius: 10px;
+  border: 2px solid $accentTwo;
+  overflow: hidden;
 }
-
 .container {
   display: flex;
   flex-direction: column;
@@ -133,18 +131,20 @@ export default {
 }
 
 .galPostImg {
-  height: inherit;
-  width: inherit;
+  height: 150px;
+  width: fit-content;
   object-fit: cover;
 }
 
 #galPostInfoContainer {
-  height: 90%;
-  width: 100%;
+  margin-top: 10px;
+  height: fit-content;
+  width: 95%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  padding-bottom: 5px;
 }
 
 #galPostTagList {
@@ -177,6 +177,8 @@ export default {
   font-style: italic;
   color: $primaryLight;
   font-style: italic;
+  height: 50px;
+  width: 100%;
 }
 
 #galPostDate {

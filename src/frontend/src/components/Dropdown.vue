@@ -1,13 +1,13 @@
 <template>
-  <div class="dropdown" @click="toggle()">
-    <div
-      class="dropBoxSelectContainer"
-      :style="[
+  <div class="dropDown" @click="toggle()">
+    <!--
+              :style="[
         isOpen == true
           ? { borderRadius: '4px 4px 0 0' }
           : { borderRadius: '4px' },
       ]"
-    >
+      -->
+    <div class="dropBoxSelectContainer">
       <span class="dropBoxLabel">{{ label }}</span>
       <div class="imgContainer" v-if="!isOpen">
         <img class="downArrow" src="../assets/imgs/downArrowDark.svg" />
@@ -50,18 +50,19 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.dropdown {
+.dropDown {
   display: flex;
   flex-direction: column;
   column-gap: 5px;
   row-gap: 2px;
-  width: 6rem;
-  border-radius: 4px;
+  width: 100%;
   align-items: flex-start;
   justify-content: center;
 }
 
 .dropBoxSelectContainer {
+  box-sizing: border-box;
+  border-radius: 4px;
   cursor: pointer;
   display: flex;
   flex-direction: row;
@@ -69,8 +70,8 @@ export default {
   justify-content: space-between;
   background-color: $accentTwo;
   padding: 3px;
-  width: 6rem;
-  border-radius: 4px;
+  width: 100%;
+  height: 2.5rem;
 }
 
 .dropBoxOptionsContainer {

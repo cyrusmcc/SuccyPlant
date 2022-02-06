@@ -144,7 +144,7 @@
             <label
               for=""
               id="changeEmailButton"
-              class="button-primaryLight-highlightOne"
+              class="button-highlightOne-primaryLight"
               @click="toggleModal('changeEmail')"
               >Change</label
             >
@@ -154,7 +154,7 @@
             <label
               for=""
               id="changePasswordButton"
-              class="button-primaryLight-highlightOne"
+              class="button-highlightOne-primaryLight"
               @click="toggleModal('changePassword')"
               >Change</label
             >

@@ -1,19 +1,19 @@
 <template>
   <div class="container">
-    <search-bar></search-bar>
+    <filter-bar></filter-bar>
     <gallery-grid></gallery-grid>
   </div>
 </template>
 
 <script>
+import FilterBar from '../components/FilterBar.vue';
 import galleryGrid from "../components/GalleryGrid";
-import SearchBar from "../components/SearchBar.vue";
 
 export default {
   name: "Gallery",
   components: {
     galleryGrid,
-    SearchBar,
+    FilterBar,
   },
 };
 </script>

@@ -14,7 +14,7 @@
           />
         </div>
         <div id="blogTextContainer">
-          <router-link :to="'/blog/' + blog.id">{{
+          <router-link class="blogTitle" :to="'/blog/' + blog.id">{{
             blog.post.title
           }}</router-link>
           <div id="blogPostDate">
@@ -96,26 +96,24 @@ export default {
 
 <style lang="scss" scoped>
 ol {
-  width: 100%;
+  width: 60%;
   max-width: 800px;
   padding: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   font-weight: 500;
   margin-top: 0;
+  row-gap: 20px;
 }
 li {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   list-style-type: none;
   height: fit-content;
-  border-radius: 6px;
   overflow: hidden;
-  border: 2px solid $accentTwo;
   box-sizing: border-box;
-  box-shadow: $shadowLight;
   width: 100%;
 }
 
@@ -126,7 +124,7 @@ img {
 .container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
   margin: 10px auto;
 }
@@ -142,8 +140,9 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 250px;
-  width: 100%;
+  height: 150px;
+  width: 300px;
+  max-width: 50%;
 }
 
 .blogImg {
@@ -153,17 +152,22 @@ img {
 }
 
 #blogTextContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 15px;
   height: fit-content;
   width: 100%;
-  box-shadow: $shadow;
   box-sizing: border-box;
+  margin-left: 15px;
   padding: 10px 0 10px 10px;
 }
 
-#blogTitle {
+.blogTitle {
   font-size: 1.2rem;
   color: $primaryDark;
   font-style: italic;
+  text-align: center;
 }
 
 #blogPostDate {

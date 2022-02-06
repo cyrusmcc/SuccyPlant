@@ -1,5 +1,5 @@
 <template>
-  <div class="tagSort">
+  <div class="tagSort" v-if="showFilter">
     <drop-down
       label="Type"
       :options="['House Plant', 'Succ', 'Cactus']"
@@ -36,8 +36,8 @@
       @select-tag="addTagChip"
       id="petSafe"
     ></drop-down>
-    <div id="selectedTags"></div>
   </div>
+  <div id="selectedTags"></div>
 </template>
 
 <script>
@@ -56,6 +56,7 @@ export default {
       genusValues: [],
     };
   },
+  props: ["showFilter"],
   created() {
     const genusVals = async () => {
       const arr = await galleryService.getTagsByCategory("genus");
@@ -126,14 +127,22 @@ export default {
 .tagSort {
   display: flex;
   flex-direction: row;
-  row-gap: 10px;
   column-gap: 10px;
-  justify-content: flex-start;
+  row-gap: 10px;
+  justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
   margin-top: 10px;
+  border: 1px solid white;
   border-radius: 4px;
+  overflow: hidden;
   height: fit-content;
+  width: 100%;
+  box-shadow: $shadowLight;
+  padding: 10px 0;
+}
+
+.dropDown {
   width: 95%;
 }
 
@@ -144,7 +153,6 @@ export default {
   justify-content: flex-start;
   align-items: flex-start;
   margin-top: 10px;
-  border-radius: 4px;
   height: fit-content;
   width: 100%;
   background-color: $accentDark;
@@ -179,9 +187,9 @@ export default {
   background-color: $accentOne;
 }
 
-/deep/ #selectedTags > #sizeChip,
-/deep/ #size > div,
-/deep/ #size > .scrollContainer::-webkit-scrollbar {
+/deep/ #selectedTags > #lightChip,
+/deep/ #light > div,
+/deep/ #light > .scrollContainer::-webkit-scrollbar {
   background-color: $accentThree;
 }
 
@@ -191,9 +199,9 @@ export default {
   background-color: $accentFour;
 }
 
-/deep/ #selectedTags > #lightChip,
-/deep/ #light > div,
-/deep/ #light > .scrollContainer::-webkit-scrollbar {
+/deep/ #selectedTags > #sizeChip,
+/deep/ #size > div,
+/deep/ #size > .scrollContainer::-webkit-scrollbar {
   background-color: $accentFive;
 }
 

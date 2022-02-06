@@ -106,7 +106,7 @@ th {
     font-size: 1rem;
     border: 2px solid $brdrColor;
     line-height: 2rem;
-    padding: 2px 10px;
+    padding: 0px 10px;
     width: fit-content;
     cursor: pointer;
     box-shadow: $shadowLight;
@@ -169,6 +169,10 @@ th {
     @include buttonBase($accentThree, $primaryDark, $accentThree);
 }
 
+.button-highlightOne-primaryLight {
+    @include buttonBase($highlightOne, $primaryLight, $highlightOne);
+}
+
 .button-primaryLight-accentOne:hover,
 .button-primaryLight-accentTwo:hover,
 .button-primaryLight-accentThree:hover,
@@ -182,7 +186,8 @@ th {
 .button-accentThree-primaryLight:hover,
 .button-accentOne-primaryDark:hover,
 .button-accentTwo-primaryDark:hover,
-.button-accentThree-primaryDark:hover {
+.button-accentThree-primaryDark:hover,
+.button-highlightOne-primaryLight:hover {
     box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
 }
 

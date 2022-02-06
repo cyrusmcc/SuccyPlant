@@ -26,9 +26,9 @@ export default {
 .searchBar {
   @include flexCenter();
   position: relative;
-  width: 90%;
+  width: 100%;
   height: 20px;
-  padding: 6px;
+  padding: 6px 0;
   border: medium solid $primaryDark;
   border-radius: 20px;
   margin-top: 20px;
@@ -36,7 +36,7 @@ export default {
   max-width: 40rem;
 }
 .searchBarInput {
-  width: 100%;
+  width: 95%;
   height: 100%;
   font-size: 1rem;
   margin-left: 15px;

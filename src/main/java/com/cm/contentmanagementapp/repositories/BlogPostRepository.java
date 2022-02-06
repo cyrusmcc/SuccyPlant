@@ -11,4 +11,5 @@ public interface BlogPostRepository extends JpaRepository<BlogPost, Long> {
 
     Slice<BlogPost> findByPostDate(String postDate, Pageable pageable);
 
+
 }

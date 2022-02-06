@@ -91,7 +91,6 @@ export default {
 <style scoped lang="scss">
 .profileContainer {
   display: flex;
-  padding-top: 40px;
 }
 
 .card {
@@ -131,7 +130,7 @@ export default {
 }
 
 #userInfoCard > * {
-  margin-bottom: 5px;
+  //margin-bottom: 5px;
 }
 
 #userContentCard {

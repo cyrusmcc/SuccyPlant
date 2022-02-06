@@ -15,7 +15,7 @@
         id="fileInputForm"
         :validation-schema="schema"
         @submit="handleProfilePictureUpload"
-        class="button-primaryLight-highlightOne"
+        class="button-highlightOne-primaryLight"
       >
         <Field
           id="fileInput"
@@ -153,7 +153,7 @@ label {
 
 #fileInputForm {
   margin-bottom: 0;
-  padding: 0px 3px 0px 3px;
+  padding: 0 10px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
