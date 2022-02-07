@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="gridContainer">
+    <div class="galleryContainer">
       <filter-bar></filter-bar>
       <gallery-grid></gallery-grid>
     </div>
@@ -26,7 +26,7 @@ export default {
   justify-content: center;
 }
 
-.gridContainer {
+.galleryContainer {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -34,7 +34,7 @@ export default {
 }
 
 @include screen-md {
-  .gridContainer {
+  .galleryContainer {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(4, 1fr);

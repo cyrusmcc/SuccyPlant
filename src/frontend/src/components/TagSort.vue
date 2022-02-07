@@ -133,12 +133,9 @@ export default {
   align-items: flex-start;
   flex-wrap: wrap;
   margin-top: 10px;
-  border: 1px solid $outline;
-  border-radius: 4px;
   overflow: hidden;
   height: fit-content;
   width: 100%;
-  box-shadow: $shadowLight;
   padding: 10px 0;
 }
 

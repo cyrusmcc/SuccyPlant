@@ -50,16 +50,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.searchBar {
+  width: 90%;
+}
 button {
   background: $primaryLight;
   border: none;
 }
 .filterBarContainer {
   width: 95%;
+  min-width: 300px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   grid-area: 1 / 1 / 5 / 2;
+  border: 1px solid $outline;
+  border-radius: 4px;
+  box-shadow: $shadowLight;
 }
 .filterButton {
   margin-top: 10px;
@@ -81,12 +88,11 @@ button {
   .filterBarContainer {
     position: sticky;
     top: 45px;
-    box-sizing: border-box;
-    border: 1px solid $outline;
-    border-radius: 4px;
-    padding: 10px;
-    box-shadow: $shadowLight;
-    
+    //box-sizing: border-box;
+    // border: 1px solid $outline;
+    // border-radius: 4px;
+    // padding: 10px;
+    // box-shadow: $shadowLight;
   }
 }
 </style>

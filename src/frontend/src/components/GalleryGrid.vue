@@ -87,34 +87,35 @@ export default {
 .gridContainer {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100%;
+  align-items: flex-start;
+  width: fit-content;
   grid-area: 1 / 2 / 5 / 4;
 }
 .galPostList {
+  box-sizing: border-box;
   width: 100%;
-  margin-top: 20px;
+  margin-top: 0;
   padding: 0;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
 }
 .galPostList > li {
   display: flex;
   flex-direction: column;
   align-items: center;
   list-style-type: none;
-  margin-bottom: 10px;
   height: fit-content;
   width: fit-content;
-  box-shadow: $shadowLight;
-  border-radius: 10px;
-  border: 2px solid $accentTwo;
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid $outline;
+  border-radius: 4px;
   overflow: hidden;
 }
+
 .container {
   display: flex;
   flex-direction: column;
@@ -127,12 +128,13 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 150px;
-  width: 150px;
+  overflow: hidden;
+  height: 170px;
+  width: 170px;
 }
 
 .galPostImg {
-  height: 150px;
+  height: 170px;
   width: fit-content;
   object-fit: cover;
 }
