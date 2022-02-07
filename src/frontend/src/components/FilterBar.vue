@@ -59,6 +59,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  grid-area: 1 / 1 / 5 / 2;
 }
 .filterButton {
   margin-top: 10px;
@@ -74,5 +75,18 @@ button {
   width: 16px;
   height: 16px;
   margin-right: 10px;
+}
+
+@include screen-md {
+  .filterBarContainer {
+    position: sticky;
+    top: 45px;
+    box-sizing: border-box;
+    border: 1px solid $outline;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: $shadowLight;
+    
+  }
 }
 </style>

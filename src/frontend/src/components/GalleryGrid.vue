@@ -89,6 +89,7 @@ export default {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  grid-area: 1 / 2 / 5 / 4;
 }
 .galPostList {
   width: 100%;

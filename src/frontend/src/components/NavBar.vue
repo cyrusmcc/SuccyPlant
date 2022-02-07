@@ -17,6 +17,7 @@
       <router-link
         class="navLink sideBarLink"
         @click="toggleSideBar"
+        v-if="$root.currentUser"
         :to="'/p/' + $root.currentUser.username"
       >
         Profile
@@ -63,6 +64,12 @@
       <profile-pic v-if="$root.currentUser" @click="toggleSideBar()">
         <img alt="profile picture" src="../assets/imgs/userDark.svg" />
       </profile-pic>
+      <router-link
+        v-if="!$root.currentUser"
+        to="/login"
+        class="navLink"
+        >Login</router-link
+      >
     </div>
   </div>
 </template>

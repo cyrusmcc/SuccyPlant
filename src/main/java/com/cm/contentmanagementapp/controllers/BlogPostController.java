@@ -76,7 +76,7 @@ public class BlogPostController {
 
         }
 
-        return ResponseEntity.badRequest().body(new MessageResponse("ayo - its ok"));
+        return ResponseEntity.badRequest().body(new MessageResponse("Error encountered while uploading photo."));
 
     }
 

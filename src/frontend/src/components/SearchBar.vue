@@ -24,11 +24,12 @@ export default {
 
 <style scoped lang="scss">
 .searchBar {
-  @include flexCenter();
+  box-sizing: border-box;
+  display: flex;
   position: relative;
   width: 100%;
-  height: 20px;
-  padding: 6px 0;
+  height: 40px;
+  padding:  0;
   border: medium solid $primaryDark;
   border-radius: 20px;
   margin-top: 20px;
@@ -36,10 +37,10 @@ export default {
   max-width: 40rem;
 }
 .searchBarInput {
-  width: 95%;
+  width: 80%;
   height: 100%;
   font-size: 1rem;
-  margin-left: 15px;
+  margin-left: 5px;
   border: none;
   outline: none;
   background: transparent;

@@ -52,7 +52,6 @@ h2 {
 .searchBar {
   margin: auto;
   position: absolute;
-  height: 1.5rem;
   top: 40%;
   left: 0;
   bottom: 0;

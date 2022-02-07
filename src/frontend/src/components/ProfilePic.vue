@@ -21,6 +21,7 @@ export default {
   justify-content: center;
   align-items: center;
   z-index: 3;
+  border: 1px solid $outline;
   border-radius: 50%;
   height: 4.5rem;
   width: 4.5rem;

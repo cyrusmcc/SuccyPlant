@@ -27,7 +27,18 @@ public class FileStorageServiceImpl implements FileStorageService{
     @Override
     public void init() {
         try {
-            Files.createDirectory(root);
+
+            Path blogImgs = Paths.get("uploads/blogs/blogImg");
+            Path blogText = Paths.get("uploads/blogs/blogText");
+            Path profilePics = Paths.get("uploads/profilePictures");
+            Path blog = Paths.get("uploads/blogs");
+
+            if (!Files.exists(root)) Files.createDirectory(root);
+            if (!Files.exists(blog)) Files.createDirectory(blog);
+            if (!Files.exists(blogImgs)) Files.createDirectory(blogImgs);
+            if (!Files.exists(blogText)) Files.createDirectory(blogText);
+            if (!Files.exists(profilePics)) Files.createDirectory(profilePics);
+
         } catch (IOException e) {
             throw new RuntimeException("Could not initialize upload folder.");
         }

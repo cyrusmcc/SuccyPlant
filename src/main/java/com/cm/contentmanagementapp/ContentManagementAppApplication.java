@@ -8,21 +8,21 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import javax.annotation.Resource;
 
 @SpringBootApplication
-public class ContentManagementAppApplication /*implements CommandLineRunner*/ {
+public class ContentManagementAppApplication implements CommandLineRunner {
 
-	/*
+
 	@Resource
 	FileStorageService storageService;
-	*/
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(ContentManagementAppApplication.class, args);
 	}
 
-	/*
+
 	@Override
 	public void run(String... arg) throws Exception {
 		storageService.init();
 	}
-	*/
+
 }
