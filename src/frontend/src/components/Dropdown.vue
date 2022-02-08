@@ -1,19 +1,16 @@
 <template>
-  <div class="dropDown" @click="toggle()">
-    <!--
-              :style="[
-        isOpen == true
-          ? { borderRadius: '4px 4px 0 0' }
-          : { borderRadius: '4px' },
-      ]"
-      -->
+  <div class="dropDown" @click="toggle()" :style="{ background: color }">
     <div class="dropBoxSelectContainer">
       <span class="dropBoxLabel">{{ label }}</span>
       <div class="imgContainer" v-if="!isOpen">
         <img class="downArrow" src="../assets/imgs/downArrowDark.svg" />
       </div>
     </div>
-    <div class="dropBoxOptionsContainer scrollContainer" v-show="isOpen">
+    <div
+      class="dropBoxOptionsContainer scrollContainer"
+      v-show="isOpen"
+      :style="{ border: '2px solid ' + color }"
+    >
       <div class="dropBoxOptions" v-for="option in options" :key="option">
         <div class="dropBoxOption" @click="$emit('select-tag', label, option)">
           {{ option }}
@@ -35,6 +32,11 @@ export default {
       type: Array,
       required: true,
     },
+    color: {
+      required: false,
+      type: String,
+      default: "#f4f4f3",
+    },
   },
   data() {
     return {
@@ -46,6 +48,14 @@ export default {
       this.isOpen = !this.isOpen;
     },
   },
+  computed: {
+    cssVars() {
+      return {
+        "--background": this.color,
+        "--border": "1px solid " + this.color,
+      };
+    },
+  },
 };
 </script>
 
@@ -53,38 +63,41 @@ export default {
 .dropDown {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
   column-gap: 5px;
   row-gap: 2px;
   width: 100%;
-  align-items: flex-start;
-  justify-content: center;
+  background: var(--background);
+  border-radius: 4px;
 }
 
 .dropBoxSelectContainer {
-  box-sizing: border-box;
-  border-radius: 4px;
-  cursor: pointer;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: $accentTwo;
-  padding: 3px;
-  width: 100%;
   height: 2.5rem;
+  width: 100%;
+  padding: 3px;
+  box-sizing: border-box;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
 .dropBoxOptionsContainer {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   row-gap: 10px;
-  width: 6rem;
+  width: 100%;
   text-overflow: ellipsis;
   max-height: 100px;
   overflow: scroll;
   overflow-x: hidden;
   padding: 3px;
-  background-color: $accentTwo;
+  background-color: $primaryLight;
+  border: var(--border);
   border-radius: 0 4px 4px 4px;
 }
 
@@ -108,7 +121,7 @@ export default {
 }
 
 .scrollContainer::-webkit-scrollbar {
-  background-color: $accentTwo;
+  background-color: $primaryLight;
   border-left: none;
   width: 6px;
 }

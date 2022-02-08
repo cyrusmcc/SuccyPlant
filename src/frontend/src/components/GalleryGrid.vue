@@ -108,7 +108,7 @@ export default {
   align-items: center;
   list-style-type: none;
   height: fit-content;
-  width: fit-content;
+  width: 200px;
   box-sizing: border-box;
   padding: 10px;
   border: 1px solid $outline;

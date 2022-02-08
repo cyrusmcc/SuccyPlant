@@ -3,36 +3,42 @@
     <drop-down
       label="Type"
       :options="['House Plant', 'Succ', 'Cactus']"
+      :color="'#86c2b6'"
       @select-tag="addTagChip"
       id="type"
     ></drop-down>
     <drop-down
       label="Genus"
       :options="genusValues"
+      :color="'#8caed3'"
       @select-tag="addTagChip"
       id="genus"
     ></drop-down>
     <drop-down
       label="Size"
       :options="['Small', 'Medium', 'Large']"
+      :color="'#bdb2ff'"
       @select-tag="addTagChip"
       id="size"
     ></drop-down>
     <drop-down
       label="Difficulty"
       :options="['Beginner Friendly', 'Advanced']"
+      :color="'#ffb2b2'"
       @select-tag="addTagChip"
       id="difficulty"
     ></drop-down>
     <drop-down
       label="Light"
       :options="['Low', 'Medium', 'High']"
+      :color="'#f5c881'"
       @select-tag="addTagChip"
       id="light"
     ></drop-down>
     <drop-down
       label="Pet Safe"
       :options="['Yes', 'No']"
+      :color="'#cbb7ac'"
       @select-tag="addTagChip"
       id="petSafe"
     ></drop-down>
@@ -172,39 +178,5 @@ export default {
 
 /deep/ .tagChipLabel {
   display: none;
-}
-
-/deep/ #selectedTags > #type {
-  background-color: $accentTwo;
-}
-
-/deep/ #selectedTags > #genusChip,
-/deep/ #genus > div,
-/deep/ #genus > .scrollContainer::-webkit-scrollbar {
-  background-color: $accentOne;
-}
-
-/deep/ #selectedTags > #lightChip,
-/deep/ #light > div,
-/deep/ #light > .scrollContainer::-webkit-scrollbar {
-  background-color: $accentThree;
-}
-
-/deep/ #selectedTags > #difficultyChip,
-/deep/ #difficulty > div,
-/deep/ #difficulty > .scrollContainer::-webkit-scrollbar {
-  background-color: $accentFour;
-}
-
-/deep/ #selectedTags > #sizeChip,
-/deep/ #size > div,
-/deep/ #size > .scrollContainer::-webkit-scrollbar {
-  background-color: $accentFive;
-}
-
-/deep/ #selectedTags > #petsafeChip,
-/deep/ #petSafe > div,
-/deep/ #petSafe > .scrollContainer::-webkit-scrollbar {
-  background-color: $accentSix;
 }
 </style>
