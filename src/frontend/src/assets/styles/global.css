@@ -464,4 +464,23 @@ html::-webkit-scrollbar-thumb {
 .navLink:hover {
   border-bottom: 2px solid #29a525;
 }
+
+.sideBarLink {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 1.8rem;
+}
+
+.sideBarLink:hover {
+  border: 2px solid transparent;
+  background: #e4ebf8;
+}
 /*# sourceMappingURL=global.css.map */

@@ -320,3 +320,15 @@ html::-webkit-scrollbar-thumb {
 .navLink:hover {
     border-bottom: 2px solid $highlightTwo;
   }
+
+.sideBarLink {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 1.8rem;
+  }
+  
+.sideBarLink:hover {
+    border: 2px solid transparent;
+    background: $outline;
+  }

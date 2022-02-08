@@ -114,7 +114,7 @@ li {
   height: fit-content;
   overflow: hidden;
   box-sizing: border-box;
-  width: 100%;
+  width: 31rem;
 }
 
 img {
@@ -141,13 +141,12 @@ img {
   align-items: center;
   justify-content: center;
   height: 150px;
-  width: 300px;
-  max-width: 50%;
+  width: 75%;
 }
 
 .blogImg {
   height: inherit;
-  width: inherit;
+  width: 100%;
   object-fit: cover;
 }
 

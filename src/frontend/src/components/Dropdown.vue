@@ -11,7 +11,7 @@
       v-show="isOpen"
       :style="{ border: '2px solid ' + color }"
     >
-      <div class="dropBoxOptions" v-for="option in options" :key="option">
+      <div class="dropBoxOptionContainer sideBarLink" v-for="option in options" :key="option">
         <div class="dropBoxOption" @click="$emit('select-tag', label, option)">
           {{ option }}
         </div>
@@ -68,7 +68,6 @@ export default {
   column-gap: 5px;
   row-gap: 2px;
   width: 100%;
-  background: var(--background);
   border-radius: 4px;
 }
 
@@ -95,10 +94,18 @@ export default {
   max-height: 100px;
   overflow: scroll;
   overflow-x: hidden;
-  padding: 3px;
   background-color: $primaryLight;
-  border: var(--border);
+  border: 1px solid transparent;
   border-radius: 0 4px 4px 4px;
+}
+
+.dropBoxOptionContainer {
+  border: 2px solid transparent;
+}
+
+
+.dropBoxOption {
+  margin-left: 5px;
 }
 
 .dropBoxOption:hover {

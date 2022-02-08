@@ -30,10 +30,10 @@
         Settings
       </router-link>
       <router-link
-        to="/settings"
+        to="/"
         class="navLink sideBarLink"
         @click="toggleSideBar"
-        @click.prevent="logOut"
+        @click.prevent="$root.logOut()"
       >
         Logout
       </router-link>
@@ -157,18 +157,6 @@ export default {
   flex-direction: row;
   column-gap: 10px;
   width: fit-content;
-}
-
-.sideBarLink {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 1.8rem;
-}
-
-.sideBarLink:hover {
-  border: 2px solid transparent;
-  background: $outline;
 }
 
 .sideBarContent {
