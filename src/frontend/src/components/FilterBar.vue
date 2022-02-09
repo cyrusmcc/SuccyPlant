@@ -60,7 +60,7 @@ button {
 }
 .filterBarContainer {
   width: 95%;
-  min-width: 300px;
+  min-width: 320px;
   display: flex;
   flex-direction: column;
   align-items: center;
