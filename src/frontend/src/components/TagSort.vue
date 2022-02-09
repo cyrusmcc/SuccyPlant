@@ -1,52 +1,58 @@
 <template>
   <div class="tagSort" v-if="showFilter">
-    <drop-down
-      label="Type"
-      :options="['House Plant', 'Succ', 'Cactus']"
-      :color="'#86c2b6'"
-      :display-type="'sideSelect'"
-      @select-tag="addTagChip"
-      id="type"
-    ></drop-down>
-    <drop-down
-      label="Genus"
-      :options="genusValues"
-      :color="'#8caed3'"
-      @select-tag="addTagChip"
-      id="genus"
-    ></drop-down>
-    <drop-down
-      label="Size"
-      :options="['Small', 'Medium', 'Large']"
-      :color="'#bdb2ff'"
-      :display-type="'sideSelect'"
-      @select-tag="addTagChip"
-      id="size"
-    ></drop-down>
-    <drop-down
-      label="Difficulty"
-      :options="['Beginner Friendly', 'Advanced']"
-      :color="'#ffb2b2'"
-      :display-type="'sideSelect'"
-      @select-tag="addTagChip"
-      id="difficulty"
-    ></drop-down>
-    <drop-down
-      label="Light"
-      :options="['Low', 'Medium', 'High']"
-      :color="'#f5c881'"
-      :display-type="'sideSelect'"
-      @select-tag="addTagChip"
-      id="light"
-    ></drop-down>
-    <drop-down
-      label="Pet Safe"
-      :options="['Yes', 'No']"
-      :color="'#cbb7ac'"
-      :display-type="'sideSelect'"
-      @select-tag="addTagChip"
-      id="petSafe"
-    ></drop-down>
+    <div id="genus" class="dropBoxContainer">
+      <drop-down
+        label="Genus"
+        :options="genusValues"
+        :color="'#86c2b6'"
+        @selectTag="addTagChip"
+      ></drop-down>
+    </div>
+    <div id="type" class="dropBoxContainer">
+      <drop-down
+        label="Type"
+        :options="['House Plant', 'Succ', 'Cactus']"
+        :color="'#8caed3'"
+        :display-type="'sideSelect'"
+        @selectTag="addTagChip"
+      ></drop-down>
+    </div>
+    <div id="size" class="dropBoxContainer">
+      <drop-down
+        label="Size"
+        :options="['Small', 'Medium', 'Large']"
+        :color="'#bdb2ff'"
+        :display-type="'sideSelect'"
+        @selectTag="addTagChip"
+      ></drop-down>
+    </div>
+    <div id="difficulty" class="dropBoxContainer">
+      <drop-down
+        label="Difficulty"
+        :options="['Beginner Friendly', 'Advanced']"
+        :color="'#ffb2b2'"
+        :display-type="'sideSelect'"
+        @selectTag="addTagChip"
+      ></drop-down>
+    </div>
+    <div id="light" class="dropBoxContainer">
+      <drop-down
+        label="Light"
+        :options="['Low', 'Medium', 'High']"
+        :color="'#f5c881'"
+        :display-type="'sideSelect'"
+        @selectTag="addTagChip"
+      ></drop-down>
+    </div>
+    <div class="dropBoxContainer" id="petSafe">
+      <drop-down
+        label="Pet Safe"
+        :options="['Yes', 'No']"
+        :color="'#cbb7ac'"
+        :display-type="'sideSelect'"
+        @selectTag="addTagChip"
+      ></drop-down>
+    </div>
   </div>
 </template>
 
@@ -125,9 +131,28 @@ export default {
 
       tagChip.appendChild(tagChipLabel);
       tagChip.appendChild(tagChipOption);
+      tagChip.style.backgroundColor = this.getColor(label);
       selectedTagContainer.appendChild(tagChip);
 
       this.$emit("sort-posts-by-tag", params.toString());
+    },
+    getColor(label) {
+      switch (label) {
+        case "Genus":
+          return "#86c2b6";
+        case "Type":
+          return "#8caed3";
+        case "Size":
+          return "#bdb2ff";
+        case "Difficulty":
+          return "#ffb2b2";
+        case "Light":
+          return "#f5c881";
+        case "Pet Safe":
+          return "#cbb7ac";
+        default:
+          return "#86c2b6";
+      }
     },
   },
 };
@@ -149,27 +174,14 @@ export default {
   padding: 10px 0;
 }
 
+.dropBoxContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
 .dropDown {
   width: 95%;
 }
-/*
-
-.selectedTags :deep(.tagChip) {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin: 5px;
-  padding: 3px;
-  border-radius: 4px;
-  background-color: $accentOne;
-  font-size: 0.8rem;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-/deep/ .tagChipLabel {
-  display: none;
-}
-*/
 </style>

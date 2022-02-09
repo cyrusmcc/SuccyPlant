@@ -33,12 +33,13 @@ h2 {
   position: absolute;
   text-align: center;
   height: fit-content;
-  margin: auto;
-  margin-bottom: 8rem;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
+  margin: auto;
+  margin-bottom: 8rem;
+  width: 95%;
   font-size: 2rem;
   font-weight: bold;
   color: $primaryLight;
@@ -50,12 +51,13 @@ h2 {
   margin-bottom: 10px;
 }
 .searchBar {
-  margin: auto;
   position: absolute;
   top: 40%;
   left: 0;
   bottom: 0;
   right: 0;
+  width: 95%;
+  margin: auto;
   box-shadow: $shadow;
   border: none;
 }

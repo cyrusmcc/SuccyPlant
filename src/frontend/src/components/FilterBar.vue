@@ -5,6 +5,7 @@
     <button
       @click="toggleFilter"
       class="filterButton"
+      v-show="showFilterButton"
       :style="[
         showFilter == true
           ? { color: '#f4f4f3', background: '#121113' }
@@ -40,12 +41,35 @@ export default {
   data() {
     return {
       showFilter: false,
+      showFilterButton: true,
+      screenWidth: window.innerWidth,
     };
   },
   methods: {
     toggleFilter() {
       this.showFilter = !this.showFilter;
     },
+    setWindowWidth() {
+      this.screenWidth = window.innerWidth;
+      if (this.screenWidth < 500) {
+        this.showFilter = false;
+        this.showFilterButton = true;
+      } else {
+        this.showFilter = true;
+        this.showFilterButton = false;
+      }
+    },
+  },
+  computed: {
+    sortedPosts() {
+      return this.$store.state.sortedPosts;
+    },
+  },
+  mounted() {
+    this.setWindowWidth();
+    window.onresize = () => {
+      this.setWindowWidth();
+    };
   },
 };
 </script>
@@ -91,8 +115,11 @@ button {
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
+  column-gap: 5px;
   height: fit-content;
   width: 100%;
+  padding: 0 5px;
+  box-sizing: border-box;
   border-radius: 4px 4px 0 0;
   background-color: $accentDark;
 }
@@ -102,10 +129,10 @@ button {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin: 5px;
-  padding: 3px;
-  border-radius: 4px;
-  background-color: $accentOne;
+  margin: 5px 0;
+  padding: 2px 6px;
+  border-radius: 20px;
+  //background-color: $accentOne;
   color: $primaryDark;
   font-size: 0.8rem;
   font-weight: bold;

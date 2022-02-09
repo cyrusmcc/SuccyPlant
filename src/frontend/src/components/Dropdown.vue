@@ -21,7 +21,7 @@
         v-for="option in options"
         :key="option"
       >
-        <div class="dropBoxOption" @click="$emit('select-tag', label, option)">
+        <div class="dropBoxOption" @click="$emit('selectTag', label, option)">
           {{ option }}
         </div>
       </div>
@@ -40,8 +40,9 @@
         class="sideSelectOptionContainer sideBarLink"
         v-for="option in options"
         :key="option"
+        :class="{ selected: selected.includes(option) }"
       >
-        <div class="" @click="$emit('select-tag', label, option)">
+        <div @click="selectOption(label, option)">
           {{ option }}
         </div>
       </div>
@@ -52,6 +53,7 @@
 <script>
 export default {
   name: "dropdown",
+  emits: ["selectTag"],
   props: {
     label: {
       type: String,
@@ -74,11 +76,21 @@ export default {
   data() {
     return {
       isOpen: false,
+      selected: [],
     };
   },
   methods: {
     toggle() {
       this.isOpen = !this.isOpen;
+    },
+    selectOption(label, option) {
+      if (this.selected.includes(option)) {
+        this.selected = this.selected.filter((item) => item !== option);
+      } else {
+        this.selected.push(option);
+      }
+
+      this.$emit("selectTag", label, option);
     },
   },
   computed: {
@@ -205,9 +217,7 @@ export default {
   cursor: pointer;
 }
 .selected {
-  background: $primaryDark;
-  color: $primaryLight;
-  
+  background: $outline;
 }
 .scrollContainer::-webkit-scrollbar {
   background-color: $primaryLight;
