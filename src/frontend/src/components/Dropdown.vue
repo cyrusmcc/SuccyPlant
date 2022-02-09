@@ -1,5 +1,10 @@
 <template>
-  <div class="dropDown" @click="toggle()" :style="{ background: color }">
+  <div
+    class="dropDown"
+    @click="toggle()"
+    :style="{ background: color }"
+    v-if="displayType == 'dropDown'"
+  >
     <div class="dropBoxSelectContainer">
       <span class="dropBoxLabel">{{ label }}</span>
       <div class="imgContainer" v-if="!isOpen">
@@ -11,8 +16,32 @@
       v-show="isOpen"
       :style="{ border: '2px solid ' + color }"
     >
-      <div class="dropBoxOptionContainer sideBarLink" v-for="option in options" :key="option">
+      <div
+        class="dropBoxOptionContainer sideBarLink"
+        v-for="option in options"
+        :key="option"
+      >
         <div class="dropBoxOption" @click="$emit('select-tag', label, option)">
+          {{ option }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="sideSelect"
+    :style="{ background: color }"
+    v-if="displayType == 'sideSelect'"
+  >
+    <div class="sideSelectContainer">
+      <span class="dropBoxLabel">{{ label }}</span>
+    </div>
+    <div class="sideSelectOptions">
+      <div
+        class="sideSelectOptionContainer sideBarLink"
+        v-for="option in options"
+        :key="option"
+      >
+        <div class="" @click="$emit('select-tag', label, option)">
           {{ option }}
         </div>
       </div>
@@ -36,6 +65,10 @@ export default {
       required: false,
       type: String,
       default: "#f4f4f3",
+    },
+    displayType: {
+      type: String,
+      default: "dropDown",
     },
   },
   data() {
@@ -67,7 +100,7 @@ export default {
   justify-content: center;
   column-gap: 5px;
   row-gap: 2px;
-  width: 100%;
+  width: 95%;
   border-radius: 4px;
 }
 
@@ -103,7 +136,6 @@ export default {
   border: 2px solid transparent;
 }
 
-
 .dropBoxOption {
   margin-left: 5px;
 }
@@ -127,6 +159,56 @@ export default {
   user-select: none;
 }
 
+.sideSelect {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 10px;
+  row-gap: 2px;
+  width: 95%;
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding-right: 5px;
+}
+
+.sideSelectContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 2.5rem;
+  width: fit-content;
+  padding: 3px;
+  box-sizing: border-box;
+  cursor: pointer;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.sideSelectOptions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: 5px;
+  width: 100%;
+}
+
+.sideSelectOptionContainer {
+  padding: 0 9px;
+  box-sizing: border-box;
+  border: 2px solid transparent;
+  border-radius: 20px;
+  background: $primaryLight;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.selected {
+  background: $primaryDark;
+  color: $primaryLight;
+  
+}
 .scrollContainer::-webkit-scrollbar {
   background-color: $primaryLight;
   border-left: none;

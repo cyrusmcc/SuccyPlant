@@ -4,6 +4,7 @@
       label="Type"
       :options="['House Plant', 'Succ', 'Cactus']"
       :color="'#86c2b6'"
+      :display-type="'sideSelect'"
       @select-tag="addTagChip"
       id="type"
     ></drop-down>
@@ -18,6 +19,7 @@
       label="Size"
       :options="['Small', 'Medium', 'Large']"
       :color="'#bdb2ff'"
+      :display-type="'sideSelect'"
       @select-tag="addTagChip"
       id="size"
     ></drop-down>
@@ -25,6 +27,7 @@
       label="Difficulty"
       :options="['Beginner Friendly', 'Advanced']"
       :color="'#ffb2b2'"
+      :display-type="'sideSelect'"
       @select-tag="addTagChip"
       id="difficulty"
     ></drop-down>
@@ -32,6 +35,7 @@
       label="Light"
       :options="['Low', 'Medium', 'High']"
       :color="'#f5c881'"
+      :display-type="'sideSelect'"
       @select-tag="addTagChip"
       id="light"
     ></drop-down>
@@ -39,11 +43,11 @@
       label="Pet Safe"
       :options="['Yes', 'No']"
       :color="'#cbb7ac'"
+      :display-type="'sideSelect'"
       @select-tag="addTagChip"
       id="petSafe"
     ></drop-down>
   </div>
-  <div id="selectedTags"></div>
 </template>
 
 <script>
@@ -148,20 +152,9 @@ export default {
 .dropDown {
   width: 95%;
 }
+/*
 
-#selectedTags {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
-  margin-top: 10px;
-  height: fit-content;
-  width: 100%;
-  background-color: $accentDark;
-}
-
-/deep/ .tagChip {
+.selectedTags :deep(.tagChip) {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -170,7 +163,6 @@ export default {
   padding: 3px;
   border-radius: 4px;
   background-color: $accentOne;
-  color: $primaryDark;
   font-size: 0.8rem;
   font-weight: bold;
   cursor: pointer;
@@ -179,4 +171,5 @@ export default {
 /deep/ .tagChipLabel {
   display: none;
 }
+*/
 </style>

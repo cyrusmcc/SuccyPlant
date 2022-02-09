@@ -1,5 +1,6 @@
 <template>
   <div class="filterBarContainer">
+    <div id="selectedTags"></div>
     <search-bar></search-bar>
     <button
       @click="toggleFilter"
@@ -82,6 +83,37 @@ button {
   width: 16px;
   height: 16px;
   margin-right: 10px;
+}
+
+#selectedTags {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: fit-content;
+  width: 100%;
+  border-radius: 4px 4px 0 0;
+  background-color: $accentDark;
+}
+
+#selectedTags :deep(.tagChip) {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  padding: 3px;
+  border-radius: 4px;
+  background-color: $accentOne;
+  color: $primaryDark;
+  font-size: 0.8rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#selectedTags :deep(.tagChipLabel) {
+  display: none;
 }
 
 @include screen-md {
