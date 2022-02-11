@@ -2,10 +2,10 @@
   <div class="container">
     <ol>
       <!--
-      <div id="blogFeedHead">Recent articles</div>
+      <div class="blogFeedHead">Recent articles</div>
       -->
       <li v-for="(blog, index) in blogArr" :key="index">
-        <div id="blogImgContainer">
+        <div class="blogImgContainer">
           <img
             class="blogImg"
             :src="getImgFromBlogId(index, blog.id)"
@@ -96,7 +96,7 @@ export default {
 
 <style lang="scss" scoped>
 ol {
-  width: 60%;
+  width: 100%;
   max-width: 800px;
   padding: 0;
   display: flex;
@@ -112,9 +112,9 @@ li {
   align-items: center;
   list-style-type: none;
   height: fit-content;
+  width: 100%;
   overflow: hidden;
   box-sizing: border-box;
-  width: 31rem;
 }
 
 img {
@@ -129,19 +129,19 @@ img {
   margin: 10px auto;
 }
 
-#blogFeedHead {
+.blogFeedHead {
   align-self: flex-start;
   color: $primaryDark;
   font-size: 1.2rem;
   margin-bottom: 20px;
 }
 
-#blogImgContainer {
+.blogImgContainer {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 150px;
-  width: 75%;
+  height: 115px;
+  width: 350px;
 }
 
 .blogImg {
@@ -166,7 +166,7 @@ img {
   font-size: 1.2rem;
   color: $primaryDark;
   font-style: italic;
-  text-align: center;
+  text-align: start;
 }
 
 #blogPostDate {
@@ -183,5 +183,12 @@ img {
 .formattedDate {
   color: $accentTwo;
   font-weight: bold;
+}
+
+@include screen-md {
+  .blogImgContainer {
+    height: 150px;
+    width: 550px;
+  }
 }
 </style>

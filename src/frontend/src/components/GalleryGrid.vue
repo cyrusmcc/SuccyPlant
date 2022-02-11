@@ -100,6 +100,7 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 10px;
 }
 .galPostList > li {
@@ -108,7 +109,7 @@ export default {
   align-items: center;
   list-style-type: none;
   height: fit-content;
-  width: 200px;
+  width: 95%;
   box-sizing: border-box;
   padding: 10px;
   border: 1px solid $outline;
@@ -189,5 +190,14 @@ export default {
   flex-direction: row;
   font-size: small;
   color: $accentOne;
+}
+
+@include screen-md() {
+  .galPostList {
+    justify-content: flex-start;
+  }
+  .galPostList > li {
+    width: 200px;
+  }
 }
 </style>
