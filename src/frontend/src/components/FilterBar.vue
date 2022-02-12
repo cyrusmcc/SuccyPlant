@@ -1,7 +1,7 @@
 <template>
   <div class="filterBarContainer">
     <div id="selectedTags"></div>
-    <search-bar></search-bar>
+    <search-bar @search="setSearchValue"></search-bar>
     <button
       @click="toggleFilter"
       class="filterButton"
@@ -26,9 +26,12 @@
       <span>Filter</span>
     </button>
     <tag-sort
-      @sort-posts-by-tag="getSortedGalPosts"
+      @sort-posts-by-tags="setSelectedTags"
       :showFilter="showFilter"
     ></tag-sort>
+    <button class="searchButton" v-if="showFilter" @click="emitSortOptions">
+      Search
+    </button>
   </div>
 </template>
 
@@ -43,6 +46,8 @@ export default {
       showFilter: false,
       showFilterButton: true,
       screenWidth: window.innerWidth,
+      selectedTags: [],
+      searchTerm: "",
     };
   },
   methods: {
@@ -59,10 +64,17 @@ export default {
         this.showFilterButton = false;
       }
     },
-  },
-  computed: {
-    sortedPosts() {
-      return this.$store.state.sortedPosts;
+
+    setSelectedTags(tags) {
+      this.selectedTags = tags;
+      this.emitSortOptions();
+    },
+    setSearchValue(value) {
+      this.searchTerm = value;
+      this.emitSortOptions();
+    },
+    emitSortOptions() {
+      this.$emit("sort-posts-by-tags", this.selectedTags, this.searchTerm);
     },
   },
   mounted() {
@@ -75,32 +87,42 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@include screen-md {
+  .filterBarContainer {
+    position: sticky;
+    top: 45px;
+    //box-sizing: border-box;
+    // border: 1px solid $outline;
+    // border-radius: 4px;
+    // padding: 10px;
+    // box-shadow: $shadowLight;
+  }
+}
+
 .searchBar {
   width: 90%;
 }
-button {
-  background: $primaryLight;
-  border: none;
-}
 .filterBarContainer {
-  width: 95%;
-  min-width: 320px;
   display: flex;
   flex-direction: column;
   align-items: center;
   grid-area: 1 / 1 / 5 / 2;
+  width: 95%;
+  min-width: 320px;
+  padding-bottom: 10px;
   border: 1px solid $outline;
   border-radius: 4px;
   box-shadow: $shadowLight;
 }
 .filterButton {
-  margin-top: 10px;
-  border: none;
-  padding: 8px 13px;
-  border-radius: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-top: 10px;
+  padding: 8px 13px;
+  border-radius: 20px;
+  border: none;
+  background: $primaryLight;
 }
 .filterIcon {
   cursor: pointer;
@@ -143,15 +165,13 @@ button {
   display: none;
 }
 
-@include screen-md {
-  .filterBarContainer {
-    position: sticky;
-    top: 45px;
-    //box-sizing: border-box;
-    // border: 1px solid $outline;
-    // border-radius: 4px;
-    // padding: 10px;
-    // box-shadow: $shadowLight;
-  }
+.searchButton {
+  margin-top: 10px;
+  padding: 8px 13px;
+  border: none;
+  border-radius: 20px;
+  background-color: $primaryDark;
+  color: $primaryLight;
+  cursor: pointer;
 }
 </style>

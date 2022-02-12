@@ -1,21 +1,48 @@
 <template>
   <div class="container">
     <div class="galleryContainer">
-      <filter-bar></filter-bar>
-      <gallery-grid></gallery-grid>
+      <filter-bar @sortPostsByTags="getPosts" @search="test"></filter-bar>
+      <gallery-grid :galleryPosts="posts"></gallery-grid>
     </div>
   </div>
 </template>
 
 <script>
-import FilterBar from "../components/FilterBar.vue";
+import filterBar from "../components/FilterBar.vue";
 import galleryGrid from "../components/GalleryGrid";
+import galleryService from "../service/gallery.service";
 
 export default {
   name: "Gallery",
   components: {
     galleryGrid,
-    FilterBar,
+    filterBar,
+  },
+  data() {
+    return {};
+  },
+  computed: {
+    posts() {
+      return this.$store.getters["gallery/getPosts"];
+    },
+  },
+  mounted() {
+    this.getPosts();
+  },
+  methods: {
+    getPosts(tags, searchTerm) {
+      console.log(tags);
+      const arr = async () => {
+        const arr = await galleryService.getPosts(tags, searchTerm);
+        for (let i = 0; i < arr.length; i++) {
+          this.posts.push(arr[i]);
+        }
+      };
+      arr();
+    },
+    test(value) {
+      console.log(value);
+    },
   },
 };
 </script>

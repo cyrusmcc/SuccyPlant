@@ -5,12 +5,16 @@ const BLOG_API_URL = "http://localhost:8080/api/blog/";
 var pageNum = 0;
 
 class BlogService {
-  getBlogPosts() {
+  getBlogPosts(tags, searchTerm) {
     return api
       .get(BLOG_API_URL + "get-all", {
         headers: {
           pageNum,
         },
+        params: {
+          tags,
+          searchTerm,
+        }
       })
       .then((response) => {
         pageNum++;

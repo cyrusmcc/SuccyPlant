@@ -1,12 +1,24 @@
-const galleryArr = [];
+const galState = [
+  {
+    tags: ["tag 1"],
+    searchTerm: "hey",
+    posts: [],
+  }
+]
 
 export const gallery = {
   namespaced: true,
-  state: galleryArr,
+  state: galState,
   actions: {},
   getters: {
-    getGalPosts: (state) => {
-      return state.galleryArr;
+    getTags: (state) => {
+      return state[0].tags;
+    },
+    getSearchTerm: (state) => {
+      return state[0].searchTerm;
+    },
+    getPosts: (state) => {
+      return state[0].posts;
     },
   },
 };

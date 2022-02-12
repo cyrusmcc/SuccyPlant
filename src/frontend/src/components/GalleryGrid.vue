@@ -1,7 +1,7 @@
 <template>
   <div class="gridContainer">
     <ol class="galPostList">
-      <li v-for="(galPost, index) in galleryArr" :key="index">
+      <li v-for="(galPost, index) in galleryPosts" :key="index">
         <div id="galleryImgContainer">
           <img src="../assets/blogplacehold.webp" class="galPostImg" alt="" />
           <!--
@@ -31,54 +31,13 @@
 </template>
 
 <script>
-import galleryService from "../service/gallery.service";
 
 export default {
   name: "GalleryGrid",
   components: {},
+  props: ["galleryPosts"],
   data() {
-    return {
-      sortedArr: [],
-    };
-  },
-  computed: {
-    galleryArr() {
-      return this.$store.getters["gallery/getGalPosts"];
-    },
-  },
-  mounted() {
-    // load query if user directly visits queried url
-    if (window.location.search) {
-      let params = new URLSearchParams(this.$router.currentRoute.value.query);
-      this.getSortedGalPosts(params);
-    }
-    // else populate with default posts
-    else if (!this.galleryArr) {
-      const galPosts = async () => {
-        const arr = await galleryService.getPosts();
-
-        this.$store.state.gallery.galleryArr = arr;
-      };
-      galPosts();
-    }
-  },
-  getGalPosts() {
-    const galPosts = async () => {
-      const arr = await galleryService.getPosts();
-      for (let i = 0; i < arr.length; i++) {
-        this.$store.state.gallery.galleryArr.push(arr[i]);
-      }
-    };
-    galPosts();
-  },
-  methods: {
-    getSortedGalPosts(params) {
-      const sortedGalPosts = async () => {
-        const arr = await galleryService.getSortedPosts(params);
-        this.$store.state.gallery.galleryArr = arr;
-      };
-      sortedGalPosts();
-    },
+    return {};
   },
 };
 </script>

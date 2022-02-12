@@ -59,7 +59,6 @@
 <script>
 import dropDown from "../components/Dropdown";
 import galleryService from "../service/gallery.service";
-import router from "../router/router";
 
 export default {
   name: "TagSort",
@@ -82,20 +81,28 @@ export default {
   },
   methods: {
     addTagChip(label, option) {
-      let params = new URLSearchParams(this.$router.currentRoute.value.query);
-
-      if (!params.has(label)) {
-        params.set(label, option);
-        params.sort();
-        this.$router.push("/plants" + "?" + params.toString());
+      if (this.selectedTags.length === 0) {
+        this.selectedTags.push({
+          label: label,
+          selected: [option],
+        });
+      } else {
+        let found = false;
+        for (let i = 0; i < this.selectedTags.length; i++) {
+          if (this.selectedTags[i].label === label) {
+            found = true;
+            if (!this.selectedTags[i].selected.includes(option)) {
+              this.selectedTags[i].selected.push(option);
+            }
+          }
+        }
+        if (!found) {
+          this.selectedTags.push({
+            label: label,
+            selected: [option],
+          });
+        }
       }
-      if (params.has(label) && !params.getAll(label).includes(option)) {
-        params.append(label, option);
-        params.sort();
-        this.$router.push("/plants" + "?" + params.toString());
-      }
-
-      console.log("add " + params.toString());
 
       let selectedTagContainer = document.getElementById("selectedTags");
       let tagChip = document.createElement("div");
@@ -105,23 +112,16 @@ export default {
 
       tagChip.classList.add("tagChip");
       tagChip.setAttribute("id", chipId);
-      tagChip.addEventListener(
-        "click",
-        function () {
-          const tags = params.getAll(label).filter((tag) => tag !== option);
-          params.delete(label);
-          for (const tag of tags) params.append(label, tag);
 
-          console.log(router);
-          router.push("/plants" + "?" + params.toString());
-          document.getElementById(chipId).remove();
-
-          // hack to force re-render after removing chip, investigate
-          // other solutions that don't force re-render
-          router.go();
-        },
-        0
-      );
+      tagChip.addEventListener("click", () => {
+        document.getElementById(chipId).remove();
+        for (let i = 0; i < this.selectedTags.length; i++) {
+          if (this.selectedTags[i].label === label) {
+            this.selectedTags.splice(i, 1);
+          }
+        }
+        this.$emit("sort-posts-by-tags", this.selectedTags);
+      });
 
       tagChipLabel.classList.add("tagChipLabel");
       tagChipOption.classList.add("tagChipOption");
@@ -134,7 +134,8 @@ export default {
       tagChip.style.backgroundColor = this.getColor(label);
       selectedTagContainer.appendChild(tagChip);
 
-      this.$emit("sort-posts-by-tag", params.toString());
+      this.$emit("sort-posts-by-tags", this.selectedTags);
+      //this.$emit("sort-posts-by-tag", params.toString());
     },
     getColor(label) {
       switch (label) {

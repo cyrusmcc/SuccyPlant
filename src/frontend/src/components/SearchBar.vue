@@ -5,6 +5,7 @@
       placeholder="Search plants"
       v-model="content"
       @keyup.enter="$emit('search', content)"
+      @input="$emit('search', content)"
     />
     <div class="searchBarIcon">
       <img
@@ -29,7 +30,7 @@ export default {
   position: relative;
   width: 100%;
   height: 40px;
-  padding:  0;
+  padding: 0;
   border: medium solid $primaryDark;
   border-radius: 20px;
   margin-top: 20px;
@@ -62,6 +63,6 @@ export default {
 
 .magGlassImg {
   height: auto;
-  width: 1rem;
+  width: 0.85rem;
 }
 </style>
