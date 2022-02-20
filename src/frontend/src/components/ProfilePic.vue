@@ -18,8 +18,6 @@ export default {
 
 #userPicImgCont {
   display: flex;
-  justify-content: center;
-  align-items: center;
   z-index: 3;
   border: 1px solid $outline;
   border-radius: 50%;

@@ -91,9 +91,6 @@ export default {
         for (let i = 0; i < this.selectedTags.length; i++) {
           if (this.selectedTags[i].label === label) {
             found = true;
-            if (!this.selectedTags[i].selected.includes(option)) {
-              this.selectedTags[i].selected.push(option);
-            }
           }
         }
         if (!found) {
@@ -101,6 +98,7 @@ export default {
             label: label,
             selected: [option],
           });
+
         }
       }
 

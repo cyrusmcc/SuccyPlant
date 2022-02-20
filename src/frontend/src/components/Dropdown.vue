@@ -41,8 +41,9 @@
         v-for="option in options"
         :key="option"
         :class="{ selected: selected.includes(option) }"
+        @click="selectOption(label, option)"
       >
-        <div @click="selectOption(label, option)">
+        <div>
           {{ option }}
         </div>
       </div>

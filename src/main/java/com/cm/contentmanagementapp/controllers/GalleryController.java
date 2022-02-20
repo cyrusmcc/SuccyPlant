@@ -33,10 +33,10 @@ public class GalleryController {
     public ResponseEntity<?> getGalleryPosts(@RequestHeader(defaultValue = "0") Integer pageNum,
                                              @RequestHeader(defaultValue = "3") Integer pageSize,
                                              @RequestParam(required = false) String searchTerm,
-                                             @RequestParam(required = false) String tagsJson) {
+                                             @RequestParam(required = false) String tags) {
 
-        if (!searchTerm.isEmpty()) System.out.println(searchTerm);
-        if (!tagsJson.isEmpty()) System.out.println(tagsJson);
+        if (searchTerm != null) System.out.println(searchTerm);
+        if (tags != null) System.out.println(tags);
 
 
         List<GalleryPost> posts = galPostService.findAllByAlphabetical(pageNum, pageSize);

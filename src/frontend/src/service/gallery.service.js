@@ -6,12 +6,18 @@ var pageNum = 0;
 var sortedPageNum = 0;
 
 class GalleryService {
-  getPosts() {
+  getPosts(tags, searchTerm) {
+    console.log(searchTerm);
+    tags = JSON.stringify(tags);
     return api
       .get(BLOG_API_URL + "get-all", {
         headers: {
           pageNum,
         },
+        params: {
+          tags,
+          searchTerm,
+        }
       })
       .then((response) => {
         pageNum++;
