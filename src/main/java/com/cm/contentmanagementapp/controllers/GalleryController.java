@@ -31,15 +31,33 @@ public class GalleryController {
 
     @GetMapping("/get-all")
     public ResponseEntity<?> getGalleryPosts(@RequestHeader(defaultValue = "0") Integer pageNum,
-                                             @RequestHeader(defaultValue = "3") Integer pageSize,
+                                             @RequestHeader(defaultValue = "5") Integer pageSize,
                                              @RequestParam(required = false) String searchTerm,
                                              @RequestParam(required = false) String tags) {
 
-        if (searchTerm != null) System.out.println(searchTerm);
-        if (tags != null) System.out.println(tags);
+        List<ContentTag> tagList = new ArrayList<>();
 
+        //if (searchTerm != null) System.out.println(searchTerm);
+        //if (tags != null) System.out.println(tags + "NOTNULL?");
 
-        List<GalleryPost> posts = galPostService.findAllByAlphabetical(pageNum, pageSize);
+        if (tags != null && !tags.isEmpty()) {
+            List<String> tagCategories = List.of(tags.split("&"));
+            tagList = new ArrayList<>();
+
+            for(String s : tagCategories) {
+                String[] split = s.split("=");
+
+                for (String t : split[1].split(",")) {
+                    tagList.add(tagService.findByCategoryAndValue(EnumTagCategory.fromString(split[0]), t));
+                }
+            }
+        }
+
+        List<GalleryPost> posts = galPostService.findAllByContentTagsAndSearchTerm(pageNum, pageSize,
+                tagList, searchTerm);
+
+        for (GalleryPost gp : posts) System.out.println(gp.getPost().getTitle());
+        System.out.println(posts);
 
         return new ResponseEntity<>(posts, new HttpHeaders(), HttpStatus.OK);
 
@@ -50,7 +68,7 @@ public class GalleryController {
                                                    @RequestHeader(defaultValue = "3") Integer pageSize,
                                                    @PathVariable List<ContentTag> tags) {
 
-        List<GalleryPost> posts = galPostService.findAllByContentTags(pageNum, pageSize, tags);
+        List<GalleryPost> posts = galPostService.findAllByContentTagsAndSearchTerm(pageNum, pageSize, tags, "");
 
         return new ResponseEntity<>(posts, new HttpHeaders(), HttpStatus.OK);
 
@@ -96,10 +114,8 @@ public class GalleryController {
                 for (String value : values) {
 
                     value = value.replace("+", " ");
-                    System.out.println(value);
-
                     if (tagService.exists(value, EnumTagCategory.fromString(category))) {
-                        tags.add(tagService.findByValueAndCategory(value, EnumTagCategory.fromString(category)));
+                        tags.add(tagService.findByCategoryAndValue(EnumTagCategory.fromString(category), value));
                     }
 
                 }
@@ -110,7 +126,7 @@ public class GalleryController {
             }
         }
 
-        List<GalleryPost> posts = galPostService.findAllByContentTags(pageNum, pageSize, tags);
+        List<GalleryPost> posts = galPostService.findAllByContentTagsAndSearchTerm(pageNum, pageSize, tags, "");
 
         return new ResponseEntity<>(posts, new HttpHeaders(), HttpStatus.OK);
 

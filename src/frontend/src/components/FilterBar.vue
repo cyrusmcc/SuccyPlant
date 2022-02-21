@@ -47,8 +47,6 @@ export default {
       showFilter: false,
       showFilterButton: true,
       screenWidth: window.innerWidth,
-      selectedTags: [],
-      searchTerm: "",
     };
   },
   methods: {
@@ -71,7 +69,7 @@ export default {
       this.emitSortOptions();
     },
     setSearchValue(value) {
-      this.searchTerm = value;
+      this.$store.commit("gallery/setSearchTerm", value);
       this.emitSortOptions();
     },
     emitSortOptions() {
@@ -83,6 +81,14 @@ export default {
     window.onresize = () => {
       this.setWindowWidth();
     };
+  },
+  computed: {
+    selectedTags() {
+      return this.$store.getters["gallery/getTags"];
+    },
+    searchTerm() {
+      return this.$store.getters["gallery/getSearchTerm"];
+    },
   },
 };
 </script>

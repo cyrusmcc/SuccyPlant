@@ -31,8 +31,6 @@ export default {
   },
   methods: {
     getPosts(tags, searchTerm) {
-      // console.log(searchTerm);
-
       let tagString = "";
       if (tags) {
         for (let i = 0; i < tags.length; i++) {
@@ -42,9 +40,7 @@ export default {
 
       const arr = async () => {
         const arr = await galleryService.getPosts(tagString, searchTerm);
-        for (let i = 0; i < arr.length; i++) {
-          this.posts.push(arr[i]);
-        }
+        this.$store.commit("gallery/setPosts", arr);
       };
       arr();
     },

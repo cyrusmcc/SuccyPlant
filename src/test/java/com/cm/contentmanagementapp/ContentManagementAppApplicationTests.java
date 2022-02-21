@@ -5,14 +5,20 @@ import com.cm.contentmanagementapp.models.*;
 import com.cm.contentmanagementapp.payload.request.SignupRequest;
 import com.cm.contentmanagementapp.payload.response.MessageResponse;
 import com.cm.contentmanagementapp.repositories.GalleryPostRepository;
+import com.cm.contentmanagementapp.repositories.PostRepository;
 import com.cm.contentmanagementapp.services.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +45,9 @@ class ContentManagementAppApplicationTests {
 	GalleryPostService galleryPostService;
 
 	@Autowired
+	GalleryPostRepository gPRepo;
+
+	@Autowired
 	PostService postService;
 
 
@@ -47,6 +56,9 @@ class ContentManagementAppApplicationTests {
 
 	@Autowired
 	GalleryPostRepository gpRepo;
+
+	@Autowired
+	PostRepository postRepo;
 
 	@Test
 	void contextLoads() {
@@ -99,13 +111,32 @@ class ContentManagementAppApplicationTests {
 	}
 
 	@Test
+	void tags() {
+
+		contentTagService.newTag("House Plant", EnumTagCategory.TYPE);
+		contentTagService.newTag("Succ", EnumTagCategory.TYPE);
+		contentTagService.newTag("Cactus", EnumTagCategory.TYPE);
+		contentTagService.newTag("Small", EnumTagCategory.SIZE);
+		contentTagService.newTag("Medium", EnumTagCategory.SIZE);
+		contentTagService.newTag("Large", EnumTagCategory.SIZE);
+		contentTagService.newTag("Beginner Friendly", EnumTagCategory.DIFFICULTY);
+		contentTagService.newTag("Advanced", EnumTagCategory.DIFFICULTY);
+		contentTagService.newTag("Low", EnumTagCategory.LIGHT);
+		contentTagService.newTag("Medium", EnumTagCategory.LIGHT);
+		contentTagService.newTag("High", EnumTagCategory.LIGHT);
+		contentTagService.newTag("Yes", EnumTagCategory.PET);
+		contentTagService.newTag("No", EnumTagCategory.PET);
+
+	}
+
+	@Test
 	@Transactional
 	@Rollback(value = false)
 	void galleryPostTest() {
 
 		GalleryPost post = new GalleryPost();
 		post.setTitle("Aloe jucunda");
-		post.getPost().addTag(contentTagService.findByValueAndCategory("Aloe", EnumTagCategory.GENUS));
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.GENUS,"Aloe"));
 
 		galleryPostService.save(post);
 
@@ -126,10 +157,10 @@ class ContentManagementAppApplicationTests {
 	void findGalleryPostByContentTagValueAndCategory() {
 
 		List<ContentTag> tags = new ArrayList<>();
-		tags.add(contentTagService.findByValueAndCategory("Aeonium", EnumTagCategory.GENUS));
+		tags.add(contentTagService.findByCategoryAndValue( EnumTagCategory.GENUS, "Aeonium"));
 
-		List<GalleryPost> test = galleryPostService.findAllByContentTags(0, 10,
-				tags);
+		List<GalleryPost> test = galleryPostService.findAllByContentTagsAndSearchTerm(0, 10,
+				tags, "");
 
 		for (GalleryPost gp : test) {
 			System.out.println(gp.getPost().getTitle());
@@ -146,5 +177,19 @@ class ContentManagementAppApplicationTests {
 			System.out.println(gp.getPost().getTitle());
 		}
 	}
+
+	@Test
+	void findGalleryPostByPostTitleLike() {
+
+		Pageable paging = PageRequest.of(0, 5, Sort.by("id").descending());
+		Slice<GalleryPost> slice = gpRepo.findAllByPostTitleContainingIgnoreCase("aloe", paging);
+		assert slice.getContent().size() == 1;
+
+		slice = gpRepo.findAllByPostTitleContainingIgnoreCase("ale", paging);
+		assert slice.getContent().size() == 0;
+
+	}
+
+
 
 }

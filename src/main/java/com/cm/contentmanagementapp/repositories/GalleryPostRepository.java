@@ -12,4 +12,6 @@ public interface GalleryPostRepository extends JpaRepository<GalleryPost, Long> 
 
     Page<GalleryPost> findGalleryPostsByPostContentTagsIn(List<ContentTag> tags, Pageable paging);
 
+    Page<GalleryPost> findAllByPostTitleContainingIgnoreCase(String postTitleLike, Pageable pageable);
+
 }

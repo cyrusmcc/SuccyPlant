@@ -13,7 +13,7 @@ public interface ContentTagService {
 
     boolean exists(String value, EnumTagCategory category);
 
-    ContentTag findByValueAndCategory(String value, EnumTagCategory category);
+    ContentTag findByCategoryAndValue( EnumTagCategory category, String value);
 
     List<ContentTag> findAllByCategory(EnumTagCategory category);
 

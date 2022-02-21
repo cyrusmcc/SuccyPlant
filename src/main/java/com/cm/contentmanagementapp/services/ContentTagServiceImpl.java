@@ -42,8 +42,7 @@ public class ContentTagServiceImpl implements  ContentTagService{
     }
 
     @Override
-    public ContentTag findByValueAndCategory(String value, EnumTagCategory category) {
-
+    public ContentTag findByCategoryAndValue(EnumTagCategory category, String value) {
         if (!exists(value, category)) {
             newTag(value, category);
         }
