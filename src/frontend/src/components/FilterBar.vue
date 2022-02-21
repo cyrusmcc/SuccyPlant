@@ -27,7 +27,8 @@
     </button>
     <tag-sort
       @sort-posts-by-tags="setSelectedTags"
-      :showFilter="showFilter"
+      v-show="showFilter"
+      :showFilter="true"
     ></tag-sort>
     <button class="searchButton" v-if="showFilter" @click="emitSortOptions">
       Search

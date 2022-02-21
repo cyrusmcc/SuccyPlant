@@ -1,6 +1,6 @@
 import api from "./api";
 
-const BLOG_API_URL = "http://localhost:8080/api/gallery/";
+const GALLERY_API_URL = "http://localhost:8080/api/gallery/";
 
 var pageNum = 0;
 var sortedPageNum = 0;
@@ -8,7 +8,7 @@ var sortedPageNum = 0;
 class GalleryService {
   getPosts(tags, searchTerm) {
     return api
-      .get(BLOG_API_URL + "get-all", {
+      .get(GALLERY_API_URL + "get-all", {
         headers: {
           pageNum,
         },
@@ -24,7 +24,7 @@ class GalleryService {
   }
   getSortedPosts(params) {
     return api
-      .get(BLOG_API_URL + "plants" + "?" + params, {
+      .get(GALLERY_API_URL + "plants" + "?" + params, {
         sortedPageNum,
       })
       .then((response) => {
@@ -33,7 +33,7 @@ class GalleryService {
   }
   getTagsByCategory(category) {
     return api
-      .get(BLOG_API_URL + "get-tags-by-category/" + category)
+      .get(GALLERY_API_URL + "get-tags-by-category/" + category)
       .then((response) => {
         return response.data;
       });

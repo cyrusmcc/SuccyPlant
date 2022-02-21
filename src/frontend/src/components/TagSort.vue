@@ -119,14 +119,15 @@ export default {
         this.removeTagChip(label, option);
       } else {
         this.$store.commit("gallery/setTags", this.selectedTags);
-        document.getElementById("selectedTags").innerHTML = "";
         this.enableDropDownOption(label, option);
       }
+
+      console.log(this.selectedTags);
       this.drawTags();
     },
     drawTags() {
       let selectedTagContainer = document.getElementById("selectedTags");
-      //selectedTagContainer.innerHTML = "";
+      document.getElementById("selectedTags").innerHTML = "";
 
       for (let i = 0; i < this.selectedTags.length; i++) {
         let tag = this.selectedTags[i];
@@ -146,6 +147,7 @@ export default {
           tagChip.setAttribute("id", chipId);
 
           tagChip.addEventListener("click", () => {
+            document.getElementById(chipId).remove();
             this.removeTagChip(label, option);
           });
 
@@ -165,17 +167,7 @@ export default {
       this.$emit("sort-posts-by-tags", this.selectedTags);
     },
     removeTagChip(label, option) {
-      let chipId =
-        label.toString().toLowerCase().replace(/\s/g, "") +
-        option.toString().toLowerCase().replace(/\s/g, "") +
-        "Chip";
-
-      document.getElementById(chipId).remove();
-      for (let i = 0; i < this.selectedTags.length; i++) {
-        if (this.selectedTags[i].label === label) {
-          this.selectedTags.splice(i, 1);
-        }
-      }
+      this.$store.commit("gallery/removeTag", { label, option });
       this.removeDropDownOption(label, option);
       console.log(this.selectedTags);
       this.$store.commit("gallery/setTags", this.selectedTags);

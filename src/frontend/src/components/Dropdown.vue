@@ -78,6 +78,7 @@ export default {
   data() {
     return {
       isOpen: false,
+      selected: [],
     };
   },
   methods: {
@@ -89,16 +90,17 @@ export default {
     },
     enableSelect(filterOption) {
       let element = document.getElementById(filterOption);
-      element.classList.add("selected");
+      element.style.background = "#e4ebf8";
+      this.selected.push(filterOption);
     },
     removeSelect(filterOption) {
       let element = document.getElementById(filterOption);
       console.log(filterOption);
-      element.classList.remove("selected");
+      element.style.background = "#f4f4f3";
+      this.selected.splice(this.selected.indexOf(filterOption), 1);
     },
     isSelected(filterOption) {
-      let element = document.getElementById(filterOption);
-      return element.classList.contains("selected");
+      return this.selected.includes(filterOption);
     },
   },
   computed: {
@@ -107,11 +109,6 @@ export default {
         "--background": this.color,
         "--border": "1px solid " + this.color,
       };
-    },
-  },
-  watch: {
-    testTags() {
-      console.log(this.testTags);
     },
   },
 };
@@ -228,9 +225,6 @@ export default {
   background: $primaryLight;
   font-size: 0.8rem;
   cursor: pointer;
-}
-.selected {
-  background: $outline;
 }
 .scrollContainer::-webkit-scrollbar {
   background-color: $primaryLight;
