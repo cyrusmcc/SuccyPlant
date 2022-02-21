@@ -20,6 +20,7 @@
         class="dropBoxOptionContainer sideBarLink"
         v-for="option in options"
         :key="option"
+        :id="label + '-' + option"
       >
         <div class="dropBoxOption" @click="$emit('selectTag', label, option)">
           {{ option }}
@@ -40,8 +41,8 @@
         class="sideSelectOptionContainer sideBarLink"
         v-for="option in options"
         :key="option"
-        :class="{ selected: selected.includes(option) }"
         @click="selectOption(label, option)"
+        :id="label + '-' + option"
       >
         <div>
           {{ option }}
@@ -77,7 +78,6 @@ export default {
   data() {
     return {
       isOpen: false,
-      selected: [],
     };
   },
   methods: {
@@ -85,13 +85,16 @@ export default {
       this.isOpen = !this.isOpen;
     },
     selectOption(label, option) {
-      if (this.selected.includes(option)) {
-        this.selected = this.selected.filter((item) => item !== option);
-      } else {
-        this.selected.push(option);
-      }
-
       this.$emit("selectTag", label, option);
+    },
+    toggleSelect(filterOption) {
+      let element = document.getElementById(filterOption);
+
+      if (element.classList.contains("selected")) {
+        element.classList.remove("selected");
+      } else {
+        element.classList.add("selected");
+      }
     },
   },
   computed: {
@@ -100,6 +103,11 @@ export default {
         "--background": this.color,
         "--border": "1px solid " + this.color,
       };
+    },
+  },
+  watch: {
+    testTags() {
+      console.log(this.testTags);
     },
   },
 };
@@ -134,11 +142,10 @@ export default {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  row-gap: 10px;
   width: 100%;
   text-overflow: ellipsis;
   max-height: 100px;
-  overflow: scroll;
+  overflow: auto;
   overflow-x: hidden;
   background-color: $primaryLight;
   border: 1px solid transparent;
@@ -150,6 +157,7 @@ export default {
 }
 
 .dropBoxOption {
+  padding: 10px 0;
   margin-left: 5px;
 }
 

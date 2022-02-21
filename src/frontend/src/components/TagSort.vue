@@ -5,6 +5,7 @@
         label="Genus"
         :options="genusValues"
         :color="'#86c2b6'"
+        ref="genusDropDown"
         @selectTag="addTagChip"
       ></drop-down>
     </div>
@@ -14,6 +15,7 @@
         :options="['House Plant', 'Succ', 'Cactus']"
         :color="'#8caed3'"
         :display-type="'sideSelect'"
+        ref="typeDropDown"
         @selectTag="addTagChip"
       ></drop-down>
     </div>
@@ -23,6 +25,7 @@
         :options="['Small', 'Medium', 'Large']"
         :color="'#bdb2ff'"
         :display-type="'sideSelect'"
+        ref="sizeDropDown"
         @selectTag="addTagChip"
       ></drop-down>
     </div>
@@ -32,6 +35,7 @@
         :options="['Beginner Friendly', 'Advanced']"
         :color="'#ffb2b2'"
         :display-type="'sideSelect'"
+        ref="difficultyDropDown"
         @selectTag="addTagChip"
       ></drop-down>
     </div>
@@ -41,6 +45,7 @@
         :options="['Low', 'Medium', 'High']"
         :color="'#f5c881'"
         :display-type="'sideSelect'"
+        ref="lightDropDown"
         @selectTag="addTagChip"
       ></drop-down>
     </div>
@@ -50,6 +55,7 @@
         :options="['Yes', 'No']"
         :color="'#cbb7ac'"
         :display-type="'sideSelect'"
+        ref="petsafeDropDown"
         @selectTag="addTagChip"
       ></drop-down>
     </div>
@@ -67,7 +73,6 @@ export default {
   },
   data() {
     return {
-      selectedTags: [],
       genusValues: [],
     };
   },
@@ -78,6 +83,11 @@ export default {
       this.genusValues = arr;
     };
     genusVals();
+  },
+  computed: {
+    selectedTags() {
+      return this.$store.getters["gallery/getTags"];
+    },
   },
   methods: {
     addTagChip(label, option) {
@@ -91,6 +101,9 @@ export default {
         for (let i = 0; i < this.selectedTags.length; i++) {
           if (this.selectedTags[i].label === label) {
             found = true;
+            if (!this.selectedTags[i].selected.includes(option)) {
+              this.selectedTags[i].selected.push(option);
+            }
           }
         }
         if (!found) {
@@ -98,42 +111,63 @@ export default {
             label: label,
             selected: [option],
           });
-
         }
       }
 
+      this.toggleDropDownOption(label, option);
+      this.$store.commit("gallery/setTags", this.selectedTags);
+      this.drawTags();
+    },
+    drawTags() {
       let selectedTagContainer = document.getElementById("selectedTags");
-      let tagChip = document.createElement("div");
-      let tagChipLabel = document.createElement("span");
-      let tagChipOption = document.createElement("span");
-      let chipId = label.toString().toLowerCase().replace(/\s/g, "") + "Chip";
+      selectedTagContainer.innerHTML = "";
 
-      tagChip.classList.add("tagChip");
-      tagChip.setAttribute("id", chipId);
+      for (let i = 0; i < this.selectedTags.length; i++) {
+        let tag = this.selectedTags[i];
+        let label = tag.label;
 
-      tagChip.addEventListener("click", () => {
-        document.getElementById(chipId).remove();
-        for (let i = 0; i < this.selectedTags.length; i++) {
-          if (this.selectedTags[i].label === label) {
-            this.selectedTags.splice(i, 1);
-          }
+        for (let j = 0; j < this.selectedTags[i].selected.length; j++) {
+          let option = this.selectedTags[i].selected[j];
+          let tagChip = document.createElement("div");
+          let tagChipLabel = document.createElement("span");
+          let tagChipOption = document.createElement("span");
+          let chipId =
+            label.toString().toLowerCase().replace(/\s/g, "") + "Chip";
+
+          tagChip.classList.add("tagChip");
+          tagChip.setAttribute("id", chipId);
+
+          tagChip.addEventListener("click", () => {
+            document.getElementById(chipId).remove();
+            for (let i = 0; i < this.selectedTags.length; i++) {
+              if (this.selectedTags[i].label === label) {
+                this.selectedTags.splice(i, 1);
+              }
+            }
+            this.toggleDropDownOption(label, option);
+            this.$store.commit("gallery/setTags", this.selectedTags);
+            this.$emit("sort-posts-by-tags", this.selectedTags);
+          });
+
+          tagChipLabel.classList.add("tagChipLabel");
+          tagChipOption.classList.add("tagChipOption");
+
+          tagChipLabel.innerHTML = label;
+          tagChipOption.innerHTML = option;
+
+          tagChip.appendChild(tagChipLabel);
+          tagChip.appendChild(tagChipOption);
+          tagChip.style.backgroundColor = this.getColor(label);
+          selectedTagContainer.appendChild(tagChip);
         }
-        this.$emit("sort-posts-by-tags", this.selectedTags);
-      });
-
-      tagChipLabel.classList.add("tagChipLabel");
-      tagChipOption.classList.add("tagChipOption");
-
-      tagChipLabel.innerHTML = label;
-      tagChipOption.innerHTML = option;
-
-      tagChip.appendChild(tagChipLabel);
-      tagChip.appendChild(tagChipOption);
-      tagChip.style.backgroundColor = this.getColor(label);
-      selectedTagContainer.appendChild(tagChip);
+      }
 
       this.$emit("sort-posts-by-tags", this.selectedTags);
-      //this.$emit("sort-posts-by-tag", params.toString());
+    },
+    toggleDropDownOption(label, option) {
+      let refName = label.toLowerCase().split(" ").join("") + "DropDown";
+      const ref = this.$refs[refName];
+      ref.toggleSelect(label + "-" + option);
     },
     getColor(label) {
       switch (label) {

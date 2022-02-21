@@ -1,7 +1,7 @@
 const galState = [
   {
-    tags: ["tag 1"],
-    searchTerm: "hey",
+    tags: [],
+    searchTerm: "",
     posts: [],
   }
 ]
@@ -20,5 +20,13 @@ export const gallery = {
     getPosts: (state) => {
       return state[0].posts;
     },
+    getSelectedTagsByLabel: (state) => (label) => {
+      return state[0].tags.filter(tag => tag.label === label);
+    }
+  },
+  mutations: {
+    setTags: (state, tags) => {
+      state[0].tags = tags;
+    }
   },
 };

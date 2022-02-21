@@ -32,7 +32,7 @@ export default {
   methods: {
     getPosts(tags, searchTerm) {
      // console.log(searchTerm);
-     // console.log(tags);
+      //console.log(tags);
       const arr = async () => {
         const arr = await galleryService.getPosts(tags, searchTerm);
         for (let i = 0; i < arr.length; i++) {
