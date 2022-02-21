@@ -114,13 +114,19 @@ export default {
         }
       }
 
-      this.toggleDropDownOption(label, option);
-      this.$store.commit("gallery/setTags", this.selectedTags);
+      if (this.isDropDownOptionSelected(label, option)) {
+        console.log("selected already");
+        this.removeTagChip(label, option);
+      } else {
+        this.$store.commit("gallery/setTags", this.selectedTags);
+        document.getElementById("selectedTags").innerHTML = "";
+        this.enableDropDownOption(label, option);
+      }
       this.drawTags();
     },
     drawTags() {
       let selectedTagContainer = document.getElementById("selectedTags");
-      selectedTagContainer.innerHTML = "";
+      //selectedTagContainer.innerHTML = "";
 
       for (let i = 0; i < this.selectedTags.length; i++) {
         let tag = this.selectedTags[i];
@@ -132,21 +138,15 @@ export default {
           let tagChipLabel = document.createElement("span");
           let tagChipOption = document.createElement("span");
           let chipId =
-            label.toString().toLowerCase().replace(/\s/g, "") + "Chip";
+            label.toString().toLowerCase().replace(/\s/g, "") +
+            option.toString().toLowerCase().replace(/\s/g, "") +
+            "Chip";
 
           tagChip.classList.add("tagChip");
           tagChip.setAttribute("id", chipId);
 
           tagChip.addEventListener("click", () => {
-            document.getElementById(chipId).remove();
-            for (let i = 0; i < this.selectedTags.length; i++) {
-              if (this.selectedTags[i].label === label) {
-                this.selectedTags.splice(i, 1);
-              }
-            }
-            this.toggleDropDownOption(label, option);
-            this.$store.commit("gallery/setTags", this.selectedTags);
-            this.$emit("sort-posts-by-tags", this.selectedTags);
+            this.removeTagChip(label, option);
           });
 
           tagChipLabel.classList.add("tagChipLabel");
@@ -164,10 +164,37 @@ export default {
 
       this.$emit("sort-posts-by-tags", this.selectedTags);
     },
-    toggleDropDownOption(label, option) {
+    removeTagChip(label, option) {
+      let chipId =
+        label.toString().toLowerCase().replace(/\s/g, "") +
+        option.toString().toLowerCase().replace(/\s/g, "") +
+        "Chip";
+
+      document.getElementById(chipId).remove();
+      for (let i = 0; i < this.selectedTags.length; i++) {
+        if (this.selectedTags[i].label === label) {
+          this.selectedTags.splice(i, 1);
+        }
+      }
+      this.removeDropDownOption(label, option);
+      console.log(this.selectedTags);
+      this.$store.commit("gallery/setTags", this.selectedTags);
+      this.$emit("sort-posts-by-tags", this.selectedTags);
+    },
+    removeDropDownOption(label, option) {
       let refName = label.toLowerCase().split(" ").join("") + "DropDown";
       const ref = this.$refs[refName];
-      ref.toggleSelect(label + "-" + option);
+      ref.removeSelect(label + "-" + option);
+    },
+    enableDropDownOption(label, option) {
+      let refName = label.toLowerCase().split(" ").join("") + "DropDown";
+      const ref = this.$refs[refName];
+      ref.enableSelect(label + "-" + option);
+    },
+    isDropDownOptionSelected(label, option) {
+      let refName = label.toLowerCase().split(" ").join("") + "DropDown";
+      const ref = this.$refs[refName];
+      return ref.isSelected(label + "-" + option);
     },
     getColor(label) {
       switch (label) {

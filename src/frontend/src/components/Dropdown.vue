@@ -87,14 +87,18 @@ export default {
     selectOption(label, option) {
       this.$emit("selectTag", label, option);
     },
-    toggleSelect(filterOption) {
+    enableSelect(filterOption) {
       let element = document.getElementById(filterOption);
-
-      if (element.classList.contains("selected")) {
-        element.classList.remove("selected");
-      } else {
-        element.classList.add("selected");
-      }
+      element.classList.add("selected");
+    },
+    removeSelect(filterOption) {
+      let element = document.getElementById(filterOption);
+      console.log(filterOption);
+      element.classList.remove("selected");
+    },
+    isSelected(filterOption) {
+      let element = document.getElementById(filterOption);
+      return element.classList.contains("selected");
     },
   },
   computed: {

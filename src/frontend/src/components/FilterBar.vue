@@ -123,6 +123,7 @@ export default {
   border-radius: 20px;
   border: none;
   background: $primaryLight;
+  cursor: pointer;
 }
 .filterIcon {
   cursor: pointer;
