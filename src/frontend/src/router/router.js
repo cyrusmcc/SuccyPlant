@@ -12,6 +12,7 @@ const ChangeEmail = () => import("../views/ChangeEmailConfirmation.vue");
 const BlogPost = () => import("../views/BlogPost.vue");
 const NewBlogPost = () => import("../views/NewBlogPost.vue");
 const Admin = () => import("../views/Admin.vue");
+const PlantPage = () => import("../views/PlantPage.vue");
 
 const routes = [
   {
@@ -112,6 +113,11 @@ const routes = [
     path: "/admin",
     name: "admin",
     component: Admin,
+  },
+  {
+    path: "/g/:id(.*)",
+    name: "PlantPage",
+    component: PlantPage,
   }, // new here
 ];
 
