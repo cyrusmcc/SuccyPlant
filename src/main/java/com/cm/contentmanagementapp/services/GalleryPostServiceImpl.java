@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class GalleryPostServiceImpl implements GalleryPostService {
@@ -45,31 +46,28 @@ public class GalleryPostServiceImpl implements GalleryPostService {
         }
 
         Pageable paging = PageRequest.of(0, 5, Sort.by("id").descending());
-        Slice<GalleryPost> sliceResult = null;
+        List<GalleryPost> galleryPosts = new ArrayList<>();
 
         if (tags.size() == 0 && searchTerm.length() > 3) {
             System.out.println(searchTerm);
-            sliceResult = gPRepo
-                    .findAllByPostTitleContainingIgnoreCase(searchTerm, paging);
-            System.out.println(sliceResult.getContent().size());
-
+            galleryPosts = gPRepo
+                    .findAllByPostTitleContainingIgnoreCase(searchTerm, paging).getContent();
         }
-        /*
-        if (tags.size() == 0 && searchTerm.length() > 0) {
 
-            Slice<GalleryPost> sliceResult = gPRepo
-                    .findGalleryPostsByPostTitleLikeIgnoreCase(searchTerm, paging);
-
+        else if (tags.size() > 0 && searchTerm.length() < 3) {
+            galleryPosts = gPRepo.findGalleryPostsByPostContentTags(tags, tags.size(), paging).getContent();
         }
-        */
 
-        if (sliceResult != null && sliceResult.hasContent()) {
-            System.out.println("has content");
-            return sliceResult.getContent();
-        } else {
-            System.out.println("no content");
-            return new ArrayList<>();
+        else if (tags.size() > 0 && searchTerm.length() > 3) {
+            galleryPosts = gPRepo.findGalleryPostsByPostContentTags(tags, tags.size(), paging).getContent();
+            galleryPosts =
+                    galleryPosts
+                            .stream()
+                            .filter(p -> p.getPost().getTitle().contains(searchTerm))
+                            .collect(Collectors.toList());
         }
+
+        return galleryPosts;
     }
 
     @Override
@@ -95,6 +93,9 @@ public class GalleryPostServiceImpl implements GalleryPostService {
 
     @Override
     public void save(GalleryPost post) {
+        if (gPRepo.existsGalleryPostByPostTitle(post.getPost().getTitle())) {
+            return;
+        }
         gPRepo.save(post);
     }
 }

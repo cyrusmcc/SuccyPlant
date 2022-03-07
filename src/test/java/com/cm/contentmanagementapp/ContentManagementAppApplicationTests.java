@@ -22,6 +22,7 @@ import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @SpringBootTest
 class ContentManagementAppApplicationTests {
@@ -49,7 +50,6 @@ class ContentManagementAppApplicationTests {
 
 	@Autowired
 	PostService postService;
-
 
 	@Autowired
 	ContentTagService contentTagService;
@@ -135,10 +135,33 @@ class ContentManagementAppApplicationTests {
 	void galleryPostTest() {
 
 		GalleryPost post = new GalleryPost();
-		post.setTitle("Aloe jucunda");
-		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.GENUS,"Aloe"));
+		post.setTitle("Aeonium aureum");
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.GENUS,"Aeonium"));
 
 		galleryPostService.save(post);
+
+		post = new GalleryPost();
+		post.setTitle("Aeonium ciliatum");
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.GENUS,"Aeonium"));
+
+		galleryPostService.save(post);
+
+		post = new GalleryPost();
+		post.setTitle("Monstera dubia");
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.GENUS,"Monstera"));
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.TYPE,"Plant"));
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.WATER,"Medium"));
+
+		galleryPostService.save(post);
+
+		post = new GalleryPost();
+		post.setTitle("Monstera obliqua");
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.GENUS,"Monstera"));
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.TYPE,"Plant"));
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.WATER,"Low"));
+
+		galleryPostService.save(post);
+
 
 	}
 
@@ -158,14 +181,26 @@ class ContentManagementAppApplicationTests {
 
 		List<ContentTag> tags = new ArrayList<>();
 		tags.add(contentTagService.findByCategoryAndValue( EnumTagCategory.GENUS, "Aeonium"));
+		//tags.add(contentTagService.findByCategoryAndValue( EnumTagCategory.WATER, "Medium"));
+		//Pageable paging = PageRequest.of(0, 5, Sort.by("id").descending());
 
-		List<GalleryPost> test = galleryPostService.findAllByContentTagsAndSearchTerm(0, 10,
-				tags, "");
+		/*
+		List<Post> test = postRepo.custom(tags, tags.size(), paging);
 
+		for (Post o : test) System.out.println(o.getTitle());*/
+		 List<GalleryPost> test = galleryPostService.findAllByContentTagsAndSearchTerm(0, 10,
+				tags, "aureum");
+
+		/*
+		List<GalleryPost> t = test.stream().filter(p -> p.getPost().getTitle().contains("aureum"))
+				.collect(Collectors.toList());
+		for (GalleryPost i : t) System.out.println(i.getPost().getTitle());
+
+		System.out.println("-------");
+		 */
 		for (GalleryPost gp : test) {
 			System.out.println(gp.getPost().getTitle());
 		}
-
 	}
 
 	@Test
