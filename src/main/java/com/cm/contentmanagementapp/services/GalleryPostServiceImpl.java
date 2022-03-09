@@ -39,9 +39,9 @@ public class GalleryPostServiceImpl implements GalleryPostService {
     @Override
     public List<GalleryPost> findAllByContentTagsAndSearchTerm(Integer pageNum, Integer pageSize,
                                                                List<ContentTag> tags, String searchTerm) {
-        
-        
-        if (tags.size() == 0 && (searchTerm == null || searchTerm.isEmpty())) {
+
+        for (ContentTag t : tags) System.out.println(t.getCategory());
+        if (tags.size() == 0 && (searchTerm == null || searchTerm.length() < 3)) {
             return findAllByAlphabetical(pageNum, pageSize);
         }
 

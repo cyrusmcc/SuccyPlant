@@ -137,21 +137,33 @@ class ContentManagementAppApplicationTests {
 		GalleryPost post = new GalleryPost();
 		post.setTitle("Aeonium aureum");
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.GENUS,"Aeonium"));
-
 		galleryPostService.save(post);
+
+		post = new GalleryPost();
+		post.setTitle("Aloe Vera");
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.GENUS,"Aloe"));
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.TYPE,"Succ"));
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.WATER,"Low"));
+		galleryPostService.save(post);
+
+		post = new GalleryPost();
+		post.setTitle("Ferocactus Fordii");
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.GENUS,"Ferocactus"));
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.TYPE,"Cactus"));
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.WATER,"Low"));
+		galleryPostService.save(post);
+
 
 		post = new GalleryPost();
 		post.setTitle("Aeonium ciliatum");
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.GENUS,"Aeonium"));
-
 		galleryPostService.save(post);
 
 		post = new GalleryPost();
 		post.setTitle("Monstera dubia");
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.GENUS,"Monstera"));
-		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.TYPE,"Plant"));
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.TYPE,"House Plant"));
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.WATER,"Medium"));
-
 		galleryPostService.save(post);
 
 		post = new GalleryPost();
@@ -159,7 +171,6 @@ class ContentManagementAppApplicationTests {
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.GENUS,"Monstera"));
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.TYPE,"Plant"));
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.WATER,"Low"));
-
 		galleryPostService.save(post);
 
 
@@ -189,7 +200,7 @@ class ContentManagementAppApplicationTests {
 
 		for (Post o : test) System.out.println(o.getTitle());*/
 		 List<GalleryPost> test = galleryPostService.findAllByContentTagsAndSearchTerm(0, 10,
-				tags, "aureum");
+				tags, "");
 
 		/*
 		List<GalleryPost> t = test.stream().filter(p -> p.getPost().getTitle().contains("aureum"))
