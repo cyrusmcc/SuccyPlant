@@ -7,7 +7,7 @@ var sortedPageNum = 0;
 
 class GalleryService {
   getPosts(tags, searchTerm) {
-    console.log(searchTerm);
+    console.log(tags);
     return api
       .get(GALLERY_API_URL + "get-all", {
         headers: {

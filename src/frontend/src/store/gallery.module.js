@@ -37,6 +37,13 @@ export const gallery = {
         if (state[0].tags[i].selected == 0) state[0].tags.splice(i, 1);
       }
     },
+    removeTagByLabel: (state, label) => {
+      for (let i = 0; i < state[0].tags.length; i++) {
+        if (state[0].tags[i].label === label) {
+          state[0].tags.splice(i, 1);
+        }
+      }
+    },
     setSearchTerm: (state, searchTerm) => {
       state[0].searchTerm = searchTerm;
     },

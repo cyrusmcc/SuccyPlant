@@ -5,7 +5,7 @@ public enum EnumTagCategory {
     WATER("Water"),
     DIFFICULTY("Difficulty"),
     TYPE("Type"),
-    PET("Pet Friendly"),
+    PET("Pet Safe"),
     SIZE("Size"),
     GENUS("Genus");
 

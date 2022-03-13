@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="galleryContainer">
-      <filter-bar @sortPostsByTags="getPosts" @search="test"></filter-bar>
+      <filter-bar @sortPostsByTags="getPosts"></filter-bar>
       <gallery-grid :galleryPosts="posts"></gallery-grid>
     </div>
   </div>
@@ -43,9 +43,6 @@ export default {
         this.$store.commit("gallery/setPosts", arr);
       };
       arr();
-    },
-    test(value) {
-      console.log(value);
     },
   },
 };

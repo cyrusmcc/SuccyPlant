@@ -21,6 +21,8 @@ public interface GalleryPostRepository extends JpaRepository<GalleryPost, Long> 
     Page<GalleryPost> findGalleryPostsByPostContentTags(@Param("tags") List<ContentTag> tags,
                                          @Param("tagCount") long tagCount, Pageable paging);
 
+    List<GalleryPost> findGalleryPostsByIdInAndPostContentTagsIn(List<Long> ids, List<ContentTag> tags);
+
     boolean existsGalleryPostByPostTitle(String title);
 
 }

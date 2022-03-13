@@ -91,38 +91,30 @@ export default {
   },
   methods: {
     addTagChip(label, option) {
-      if (this.selectedTags.length === 0) {
+      // if no tags with provided label exist
+      if (
+        this.selectedTags.length === 0 ||
+        this.$store.getters["gallery/getSelectedTagsByLabel"](label).length == 0
+      ) {
         this.selectedTags.push({
           label: label,
           selected: [option],
         });
       } else {
-        let found = false;
-        for (let i = 0; i < this.selectedTags.length; i++) {
-          if (this.selectedTags[i].label === label) {
-            found = true;
-            if (!this.selectedTags[i].selected.includes(option)) {
-              this.selectedTags[i].selected.push(option);
-            }
+        this.selectedTags.forEach((tag) => {
+          if (tag.label === label) {
+            this.removeDropDownOption(tag.label, tag.selected);
+            tag.selected = [option];
           }
-        }
-        if (!found) {
-          this.selectedTags.push({
-            label: label,
-            selected: [option],
-          });
-        }
+        });
       }
-
       if (this.isDropDownOptionSelected(label, option)) {
-        console.log("selected already");
         this.removeTagChip(label, option);
       } else {
         this.$store.commit("gallery/setTags", this.selectedTags);
         this.enableDropDownOption(label, option);
       }
 
-      console.log(this.selectedTags);
       this.drawTags();
     },
     drawTags() {
@@ -169,7 +161,6 @@ export default {
     removeTagChip(label, option) {
       this.$store.commit("gallery/removeTag", { label, option });
       this.removeDropDownOption(label, option);
-      console.log(this.selectedTags);
       this.$store.commit("gallery/setTags", this.selectedTags);
       this.$emit("sort-posts-by-tags", this.selectedTags);
     },

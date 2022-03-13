@@ -21,7 +21,12 @@
           </div>
           <ol id="galPostTagList">
             <li v-for="(tag, index) in galPost.post.tags" :key="index">
-              <div class="galPostTag">{{ tag.value }}</div>
+              <div
+                class="galPostTag"
+                :style="{ background: getColor(tag.category) }"
+              >
+                {{ tag.value }}
+              </div>
             </li>
           </ol>
         </div>
@@ -31,13 +36,40 @@
 </template>
 
 <script>
-
 export default {
   name: "GalleryGrid",
   components: {},
   props: ["galleryPosts"],
   data() {
     return {};
+  },
+  mounted() {
+    this.sortGalleryPostTags;
+  },
+  computed: {
+    sortGalleryPostTags() {
+      return this.$store.getters["gallery/getTags"];
+    },
+  },
+  methods: {
+    getColor(label) {
+      switch (label) {
+        case "Genus":
+          return "#86c2b6";
+        case "Type":
+          return "#8caed3";
+        case "Size":
+          return "#bdb2ff";
+        case "Difficulty":
+          return "#ffb2b2";
+        case "Light":
+          return "#f5c881";
+        case "Pet Safe":
+          return "#cbb7ac";
+        default:
+          return "#86c2b6";
+      }
+    },
   },
 };
 </script>
@@ -128,6 +160,7 @@ export default {
 .galPostTag {
   height: fit-content;
   width: fit-content;
+  cursor: default;
   background-color: $accentTwo;
   padding: 3px;
   font-size: 0.8rem;

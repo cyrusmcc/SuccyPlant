@@ -137,40 +137,52 @@ class ContentManagementAppApplicationTests {
 		GalleryPost post = new GalleryPost();
 		post.setTitle("Aeonium aureum");
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.GENUS,"Aeonium"));
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.TYPE,"House Plant"));
+		post.getPost().addTag(contentTagService
+				.findByCategoryAndValue(EnumTagCategory.DIFFICULTY,"Beginner Friendly"));
 		galleryPostService.save(post);
 
 		post = new GalleryPost();
 		post.setTitle("Aloe Vera");
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.GENUS,"Aloe"));
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.TYPE,"Succ"));
-		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.WATER,"Low"));
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.LIGHT,"Low"));
+		post.getPost().addTag(contentTagService
+				.findByCategoryAndValue(EnumTagCategory.DIFFICULTY,"Advanced"));
 		galleryPostService.save(post);
 
 		post = new GalleryPost();
 		post.setTitle("Ferocactus Fordii");
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.GENUS,"Ferocactus"));
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.TYPE,"Cactus"));
-		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.WATER,"Low"));
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.PET,"Yes"));
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.LIGHT,"Low"));
 		galleryPostService.save(post);
 
 
 		post = new GalleryPost();
 		post.setTitle("Aeonium ciliatum");
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.GENUS,"Aeonium"));
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.TYPE,"House Plant"));
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.PET,"Yes"));
+		post.getPost().addTag(contentTagService
+				.findByCategoryAndValue(EnumTagCategory.DIFFICULTY,"Beginner Friendly"));
 		galleryPostService.save(post);
 
 		post = new GalleryPost();
 		post.setTitle("Monstera dubia");
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.GENUS,"Monstera"));
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.TYPE,"House Plant"));
-		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.WATER,"Medium"));
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.LIGHT,"Medium"));
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.PET,"Yes"));
 		galleryPostService.save(post);
 
 		post = new GalleryPost();
 		post.setTitle("Monstera obliqua");
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.GENUS,"Monstera"));
-		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.TYPE,"Plant"));
-		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.WATER,"Low"));
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.TYPE,"House Plant"));
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.LIGHT,"Low"));
+		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.PET,"No"));
 		galleryPostService.save(post);
 
 
@@ -179,10 +191,22 @@ class ContentManagementAppApplicationTests {
 	@Test
 	void findContentTagByCategoryAndValue() {
 
-		List<ContentTag> tags = contentTagService.findContentTagsByCategoryAndValue(EnumTagCategory.GENUS, "Aeonium");
+		/* Filter posts by exact match of tag list */
+		List<ContentTag> tags = contentTagService
+				.findContentTagsByCategoryAndValue(EnumTagCategory.TYPE, "House Plant");
+		List<Long> ids = new ArrayList<>();
+		List<GalleryPost> t = galleryPostService
+				.findAllByContentTagsAndSearchTerm(0, 10, tags, "");
+		for (GalleryPost ta : t) ids.add(ta.getId());
+		System.out.println(ids);
 
-		for (ContentTag t : tags) {
-			System.out.println(t.getValue());
+
+		/* Filter posts by posts containing any tags in tag */
+		List<ContentTag> tagsTwo = contentTagService
+				.findContentTagsByCategoryAndValue(EnumTagCategory.WATER, "Medium");
+		List<GalleryPost> posts = gpRepo.findGalleryPostsByIdInAndPostContentTagsIn(ids, tagsTwo);
+		for (GalleryPost gp : posts) {
+			System.out.println(gp.getPost().getTitle());
 		}
 
 	}
