@@ -120,7 +120,7 @@ class ContentManagementAppApplicationTests {
 		contentTagService.newTag("Small", EnumTagCategory.SIZE);
 		contentTagService.newTag("Medium", EnumTagCategory.SIZE);
 		contentTagService.newTag("Large", EnumTagCategory.SIZE);
-		contentTagService.newTag("Beginner Friendly", EnumTagCategory.DIFFICULTY);
+		contentTagService.newTag("Beginner", EnumTagCategory.DIFFICULTY);
 		contentTagService.newTag("Advanced", EnumTagCategory.DIFFICULTY);
 		contentTagService.newTag("Low", EnumTagCategory.LIGHT);
 		contentTagService.newTag("Medium", EnumTagCategory.LIGHT);
@@ -140,7 +140,7 @@ class ContentManagementAppApplicationTests {
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.GENUS,"Aeonium"));
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.TYPE,"House Plant"));
 		post.getPost().addTag(contentTagService
-				.findByCategoryAndValue(EnumTagCategory.DIFFICULTY,"Beginner Friendly"));
+				.findByCategoryAndValue(EnumTagCategory.DIFFICULTY,"Beginner"));
 		galleryPostService.save(post);
 
 		post = new GalleryPost();
@@ -167,7 +167,7 @@ class ContentManagementAppApplicationTests {
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.TYPE,"House Plant"));
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.PET,"Yes"));
 		post.getPost().addTag(contentTagService
-				.findByCategoryAndValue(EnumTagCategory.DIFFICULTY,"Beginner Friendly"));
+				.findByCategoryAndValue(EnumTagCategory.DIFFICULTY,"Beginner"));
 		galleryPostService.save(post);
 
 		post = new GalleryPost();

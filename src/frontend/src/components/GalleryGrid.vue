@@ -132,13 +132,14 @@ export default {
 }
 
 #galPostInfoContainer {
-  margin-top: 10px;
-  height: fit-content;
-  width: 95%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  row-gap: 10px;
+  margin-top: 10px;
+  height: fit-content;
+  width: 95%;
   padding-bottom: 5px;
 }
 
@@ -169,6 +170,7 @@ export default {
 }
 
 #galPostTitle {
+  @include flexCenter();
   text-align: center;
   font-style: italic;
   color: $primaryLight;
@@ -179,7 +181,7 @@ export default {
 
 #galPostTitle > * {
   display: block;
-  max-width: 95%;
+  width: 100%;
   white-space: normal;
   text-overflow: ellipsis;
   overflow: hidden;

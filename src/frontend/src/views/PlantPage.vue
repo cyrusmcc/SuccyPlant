@@ -8,45 +8,61 @@
       <h1>{{ plant.name }}</h1>
       <h3>{{ plant.scientificName }}</h3>
     </div>
-    <div class="careGuide">
-      <div class="careGuideHead">
-        <h2>Care Guide</h2>
+    <div class="descGuideContainer">
+      <div class="plantDescription">
+        Fittonia (nerve plant) is a genus of flowering plants in the acanthus
+        family Acanthaceae, native to tropical rainforest in South America,
+        mainly Peru.[2] The most commonly grown are F. albivenis and its
+        cultivars. They are spreading evergreen perennials growing 10–15 cm (4–6
+        in) tall. They bear lush green leaves with accented veins of white to
+        deep pink and have a short fuzz covering their stems. Small buds may
+        appear after a time where the stem splits into leaves. Flowers are small
+        with a white to off-white colour. Plants are best kept in a moist area
+        with mild sunlight and temperatures above 55 °F (13 °C), therefore in
+        temperate areas they must be grown as houseplants. Without water for a
+        few days, this plant is known to "faint" but is easily revived with a
+        quick watering. Its spreading habit makes it ideal as groundcover.
       </div>
-      <div class="careGuideSize">
-        <h4 class="careGuideCategoryHead">How big?</h4>
-        <span
-          >Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
-          ratione, tenetur iusto veniam illum dignissimos aperiam dolor totam
-          veritatis quas pariatur reprehenderit maiores aut deleniti doloremque
-          laboriosam! Fugiat, facere maxime.</span
-        >
-      </div>
-      <div class="careGuideDifficulty">
-        <h4 class="careGuideCategoryHead">How hard?</h4>
-        <span
-          >Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
-          ratione, tenetur iusto veniam illum dignissimos aperiam dolor totam
-          veritatis quas pariatur reprehenderit maiores aut deleniti doloremque
-          laboriosam! Fugiat, facere maxime.</span
-        >
-      </div>
-      <div class="careGuideLight">
-        <h4 class="careGuideCategoryHead">How much light?</h4>
-        <span
-          >Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
-          ratione, tenetur iusto veniam illum dignissimos aperiam dolor totam
-          veritatis quas pariatur reprehenderit maiores aut deleniti doloremque
-          laboriosam! Fugiat, facere maxime.</span
-        >
-      </div>
-      <div class="careGuidePet">
-        <h4 class="careGuideCategoryHead">Are {{ plant.name }} pet safe?</h4>
-        <span
-          >Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
-          ratione, tenetur iusto veniam illum dignissimos aperiam dolor totam
-          veritatis quas pariatur reprehenderit maiores aut deleniti doloremque
-          laboriosam! Fugiat, facere maxime.</span
-        >
+      <div class="careGuide">
+        <div class="careGuideHead">
+          <h2>Care Guide</h2>
+        </div>
+        <div class="careGuideSize">
+          <h4 class="careGuideCategoryHead">How big?</h4>
+          <span
+            >Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
+            ratione, tenetur iusto veniam illum dignissimos aperiam dolor totam
+            veritatis quas pariatur reprehenderit maiores aut deleniti
+            doloremque laboriosam! Fugiat, facere maxime.</span
+          >
+        </div>
+        <div class="careGuideDifficulty">
+          <h4 class="careGuideCategoryHead">How hard?</h4>
+          <span
+            >Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
+            ratione, tenetur iusto veniam illum dignissimos aperiam dolor totam
+            veritatis quas pariatur reprehenderit maiores aut deleniti
+            doloremque laboriosam! Fugiat, facere maxime.</span
+          >
+        </div>
+        <div class="careGuideLight">
+          <h4 class="careGuideCategoryHead">How much light?</h4>
+          <span
+            >Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
+            ratione, tenetur iusto veniam illum dignissimos aperiam dolor totam
+            veritatis quas pariatur reprehenderit maiores aut deleniti
+            doloremque laboriosam! Fugiat, facere maxime.</span
+          >
+        </div>
+        <div class="careGuidePet">
+          <h4 class="careGuideCategoryHead">Are {{ plant.name }} pet safe?</h4>
+          <span
+            >Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
+            ratione, tenetur iusto veniam illum dignissimos aperiam dolor totam
+            veritatis quas pariatur reprehenderit maiores aut deleniti
+            doloremque laboriosam! Fugiat, facere maxime.</span
+          >
+        </div>
       </div>
     </div>
   </div>
@@ -108,16 +124,28 @@ h3 {
 .carouselContainer {
   width: 95%;
   height: fit-content;
-  padding-top: 5px;
   border-radius: 5px;
   border: 1px solid $outline;
   box-shadow: $shadowLight;
   overflow: hidden;
 }
+.descGuideContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 95%;
+  margin-top: 50px;
+  text-align: center;
+  font-family: $raleway;
+}
+
+.plantDescription {
+}
 
 .careGuide {
   width: 95%;
-  margin-top: 50px;
+  margin-top: 30px;
   border: 1px solid $outline;
   border-radius: 5px;
   overflow: hidden;
@@ -133,7 +161,7 @@ h3 {
 }
 
 .careGuide > div:nth-child(n + 2) > * {
-    margin-left: 5px;
+  margin-left: 5px;
 }
 
 .careGuideHead {
@@ -156,5 +184,21 @@ h3 {
 }
 .careGuidePet {
   background: $accentSix;
+}
+
+@include screen-lg() {
+  .descGuideContainer {
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-start;
+  }
+  .plantDescription {
+    width: 45%;
+    text-align: left;
+  }
+  .careGuide {
+    width: 45%;
+    margin-top: 0;
+  }
 }
 </style>
