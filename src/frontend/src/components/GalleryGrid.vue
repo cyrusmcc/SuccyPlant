@@ -173,8 +173,16 @@ export default {
   font-style: italic;
   color: $primaryLight;
   font-style: italic;
-  height: 50px;
+  height: 40px;
   width: 100%;
+}
+
+#galPostTitle > * {
+  display: block;
+  max-width: 95%;
+  white-space: normal;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 #galPostDate {

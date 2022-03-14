@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class ContentTag {
+public class ContentTag implements Comparable<ContentTag>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,5 +70,10 @@ public class ContentTag {
 
     public void addPost(Post post) {
         this.posts.add(post);
+    }
+
+    @Override
+    public int compareTo(ContentTag o) {
+        return this.category.compareTo(o.category);
     }
 }

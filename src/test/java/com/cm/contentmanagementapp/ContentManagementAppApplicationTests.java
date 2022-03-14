@@ -22,6 +22,7 @@ import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @SpringBootTest
@@ -246,6 +247,15 @@ class ContentManagementAppApplicationTests {
 		for (GalleryPost gp : test) {
 			System.out.println(gp.getPost().getTitle());
 		}
+	}
+
+	@Test
+	void findPostContentTags() {
+
+		Optional<GalleryPost> gp = gpRepo.findById(Long.valueOf(1));
+		GalleryPost g = gp.get();
+
+		System.out.println(g.getPost().getTags());
 	}
 
 	@Test

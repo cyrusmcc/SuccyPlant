@@ -37,9 +37,6 @@ public class GalleryController {
 
         List<ContentTag> tagList = new ArrayList<>();
 
-        //if (searchTerm != null) System.out.println(searchTerm);
-        //if (tags != null) System.out.println(tags + "NOTNULL?");
-
         if (tags != null && !tags.isEmpty()) {
             List<String> tagCategories = List.of(tags.split("&"));
             tagList = new ArrayList<>();

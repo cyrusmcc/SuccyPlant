@@ -1,8 +1,8 @@
 package com.cm.contentmanagementapp.models;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 @Entity
 public class Post {
@@ -30,6 +30,7 @@ public class Post {
             inverseJoinColumns = @JoinColumn(name = "tag_id")
 
     )
+    @OrderBy("category ASC")
     private Set<ContentTag> contentTags;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -37,7 +38,7 @@ public class Post {
     private PostList postList;
 
     public Post() {
-        this.contentTags = new HashSet<>();
+        this.contentTags = new TreeSet<>();
     }
 
     public Long getId() {
