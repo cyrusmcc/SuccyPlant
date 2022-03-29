@@ -9,19 +9,23 @@
       <h3>{{ plant.scientificName }}</h3>
     </div>
     <div class="descGuideContainer">
-      <div class="plantDescription">
-        Fittonia (nerve plant) is a genus of flowering plants in the acanthus
-        family Acanthaceae, native to tropical rainforest in South America,
-        mainly Peru.[2] The most commonly grown are F. albivenis and its
-        cultivars. They are spreading evergreen perennials growing 10–15 cm (4–6
-        in) tall. They bear lush green leaves with accented veins of white to
-        deep pink and have a short fuzz covering their stems. Small buds may
-        appear after a time where the stem splits into leaves. Flowers are small
-        with a white to off-white colour. Plants are best kept in a moist area
-        with mild sunlight and temperatures above 55 °F (13 °C), therefore in
-        temperate areas they must be grown as houseplants. Without water for a
-        few days, this plant is known to "faint" but is easily revived with a
-        quick watering. Its spreading habit makes it ideal as groundcover.
+      <div class="descContainer">
+        <h2>Description</h2>
+        <div class="plantDescription">
+          Fittonia (nerve plant) is a genus of flowering plants in the acanthus
+          family Acanthaceae, native to tropical rainforest in South America,
+          mainly Peru.[2] The most commonly grown are F. albivenis and its
+          cultivars. They are spreading evergreen perennials growing 10–15 cm
+          (4–6 in) tall. They bear lush green leaves with accented veins of
+          white to deep pink and have a short fuzz covering their stems. Small
+          buds may appear after a time where the stem splits into leaves.
+          Flowers are small with a white to off-white colour. Plants are best
+          kept in a moist area with mild sunlight and temperatures above 55 °F
+          (13 °C), therefore in temperate areas they must be grown as
+          houseplants. Without water for a few days, this plant is known to
+          "faint" but is easily revived with a quick watering. Its spreading
+          habit makes it ideal as groundcover.
+        </div>
       </div>
       <div class="careGuide">
         <div class="careGuideHead">
@@ -65,15 +69,18 @@
         </div>
       </div>
     </div>
+    <h4 class="sideScrollLabel">Similar SuccyPlants</h4>
+    <side-scroll-gallery></side-scroll-gallery>
   </div>
 </template>
   
   <script>
 import Carousel from "../components/Carousel.vue";
+import SideScrollGallery from "../components/SideScrollGallery.vue";
 
 export default {
   name: "PlantPage",
-  components: { Carousel },
+  components: { Carousel, SideScrollGallery },
   props: [],
   data() {
     return {
@@ -135,16 +142,28 @@ h3 {
   justify-content: flex-start;
   align-items: center;
   width: 95%;
-  margin-top: 50px;
+  margin-top: 25px;
   text-align: center;
   font-family: $raleway;
 }
 
-.plantDescription {
+.descContainer {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-content: center;
+}
+
+.descContainer > h2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .careGuide {
-  width: 95%;
+  width: 100%;
   margin-top: 30px;
   border: 1px solid $outline;
   border-radius: 5px;
@@ -186,15 +205,27 @@ h3 {
   background: $accentSix;
 }
 
+.sideScrollLabel {
+  width: 95%;
+  margin: 25px 0 0 0;
+  padding-left: 10px;
+  font-size: 1.1rem;
+  font-weight: normal;
+}
+
 @include screen-lg() {
   .descGuideContainer {
     flex-direction: row;
     justify-content: space-evenly;
     align-items: flex-start;
   }
-  .plantDescription {
+  .descContainer {
     width: 45%;
-    text-align: left;
+    text-align: center;
+  }
+  .descContainer > h2 {
+    height: 6rem;
+    margin: 0;
   }
   .careGuide {
     width: 45%;
