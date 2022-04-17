@@ -112,7 +112,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-content: flex-start;
-  flex-flow: wrap;
   width: 100%;
 }
 
@@ -212,7 +211,7 @@ export default {
   color: $accentOne;
 }
 
-@include screen-lg() {
+@include screen-md() {
   .container {
     justify-content: center;
   }

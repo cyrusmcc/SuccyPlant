@@ -41,7 +41,7 @@ export default {
 .plantContainer {
   width: 95%;
   border: 1px solid $outline;
-  border-radius: 10px;
+  border-radius: 4px;
   box-shadow: $shadowLight;
   height: fit-content;
 }
@@ -56,6 +56,8 @@ export default {
   flex-direction: column;
   align-items: center;
   margin-top: 10px;
+  max-height: 400px;
+  overflow-y: scroll;
 }
 .plantList > div {
   margin: 5px 0;
@@ -74,5 +76,29 @@ export default {
   height: 100%;
   width: 100%;
   @include flexCenter();
+}
+.plantName {
+  display: block;
+  width: 100%;
+  white-space: normal;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-align: center;
+}
+
+@include screen-md() {
+  .plantList {
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: 10px;
+    overflow-y: hidden;
+  }
+  .plant {
+    flex-direction: column;
+    align-items: center;
+    row-gap: 10px;
+    height: fit-content;
+    width: 150px;
+  }
 }
 </style>
