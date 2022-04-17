@@ -18,6 +18,7 @@
         </div>
       </div>
       <div class="card" id="userContentCard">
+        <user-plant-list></user-plant-list>
         <div id="userContentNavContainer">
           <div id="navTabs">
             <span class="navTab" id="navTab1">All</span>
@@ -43,9 +44,10 @@
 import profilePic from "../components/ProfilePic.vue";
 import formattedDate from "../components/FormattedDate.vue";
 import UserService from "../service/user.service";
+import UserPlantList from "../components/UserPlantList.vue";
 
 export default {
-  components: { profilePic, formattedDate },
+  components: { profilePic, formattedDate, UserPlantList },
   name: "Profile",
   data() {
     return {
@@ -102,7 +104,7 @@ export default {
   align-self: center;
   max-width: 95%;
   height: fit-content;
-  padding: 1.5rem 0 1.5rem 0;
+  //padding: 1.5rem 0 1.5rem 0;
   font: 2rem;
 }
 
@@ -179,11 +181,11 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 4rem;
   border-radius: 3px 3px 0 0;
   background-color: $accentDark;
   color: $primaryLight;
-  padding: 2px;
+  padding: 5px 20px;
 }
 
 #navTab1 {
@@ -215,9 +217,7 @@ export default {
     justify-content: center;
   }
   #profile {
-    width: 65rem;
-    margin-top: 20px;
-    background: $accentDark;
+    margin: 20px 0 0 10px;
     flex-direction: row;
   }
 
