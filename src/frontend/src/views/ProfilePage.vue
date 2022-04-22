@@ -21,9 +21,42 @@
         <user-plant-list></user-plant-list>
         <div id="userContentNavContainer">
           <div id="navTabs">
-            <span class="navTab" id="navTab1">All</span>
-            <span class="navTab" id="navTab2">Posts</span>
-            <span class="navTab" id="navTab3">Comments</span>
+            <span
+              class="navTab"
+              id="navTab1"
+              @click="updateTab('all')"
+              :style="[
+                activeTab == 'all'
+                  ? { opacity: '1', height: '1.5rem' }
+                  : { opacity: '0.6', height: '1rem' },
+              ]"
+            >
+              All
+            </span>
+            <span
+              class="navTab"
+              id="navTab2"
+              @click="updateTab('posts')"
+              :style="[
+                activeTab == 'posts'
+                  ? { opacity: '1', height: '1.5rem' }
+                  : { opacity: '0.6', height: '1rem' },
+              ]"
+            >
+              Posts
+            </span>
+            <span
+              class="navTab"
+              id="navTab3"
+              @click="updateTab('comments')"
+              :style="[
+                activeTab == 'comments'
+                  ? { opacity: '1', height: '1.5rem' }
+                  : { opacity: '0.6', height: '1rem' },
+              ]"
+            >
+              Comments
+            </span>
           </div>
         </div>
         <div id="userContent"></div>
@@ -55,6 +88,7 @@ export default {
       joinDate: '',
       username: this.$route.params.username,
       noProfile: false,
+      activeTab: 'all',
     }
   },
   created() {
@@ -89,6 +123,11 @@ export default {
         },
       )
   },
+  methods: {
+    updateTab(tab) {
+      this.activeTab = tab
+    },
+  },
 }
 </script>
 <style scoped lang="scss">
@@ -99,7 +138,7 @@ export default {
 .card {
   display: flex;
   flex-direction: column;
-  row-gap: 1.5rem;
+  row-gap: 1rem;
   justify-content: center;
   align-items: center;
   align-self: center;
@@ -175,6 +214,7 @@ export default {
   width: 100%;
   height: 4vh;
   justify-content: space-around;
+  column-gap: 5px;
 }
 
 #navTabs > span {
@@ -185,23 +225,10 @@ export default {
   border-radius: 3px 3px 0 0;
   background-color: $accentDark;
   color: $primaryLight;
-  padding: 5px 20px;
-}
-
-#navTab1 {
-  opacity: 1;
-  height: 3.5vh;
-}
-
-#navTab2 {
-  border: thin solid button-primaryLight-accentTwo;
-  border-bottom: 0;
-  border-radius: 3px;
-  opacity: 0.6;
-}
-
-#navTab3 {
-  opacity: 0.6;
+  font-size: 0.8rem;
+  border-radius: 20px;
+  padding: 5px 15px;
+  cursor: pointer;
 }
 
 #noProfileUsername {
@@ -213,6 +240,9 @@ export default {
 }
 
 @include screen-md() {
+  .card {
+    align-items: flex-start;
+  }
   .profileContainer {
     display: flex;
     justify-content: center;
