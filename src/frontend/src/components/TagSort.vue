@@ -32,7 +32,7 @@
     <div id="difficulty" class="dropBoxContainer">
       <drop-down
         label="Difficulty"
-        :options="['Beginner Friendly', 'Advanced']"
+        :options="['Beginner', 'Advanced']"
         :color="'#ffb2b2'"
         :display-type="'sideSelect'"
         ref="difficultyDropDown"

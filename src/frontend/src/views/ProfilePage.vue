@@ -11,10 +11,10 @@
         </profile-pic>
         <div id="userInfo">
           <span id="usernameText" v-if="username">{{ username }}</span>
-          <span id="joinDateText" v-if="joinDate"
-            >user since&nbsp;
-            <formatted-date :date="joinDate" :format="'month'"
-          /></span>
+          <span id="joinDateText" v-if="joinDate">
+            user since&nbsp;
+            <formatted-date :date="joinDate" :format="'month'" />
+          </span>
         </div>
       </div>
       <div class="card" id="userContentCard">
@@ -32,36 +32,37 @@
     <div id="noProfile" class="card" v-if="noProfile">
       <img src="../assets/imgs/exclamationDark.svg" alt="exclamation point" />
       <span>We could not find user</span>
-      <span id="noProfileUsername"
-        >"<span>{{ username }}</span
-        >"</span
-      >
+      <span id="noProfileUsername">
+        "
+        <span>{{ username }}</span>
+        "
+      </span>
     </div>
   </div>
 </template>
 
 <script>
-import profilePic from "../components/ProfilePic.vue";
-import formattedDate from "../components/FormattedDate.vue";
-import UserService from "../service/user.service";
-import UserPlantList from "../components/UserPlantList.vue";
+import profilePic from '../components/ProfilePic.vue'
+import formattedDate from '../components/FormattedDate.vue'
+import UserService from '../service/user.service'
+import UserPlantList from '../components/UserPlantList.vue'
 
 export default {
   components: { profilePic, formattedDate, UserPlantList },
-  name: "Profile",
+  name: 'Profile',
   data() {
     return {
-      joinDate: "",
+      joinDate: '',
       username: this.$route.params.username,
       noProfile: false,
-    };
+    }
   },
   created() {
     UserService.getUserProfilePic(this.$route.params.username).then(
       (response) => {
-        let imageNode = document.getElementById("userPic");
-        let imgUrl = URL.createObjectURL(response.data);
-        imageNode.src = imgUrl;
+        let imageNode = document.getElementById('userPic')
+        let imgUrl = URL.createObjectURL(response.data)
+        imageNode.src = imgUrl
       },
       (error) => {
         this.message =
@@ -69,13 +70,13 @@ export default {
             error.response.data &&
             error.response.data.message) ||
           error.message ||
-          error.toString();
-      }
+          error.toString()
+      },
     ),
       UserService.getUserProfileInfo(this.$route.params.username).then(
         (response) => {
-          this.joinDate = response.data.joinDate;
-          this.username = response.data.username;
+          this.joinDate = response.data.joinDate
+          this.username = response.data.username
         },
         (error) => {
           this.message =
@@ -83,12 +84,12 @@ export default {
               error.response.data &&
               error.response.data.message) ||
             error.message ||
-            error.toString();
-          this.noProfile = true;
-        }
-      );
+            error.toString()
+          this.noProfile = true
+        },
+      )
   },
-};
+}
 </script>
 <style scoped lang="scss">
 .profileContainer {
@@ -212,12 +213,15 @@ export default {
 }
 
 @include screen-md() {
-  .container {
+  .profileContainer {
+    display: flex;
     justify-content: center;
   }
   #profile {
+    width: 80%;
     margin: 20px 0 0 10px;
     flex-direction: row;
+    column-gap: 20px;
   }
 
   #userInfoCard {

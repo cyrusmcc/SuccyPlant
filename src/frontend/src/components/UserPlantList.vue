@@ -14,27 +14,27 @@
 
 <script>
 export default {
-  name: "UserPlantList",
+  name: 'UserPlantList',
   data() {
     return {
       username: this.$route.params.username,
       plants: [
         {
-          name: "Succulent",
-          url: "https://via.placeholder.com/150",
+          name: 'Succulent',
+          url: 'https://via.placeholder.com/150',
         },
         {
-          name: "Succulent2",
-          url: "https://via.placeholder.com/150",
+          name: 'Succulent2',
+          url: 'https://via.placeholder.com/150',
         },
         {
-          name: "Succulent3",
-          url: "https://via.placeholder.com/150",
+          name: 'Succulent3',
+          url: 'https://via.placeholder.com/150',
         },
       ],
-    };
+    }
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -55,7 +55,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10px;
+  margin: 10px 0;
   max-height: 400px;
   overflow-y: scroll;
 }
@@ -88,10 +88,10 @@ export default {
 
 @include screen-md() {
   .plantList {
-    flex-direction: row;
-    flex-wrap: wrap;
-    row-gap: 10px;
-    overflow-y: hidden;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    overflow: hidden;
+    justify-items: center;
   }
   .plant {
     flex-direction: column;
@@ -99,6 +99,9 @@ export default {
     row-gap: 10px;
     height: fit-content;
     width: 150px;
+  }
+  .plantContainer {
+    width: 100%;
   }
 }
 </style>
