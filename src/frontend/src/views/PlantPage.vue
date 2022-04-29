@@ -1,11 +1,27 @@
 <template>
-  <title>{{ plant.name }}</title>
+  <title>{{ plant.post.title }}</title>
   <div class="plantPageContainer">
+    <div class="plantListButtons" v-if="currentUser">
+      <button
+        class="button-primaryDark-noBorder"
+        v-if="!hasPlantInList('userPlants')"
+        @click="addPlantToList('userPlants')"
+      >
+        Add to my garden
+      </button>
+      <button
+        class="button-primaryDark-noBorder"
+        v-if="!hasPlantInList('wishList')"
+        @click="addPlantToList('wishList')"
+      >
+        Add to my wish list
+      </button>
+    </div>
     <div class="carouselContainer">
       <carousel :images="images" :arrows="true"></carousel>
     </div>
     <div class="titleContainer">
-      <h1>{{ plant.name }}</h1>
+      <h1>{{ plant.post.title }}</h1>
       <h3>{{ plant.scientificName }}</h3>
     </div>
     <div class="descGuideContainer">
@@ -33,39 +49,39 @@
         </div>
         <div class="careGuideSize">
           <h4 class="careGuideCategoryHead">How big?</h4>
-          <span
-            >Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
+          <span>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
             ratione, tenetur iusto veniam illum dignissimos aperiam dolor totam
             veritatis quas pariatur reprehenderit maiores aut deleniti
-            doloremque laboriosam! Fugiat, facere maxime.</span
-          >
+            doloremque laboriosam! Fugiat, facere maxime.
+          </span>
         </div>
         <div class="careGuideDifficulty">
           <h4 class="careGuideCategoryHead">How hard?</h4>
-          <span
-            >Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
+          <span>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
             ratione, tenetur iusto veniam illum dignissimos aperiam dolor totam
             veritatis quas pariatur reprehenderit maiores aut deleniti
-            doloremque laboriosam! Fugiat, facere maxime.</span
-          >
+            doloremque laboriosam! Fugiat, facere maxime.
+          </span>
         </div>
         <div class="careGuideLight">
           <h4 class="careGuideCategoryHead">How much light?</h4>
-          <span
-            >Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
+          <span>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
             ratione, tenetur iusto veniam illum dignissimos aperiam dolor totam
             veritatis quas pariatur reprehenderit maiores aut deleniti
-            doloremque laboriosam! Fugiat, facere maxime.</span
-          >
+            doloremque laboriosam! Fugiat, facere maxime.
+          </span>
         </div>
         <div class="careGuidePet">
           <h4 class="careGuideCategoryHead">Are {{ plant.name }} pet safe?</h4>
-          <span
-            >Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
+          <span>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
             ratione, tenetur iusto veniam illum dignissimos aperiam dolor totam
             veritatis quas pariatur reprehenderit maiores aut deleniti
-            doloremque laboriosam! Fugiat, facere maxime.</span
-          >
+            doloremque laboriosam! Fugiat, facere maxime.
+          </span>
         </div>
       </div>
     </div>
@@ -73,31 +89,58 @@
     <side-scroll-gallery></side-scroll-gallery>
   </div>
 </template>
-  
-  <script>
-import Carousel from "../components/Carousel.vue";
-import SideScrollGallery from "../components/SideScrollGallery.vue";
+
+<script>
+import Carousel from '../components/Carousel.vue'
+import SideScrollGallery from '../components/SideScrollGallery.vue'
+import plantService from '../service/plant.service'
+//import userService from '../service/user.service'
 
 export default {
-  name: "PlantPage",
+  name: 'PlantPage',
   components: { Carousel, SideScrollGallery },
   props: [],
   data() {
     return {
+      plant: {},
       images: [
         {
-          url: require("@/assets/imgs/house.jpg"),
+          url: require('@/assets/imgs/house.jpg'),
         },
       ],
-      plant: {
-        name: "Bitter Aloe",
-        scientificName: "A. ferox",
-        description: "",
-        id: "",
-      },
-    };
+    }
   },
-};
+  mounted() {
+    const getPlant = async () => {
+      this.plant = await plantService.getPlantById(this.$route.params.id)
+    }
+    getPlant()
+  },
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user
+    },
+  },
+  methods: {
+    addPlantToList(listName) {
+      console.log(listName)
+      //this.$store.dispatch('addPlantToList', {
+      //  plant: this.plant,
+      //  listName,
+      //})
+    },
+    hasPlantInList(listName) {
+      console.log(listName);
+      /*
+      return userService.hasPlantInList(
+        this.currentUser.id,
+        listName,
+        this.plant.id,
+      )
+      */
+    },
+  },
+}
 </script>
 
 <style scoped lang="scss">
@@ -113,6 +156,18 @@ h3 {
   font-weight: 300;
   font-style: italic;
   margin: 10px 0 0 0;
+}
+.plantListButtons {
+  display: flex;
+  justify-content: flex-start;
+  width: 95%;
+  column-gap: 10px;
+  margin: 20px 0 10px 0;
+}
+.button-primaryDark-noBorder {
+  font-size: 0.8rem;
+  font-family: $inter;
+  padding: 1px 15px;
 }
 .titleContainer {
   display: flex;
@@ -141,7 +196,6 @@ h3 {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 95%;
   margin-top: 25px;
   text-align: center;
   font-family: $raleway;

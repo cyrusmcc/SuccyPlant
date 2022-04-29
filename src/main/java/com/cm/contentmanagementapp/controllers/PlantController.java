@@ -16,21 +16,35 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/gallery")
+@RequestMapping("/api/plants")
 public class PlantController {
 
-    private PlantService galPostService;
+    private PlantService plantService;
 
     private ContentTagService tagService;
 
     @Autowired
-    public PlantController(PlantService galPostService, ContentTagService tagService) {
-        this.galPostService = galPostService;
+    public PlantController(PlantService plantService, ContentTagService tagService) {
+        this.plantService = plantService;
         this.tagService = tagService;
     }
 
+    @GetMapping("/get-by-id/{plantId}")
+    public ResponseEntity<?> getPlantById(@PathVariable Long plantId) {
+
+        Plant plant = plantService.findById(plantId);
+
+        if (plant != null) {
+            return new ResponseEntity<>(plant, new HttpHeaders(), HttpStatus.OK);
+        }
+
+        return ResponseEntity
+                .badRequest()
+                .body(new MessageResponse("No plant with ID " + plantId + " found") );
+    }
+
     @GetMapping("/get-all")
-    public ResponseEntity<?> getGalleryPosts(@RequestHeader(defaultValue = "0") Integer pageNum,
+    public ResponseEntity<?> getGalleryplants(@RequestHeader(defaultValue = "0") Integer pageNum,
                                              @RequestHeader(defaultValue = "5") Integer pageSize,
                                              @RequestParam(required = false) String searchTerm,
                                              @RequestParam(required = false) String tags) {
@@ -50,24 +64,24 @@ public class PlantController {
             }
         }
 
-        List<Plant> posts = galPostService.findAllByContentTagsAndSearchTerm(pageNum, pageSize,
+        List<Plant> plants = plantService.findAllByContentTagsAndSearchTerm(pageNum, pageSize,
                 tagList, searchTerm);
 
-        for (Plant gp : posts) System.out.println(gp.getPost().getTitle());
-        System.out.println(posts);
+        for (Plant plant : plants) System.out.println(plant.getPost().getTitle());
+        System.out.println(plants);
 
-        return new ResponseEntity<>(posts, new HttpHeaders(), HttpStatus.OK);
+        return new ResponseEntity<>(plants, new HttpHeaders(), HttpStatus.OK);
 
     }
 
     @GetMapping("/get/{tags}")
-    public ResponseEntity<?> getGalleryPostsByTags(@RequestHeader(defaultValue = "0") Integer pageNum,
+    public ResponseEntity<?> getGalleryplantsByTags(@RequestHeader(defaultValue = "0") Integer pageNum,
                                                    @RequestHeader(defaultValue = "3") Integer pageSize,
                                                    @PathVariable List<ContentTag> tags) {
 
-        List<Plant> posts = galPostService.findAllByContentTagsAndSearchTerm(pageNum, pageSize, tags, "");
+        List<Plant> plants = plantService.findAllByContentTagsAndSearchTerm(pageNum, pageSize, tags, "");
 
-        return new ResponseEntity<>(posts, new HttpHeaders(), HttpStatus.OK);
+        return new ResponseEntity<>(plants, new HttpHeaders(), HttpStatus.OK);
 
     }
 
@@ -77,7 +91,7 @@ public class PlantController {
         if (tagService.findAllByCategory(EnumTagCategory.fromString(category)).size() == 0) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("No posts found for tag " + category));
+                    .body(new MessageResponse("No plants found for tag " + category));
         }
 
         List<String> tagValues = tagService
@@ -123,9 +137,9 @@ public class PlantController {
             }
         }
 
-        List<Plant> posts = galPostService.findAllByContentTagsAndSearchTerm(pageNum, pageSize, tags, "");
+        List<Plant> plants = plantService.findAllByContentTagsAndSearchTerm(pageNum, pageSize, tags, "");
 
-        return new ResponseEntity<>(posts, new HttpHeaders(), HttpStatus.OK);
+        return new ResponseEntity<>(plants, new HttpHeaders(), HttpStatus.OK);
 
     }
 
