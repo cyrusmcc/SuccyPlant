@@ -10,9 +10,9 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface GalleryPostRepository extends JpaRepository<Plant, Long> {
+public interface PlantRepository extends JpaRepository<Plant, Long> {
 
-    Page<Plant> findGalleryPostsByPostContentTagsIn(List<ContentTag> tags, Pageable paging);
+    Page<Plant> findPlantsByPostContentTagsIn(List<ContentTag> tags, Pageable paging);
 
     Page<Plant> findAllByPostTitleContainingIgnoreCase(String postTitleLike, Pageable pageable);
 
@@ -21,7 +21,7 @@ public interface GalleryPostRepository extends JpaRepository<Plant, Long> {
     Page<Plant> findGalleryPostsByPostContentTags(@Param("tags") List<ContentTag> tags,
                                                   @Param("tagCount") long tagCount, Pageable paging);
 
-    List<Plant> findGalleryPostsByIdInAndPostContentTagsIn(List<Long> ids, List<ContentTag> tags);
+    List<Plant> findPlantsByIdInAndPostContentTagsIn(List<Long> ids, List<ContentTag> tags);
 
     boolean existsGalleryPostByPostTitle(String title);
 

@@ -2,7 +2,7 @@ package com.cm.contentmanagementapp.services;
 
 import com.cm.contentmanagementapp.models.ContentTag;
 import com.cm.contentmanagementapp.models.Plant;
-import com.cm.contentmanagementapp.repositories.GalleryPostRepository;
+import com.cm.contentmanagementapp.repositories.PlantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,22 +15,22 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class GalleryPostServiceImpl implements GalleryPostService {
+public class PlantServiceImpl implements PlantService {
 
-    GalleryPostRepository gPRepo;
+    PlantRepository plantRepo;
 
     ContentTagService tagService;
 
     @Autowired
-    public GalleryPostServiceImpl(GalleryPostRepository gPRepo, ContentTagService tagService) {
-        this.gPRepo = gPRepo;
+    public PlantServiceImpl(PlantRepository plantRepo, ContentTagService tagService) {
+        this.plantRepo = plantRepo;
         this.tagService = tagService;
     }
 
     @Override
-    public Plant findById(Long postId) {
-        if (gPRepo.findById(postId).isPresent())
-            return gPRepo.findById(postId).get();
+    public Plant findById(Long plantId) {
+        if (plantRepo.findById(plantId).isPresent())
+            return plantRepo.findById(plantId).get();
 
         else return null;
     }
@@ -49,16 +49,16 @@ public class GalleryPostServiceImpl implements GalleryPostService {
 
         if (tags.size() == 0 && searchTerm.length() > 3) {
             System.out.println(searchTerm);
-            plants = gPRepo
+            plants = plantRepo
                     .findAllByPostTitleContainingIgnoreCase(searchTerm, paging).getContent();
         }
 
         else if (tags.size() > 0 && searchTerm.length() < 3) {
-            plants = gPRepo.findGalleryPostsByPostContentTags(tags, tags.size(), paging).getContent();
+            plants = plantRepo.findGalleryPostsByPostContentTags(tags, tags.size(), paging).getContent();
         }
 
         else if (tags.size() > 0 && searchTerm.length() > 3) {
-            plants = gPRepo.findGalleryPostsByPostContentTags(tags, tags.size(), paging).getContent();
+            plants = plantRepo.findGalleryPostsByPostContentTags(tags, tags.size(), paging).getContent();
             plants =
                     plants
                             .stream()
@@ -74,7 +74,7 @@ public class GalleryPostServiceImpl implements GalleryPostService {
 
         Pageable paging = PageRequest.of(pageNum, pageSize, Sort.by("id").descending());
 
-        Slice<Plant> sliceResult = gPRepo.findAll(paging);
+        Slice<Plant> sliceResult = plantRepo.findAll(paging);
 
         if (sliceResult.hasContent()) {
             return sliceResult.getContent();
@@ -85,16 +85,16 @@ public class GalleryPostServiceImpl implements GalleryPostService {
 
     @Override
     public boolean existsById(Long id) {
-        if (gPRepo.existsById(id)) return true;
+        if (plantRepo.existsById(id)) return true;
 
         return false;
     }
 
     @Override
-    public void save(Plant post) {
-        if (gPRepo.existsGalleryPostByPostTitle(post.getPost().getTitle())) {
+    public void save(Plant plant) {
+        if (plantRepo.existsGalleryPostByPostTitle(plant.getPost().getTitle())) {
             return;
         }
-        gPRepo.save(post);
+        plantRepo.save(plant);
     }
 }

@@ -4,7 +4,7 @@ import com.cm.contentmanagementapp.controllers.AuthController;
 import com.cm.contentmanagementapp.models.*;
 import com.cm.contentmanagementapp.payload.request.SignupRequest;
 import com.cm.contentmanagementapp.payload.response.MessageResponse;
-import com.cm.contentmanagementapp.repositories.GalleryPostRepository;
+import com.cm.contentmanagementapp.repositories.PlantRepository;
 import com.cm.contentmanagementapp.repositories.PostRepository;
 import com.cm.contentmanagementapp.services.*;
 import org.junit.jupiter.api.Test;
@@ -42,10 +42,10 @@ class ContentManagementAppApplicationTests {
     BlogPostService blogPostService;
 
 	@Autowired
-	GalleryPostService galleryPostService;
+	PlantService plantService;
 
 	@Autowired
-	GalleryPostRepository gPRepo;
+    PlantRepository gPRepo;
 
 	@Autowired
 	PostService postService;
@@ -54,7 +54,7 @@ class ContentManagementAppApplicationTests {
 	ContentTagService contentTagService;
 
 	@Autowired
-	GalleryPostRepository gpRepo;
+    PlantRepository gpRepo;
 
 	@Autowired
 	PostRepository postRepo;
@@ -139,7 +139,7 @@ class ContentManagementAppApplicationTests {
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.TYPE,"House Plant"));
 		post.getPost().addTag(contentTagService
 				.findByCategoryAndValue(EnumTagCategory.DIFFICULTY,"Beginner"));
-		galleryPostService.save(post);
+		plantService.save(post);
 
 		post = new Plant();
 		post.setTitle("Aloe Vera");
@@ -148,7 +148,7 @@ class ContentManagementAppApplicationTests {
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.LIGHT,"Low"));
 		post.getPost().addTag(contentTagService
 				.findByCategoryAndValue(EnumTagCategory.DIFFICULTY,"Advanced"));
-		galleryPostService.save(post);
+		plantService.save(post);
 
 		post = new Plant();
 		post.setTitle("Ferocactus Fordii");
@@ -156,7 +156,7 @@ class ContentManagementAppApplicationTests {
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.TYPE,"Cactus"));
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.PET,"Yes"));
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.LIGHT,"Low"));
-		galleryPostService.save(post);
+		plantService.save(post);
 
 
 		post = new Plant();
@@ -166,7 +166,7 @@ class ContentManagementAppApplicationTests {
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.PET,"Yes"));
 		post.getPost().addTag(contentTagService
 				.findByCategoryAndValue(EnumTagCategory.DIFFICULTY,"Beginner"));
-		galleryPostService.save(post);
+		plantService.save(post);
 
 		post = new Plant();
 		post.setTitle("Monstera dubia");
@@ -174,7 +174,7 @@ class ContentManagementAppApplicationTests {
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.TYPE,"House Plant"));
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.LIGHT,"Medium"));
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.PET,"Yes"));
-		galleryPostService.save(post);
+		plantService.save(post);
 
 		post = new Plant();
 		post.setTitle("Monstera obliqua");
@@ -182,7 +182,7 @@ class ContentManagementAppApplicationTests {
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.TYPE,"House Plant"));
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.LIGHT,"Low"));
 		post.getPost().addTag(contentTagService.findByCategoryAndValue(EnumTagCategory.PET,"No"));
-		galleryPostService.save(post);
+		plantService.save(post);
 
 
 	}
@@ -194,7 +194,7 @@ class ContentManagementAppApplicationTests {
 		List<ContentTag> tags = contentTagService
 				.findContentTagsByCategoryAndValue(EnumTagCategory.TYPE, "House Plant");
 		List<Long> ids = new ArrayList<>();
-		List<Plant> t = galleryPostService
+		List<Plant> t = plantService
 				.findAllByContentTagsAndSearchTerm(0, 10, tags, "");
 		for (Plant ta : t) ids.add(ta.getId());
 		System.out.println(ids);
@@ -203,7 +203,7 @@ class ContentManagementAppApplicationTests {
 		/* Filter posts by posts containing any tags in tag */
 		List<ContentTag> tagsTwo = contentTagService
 				.findContentTagsByCategoryAndValue(EnumTagCategory.WATER, "Medium");
-		List<Plant> posts = gpRepo.findGalleryPostsByIdInAndPostContentTagsIn(ids, tagsTwo);
+		List<Plant> posts = gpRepo.findPlantsByIdInAndPostContentTagsIn(ids, tagsTwo);
 		for (Plant gp : posts) {
 			System.out.println(gp.getPost().getTitle());
 		}
@@ -222,7 +222,7 @@ class ContentManagementAppApplicationTests {
 		List<Post> test = postRepo.custom(tags, tags.size(), paging);
 
 		for (Post o : test) System.out.println(o.getTitle());*/
-		 List<Plant> test = galleryPostService.findAllByContentTagsAndSearchTerm(0, 10,
+		 List<Plant> test = plantService.findAllByContentTagsAndSearchTerm(0, 10,
 				tags, "");
 
 		/*
@@ -240,7 +240,7 @@ class ContentManagementAppApplicationTests {
 	@Test
 	void findAllGalleryPosts() {
 
-		List<Plant> test = galleryPostService.findAllByAlphabetical(0, 10);
+		List<Plant> test = plantService.findAllByAlphabetical(0, 10);
 
 		for (Plant gp : test) {
 			System.out.println(gp.getPost().getTitle());

@@ -5,7 +5,7 @@ import com.cm.contentmanagementapp.models.EnumTagCategory;
 import com.cm.contentmanagementapp.models.Plant;
 import com.cm.contentmanagementapp.payload.response.MessageResponse;
 import com.cm.contentmanagementapp.services.ContentTagService;
-import com.cm.contentmanagementapp.services.GalleryPostService;
+import com.cm.contentmanagementapp.services.PlantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,12 +19,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/gallery")
 public class PlantController {
 
-    private GalleryPostService galPostService;
+    private PlantService galPostService;
 
     private ContentTagService tagService;
 
     @Autowired
-    public PlantController(GalleryPostService galPostService, ContentTagService tagService) {
+    public PlantController(PlantService galPostService, ContentTagService tagService) {
         this.galPostService = galPostService;
         this.tagService = tagService;
     }

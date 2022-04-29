@@ -135,8 +135,8 @@ public class User {
         if (!userPlants.contains(plant)) userPlants.add(plant);
     }
 
-    public boolean hasPlantInUserPlants(Plant post) {
-        return userPlants.contains(post);
+    public boolean hasPlantInUserPlants(Plant plant) {
+        return userPlants.contains(plant);
     }
 
     public boolean removePlantFromPlantList(Plant plant) {
@@ -153,6 +153,10 @@ public class User {
 
     public void addPlantToWishList(Plant plant) {
         plantWishList.add(plant);
+    }
+
+    public boolean hasPlantInWishList(Plant plant) {
+        return plantWishList.contains(plant);
     }
 
     public boolean removePlantFromWishList(Plant plant) {

@@ -5,13 +5,13 @@ import com.cm.contentmanagementapp.models.Plant;
 
 import java.util.List;
 
-public interface GalleryPostService {
+public interface PlantService {
 
-    Plant findById(Long postId);
+    Plant findById(Long plantId);
 
     boolean existsById(Long id);
 
-    void save(Plant post);
+    void save(Plant plant);
 
     List<Plant> findAllByContentTagsAndSearchTerm(Integer pageNum, Integer pageSize,
                                                   List<ContentTag> tags, String search);
