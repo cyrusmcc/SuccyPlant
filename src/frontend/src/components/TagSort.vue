@@ -63,30 +63,30 @@
 </template>
 
 <script>
-import dropDown from "../components/Dropdown";
-import galleryService from "../service/gallery.service";
+import dropDown from '../components/Dropdown'
+import plantService from '../service/plant.service'
 
 export default {
-  name: "TagSort",
+  name: 'TagSort',
   components: {
     dropDown,
   },
   data() {
     return {
       genusValues: [],
-    };
+    }
   },
-  props: ["showFilter"],
+  props: ['showFilter'],
   created() {
     const genusVals = async () => {
-      const arr = await galleryService.getTagsByCategory("genus");
-      this.genusValues = arr;
-    };
-    genusVals();
+      const arr = await plantService.getTagsByCategory('genus')
+      this.genusValues = arr
+    }
+    genusVals()
   },
   computed: {
     selectedTags() {
-      return this.$store.getters["gallery/getTags"];
+      return this.$store.getters['gallery/getTags']
     },
   },
   methods: {
@@ -94,111 +94,111 @@ export default {
       // if no tags with provided label exist
       if (
         this.selectedTags.length === 0 ||
-        this.$store.getters["gallery/getSelectedTagsByLabel"](label).length == 0
+        this.$store.getters['gallery/getSelectedTagsByLabel'](label).length == 0
       ) {
         this.selectedTags.push({
           label: label,
           selected: [option],
-        });
+        })
       } else {
         this.selectedTags.forEach((tag) => {
           if (tag.label === label) {
-            this.removeDropDownOption(tag.label, tag.selected);
-            tag.selected = [option];
+            this.removeDropDownOption(tag.label, tag.selected)
+            tag.selected = [option]
           }
-        });
+        })
       }
       if (this.isDropDownOptionSelected(label, option)) {
-        this.removeTagChip(label, option);
+        this.removeTagChip(label, option)
       } else {
-        this.$store.commit("gallery/setTags", this.selectedTags);
-        this.enableDropDownOption(label, option);
+        this.$store.commit('gallery/setTags', this.selectedTags)
+        this.enableDropDownOption(label, option)
       }
 
-      this.drawTags();
+      this.drawTags()
     },
     drawTags() {
-      let selectedTagContainer = document.getElementById("selectedTags");
-      document.getElementById("selectedTags").innerHTML = "";
+      let selectedTagContainer = document.getElementById('selectedTags')
+      document.getElementById('selectedTags').innerHTML = ''
 
       for (let i = 0; i < this.selectedTags.length; i++) {
-        let tag = this.selectedTags[i];
-        let label = tag.label;
+        let tag = this.selectedTags[i]
+        let label = tag.label
 
         for (let j = 0; j < this.selectedTags[i].selected.length; j++) {
-          let option = this.selectedTags[i].selected[j];
-          let tagChip = document.createElement("div");
-          let tagChipLabel = document.createElement("span");
-          let tagChipOption = document.createElement("span");
+          let option = this.selectedTags[i].selected[j]
+          let tagChip = document.createElement('div')
+          let tagChipLabel = document.createElement('span')
+          let tagChipOption = document.createElement('span')
           let chipId =
-            label.toString().toLowerCase().replace(/\s/g, "") +
-            option.toString().toLowerCase().replace(/\s/g, "") +
-            "Chip";
+            label.toString().toLowerCase().replace(/\s/g, '') +
+            option.toString().toLowerCase().replace(/\s/g, '') +
+            'Chip'
 
-          tagChip.classList.add("tagChip");
-          tagChip.setAttribute("id", chipId);
+          tagChip.classList.add('tagChip')
+          tagChip.setAttribute('id', chipId)
 
-          tagChip.addEventListener("click", () => {
-            document.getElementById(chipId).remove();
-            this.removeTagChip(label, option);
-          });
+          tagChip.addEventListener('click', () => {
+            document.getElementById(chipId).remove()
+            this.removeTagChip(label, option)
+          })
 
-          tagChipLabel.classList.add("tagChipLabel");
-          tagChipOption.classList.add("tagChipOption");
+          tagChipLabel.classList.add('tagChipLabel')
+          tagChipOption.classList.add('tagChipOption')
 
-          tagChipLabel.innerHTML = label;
-          tagChipOption.innerHTML = option;
+          tagChipLabel.innerHTML = label
+          tagChipOption.innerHTML = option
 
-          tagChip.appendChild(tagChipLabel);
-          tagChip.appendChild(tagChipOption);
-          tagChip.style.backgroundColor = this.getColor(label);
-          selectedTagContainer.appendChild(tagChip);
+          tagChip.appendChild(tagChipLabel)
+          tagChip.appendChild(tagChipOption)
+          tagChip.style.backgroundColor = this.getColor(label)
+          selectedTagContainer.appendChild(tagChip)
         }
       }
 
-      this.$emit("sort-posts-by-tags", this.selectedTags);
+      this.$emit('sort-posts-by-tags', this.selectedTags)
     },
     removeTagChip(label, option) {
-      this.$store.commit("gallery/removeTag", { label, option });
-      this.removeDropDownOption(label, option);
-      this.$store.commit("gallery/setTags", this.selectedTags);
-      this.$emit("sort-posts-by-tags", this.selectedTags);
+      this.$store.commit('gallery/removeTag', { label, option })
+      this.removeDropDownOption(label, option)
+      this.$store.commit('gallery/setTags', this.selectedTags)
+      this.$emit('sort-posts-by-tags', this.selectedTags)
     },
     removeDropDownOption(label, option) {
-      let refName = label.toLowerCase().split(" ").join("") + "DropDown";
-      const ref = this.$refs[refName];
-      ref.removeSelect(label + "-" + option);
+      let refName = label.toLowerCase().split(' ').join('') + 'DropDown'
+      const ref = this.$refs[refName]
+      ref.removeSelect(label + '-' + option)
     },
     enableDropDownOption(label, option) {
-      let refName = label.toLowerCase().split(" ").join("") + "DropDown";
-      const ref = this.$refs[refName];
-      ref.enableSelect(label + "-" + option);
+      let refName = label.toLowerCase().split(' ').join('') + 'DropDown'
+      const ref = this.$refs[refName]
+      ref.enableSelect(label + '-' + option)
     },
     isDropDownOptionSelected(label, option) {
-      let refName = label.toLowerCase().split(" ").join("") + "DropDown";
-      const ref = this.$refs[refName];
-      return ref.isSelected(label + "-" + option);
+      let refName = label.toLowerCase().split(' ').join('') + 'DropDown'
+      const ref = this.$refs[refName]
+      return ref.isSelected(label + '-' + option)
     },
     getColor(label) {
       switch (label) {
-        case "Genus":
-          return "#86c2b6";
-        case "Type":
-          return "#8caed3";
-        case "Size":
-          return "#bdb2ff";
-        case "Difficulty":
-          return "#ffb2b2";
-        case "Light":
-          return "#f5c881";
-        case "Pet Safe":
-          return "#cbb7ac";
+        case 'Genus':
+          return '#86c2b6'
+        case 'Type':
+          return '#8caed3'
+        case 'Size':
+          return '#bdb2ff'
+        case 'Difficulty':
+          return '#ffb2b2'
+        case 'Light':
+          return '#f5c881'
+        case 'Pet Safe':
+          return '#cbb7ac'
         default:
-          return "#86c2b6";
+          return '#86c2b6'
       }
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>

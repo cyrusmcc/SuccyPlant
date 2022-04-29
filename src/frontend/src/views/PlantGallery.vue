@@ -8,44 +8,44 @@
 </template>
 
 <script>
-import filterBar from "../components/FilterBar.vue";
-import galleryGrid from "../components/GalleryGrid";
-import galleryService from "../service/gallery.service";
+import filterBar from '../components/FilterBar.vue'
+import galleryGrid from '../components/GalleryGrid'
+import plantService from '../service/plant.service'
 
 export default {
-  name: "Gallery",
+  name: 'Gallery',
   components: {
     galleryGrid,
     filterBar,
   },
   data() {
-    return {};
+    return {}
   },
   computed: {
     posts() {
-      return this.$store.getters["gallery/getPosts"];
+      return this.$store.getters['gallery/getPosts']
     },
   },
   mounted() {
-    this.getPosts();
+    this.getPosts()
   },
   methods: {
     getPosts(tags, searchTerm) {
-      let tagString = "";
+      let tagString = ''
       if (tags) {
         for (let i = 0; i < tags.length; i++) {
-          tagString += tags[i].label + "=" + tags[i].selected + "&";
+          tagString += tags[i].label + '=' + tags[i].selected + '&'
         }
       }
 
       const arr = async () => {
-        const arr = await galleryService.getPosts(tagString, searchTerm);
-        this.$store.commit("gallery/setPosts", arr);
-      };
-      arr();
+        const arr = await plantService.getPosts(tagString, searchTerm)
+        this.$store.commit('gallery/setPosts', arr)
+      }
+      arr()
     },
   },
-};
+}
 </script>
 
 <style scoped lang="scss">
