@@ -1,8 +1,7 @@
 package com.cm.contentmanagementapp.services;
 
 import com.cm.contentmanagementapp.models.ContentTag;
-import com.cm.contentmanagementapp.models.EnumTagCategory;
-import com.cm.contentmanagementapp.models.GalleryPost;
+import com.cm.contentmanagementapp.models.Plant;
 import com.cm.contentmanagementapp.repositories.GalleryPostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -29,7 +28,7 @@ public class GalleryPostServiceImpl implements GalleryPostService {
     }
 
     @Override
-    public GalleryPost findById(Long postId) {
+    public Plant findById(Long postId) {
         if (gPRepo.findById(postId).isPresent())
             return gPRepo.findById(postId).get();
 
@@ -37,8 +36,8 @@ public class GalleryPostServiceImpl implements GalleryPostService {
     }
 
     @Override
-    public List<GalleryPost> findAllByContentTagsAndSearchTerm(Integer pageNum, Integer pageSize,
-                                                               List<ContentTag> tags, String searchTerm) {
+    public List<Plant> findAllByContentTagsAndSearchTerm(Integer pageNum, Integer pageSize,
+                                                         List<ContentTag> tags, String searchTerm) {
 
         for (ContentTag t : tags) System.out.println(t.getCategory());
         if (tags.size() == 0 && (searchTerm == null || searchTerm.length() < 3)) {
@@ -46,36 +45,36 @@ public class GalleryPostServiceImpl implements GalleryPostService {
         }
 
         Pageable paging = PageRequest.of(0, 5, Sort.by("id").descending());
-        List<GalleryPost> galleryPosts = new ArrayList<>();
+        List<Plant> plants = new ArrayList<>();
 
         if (tags.size() == 0 && searchTerm.length() > 3) {
             System.out.println(searchTerm);
-            galleryPosts = gPRepo
+            plants = gPRepo
                     .findAllByPostTitleContainingIgnoreCase(searchTerm, paging).getContent();
         }
 
         else if (tags.size() > 0 && searchTerm.length() < 3) {
-            galleryPosts = gPRepo.findGalleryPostsByPostContentTags(tags, tags.size(), paging).getContent();
+            plants = gPRepo.findGalleryPostsByPostContentTags(tags, tags.size(), paging).getContent();
         }
 
         else if (tags.size() > 0 && searchTerm.length() > 3) {
-            galleryPosts = gPRepo.findGalleryPostsByPostContentTags(tags, tags.size(), paging).getContent();
-            galleryPosts =
-                    galleryPosts
+            plants = gPRepo.findGalleryPostsByPostContentTags(tags, tags.size(), paging).getContent();
+            plants =
+                    plants
                             .stream()
                             .filter(p -> p.getPost().getTitle().contains(searchTerm))
                             .collect(Collectors.toList());
         }
 
-        return galleryPosts;
+        return plants;
     }
 
     @Override
-    public List<GalleryPost> findAllByAlphabetical(Integer pageNum, Integer pageSize) {
+    public List<Plant> findAllByAlphabetical(Integer pageNum, Integer pageSize) {
 
         Pageable paging = PageRequest.of(pageNum, pageSize, Sort.by("id").descending());
 
-        Slice<GalleryPost> sliceResult = gPRepo.findAll(paging);
+        Slice<Plant> sliceResult = gPRepo.findAll(paging);
 
         if (sliceResult.hasContent()) {
             return sliceResult.getContent();
@@ -92,7 +91,7 @@ public class GalleryPostServiceImpl implements GalleryPostService {
     }
 
     @Override
-    public void save(GalleryPost post) {
+    public void save(Plant post) {
         if (gPRepo.existsGalleryPostByPostTitle(post.getPost().getTitle())) {
             return;
         }

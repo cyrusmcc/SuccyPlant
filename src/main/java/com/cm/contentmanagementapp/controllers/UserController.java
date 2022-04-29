@@ -75,5 +75,4 @@ public class UserController {
                 .contentType(MediaType.valueOf(FileTypeMap.getDefaultFileTypeMap().getContentType(file)))
                 .body(Files.readAllBytes(file.toPath()));
     }
-
 }

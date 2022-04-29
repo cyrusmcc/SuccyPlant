@@ -1,22 +1,22 @@
 package com.cm.contentmanagementapp.services;
 
 import com.cm.contentmanagementapp.models.ContentTag;
-import com.cm.contentmanagementapp.models.GalleryPost;
+import com.cm.contentmanagementapp.models.Plant;
 
 import java.util.List;
 
 public interface GalleryPostService {
 
-    GalleryPost findById(Long postId);
+    Plant findById(Long postId);
 
     boolean existsById(Long id);
 
-    void save(GalleryPost post);
+    void save(Plant post);
 
-    List<GalleryPost> findAllByContentTagsAndSearchTerm(Integer pageNum, Integer pageSize,
-                                                        List<ContentTag> tags, String search);
+    List<Plant> findAllByContentTagsAndSearchTerm(Integer pageNum, Integer pageSize,
+                                                  List<ContentTag> tags, String search);
 
-    List<GalleryPost> findAllByAlphabetical(Integer pageNum, Integer pageSize);
+    List<Plant> findAllByAlphabetical(Integer pageNum, Integer pageSize);
 
 
 }

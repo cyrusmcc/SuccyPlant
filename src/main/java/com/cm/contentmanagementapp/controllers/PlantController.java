@@ -2,7 +2,7 @@ package com.cm.contentmanagementapp.controllers;
 
 import com.cm.contentmanagementapp.models.ContentTag;
 import com.cm.contentmanagementapp.models.EnumTagCategory;
-import com.cm.contentmanagementapp.models.GalleryPost;
+import com.cm.contentmanagementapp.models.Plant;
 import com.cm.contentmanagementapp.payload.response.MessageResponse;
 import com.cm.contentmanagementapp.services.ContentTagService;
 import com.cm.contentmanagementapp.services.GalleryPostService;
@@ -17,14 +17,14 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/gallery")
-public class GalleryController {
+public class PlantController {
 
     private GalleryPostService galPostService;
 
     private ContentTagService tagService;
 
     @Autowired
-    public GalleryController(GalleryPostService galPostService, ContentTagService tagService) {
+    public PlantController(GalleryPostService galPostService, ContentTagService tagService) {
         this.galPostService = galPostService;
         this.tagService = tagService;
     }
@@ -50,10 +50,10 @@ public class GalleryController {
             }
         }
 
-        List<GalleryPost> posts = galPostService.findAllByContentTagsAndSearchTerm(pageNum, pageSize,
+        List<Plant> posts = galPostService.findAllByContentTagsAndSearchTerm(pageNum, pageSize,
                 tagList, searchTerm);
 
-        for (GalleryPost gp : posts) System.out.println(gp.getPost().getTitle());
+        for (Plant gp : posts) System.out.println(gp.getPost().getTitle());
         System.out.println(posts);
 
         return new ResponseEntity<>(posts, new HttpHeaders(), HttpStatus.OK);
@@ -65,7 +65,7 @@ public class GalleryController {
                                                    @RequestHeader(defaultValue = "3") Integer pageSize,
                                                    @PathVariable List<ContentTag> tags) {
 
-        List<GalleryPost> posts = galPostService.findAllByContentTagsAndSearchTerm(pageNum, pageSize, tags, "");
+        List<Plant> posts = galPostService.findAllByContentTagsAndSearchTerm(pageNum, pageSize, tags, "");
 
         return new ResponseEntity<>(posts, new HttpHeaders(), HttpStatus.OK);
 
@@ -123,7 +123,7 @@ public class GalleryController {
             }
         }
 
-        List<GalleryPost> posts = galPostService.findAllByContentTagsAndSearchTerm(pageNum, pageSize, tags, "");
+        List<Plant> posts = galPostService.findAllByContentTagsAndSearchTerm(pageNum, pageSize, tags, "");
 
         return new ResponseEntity<>(posts, new HttpHeaders(), HttpStatus.OK);
 

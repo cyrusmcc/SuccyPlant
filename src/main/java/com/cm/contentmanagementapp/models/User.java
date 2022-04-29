@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="users")
@@ -36,6 +38,12 @@ public class User {
     @JoinColumn(name = "post_list_id")
     @JsonManagedReference
     private PostList postList;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Plant> userPlants = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Plant> plantWishList = new HashSet<>();
 
     public User() {
         this.role = EnumRole.ROLE_USER;
@@ -121,5 +129,41 @@ public class User {
 
     public void setPostList(PostList postList) {
         this.postList = postList;
+    }
+
+    public void addPlantToUserPlants(Plant plant) {
+        if (!userPlants.contains(plant)) userPlants.add(plant);
+    }
+
+    public boolean hasPlantInUserPlants(Plant post) {
+        return userPlants.contains(post);
+    }
+
+    public boolean removePlantFromPlantList(Plant plant) {
+        if (userPlants.contains(plant)) {
+            userPlants.remove(plant);
+            return true;
+        }
+        return false;
+    }
+
+    public Set<Plant> getUserPlants() {
+        return userPlants;
+    }
+
+    public void addPlantToWishList(Plant plant) {
+        plantWishList.add(plant);
+    }
+
+    public boolean removePlantFromWishList(Plant plant) {
+        if (plantWishList.contains(plant)) {
+            plantWishList.remove(plant);
+            return true;
+        }
+        return false;
+    }
+
+    public Set<Plant> getPlantWishList() {
+        return plantWishList;
     }
 }

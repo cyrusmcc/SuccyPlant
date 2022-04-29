@@ -144,7 +144,6 @@ export default {
   align-self: center;
   max-width: 95%;
   height: fit-content;
-  //padding: 1.5rem 0 1.5rem 0;
   font: 2rem;
 }
 
@@ -168,10 +167,6 @@ export default {
   width: 100%;
   background-color: $accentOne;
   box-shadow: none;
-}
-
-#userInfoCard > * {
-  //margin-bottom: 5px;
 }
 
 #userContentCard {
