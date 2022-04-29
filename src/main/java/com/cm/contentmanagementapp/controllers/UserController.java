@@ -104,7 +104,8 @@ public class UserController {
 
     @GetMapping("/has-plant-in-list")
     public ResponseEntity<?> hasPlantInList(@RequestParam Long userId,
-                                            @RequestParam Long plantId) {
+                                            @RequestParam Long plantId,
+                                            @RequestParam String listType) {
 
         if (!userService.existsById(userId) || !plantService.existsById(plantId)) {
             return ResponseEntity
@@ -112,8 +113,18 @@ public class UserController {
                     .body(new MessageResponse("Invalid request"));
         }
 
-        return ResponseEntity.ok(userService.findById(userId)
-                .hasPlantInUserPlants(plantService.findById(plantId)));
+        User user = userService.findById(userId);
+        Plant plant = plantService.findById(plantId);
+        boolean inList = false;
+
+        if (listType.equals("userPlants")) {
+            if (user.hasPlantInUserPlants(plant)) inList = true;
+        }
+        else if (listType.equals("wishList")) {
+            if (user.hasPlantInWishList(plant)) inList = true;
+        }
+
+        return ResponseEntity.ok(inList);
     }
 
     @GetMapping("/add-plant-to-plant-list")
