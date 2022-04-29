@@ -102,7 +102,7 @@ export default {
   align-self: center;
   max-width: 95%;
   height: fit-content;
-  padding: 1.5rem 0 1.5rem 0;
+  //padding: 1.5rem 0 1.5rem 0;
   font: 2rem;
 }
 
