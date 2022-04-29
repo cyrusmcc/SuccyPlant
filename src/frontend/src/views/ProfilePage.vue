@@ -225,6 +225,10 @@ export default {
   padding: 5px 15px;
   cursor: pointer;
 }
+#noProfile {
+  align-items: center;
+  padding: 10px;
+}
 
 #noProfileUsername {
   font-size: 3rem;
