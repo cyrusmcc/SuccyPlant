@@ -1,15 +1,21 @@
-import api from './api'
+import api from "./api";
 
-const PLANT_API_URL = 'http://localhost:8080/api/plants/'
+const PLANT_API_URL = "http://localhost:8080/api/plants/";
 
-var pageNum = 0
-var sortedPageNum = 0
+var pageNum = 0;
+var sortedPageNum = 0;
 
 class PlantService {
+  getPlantById(id) {
+    return api.get(PLANT_API_URL + "get-by-id/" + id).then((response) => {
+      console.log(response.data);
+      return response.data;
+    });
+  }
   getPlants(tags, searchTerm) {
-    console.log(tags)
+    console.log(tags);
     return api
-      .get(PLANT_API_URL + 'get-all', {
+      .get(PLANT_API_URL + "get-all", {
         headers: {
           pageNum,
         },
@@ -20,25 +26,25 @@ class PlantService {
       })
       .then((response) => {
         //pageNum++;
-        return response.data
-      })
+        return response.data;
+      });
   }
   getSortedPlants(params) {
     return api
-      .get(PLANT_API_URL + 'plants' + '?' + params, {
+      .get(PLANT_API_URL + "plants" + "?" + params, {
         sortedPageNum,
       })
       .then((response) => {
-        return response.data
-      })
+        return response.data;
+      });
   }
   getTagsByCategory(category) {
     return api
-      .get(PLANT_API_URL + 'get-tags-by-category/' + category)
+      .get(PLANT_API_URL + "get-tags-by-category/" + category)
       .then((response) => {
-        return response.data
-      })
+        return response.data;
+      });
   }
 }
 
-export default new PlantService()
+export default new PlantService();

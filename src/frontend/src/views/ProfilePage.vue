@@ -75,28 +75,28 @@
 </template>
 
 <script>
-import profilePic from '../components/ProfilePic.vue'
-import formattedDate from '../components/FormattedDate.vue'
-import UserService from '../service/user.service'
-import UserPlantList from '../components/UserPlantList.vue'
+import profilePic from "../components/ProfilePic.vue";
+import formattedDate from "../components/FormattedDate.vue";
+import UserService from "../service/user.service";
+import UserPlantList from "../components/UserPlantList.vue";
 
 export default {
   components: { profilePic, formattedDate, UserPlantList },
-  name: 'Profile',
+  name: "Profile",
   data() {
     return {
-      joinDate: '',
+      joinDate: "",
       username: this.$route.params.username,
       noProfile: false,
-      activeTab: 'all',
-    }
+      activeTab: "all",
+    };
   },
   created() {
     UserService.getUserProfilePic(this.$route.params.username).then(
       (response) => {
-        let imageNode = document.getElementById('userPic')
-        let imgUrl = URL.createObjectURL(response.data)
-        imageNode.src = imgUrl
+        let imageNode = document.getElementById("userPic");
+        let imgUrl = URL.createObjectURL(response.data);
+        imageNode.src = imgUrl;
       },
       (error) => {
         this.message =
@@ -104,13 +104,13 @@ export default {
             error.response.data &&
             error.response.data.message) ||
           error.message ||
-          error.toString()
-      },
+          error.toString();
+      }
     ),
       UserService.getUserProfileInfo(this.$route.params.username).then(
         (response) => {
-          this.joinDate = response.data.joinDate
-          this.username = response.data.username
+          this.joinDate = response.data.joinDate;
+          this.username = response.data.username;
         },
         (error) => {
           this.message =
@@ -118,17 +118,17 @@ export default {
               error.response.data &&
               error.response.data.message) ||
             error.message ||
-            error.toString()
-          this.noProfile = true
-        },
-      )
+            error.toString();
+          this.noProfile = true;
+        }
+      );
   },
   methods: {
     updateTab(tab) {
-      this.activeTab = tab
+      this.activeTab = tab;
     },
   },
-}
+};
 </script>
 <style scoped lang="scss">
 .profileContainer {

@@ -14,27 +14,27 @@
 
 <script>
 export default {
-  name: 'UserPlantList',
+  name: "UserPlantList",
   data() {
     return {
       username: this.$route.params.username,
       plants: [
         {
-          name: 'Succulent',
-          url: 'https://via.placeholder.com/150',
+          name: "Succulent",
+          url: "https://via.placeholder.com/150",
         },
         {
-          name: 'Succulent2',
-          url: 'https://via.placeholder.com/150',
+          name: "Succulent2",
+          url: "https://via.placeholder.com/150",
         },
         {
-          name: 'Succulent3',
-          url: 'https://via.placeholder.com/150',
+          name: "Succulent3",
+          url: "https://via.placeholder.com/150",
         },
       ],
-    }
+    };
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
