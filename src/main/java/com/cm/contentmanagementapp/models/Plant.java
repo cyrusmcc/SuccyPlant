@@ -3,7 +3,7 @@ package com.cm.contentmanagementapp.models;
 import javax.persistence.*;
 
 @Entity
-public class GalleryPost {
+public class Plant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,7 +14,7 @@ public class GalleryPost {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    public GalleryPost() {
+    public Plant() {
         this.post = new Post();
         this.post.setPostType(PostType.GALLERY);
     }

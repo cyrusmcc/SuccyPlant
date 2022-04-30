@@ -14,7 +14,7 @@ class BlogService {
         params: {
           tags,
           searchTerm,
-        }
+        },
       })
       .then((response) => {
         pageNum++;

@@ -1,31 +1,35 @@
 import api from "./api";
 
-const GALLERY_API_URL = "http://localhost:8080/api/gallery/";
+const PLANT_API_URL = "http://localhost:8080/api/plants/";
 
 var pageNum = 0;
 var sortedPageNum = 0;
 
-class GalleryService {
-  getPosts(tags, searchTerm) {
-    console.log(tags);
+class PlantService {
+  getPlantById(id) {
+    return api.get(PLANT_API_URL + "get-by-id/" + id).then((response) => {
+      return response.data;
+    });
+  }
+  getPlants(tags, searchTerm) {
     return api
-      .get(GALLERY_API_URL + "get-all", {
+      .get(PLANT_API_URL + "get-all", {
         headers: {
           pageNum,
         },
         params: {
           tags,
           searchTerm,
-        }
+        },
       })
       .then((response) => {
         //pageNum++;
         return response.data;
       });
   }
-  getSortedPosts(params) {
+  getSortedPlants(params) {
     return api
-      .get(GALLERY_API_URL + "plants" + "?" + params, {
+      .get(PLANT_API_URL + "plants" + "?" + params, {
         sortedPageNum,
       })
       .then((response) => {
@@ -34,11 +38,11 @@ class GalleryService {
   }
   getTagsByCategory(category) {
     return api
-      .get(GALLERY_API_URL + "get-tags-by-category/" + category)
+      .get(PLANT_API_URL + "get-tags-by-category/" + category)
       .then((response) => {
         return response.data;
       });
   }
 }
 
-export default new GalleryService();
+export default new PlantService();

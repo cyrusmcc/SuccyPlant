@@ -10,7 +10,7 @@
 <script>
 import filterBar from "../components/FilterBar.vue";
 import galleryGrid from "../components/GalleryGrid";
-import galleryService from "../service/gallery.service";
+import plantService from "../service/plant.service";
 
 export default {
   name: "Gallery",
@@ -39,7 +39,7 @@ export default {
       }
 
       const arr = async () => {
-        const arr = await galleryService.getPosts(tagString, searchTerm);
+        const arr = await plantService.getPlants(tagString, searchTerm);
         this.$store.commit("gallery/setPosts", arr);
       };
       arr();

@@ -3,8 +3,8 @@ const galState = [
     tags: [],
     searchTerm: "",
     posts: [],
-  }
-]
+  },
+];
 
 export const gallery = {
   namespaced: true,
@@ -21,8 +21,8 @@ export const gallery = {
       return state[0].posts;
     },
     getSelectedTagsByLabel: (state) => (label) => {
-      return state[0].tags.filter(tag => tag.label === label);
-    }
+      return state[0].tags.filter((tag) => tag.label === label);
+    },
   },
   mutations: {
     setTags: (state, tags) => {
@@ -32,7 +32,10 @@ export const gallery = {
       for (let i = 0; i < state[0].tags.length; i++) {
         if (state[0].tags[i].label === tag.label) {
           if (state[0].tags[i].selected.includes(tag.option))
-            state[0].tags[i].selected.splice(state[0].tags[i].selected.indexOf(tag.option), 1);
+            state[0].tags[i].selected.splice(
+              state[0].tags[i].selected.indexOf(tag.option),
+              1
+            );
         }
         if (state[0].tags[i].selected == 0) state[0].tags.splice(i, 1);
       }
@@ -50,5 +53,5 @@ export const gallery = {
     setPosts: (state, posts) => {
       state[0].posts = posts;
     },
-  }
+  },
 };

@@ -32,7 +32,7 @@
     <div id="difficulty" class="dropBoxContainer">
       <drop-down
         label="Difficulty"
-        :options="['Beginner Friendly', 'Advanced']"
+        :options="['Beginner', 'Advanced']"
         :color="'#ffb2b2'"
         :display-type="'sideSelect'"
         ref="difficultyDropDown"
@@ -64,7 +64,7 @@
 
 <script>
 import dropDown from "../components/Dropdown";
-import galleryService from "../service/gallery.service";
+import plantService from "../service/plant.service";
 
 export default {
   name: "TagSort",
@@ -79,7 +79,7 @@ export default {
   props: ["showFilter"],
   created() {
     const genusVals = async () => {
-      const arr = await galleryService.getTagsByCategory("genus");
+      const arr = await plantService.getTagsByCategory("genus");
       this.genusValues = arr;
     };
     genusVals();

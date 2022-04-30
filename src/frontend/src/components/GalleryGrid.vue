@@ -15,7 +15,7 @@
         </div>
         <div id="galPostInfoContainer">
           <div id="galPostTitle">
-            <router-link :to="'/g/' + galPost.id">{{
+            <router-link :to="'/plant/' + galPost.id">{{
               galPost.post.title
             }}</router-link>
           </div>

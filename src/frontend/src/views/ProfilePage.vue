@@ -11,18 +11,52 @@
         </profile-pic>
         <div id="userInfo">
           <span id="usernameText" v-if="username">{{ username }}</span>
-          <span id="joinDateText" v-if="joinDate"
-            >user since&nbsp;
-            <formatted-date :date="joinDate" :format="'month'"
-          /></span>
+          <span id="joinDateText" v-if="joinDate">
+            user since&nbsp;
+            <formatted-date :date="joinDate" :format="'month'" />
+          </span>
         </div>
       </div>
       <div class="card" id="userContentCard">
+        <user-plant-list :plants="userPlants"></user-plant-list>
         <div id="userContentNavContainer">
           <div id="navTabs">
-            <span class="navTab" id="navTab1">All</span>
-            <span class="navTab" id="navTab2">Posts</span>
-            <span class="navTab" id="navTab3">Comments</span>
+            <span
+              class="navTab"
+              id="navTab1"
+              @click="updateTab('all')"
+              :style="[
+                activeTab == 'all'
+                  ? { opacity: '1', height: '1.5rem' }
+                  : { opacity: '0.6', height: '1rem' },
+              ]"
+            >
+              All
+            </span>
+            <span
+              class="navTab"
+              id="navTab2"
+              @click="updateTab('posts')"
+              :style="[
+                activeTab == 'posts'
+                  ? { opacity: '1', height: '1.5rem' }
+                  : { opacity: '0.6', height: '1rem' },
+              ]"
+            >
+              Posts
+            </span>
+            <span
+              class="navTab"
+              id="navTab3"
+              @click="updateTab('comments')"
+              :style="[
+                activeTab == 'comments'
+                  ? { opacity: '1', height: '1.5rem' }
+                  : { opacity: '0.6', height: '1rem' },
+              ]"
+            >
+              Comments
+            </span>
           </div>
         </div>
         <div id="userContent"></div>
@@ -31,35 +65,39 @@
     <div id="noProfile" class="card" v-if="noProfile">
       <img src="../assets/imgs/exclamationDark.svg" alt="exclamation point" />
       <span>We could not find user</span>
-      <span id="noProfileUsername"
-        >"<span>{{ username }}</span
-        >"</span
-      >
+      <span id="noProfileUsername">
+        "
+        <span>{{ username }}</span>
+        "
+      </span>
     </div>
   </div>
 </template>
 
 <script>
-import profilePic from "../components/ProfilePic.vue";
-import formattedDate from "../components/FormattedDate.vue";
-import UserService from "../service/user.service";
+import profilePic from '../components/ProfilePic.vue'
+import formattedDate from '../components/FormattedDate.vue'
+import userService from '../service/user.service'
+import UserPlantList from '../components/UserPlantList.vue'
 
 export default {
-  components: { profilePic, formattedDate },
-  name: "Profile",
+  components: { profilePic, formattedDate, UserPlantList },
+  name: 'Profile',
   data() {
     return {
-      joinDate: "",
+      joinDate: '',
       username: this.$route.params.username,
       noProfile: false,
-    };
+      activeTab: 'all',
+      userPlants: [],
+    }
   },
   created() {
-    UserService.getUserProfilePic(this.$route.params.username).then(
+    userService.getUserProfilePic(this.$route.params.username).then(
       (response) => {
-        let imageNode = document.getElementById("userPic");
-        let imgUrl = URL.createObjectURL(response.data);
-        imageNode.src = imgUrl;
+        let imageNode = document.getElementById('userPic')
+        let imgUrl = URL.createObjectURL(response.data)
+        imageNode.src = imgUrl
       },
       (error) => {
         this.message =
@@ -67,13 +105,13 @@ export default {
             error.response.data &&
             error.response.data.message) ||
           error.message ||
-          error.toString();
-      }
+          error.toString()
+      },
     ),
-      UserService.getUserProfileInfo(this.$route.params.username).then(
+      userService.getUserProfileInfo(this.$route.params.username).then(
         (response) => {
-          this.joinDate = response.data.joinDate;
-          this.username = response.data.username;
+          this.joinDate = response.data.joinDate
+          this.username = response.data.username
         },
         (error) => {
           this.message =
@@ -81,12 +119,22 @@ export default {
               error.response.data &&
               error.response.data.message) ||
             error.message ||
-            error.toString();
-          this.noProfile = true;
-        }
-      );
+            error.toString()
+          this.noProfile = true
+        },
+      ),
+      userService
+        .getUserPlants(this.$route.params.username, 'userPlants')
+        .then((res) => {
+          this.userPlants = res
+        })
   },
-};
+  methods: {
+    updateTab(tab) {
+      this.activeTab = tab
+    },
+  },
+}
 </script>
 <style scoped lang="scss">
 .profileContainer {
@@ -96,13 +144,12 @@ export default {
 .card {
   display: flex;
   flex-direction: column;
-  row-gap: 1.5rem;
+  row-gap: 1rem;
   justify-content: center;
   align-items: center;
   align-self: center;
   max-width: 95%;
   height: fit-content;
-  //padding: 1.5rem 0 1.5rem 0;
   font: 2rem;
 }
 
@@ -110,7 +157,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-content: flex-start;
-  flex-flow: wrap;
   width: 100%;
 }
 
@@ -127,10 +173,6 @@ export default {
   width: 100%;
   background-color: $accentOne;
   box-shadow: none;
-}
-
-#userInfoCard > * {
-  //margin-bottom: 5px;
 }
 
 #userContentCard {
@@ -173,33 +215,25 @@ export default {
   width: 100%;
   height: 4vh;
   justify-content: space-around;
+  column-gap: 5px;
 }
 
 #navTabs > span {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 4rem;
   border-radius: 3px 3px 0 0;
   background-color: $accentDark;
   color: $primaryLight;
-  padding: 2px;
+  font-size: 0.8rem;
+  border-radius: 20px;
+  padding: 5px 15px;
+  cursor: pointer;
 }
-
-#navTab1 {
-  opacity: 1;
-  height: 3.5vh;
-}
-
-#navTab2 {
-  border: thin solid button-primaryLight-accentTwo;
-  border-bottom: 0;
-  border-radius: 3px;
-  opacity: 0.6;
-}
-
-#navTab3 {
-  opacity: 0.6;
+#noProfile {
+  align-items: center;
+  padding: 10px;
 }
 
 #noProfileUsername {
@@ -210,15 +244,19 @@ export default {
   color: $accentOne;
 }
 
-@include screen-lg() {
-  .container {
+@include screen-md() {
+  .card {
+    align-items: flex-start;
+  }
+  .profileContainer {
+    display: flex;
     justify-content: center;
   }
   #profile {
-    width: 65rem;
-    margin-top: 20px;
-    background: $accentDark;
+    width: 80%;
+    margin: 20px 0 0 10px;
     flex-direction: row;
+    column-gap: 20px;
   }
 
   #userInfoCard {

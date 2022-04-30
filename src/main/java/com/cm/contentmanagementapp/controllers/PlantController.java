@@ -2,10 +2,10 @@ package com.cm.contentmanagementapp.controllers;
 
 import com.cm.contentmanagementapp.models.ContentTag;
 import com.cm.contentmanagementapp.models.EnumTagCategory;
-import com.cm.contentmanagementapp.models.GalleryPost;
+import com.cm.contentmanagementapp.models.Plant;
 import com.cm.contentmanagementapp.payload.response.MessageResponse;
 import com.cm.contentmanagementapp.services.ContentTagService;
-import com.cm.contentmanagementapp.services.GalleryPostService;
+import com.cm.contentmanagementapp.services.PlantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,21 +16,35 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/gallery")
-public class GalleryController {
+@RequestMapping("/api/plants")
+public class PlantController {
 
-    private GalleryPostService galPostService;
+    private PlantService plantService;
 
     private ContentTagService tagService;
 
     @Autowired
-    public GalleryController(GalleryPostService galPostService, ContentTagService tagService) {
-        this.galPostService = galPostService;
+    public PlantController(PlantService plantService, ContentTagService tagService) {
+        this.plantService = plantService;
         this.tagService = tagService;
     }
 
+    @GetMapping("/get-by-id/{plantId}")
+    public ResponseEntity<?> getPlantById(@PathVariable Long plantId) {
+
+        Plant plant = plantService.findById(plantId);
+
+        if (plant != null) {
+            return new ResponseEntity<>(plant, new HttpHeaders(), HttpStatus.OK);
+        }
+
+        return ResponseEntity
+                .badRequest()
+                .body(new MessageResponse("No plant with ID " + plantId + " found") );
+    }
+
     @GetMapping("/get-all")
-    public ResponseEntity<?> getGalleryPosts(@RequestHeader(defaultValue = "0") Integer pageNum,
+    public ResponseEntity<?> getGalleryplants(@RequestHeader(defaultValue = "0") Integer pageNum,
                                              @RequestHeader(defaultValue = "5") Integer pageSize,
                                              @RequestParam(required = false) String searchTerm,
                                              @RequestParam(required = false) String tags) {
@@ -50,24 +64,24 @@ public class GalleryController {
             }
         }
 
-        List<GalleryPost> posts = galPostService.findAllByContentTagsAndSearchTerm(pageNum, pageSize,
+        List<Plant> plants = plantService.findAllByContentTagsAndSearchTerm(pageNum, pageSize,
                 tagList, searchTerm);
 
-        for (GalleryPost gp : posts) System.out.println(gp.getPost().getTitle());
-        System.out.println(posts);
+        for (Plant plant : plants) System.out.println(plant.getPost().getTitle());
+        System.out.println(plants);
 
-        return new ResponseEntity<>(posts, new HttpHeaders(), HttpStatus.OK);
+        return new ResponseEntity<>(plants, new HttpHeaders(), HttpStatus.OK);
 
     }
 
     @GetMapping("/get/{tags}")
-    public ResponseEntity<?> getGalleryPostsByTags(@RequestHeader(defaultValue = "0") Integer pageNum,
+    public ResponseEntity<?> getGalleryplantsByTags(@RequestHeader(defaultValue = "0") Integer pageNum,
                                                    @RequestHeader(defaultValue = "3") Integer pageSize,
                                                    @PathVariable List<ContentTag> tags) {
 
-        List<GalleryPost> posts = galPostService.findAllByContentTagsAndSearchTerm(pageNum, pageSize, tags, "");
+        List<Plant> plants = plantService.findAllByContentTagsAndSearchTerm(pageNum, pageSize, tags, "");
 
-        return new ResponseEntity<>(posts, new HttpHeaders(), HttpStatus.OK);
+        return new ResponseEntity<>(plants, new HttpHeaders(), HttpStatus.OK);
 
     }
 
@@ -77,7 +91,7 @@ public class GalleryController {
         if (tagService.findAllByCategory(EnumTagCategory.fromString(category)).size() == 0) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("No posts found for tag " + category));
+                    .body(new MessageResponse("No plants found for tag " + category));
         }
 
         List<String> tagValues = tagService
@@ -123,9 +137,9 @@ public class GalleryController {
             }
         }
 
-        List<GalleryPost> posts = galPostService.findAllByContentTagsAndSearchTerm(pageNum, pageSize, tags, "");
+        List<Plant> plants = plantService.findAllByContentTagsAndSearchTerm(pageNum, pageSize, tags, "");
 
-        return new ResponseEntity<>(posts, new HttpHeaders(), HttpStatus.OK);
+        return new ResponseEntity<>(plants, new HttpHeaders(), HttpStatus.OK);
 
     }
 
