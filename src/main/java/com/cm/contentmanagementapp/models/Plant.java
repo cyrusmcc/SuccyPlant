@@ -7,8 +7,11 @@ public class Plant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "gallery_id")
+    @Column(name = "plant_id")
     private Long id;
+
+    @Column(name = "science_name")
+    private String scientificName;
 
     @OneToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "post_id")
@@ -25,6 +28,14 @@ public class Plant {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getScientificName() {
+        return scientificName;
+    }
+
+    public void setScientificName(String scientificName) {
+        this.scientificName = scientificName;
     }
 
     public Post getPost() {
