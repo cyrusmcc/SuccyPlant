@@ -1,17 +1,17 @@
 <template>
-  <title>{{ plant.post.title }}</title>
-  <div class="plantPageContainer">
+  <div class="plantPageContainer" v-if="plant">
+    <title>{{ plantPost.title }}</title>
     <div class="plantListButtons" v-if="currentUser">
       <button
         class="button-primaryDark-noBorder"
-        v-if="!hasPlantInList('userPlants')"
+        v-if="!hasPlantInUserPlants"
         @click="addPlantToList('userPlants')"
       >
         Add to my garden
       </button>
       <button
         class="button-primaryDark-noBorder"
-        v-if="!hasPlantInList('wishList')"
+        v-if="!hasPlantInWishList"
         @click="addPlantToList('wishList')"
       >
         Add to my wish list
@@ -21,8 +21,11 @@
       <carousel :images="images" :arrows="true"></carousel>
     </div>
     <div class="titleContainer">
-      <h1>{{ plant.post.title }}</h1>
-      <h3>{{ plant.scientificName }}</h3>
+      <h1>{{ plantPost.title }}</h1>
+      <h3>
+        <!-- {{ plant.scientificName }} -->
+        Scientific name
+      </h3>
     </div>
     <div class="descGuideContainer">
       <div class="descContainer">
@@ -75,7 +78,9 @@
           </span>
         </div>
         <div class="careGuidePet">
-          <h4 class="careGuideCategoryHead">Are {{ plant.name }} pet safe?</h4>
+          <h4 class="careGuideCategoryHead">
+            Are {{ plantPost.title }} pet safe?
+          </h4>
           <span>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
             ratione, tenetur iusto veniam illum dignissimos aperiam dolor totam
@@ -94,7 +99,7 @@
 import Carousel from '../components/Carousel.vue'
 import SideScrollGallery from '../components/SideScrollGallery.vue'
 import plantService from '../service/plant.service'
-//import userService from '../service/user.service'
+import userService from '../service/user.service'
 
 export default {
   name: 'PlantPage',
@@ -103,23 +108,30 @@ export default {
   data() {
     return {
       plant: {},
+      plantPost: {},
       images: [
         {
           url: require('@/assets/imgs/house.jpg'),
         },
       ],
+      hasPlantInUserPlants: false,
+      hasPlantInWishList: false,
     }
-  },
-  mounted() {
-    const getPlant = async () => {
-      this.plant = await plantService.getPlantById(this.$route.params.id)
-    }
-    getPlant()
   },
   computed: {
     currentUser() {
       return this.$store.state.auth.user
     },
+  },
+  mounted() {
+    const getPlant = async () => {
+      this.plant = await plantService.getPlantById(this.$route.params.id)
+      this.plantPost = this.plant.post
+    }
+    getPlant().then(() => {
+      this.hasPlantInList('userPlants')
+      this.hasPlantInList('wishList')
+    })
   },
   methods: {
     addPlantToList(listName) {
@@ -130,14 +142,17 @@ export default {
       //})
     },
     hasPlantInList(listName) {
-      console.log(listName);
-      /*
-      return userService.hasPlantInList(
-        this.currentUser.id,
-        listName,
-        this.plant.id,
-      )
-      */
+      if (this.currentUser) {
+        userService
+          .hasPlantInList(this.currentUser.id, this.$route.params.id, listName)
+          .then((res) => {
+            if (listName === 'userPlants') {
+              this.hasPlantInUserPlants = res
+            } else if (listName === 'wishList') {
+              this.hasPlantInWishList = res
+            }
+          })
+      }
     },
   },
 }
@@ -196,6 +211,7 @@ h3 {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  width: 95%;
   margin-top: 25px;
   text-align: center;
   font-family: $raleway;
@@ -270,6 +286,7 @@ h3 {
 @include screen-lg() {
   .descGuideContainer {
     flex-direction: row;
+    width: 100%;
     justify-content: space-evenly;
     align-items: flex-start;
   }

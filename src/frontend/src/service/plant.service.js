@@ -8,12 +8,10 @@ var sortedPageNum = 0;
 class PlantService {
   getPlantById(id) {
     return api.get(PLANT_API_URL + "get-by-id/" + id).then((response) => {
-      console.log(response.data);
       return response.data;
     });
   }
   getPlants(tags, searchTerm) {
-    console.log(tags);
     return api
       .get(PLANT_API_URL + "get-all", {
         headers: {
