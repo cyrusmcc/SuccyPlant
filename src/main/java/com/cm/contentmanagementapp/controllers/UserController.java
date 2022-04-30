@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
@@ -83,19 +84,23 @@ public class UserController {
     }
 
     @GetMapping("/user-plants")
-    public ResponseEntity<?> getUserPlantList(@RequestParam Long userId,
+    public ResponseEntity<?> getUserPlantList(@RequestParam String username,
                                            @RequestParam String listType) {
-        if (!userService.existsById(userId)) {
+        if (!userService.existsByUsername(username)) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("User does not exist"));
         }
 
-        if (listType.equals("userPlants"))
-            return ResponseEntity.ok(userService.findById(userId).getUserPlants());
+        if (listType.equals("userPlants")) {
+            for (Plant p : userService.findByUsername(username).get().getUserPlants())
+                System.out.println(p.getPost().getTitle());
+            System.out.println(userService.findByUsername(username).get().getUserPlants());
+            return ResponseEntity.ok(userService.findByUsername(username).get().getUserPlants());
+        }
 
         if (listType.equals("wishList"))
-            return ResponseEntity.ok(userService.findById(userId).getPlantWishList());
+            return ResponseEntity.ok(userService.findByUsername(username).get().getPlantWishList());
 
         else return ResponseEntity
                 .badRequest()

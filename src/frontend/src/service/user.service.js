@@ -23,10 +23,10 @@ class UserService {
       })
   }
 
-  getUserPlants(userId, listType) {
+  getUserPlants(username, listType) {
     return api
       .get(USER_API_URL + 'user-plants', {
-        params: { userId, listType },
+        params: { username, listType },
       })
       .then((response) => {
         return response.data

@@ -3,9 +3,9 @@
     <h3 class="plantListTitle">{{ username }}'s succyplants</h3>
     <div class="plantList">
       <div v-for="(plant, p) in plants" :key="p" class="plant">
-        <img class="plantImage" :src="plant.url" alt="plant image" />
+        <img class="plantImage" :src="url" alt="plant image" />
         <div class="nameContainer">
-          <span class="plantName">{{ plant.name }}</span>
+          <span class="plantName">{{ plant.post.title }}</span>
         </div>
       </div>
     </div>
@@ -14,27 +14,15 @@
 
 <script>
 export default {
-  name: "UserPlantList",
+  name: 'UserPlantList',
+  props: ['plants'],
   data() {
     return {
       username: this.$route.params.username,
-      plants: [
-        {
-          name: "Succulent",
-          url: "https://via.placeholder.com/150",
-        },
-        {
-          name: "Succulent2",
-          url: "https://via.placeholder.com/150",
-        },
-        {
-          name: "Succulent3",
-          url: "https://via.placeholder.com/150",
-        },
-      ],
-    };
+      url: 'https://via.placeholder.com/150',
+    }
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
