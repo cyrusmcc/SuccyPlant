@@ -115,7 +115,7 @@ const routes = [
     component: Admin,
   },
   {
-    path: "/g/:id(.*)",
+    path: "/plant/:id(.*)",
     name: "PlantPage",
     component: PlantPage,
   }, // new here

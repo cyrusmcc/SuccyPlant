@@ -5,7 +5,9 @@
       <div v-for="(plant, p) in plants" :key="p" class="plant">
         <img class="plantImage" :src="url" alt="plant image" />
         <div class="nameContainer">
-          <span class="plantName">{{ plant.post.title }}</span>
+          <router-link :to="'/plant/' + plant.id">
+            <span class="plantName">{{ plant.post.title }}</span>
+          </router-link>
         </div>
       </div>
     </div>
