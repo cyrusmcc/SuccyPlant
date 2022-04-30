@@ -2,6 +2,7 @@ package com.cm.contentmanagementapp.controllers;
 
 import com.cm.contentmanagementapp.models.Plant;
 import com.cm.contentmanagementapp.models.User;
+import com.cm.contentmanagementapp.payload.request.AddPlantToUserList;
 import com.cm.contentmanagementapp.payload.response.MessageResponse;
 import com.cm.contentmanagementapp.payload.response.UserInfoResponse;
 import com.cm.contentmanagementapp.services.FileStorageService;
@@ -126,35 +127,33 @@ public class UserController {
         return ResponseEntity.ok(inList);
     }
 
-    @GetMapping("/add-plant-to-plant-list")
-    public ResponseEntity<?> addPlantToUserPlantList(@RequestParam Long userId,
-                                                  @RequestParam Long plantId,
-                                                  @RequestParam String listType) {
+    @PostMapping("/add-plant-to-list")
+    public ResponseEntity<?> addPlantToUserPlantList(@RequestBody AddPlantToUserList request) {
 
-        if (!userService.existsById(userId) || !plantService.existsById(plantId)) {
+        if (!userService.existsById(request.getUserId()) || !plantService.existsById(request.getPlantId())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Invalid request"));
         }
 
         try {
-            User user = userService.findById(userId);
+            User user = userService.findById(request.getUserId());
 
-            if (listType.equals("userPlants")) {
-                user.addPlantToUserPlants(plantService.findById(plantId));
+            if (request.getListType().equals("userPlants")) {
+                user.addPlantToUserPlants(plantService.findById(request.getPlantId()));
 
             }
-            else if (listType.equals("wishList")) {
-                user.addPlantToWishList(plantService.findById(plantId));
+            else if (request.getListType().equals("wishList")) {
+                user.addPlantToWishList(plantService.findById(request.getPlantId()));
             }
 
             userService.save(user);
-            return ResponseEntity.ok(new MessageResponse("Plant added to " + listType));
+            return ResponseEntity.ok(new MessageResponse("Plant added to " + request.getListType()));
 
         } catch(Exception e) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error encountered while adding plant to " + listType));
+                    .body(new MessageResponse("Error encountered while adding plant to " + request.getListType()));
         }
     }
 

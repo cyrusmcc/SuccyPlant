@@ -10,6 +10,13 @@
         Add to my garden
       </button>
       <button
+        class="button removeButton"
+        v-if="hasPlantInUserPlants"
+        @click="removePlantToList('userPlants')"
+      >
+        Remove from my garden
+      </button>
+      <button
         class="button-primaryDark-noBorder"
         v-if="!hasPlantInWishList"
         @click="addPlantToList('wishList')"
@@ -109,6 +116,7 @@ export default {
     return {
       plant: {},
       plantPost: {},
+      message: '',
       images: [
         {
           url: require('@/assets/imgs/house.jpg'),
@@ -135,11 +143,23 @@ export default {
   },
   methods: {
     addPlantToList(listName) {
-      console.log(listName)
-      //this.$store.dispatch('addPlantToList', {
-      //  plant: this.plant,
-      //  listName,
-      //})
+      if (this.currentUser) {
+        userService
+          .addPlantToList(this.currentUser.id, this.$route.params.id, listName)
+          .then(
+            (res) => {
+              this.hasPlantInUserPlants = res;
+            },
+            (error) => {
+              this.message =
+                (error.response &&
+                  error.response.data &&
+                  error.response.data.message) ||
+                error.message ||
+                error.toString()
+            },
+          )
+      }
     },
     hasPlantInList(listName) {
       if (this.currentUser) {
@@ -176,14 +196,15 @@ h3 {
   display: flex;
   justify-content: flex-start;
   width: 95%;
-  column-gap: 10px;
+  column-gap: 5px;
   margin: 20px 0 10px 0;
 }
 .button-primaryDark-noBorder {
   font-size: 0.8rem;
   font-family: $inter;
-  padding: 1px 15px;
+  padding: 1px 10px;
 }
+
 .titleContainer {
   display: flex;
   flex-direction: column;
