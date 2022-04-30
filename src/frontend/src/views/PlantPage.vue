@@ -9,16 +9,16 @@
         @click="updatePlantList('userPlants')"
       >
         {{
-          hasPlantInUserPlants ? 'Remove from My Plants' : 'Add to My Plants'
+          hasPlantInUserPlants ? 'Remove from my plants' : 'Add to my plants'
         }}
       </button>
       <button
         :class="[
           hasPlantInWishList ? 'removeButton' : 'button-primaryDark-noBorder',
         ]"
-        @click="updatePlantList('userPlants')"
+        @click="updatePlantList('wishList')"
       >
-        {{ hasPlantInWishList ? 'Remove from My Plants' : 'Add to My Plants' }}
+        {{ hasPlantInWishList ? 'Remove from wishlist' : 'Add to wishlist' }}
       </button>
     </div>
     <div class="carouselContainer">
@@ -170,11 +170,11 @@ export default {
           listName,
         )
         .then(
-          (res) => {
+          () => {
             if (listName === 'userPlants') {
-              this.hasPlantInUserPlants = res
+              this.hasPlantInUserPlants = false;
             } else if (listName === 'wishList') {
-              this.hasPlantInWishList = res
+              this.hasPlantInWishList = false;
             }
           },
           (error) => {

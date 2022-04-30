@@ -165,7 +165,7 @@ public class UserController {
 
     @PostMapping("/remove-plant-from-list")
     public ResponseEntity<?> removePlantFromList(@RequestBody RemovePlantFromListRequest request) {
-
+        
         if (!userService.existsById(request.getUserId()) || !plantService.existsById(request.getPlantId())) {
             return ResponseEntity
                     .badRequest()
