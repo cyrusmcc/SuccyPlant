@@ -301,11 +301,12 @@ th {
   padding: 0 10px;
   font-family: "Inter", sans-serif;
   font-size: 0.8em;
-  border: 2px solid #f37684;
   background: #f37684;
+  border: none;
   border-radius: 20px;
   color: #f4f4f3;
   line-height: 1.8rem;
+  cursor: pointer;
 }
 
 .button:hover,

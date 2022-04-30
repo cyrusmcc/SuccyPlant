@@ -3,25 +3,22 @@
     <title>{{ plantPost.title }}</title>
     <div class="plantListButtons" v-if="currentUser">
       <button
-        class="button-primaryDark-noBorder"
-        v-if="!hasPlantInUserPlants"
-        @click="addPlantToList('userPlants')"
+        :class="[
+          hasPlantInUserPlants ? 'removeButton' : 'button-primaryDark-noBorder',
+        ]"
+        @click="updatePlantList('userPlants')"
       >
-        Add to my garden
+        {{
+          hasPlantInUserPlants ? 'Remove from My Plants' : 'Add to My Plants'
+        }}
       </button>
       <button
-        class="button removeButton"
-        v-if="hasPlantInUserPlants"
-        @click="removePlantToList('userPlants')"
+        :class="[
+          hasPlantInWishList ? 'removeButton' : 'button-primaryDark-noBorder',
+        ]"
+        @click="updatePlantList('userPlants')"
       >
-        Remove from my garden
-      </button>
-      <button
-        class="button-primaryDark-noBorder"
-        v-if="!hasPlantInWishList"
-        @click="addPlantToList('wishList')"
-      >
-        Add to my wish list
+        {{ hasPlantInWishList ? 'Remove from My Plants' : 'Add to My Plants' }}
       </button>
     </div>
     <div class="carouselContainer">
@@ -148,7 +145,11 @@ export default {
           .addPlantToList(this.currentUser.id, this.$route.params.id, listName)
           .then(
             (res) => {
-              this.hasPlantInUserPlants = res;
+              if (listName === 'userPlants') {
+                this.hasPlantInUserPlants = res
+              } else if (listName === 'wishList') {
+                this.hasPlantInWishList = res
+              }
             },
             (error) => {
               this.message =
@@ -159,6 +160,48 @@ export default {
                 error.toString()
             },
           )
+      }
+    },
+    removePlantFromList(listName) {
+      userService
+        .removePlantFromList(
+          this.currentUser.id,
+          this.$route.params.id,
+          listName,
+        )
+        .then(
+          (res) => {
+            if (listName === 'userPlants') {
+              this.hasPlantInUserPlants = res
+            } else if (listName === 'wishList') {
+              this.hasPlantInWishList = res
+            }
+          },
+          (error) => {
+            this.message =
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString()
+          },
+        )
+    },
+    updatePlantList(listName) {
+      if (this.currentUser) {
+        if (listName === 'userPlants') {
+          if (this.hasPlantInUserPlants) {
+            this.removePlantFromList(listName)
+          } else {
+            this.addPlantToList(listName)
+          }
+        } else if (listName === 'wishList') {
+          if (this.hasPlantInWishList) {
+            this.removePlantFromList(listName)
+          } else {
+            this.addPlantToList(listName)
+          }
+        }
       }
     },
     hasPlantInList(listName) {

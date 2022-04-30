@@ -186,11 +186,12 @@ th {
   padding: 0 10px;
   font-family: $inter;
   font-size: 0.8em;
-  border: 2px solid $highlightThree;
   background: $highlightThree;
+  border: none;
   border-radius: 20px;
   color: $primaryLight;
   line-height: 1.8rem;
+  cursor: pointer;
 }
 
 .button:hover,
