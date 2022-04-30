@@ -1,6 +1,9 @@
 <template>
   <div class="plantPageContainer" v-if="plant">
     <title>{{ plantPost.title }}</title>
+    <div class="carouselContainer">
+      <carousel :images="images" :arrows="true"></carousel>
+    </div>
     <div class="plantListButtons" v-if="currentUser">
       <button
         :class="[
@@ -21,14 +24,10 @@
         {{ hasPlantInWishList ? 'Remove from wishlist' : 'Add to wishlist' }}
       </button>
     </div>
-    <div class="carouselContainer">
-      <carousel :images="images" :arrows="true"></carousel>
-    </div>
     <div class="titleContainer">
       <h1>{{ plantPost.title }}</h1>
       <h3>
-        <!-- {{ plant.scientificName }} -->
-        Scientific name
+        {{ plant.scientificName }}
       </h3>
     </div>
     <div class="descGuideContainer">
@@ -94,7 +93,6 @@
         </div>
       </div>
     </div>
-    <h4 class="sideScrollLabel">Similar SuccyPlants</h4>
     <side-scroll-gallery></side-scroll-gallery>
   </div>
 </template>
@@ -172,9 +170,9 @@ export default {
         .then(
           () => {
             if (listName === 'userPlants') {
-              this.hasPlantInUserPlants = false;
+              this.hasPlantInUserPlants = false
             } else if (listName === 'wishList') {
-              this.hasPlantInWishList = false;
+              this.hasPlantInWishList = false
             }
           },
           (error) => {
@@ -337,14 +335,6 @@ h3 {
 }
 .careGuidePet {
   background: $accentSix;
-}
-
-.sideScrollLabel {
-  width: 95%;
-  margin: 25px 0 0 0;
-  padding-left: 10px;
-  font-size: 1.1rem;
-  font-weight: normal;
 }
 
 @include screen-lg() {
