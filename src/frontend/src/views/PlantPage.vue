@@ -258,7 +258,7 @@ h3 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: fit-content;
 }
 .carouselContainer {
   width: 95%;

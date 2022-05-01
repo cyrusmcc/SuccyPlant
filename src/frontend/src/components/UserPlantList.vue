@@ -30,14 +30,12 @@ export default {
 <style lang="scss" scoped>
 .plantContainer {
   width: 95%;
-  border: 1px solid $outline;
   border-radius: 4px;
-  box-shadow: $shadowLight;
   height: fit-content;
 }
 .plantListTitle {
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: 1.2rem;
+  font-weight: normal;
   margin: 1rem;
   text-align: center;
 }
