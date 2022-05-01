@@ -8,6 +8,8 @@ export default {}
 
 <style scopd lang="scss">
 .footerContainer {
+  position: absolute;
+  bottom: 0;
   width: 100%;
   height: 10rem;
   background: $primaryDark;

@@ -66,15 +66,18 @@ export default {
 
 <style lang="scss">
 #app {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 115%;
+  height: 100%;
+  min-height: 100vh;
+  padding-bottom: 10rem;
 }
 .viewContainer {
   max-width: 1500px;
-  width: 100%;
   height: 100%;
+  width: 100%;
   padding-top: 45px;
 }
 </style>
