@@ -140,6 +140,7 @@ export default {
 <style scoped lang="scss">
 .profileContainer {
   display: flex;
+  height: fit-content;
 }
 
 .card {
@@ -158,7 +159,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-content: flex-start;
-  justify-content: center;
+  justify-content: flex-start;
+  min-height: 80vh;
   height: 100%;
   width: 100%;
 }
@@ -258,7 +260,6 @@ export default {
   .profileContainer {
     display: flex;
     justify-content: center;
-    height: 100%;
   }
   #profile {
     display: flex;

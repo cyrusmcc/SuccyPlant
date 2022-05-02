@@ -70,7 +70,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
+  height: fit-content;
   min-height: 100vh;
   padding-bottom: 10rem;
 }
