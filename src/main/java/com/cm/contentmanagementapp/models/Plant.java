@@ -10,8 +10,13 @@ public class Plant {
     @Column(name = "plant_id")
     private Long id;
 
+    @Column(name = "common_name")
+    private String commonName;
+
     @Column(name = "science_name")
     private String scientificName;
+
+    private String descTextFileUrl;
 
     @OneToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "post_id")

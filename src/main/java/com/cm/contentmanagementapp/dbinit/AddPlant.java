@@ -22,7 +22,7 @@ public class AddPlant {
         for (String s : plantsInFile) System.out.println(s);
 
         Scanner scan = new Scanner(System.in);
-        FileWriter writer = new FileWriter(file);
+        FileWriter writer = new FileWriter(file, true);
         String line = scan.nextLine();
 
         while(!line.equals("quit")) {
