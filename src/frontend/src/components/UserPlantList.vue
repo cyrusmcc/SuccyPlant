@@ -44,8 +44,6 @@ export default {
   flex-direction: column;
   align-items: center;
   margin: 10px 0;
-  max-height: 400px;
-  overflow-y: scroll;
 }
 .plantList > div {
   margin: 5px 0;
@@ -76,8 +74,9 @@ export default {
 
 @include screen-md() {
   .plantList {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     overflow: hidden;
     justify-items: center;
   }

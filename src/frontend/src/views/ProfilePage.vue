@@ -248,6 +248,7 @@ export default {
 #userPicImgCont {
   height: 6rem;
   width: 6rem;
+  margin-top: 5px;
 }
 
 @include screen-md() {
@@ -260,11 +261,10 @@ export default {
     height: 100%;
   }
   #profile {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    grid-column-gap: 15px;
-    grid-row-gap: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
     width: 100%;
     align-items: start;
     margin-left: 10px;
@@ -280,7 +280,6 @@ export default {
 
   #userContentCard {
     justify-content: center;
-    height: 100%;
     margin: 0;
     width: 40rem;
     align-self: unset;
