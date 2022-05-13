@@ -1,5 +1,5 @@
 dracaena trifasciata,snake plant -type=hp -size=medium -light=AL -water=WD -petsafe=no -difficulty=easy
-monstera deliciosa,split-leaf philodendron -type=hp -size=large -light=BND -petsafe=no -difficulty=easy
+monstera deliciosa,split-leaf philodendron -type=hp -size=large -light=BND -water=THD -petsafe=no -difficulty=easy
 chlorophytum comosum,spider plant -type=hp -size=medium -light=medium -water=SM -petsafe=yes -difficulty=easy
 hedera helix,common ivy -type=hp -size=medium -light=IPS -water=SM -petsafe=no -difficulty=easy
 dracaena marginata,dragon tree -type=hp -size=large -light=BPSO -water=WD -petsafe=no -difficulty=easy
@@ -27,27 +27,27 @@ monstera adansonii,swiss cheese plant -type=hp -size=large -water=SM -light=BND 
 ficus benjamina,weeping fig -type=hp -size=large -water=SM -light=BPSO -petsafe=no -difficulty=advanced
 ficus lyrata,fiddle-leaf fig -type=hp -size=large -water=SM -light=BND -petsafe=no -difficulty=moderate
 opuntia microdasys,bunny ears cactus -type=cactus -size=large -water=WD -light=BPSO -petsafe=no -difficulty=easy
-aspidistra elatior,cast-iron plant -type=hp -size=large -water=THD light=BND -petsafe=yes -difficulty=easy
-chamaedorea elegans,parlor palm, -type=hp -size=large -water=THD light=BND -petsafe=yes -difficulty=easy
-haworthiopsis fasciata,zebra plant -type=succ -size=small -water=WD light=BND -petsafe=yes -difficulty=easy
-peperomia caperata,emerald ripple peperomia -type=hp -size=small -water=THD light=BND -petsafe=yes -difficulty=easy
-ficus elastica,rubber fig -type=hp -size=large -water=THD light=BPSO -petsafe=no -difficulty=easy
-begonia maculata,polka dot begonia -type=hp -size=medium -water=SM light=BND -petsafe=no -difficulty=moderate
-kalanchoe blossfeldiana,florist kalanchoe -type=hp -size=medium -water=THD light=BND -petsafe=no -difficulty=moderate
-pilea peperomioides,chinese money plant -type=hp -size=medium -water=WD light=BND -petsafe=yes -difficulty=easy
-anthurium andraeanum,flamingo flower -type=hp -size=medium -water=THD light=BPSO -petsafe=no -difficulty=easy
-zamioculcas zamiifolia,ZZ plant -type=hp -size=medium -water=THD light=BND -petsafe=no -difficulty=easy
-coffea arabica,arabic coffee -type=hp -size=large -water=SM light=BND -petsafe=no -difficulty=moderate
-dracaena deremensis,corn plant -type=hp -size=large -water=SM light=BND -petsafe=no -difficulty=easy
-aglaonema commutatum,chinese evergreen -type=hp -size=medium -water=THD light=AL -petsafe=no -difficulty=easy
-gerbera jamesonii,gerbera daisy -type=hp -size=medium -water=THD light=BPSO -petsafe=yes -difficulty=moderate
-codiaeum variegatum,garden croton -type=hp -size=large -water=THD light=BND -petsafe=no -difficulty=moderate
-excoecaria cochinchinensis,chinese croton -type=hp -size=large -water=THD light=BND -petsafe=no -difficulty=moderate
-polyscias fruticosa,ming aralia -type=hp -size=large -water=SM light=BND -petsafe=no -difficulty=moderate
-tradescantia spathacea,oyster plant -type=hp -size=small -water=SM light=BND -petsafe=no -difficulty=moderate
-schefflera actinophylla,umbrella tree -type=hp -size=large -water=SM light=BND -petsafe=no -difficulty=moderate
-polyscias scutellaria,shield aralia -type=hp -size=large -water=THD light=BND -petsafe=no -difficulty=moderate
-spathiphyllum wallisii,peace lilly -type=hp -size=medium -water=SM light=BND -petsafe=no -difficulty=easy
+aspidistra elatior,cast-iron plant -type=hp -size=large -water=THD -light=BND -petsafe=yes -difficulty=easy
+chamaedorea elegans,parlor palm, -type=hp -size=large -water=THD -light=BND -petsafe=yes -difficulty=easy
+haworthiopsis fasciata,zebra plant -type=succ -size=small -water=WD -light=BND -petsafe=yes -difficulty=easy
+peperomia caperata,emerald ripple peperomia -type=hp -size=small -water=THD -light=BND -petsafe=yes -difficulty=easy
+ficus elastica,rubber fig -type=hp -size=large -water=THD -light=BPSO -petsafe=no -difficulty=easy
+begonia maculata,polka dot begonia -type=hp -size=medium -water=SM -light=BND -petsafe=no -difficulty=moderate
+kalanchoe blossfeldiana,florist kalanchoe -type=hp -size=medium -water=THD -light=BND -petsafe=no -difficulty=moderate
+pilea peperomioides,chinese money plant -type=hp -size=medium -water=WD -light=BND -petsafe=yes -difficulty=easy
+anthurium andraeanum,flamingo flower -type=hp -size=medium -water=THD -light=BPSO -petsafe=no -difficulty=easy
+zamioculcas zamiifolia,ZZ plant -type=hp -size=medium -water=THD -light=BND -petsafe=no -difficulty=easy
+coffea arabica,arabic coffee -type=hp -size=large -water=SM -light=BND -petsafe=no -difficulty=moderate
+dracaena deremensis,corn plant -type=hp -size=large -water=SM -light=BND -petsafe=no -difficulty=easy
+aglaonema commutatum,chinese evergreen -type=hp -size=medium -water=THD -light=AL -petsafe=no -difficulty=easy
+gerbera jamesonii,gerbera daisy -type=hp -size=medium -water=THD -light=BPSO -petsafe=yes -difficulty=moderate
+codiaeum variegatum,garden croton -type=hp -size=large -water=THD -light=BND -petsafe=no -difficulty=moderate
+excoecaria cochinchinensis,chinese croton -type=hp -size=large -water=THD -light=BND -petsafe=no -difficulty=moderate
+polyscias fruticosa,ming aralia -type=hp -size=large -water=SM -light=BND -petsafe=no -difficulty=moderate
+tradescantia spathacea,oyster plant -type=hp -size=small -water=SM -light=BND -petsafe=no -difficulty=moderate
+schefflera actinophylla,umbrella tree -type=hp -size=large -water=SM -light=BND -petsafe=no -difficulty=moderate
+polyscias scutellaria,shield aralia -type=hp -size=large -water=THD -light=BND -petsafe=no -difficulty=moderate
+spathiphyllum wallisii,peace lilly -type=hp -size=medium -water=SM -light=BND -petsafe=no -difficulty=easy
 echinocactus grusonii
 epipremnum aureum
 cymbidium

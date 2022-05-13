@@ -1,0 +1,14 @@
+House Plant,Type
+Succ,Type
+Cactus,Type
+Small,Size
+Medium,Size
+Large,Size
+Easy,Difficulty
+Moderate,Difficulty
+Advanced,Difficulty
+Low,Light
+Medium,Light
+High,Light
+Yes,Pet Safe
+No,Pet Safe
