@@ -40,6 +40,7 @@ h2 {
   margin: auto;
   margin-bottom: 8rem;
   width: 95%;
+  font-family: $inter;
   font-size: 2rem;
   font-weight: bold;
   color: $primaryLight;

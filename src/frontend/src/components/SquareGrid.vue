@@ -2,7 +2,7 @@
   <div class="gridContainer">
     <router-link class="link" to="/plants?type=house+plant"
       ><img
-        src="../assets/imgs/greenPattern.svg"
+        src="../assets/imgs/plant.jpg"
         class="contentBanner"
         alt=""
       />
@@ -12,7 +12,7 @@
       </div>
     </router-link>
     <router-link class="link" to="/plants?type=succ"
-      ><img src="../assets/imgs/bluePattern.svg" class="contentBanner" alt="" />
+      ><img src="../assets/imgs/succulent.jpg" class="contentBanner" alt="" />
       <div class="textContainer">
         <span class="text">Browse</span>
         <span class="text">Succulents</span>
@@ -20,7 +20,7 @@
     </router-link>
     <router-link class="link" to="/plants?type=cactus"
       ><img
-        src="../assets/imgs/orangePattern.svg"
+        src="../assets/imgs/cactus.jpg"
         class="contentBanner"
         alt=""
       />
@@ -72,9 +72,9 @@ export default {};
   align-items: center;
   background-color: rgba(0, 0, 0, 0.3);
   color: white;
-  font-size: 1.3rem;
+  font-size: 1.8rem;
   font-weight: bold;
-  font-family: $lobster;
+  font-family: $amatic;
   text-shadow: -1px 2px 5px black;
   text-transform: uppercase;
   text-align: center;

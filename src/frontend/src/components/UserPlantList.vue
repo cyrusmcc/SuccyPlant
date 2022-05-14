@@ -30,14 +30,12 @@ export default {
 <style lang="scss" scoped>
 .plantContainer {
   width: 95%;
-  border: 1px solid $outline;
   border-radius: 4px;
-  box-shadow: $shadowLight;
   height: fit-content;
 }
 .plantListTitle {
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: 1.2rem;
+  font-weight: normal;
   margin: 1rem;
   text-align: center;
 }
@@ -46,8 +44,6 @@ export default {
   flex-direction: column;
   align-items: center;
   margin: 10px 0;
-  max-height: 400px;
-  overflow-y: scroll;
 }
 .plantList > div {
   margin: 5px 0;
@@ -78,8 +74,9 @@ export default {
 
 @include screen-md() {
   .plantList {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     overflow: hidden;
     justify-items: center;
   }

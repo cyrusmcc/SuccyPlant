@@ -16,6 +16,7 @@
             <formatted-date :date="joinDate" :format="'month'" />
           </span>
         </div>
+        <button class="button-primaryDark-noBorder">Message user</button>
       </div>
       <div class="card" id="userContentCard">
         <user-plant-list :plants="userPlants"></user-plant-list>
@@ -139,6 +140,7 @@ export default {
 <style scoped lang="scss">
 .profileContainer {
   display: flex;
+  height: fit-content;
 }
 
 .card {
@@ -157,27 +159,28 @@ export default {
   display: flex;
   flex-direction: column;
   align-content: flex-start;
+  justify-content: flex-start;
+  min-height: 80vh;
+  height: 100%;
   width: 100%;
 }
 
 #userInfoCard {
   z-index: 1;
   position: relative;
+  left: 0;
   display: flex;
   flex-direction: column;
-  height: 8rem;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   overflow: hidden;
-  padding: 20px 0 5px 0;
+  height: fit-content;
   width: 100%;
-  background-color: $accentOne;
   box-shadow: none;
 }
 
 #userContentCard {
   margin-top: 20px;
-  background-color: button-primaryLight-accentTwo;
   box-shadow: none;
 }
 
@@ -186,19 +189,20 @@ export default {
   display: flex;
   flex-direction: column;
   line-height: 1.6rem;
+  margin: 15px 0 5px 0;
   text-align: center;
+  font-family: $inter;
+  color: $primaryDark;
 }
 
 #usernameText {
-  font-weight: bold;
-  color: $primaryLight;
+  font-weight: medium;
   font-size: 1.5rem;
 }
 
 #joinDateText {
   display: flex;
   flex-direction: row;
-  color: $primaryLight;
   font-size: 0.8rem;
 }
 
@@ -206,7 +210,6 @@ export default {
   border-top: 0;
   border-radius: 4px 4px 0 0;
   height: fit-content;
-  background: button-primaryLight-accentTwo;
 }
 
 #navTabs {
@@ -244,6 +247,12 @@ export default {
   color: $accentOne;
 }
 
+#userPicImgCont {
+  height: 6rem;
+  width: 6rem;
+  margin-top: 5px;
+}
+
 @include screen-md() {
   .card {
     align-items: flex-start;
@@ -253,21 +262,25 @@ export default {
     justify-content: center;
   }
   #profile {
-    width: 80%;
-    margin: 20px 0 0 10px;
+    display: flex;
     flex-direction: row;
-    column-gap: 20px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    align-items: start;
+    margin-left: 10px;
+    height: 100%;
   }
 
   #userInfoCard {
+    position: sticky;
+    top: 45px;
     border-radius: 4px 4px 0 0;
-    background-color: $accentTwo;
-    width: 25rem;
+    width: 20rem;
   }
 
   #userContentCard {
-    justify-content: flex-start;
-    height: 100%;
+    justify-content: center;
     margin: 0;
     width: 40rem;
     align-self: unset;

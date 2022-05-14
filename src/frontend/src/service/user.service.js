@@ -36,11 +36,9 @@ class UserService {
   removePlantFromList(userId, plantId, listType) {
     return api
       .post(USER_API_URL + 'remove-plant-from-list', {
-        params: {
-          userId,
-          plantId,
-          listType,
-        },
+        userId,
+        plantId,
+        listType,
       })
       .then((response) => {
         return response.data

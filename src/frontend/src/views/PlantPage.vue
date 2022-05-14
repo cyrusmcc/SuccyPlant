@@ -1,69 +1,50 @@
 <template>
   <div class="plantPageContainer" v-if="plant">
     <title>{{ plantPost.title }}</title>
-    <div class="plantListButtons" v-if="currentUser">
-      <button
-        class="button-primaryDark-noBorder"
-        v-if="!hasPlantInUserPlants"
-        @click="addPlantToList('userPlants')"
-      >
-        Add to my garden
-      </button>
-      <button
-        class="button removeButton"
-        v-if="hasPlantInUserPlants"
-        @click="removePlantToList('userPlants')"
-      >
-        Remove from my garden
-      </button>
-      <button
-        class="button-primaryDark-noBorder"
-        v-if="!hasPlantInWishList"
-        @click="addPlantToList('wishList')"
-      >
-        Add to my wish list
-      </button>
-    </div>
     <div class="carouselContainer">
       <carousel :images="images" :arrows="true"></carousel>
     </div>
+    <div class="plantListButtons" v-if="currentUser">
+      <button
+        :class="[
+          hasPlantInUserPlants ? 'removeButton' : 'button-primaryDark-noBorder',
+        ]"
+        @click="updatePlantList('userPlants')"
+      >
+        {{
+          hasPlantInUserPlants ? 'Remove from my plants' : 'Add to my plants'
+        }}
+      </button>
+      <button
+        :class="[
+          hasPlantInWishList ? 'removeButton' : 'button-primaryDark-noBorder',
+        ]"
+        @click="updatePlantList('wishList')"
+      >
+        {{ hasPlantInWishList ? 'Remove from wishlist' : 'Add to wishlist' }}
+      </button>
+    </div>
     <div class="titleContainer">
-      <h1>{{ plantPost.title }}</h1>
+      <h1>{{ plant.scientificName }}</h1>
       <h3>
-        <!-- {{ plant.scientificName }} -->
-        Scientific name
+        {{ plant.commonName }}
       </h3>
     </div>
     <div class="descGuideContainer">
       <div class="descContainer">
         <h2>Description</h2>
         <div class="plantDescription">
-          Fittonia (nerve plant) is a genus of flowering plants in the acanthus
-          family Acanthaceae, native to tropical rainforest in South America,
-          mainly Peru.[2] The most commonly grown are F. albivenis and its
-          cultivars. They are spreading evergreen perennials growing 10–15 cm
-          (4–6 in) tall. They bear lush green leaves with accented veins of
-          white to deep pink and have a short fuzz covering their stems. Small
-          buds may appear after a time where the stem splits into leaves.
-          Flowers are small with a white to off-white colour. Plants are best
-          kept in a moist area with mild sunlight and temperatures above 55 °F
-          (13 °C), therefore in temperate areas they must be grown as
-          houseplants. Without water for a few days, this plant is known to
-          "faint" but is easily revived with a quick watering. Its spreading
-          habit makes it ideal as groundcover.
+          <p>{{ plant.description }}</p>
         </div>
       </div>
       <div class="careGuide">
         <div class="careGuideHead">
-          <h2>Care Guide</h2>
+          <h2>Quick Care Guide</h2>
         </div>
         <div class="careGuideSize">
           <h4 class="careGuideCategoryHead">How big?</h4>
           <span>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
-            ratione, tenetur iusto veniam illum dignissimos aperiam dolor totam
-            veritatis quas pariatur reprehenderit maiores aut deleniti
-            doloremque laboriosam! Fugiat, facere maxime.
+            {{ plant.sizeDesc }}
           </span>
         </div>
         <div class="careGuideDifficulty">
@@ -78,10 +59,7 @@
         <div class="careGuideLight">
           <h4 class="careGuideCategoryHead">How much light?</h4>
           <span>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
-            ratione, tenetur iusto veniam illum dignissimos aperiam dolor totam
-            veritatis quas pariatur reprehenderit maiores aut deleniti
-            doloremque laboriosam! Fugiat, facere maxime.
+            {{ plant.lightDesc }}
           </span>
         </div>
         <div class="careGuidePet">
@@ -89,15 +67,11 @@
             Are {{ plantPost.title }} pet safe?
           </h4>
           <span>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
-            ratione, tenetur iusto veniam illum dignissimos aperiam dolor totam
-            veritatis quas pariatur reprehenderit maiores aut deleniti
-            doloremque laboriosam! Fugiat, facere maxime.
+            {{ plant.petDesc }}
           </span>
         </div>
       </div>
     </div>
-    <h4 class="sideScrollLabel">Similar SuccyPlants</h4>
     <side-scroll-gallery></side-scroll-gallery>
   </div>
 </template>
@@ -135,6 +109,7 @@ export default {
     const getPlant = async () => {
       this.plant = await plantService.getPlantById(this.$route.params.id)
       this.plantPost = this.plant.post
+      console.log(this.plant)
     }
     getPlant().then(() => {
       this.hasPlantInList('userPlants')
@@ -148,7 +123,11 @@ export default {
           .addPlantToList(this.currentUser.id, this.$route.params.id, listName)
           .then(
             (res) => {
-              this.hasPlantInUserPlants = res;
+              if (listName === 'userPlants') {
+                this.hasPlantInUserPlants = res
+              } else if (listName === 'wishList') {
+                this.hasPlantInWishList = res
+              }
             },
             (error) => {
               this.message =
@@ -159,6 +138,48 @@ export default {
                 error.toString()
             },
           )
+      }
+    },
+    removePlantFromList(listName) {
+      userService
+        .removePlantFromList(
+          this.currentUser.id,
+          this.$route.params.id,
+          listName,
+        )
+        .then(
+          () => {
+            if (listName === 'userPlants') {
+              this.hasPlantInUserPlants = false
+            } else if (listName === 'wishList') {
+              this.hasPlantInWishList = false
+            }
+          },
+          (error) => {
+            this.message =
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString()
+          },
+        )
+    },
+    updatePlantList(listName) {
+      if (this.currentUser) {
+        if (listName === 'userPlants') {
+          if (this.hasPlantInUserPlants) {
+            this.removePlantFromList(listName)
+          } else {
+            this.addPlantToList(listName)
+          }
+        } else if (listName === 'wishList') {
+          if (this.hasPlantInWishList) {
+            this.removePlantFromList(listName)
+          } else {
+            this.addPlantToList(listName)
+          }
+        }
       }
     },
     hasPlantInList(listName) {
@@ -181,7 +202,7 @@ export default {
 <style scoped lang="scss">
 h1 {
   font-family: $raleway;
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   font-weight: normal;
   margin-bottom: 0;
 }
@@ -211,13 +232,14 @@ h3 {
   justify-content: center;
   align-items: center;
   width: 100%;
+  text-align: center;
 }
 .plantPageContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: fit-content;
 }
 .carouselContainer {
   width: 95%;
@@ -294,14 +316,6 @@ h3 {
 }
 .careGuidePet {
   background: $accentSix;
-}
-
-.sideScrollLabel {
-  width: 95%;
-  margin: 25px 0 0 0;
-  padding-left: 10px;
-  font-size: 1.1rem;
-  font-weight: normal;
 }
 
 @include screen-lg() {

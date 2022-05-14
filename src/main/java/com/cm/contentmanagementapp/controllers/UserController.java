@@ -3,6 +3,7 @@ package com.cm.contentmanagementapp.controllers;
 import com.cm.contentmanagementapp.models.Plant;
 import com.cm.contentmanagementapp.models.User;
 import com.cm.contentmanagementapp.payload.request.AddPlantToUserList;
+import com.cm.contentmanagementapp.payload.request.RemovePlantFromListRequest;
 import com.cm.contentmanagementapp.payload.response.MessageResponse;
 import com.cm.contentmanagementapp.payload.response.UserInfoResponse;
 import com.cm.contentmanagementapp.services.FileStorageService;
@@ -163,11 +164,9 @@ public class UserController {
     }
 
     @PostMapping("/remove-plant-from-list")
-    public ResponseEntity<?> removePlantFromList(@RequestParam Long userId,
-                                                 @RequestParam Long plantId,
-                                                 @RequestParam String listType) {
+    public ResponseEntity<?> removePlantFromList(@RequestBody RemovePlantFromListRequest request) {
 
-        if (!userService.existsById(userId) || !plantService.existsById(plantId)) {
+        if (!userService.existsById(request.getUserId()) || !plantService.existsById(request.getPlantId())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Invalid request"));
@@ -175,36 +174,36 @@ public class UserController {
 
         try {
 
-            User user = userService.findById(userId);
-            Plant plant = plantService.findById(plantId);
+            User user = userService.findById(request.getUserId());
+            Plant plant = plantService.findById(request.getPlantId());
             boolean inList = true;
 
-            if (listType.equals("userPlants")) {
+            if (request.getListType().equals("userPlants")) {
 
                 if (!user.hasPlantInUserPlants(plant)) inList = false;
 
-                user.removePlantFromPlantList(plantService.findById(plantId));
+                user.removePlantFromPlantList(plantService.findById(request.getPlantId()));
 
-            } else if (listType.equals("wishList")) {
+            } else if (request.getListType().equals("wishList")) {
 
                 if (!user.hasPlantInWishList(plant)) inList = false;
 
-                user.removePlantFromWishList(plantService.findById(plantId));
+                user.removePlantFromWishList(plantService.findById(request.getPlantId()));
             }
 
             if (!inList) {
                 return ResponseEntity
                         .badRequest()
-                        .body(new MessageResponse("Plant not found in " + listType));
+                        .body(new MessageResponse("Plant not found in " + request.getListType()));
             }
 
             userService.save(user);
-            return ResponseEntity.ok(new MessageResponse("Plant removed from " + listType));
+            return ResponseEntity.ok(new MessageResponse("Plant removed from " +  request.getListType()));
 
         } catch (Exception e) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error encountered while removing plant from " + listType));
+                    .body(new MessageResponse("Error encountered while removing plant from " +  request.getListType()));
         }
     }
 }

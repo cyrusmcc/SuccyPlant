@@ -1,6 +1,9 @@
 <template>
   <div class="sideScrollContainer">
+    <h4 class="sideScrollLabel">Similar SuccyPlants</h4>
     <div class="itemList">
+      <div class="directionArrowLeft" @click="handleLeftClick">&lt;</div>
+      <div class="directionArrowRight" @click="handleRightClick">&gt;</div>
       <div class="sideScrollItem" v-for="(item, i) in items" :key="i">
         <img class="itemImg" :src="item.image" alt="carousel-image" />
         <span class="itemTitle">{{ item.title }}</span>
@@ -11,39 +14,100 @@
 
 <script>
 export default {
-  name: "SideScrollGallery",
+  name: 'SideScrollGallery',
   data() {
     return {
       items: {
         p1: {
-          title: "test",
-          image: require("@/assets/imgs/house.jpg"),
+          title: 'test',
+          image: require('@/assets/imgs/house.jpg'),
         },
         p2: {
-          title: "test",
-          image: require("@/assets/imgs/house.jpg"),
+          title: 'test',
+          image: require('@/assets/imgs/house.jpg'),
         },
         p3: {
-          title: "test",
-          image: require("@/assets/imgs/house.jpg"),
+          title: 'test',
+          image: require('@/assets/imgs/house.jpg'),
+        },
+        p4: {
+          title: 'test',
+          image: require('@/assets/imgs/house.jpg'),
+        },
+        p5: {
+          title: 'test',
+          image: require('@/assets/imgs/house.jpg'),
+        },
+        p6: {
+          title: 'test',
+          image: require('@/assets/imgs/house.jpg'),
         },
       },
-    };
+    }
   },
-};
+}
 </script>
 
 <style scoped lang="scss">
 .sideScrollContainer {
-  width: 95%;
-  overflow-x: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+  max-width: 95%;
+}
+.sideScrollLabel {
+  width: 100%;
+  margin: 25px 0 0 0;
+  padding-left: 10px;
+  font-size: 1.1rem;
+  font-weight: normal;
+}
+.directionArrowLeft {
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-left: 10px;
+  background: $primaryLight;
+  border-radius: 50%;
+  outline: $outline;
+  color: $primaryDark;
+  box-shadow: $shadowLight;
+  font-size: 2rem;
+  cursor: pointer;
+}
+.directionArrowRight {
+  z-index: 1;
+  position: absolute;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-right: 10px;
+  background: $primaryLight;
+  border-radius: 50%;
+  outline: $outline;
+  color: $primaryDark;
+  box-shadow: $shadowLight;
+  font-size: 2rem;
+  cursor: pointer;
 }
 .itemList {
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  column-gap: 10px;
   width: fit-content;
+  max-width: 100%;
 }
 .sideScrollItem {
   display: flex;
@@ -52,7 +116,7 @@ export default {
   align-items: center;
   width: 20rem;
   height: fit-content;
-  margin: 1rem 1rem 1rem 0;
+  margin: 1rem 0;
   border: 1px solid $outline;
   border-radius: 10px;
   overflow: hidden;
