@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import org.json.JSONObject;
+
 
 public class AddPlant {
 
@@ -11,7 +13,7 @@ public class AddPlant {
 
     public static void main(String[] args) throws IOException {
 
-        String in = scan.nextLine();
+        String in = "";
         while (!in.equals("quit")) {
             System.out.println("add - Add plant to list for processing");
             System.out.println("initdb - Add detailed plant objects to DB");
@@ -27,12 +29,13 @@ public class AddPlant {
         BufferedReader br = new BufferedReader(new FileReader(file));
         String in = br.readLine();
         while (in != null) {
-            System.out.println(in);
+
+            String[] split = in.split("'");
+            for(String s : split) System.out.print(s + " ");
+            System.out.println();
             //plantsInFile.add(in);
             in = br.readLine();
         }
-
-
     }
 
     private static void addPlant() throws IOException {

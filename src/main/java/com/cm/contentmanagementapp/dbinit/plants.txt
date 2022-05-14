@@ -1,11 +1,11 @@
-dracaena trifasciata,snake plant -type=hp -size=medium -light=AL -water=WD -petsafe=no -difficulty=easy
-monstera deliciosa,split-leaf philodendron -type=hp -size=large -light=BND -water=THD -petsafe=no -difficulty=easy
-chlorophytum comosum,spider plant -type=hp -size=medium -light=medium -water=SM -petsafe=yes -difficulty=easy
-hedera helix,common ivy -type=hp -size=medium -light=IPS -water=SM -petsafe=no -difficulty=easy
-dracaena marginata,dragon tree -type=hp -size=large -light=BPSO -water=WD -petsafe=no -difficulty=easy
+dracaena trifasciata,snake plant -type=hp -size=medium -water=WD -light=AL -petsafe=no -difficulty=easy
+monstera deliciosa,split-leaf philodendron -type=hp -size=large -water=THD -light=BND -petsafe=no -difficulty=easy
+chlorophytum comosum,spider plant -type=hp -size=medium -water=SM -light=IPS -petsafe=yes -difficulty=easy
+hedera helix,common ivy -type=hp -size=medium -water=SM -light=IPS -petsafe=no -difficulty=easy
+dracaena marginata,dragon tree -type=hp -size=large -water=WD -light=BPSO -petsafe=no -difficulty=easy
 xerosicyos danguyi,silver dollar plant -type=succ -size=large -water=THD -light=BPSO -petsafe=yes -difficulty=easy
 tradescantia zebrina,wandering jew -type=hp -size=medium -water=THD -light=BND -petsafe=no -difficulty=easy
-philodendron hederaceum, heartleaf philodendron -type=hp -size=medium -water=SM -light=IPS -petsafe=no -difficulty=easy
+philodendron hederaceum,heartleaf philodendron -type=hp -size=medium -water=SM -light=IPS -petsafe=no -difficulty=easy
 pachira aquatica,money tree -type=hp -size=large -water=THD -light=BND -petsafe=yes -difficulty=easy
 ficus alii,banana leaf fig -type=hp -size=large -water=THD -light=BND -petsafe=no -difficulty=easy
 calathea makoyana,peacock plant -type=hp -size=medium -water=THD -light=BND -petsafe=yes -difficulty=easy
@@ -28,7 +28,7 @@ ficus benjamina,weeping fig -type=hp -size=large -water=SM -light=BPSO -petsafe=
 ficus lyrata,fiddle-leaf fig -type=hp -size=large -water=SM -light=BND -petsafe=no -difficulty=advanced
 opuntia microdasys,bunny ears cactus -type=cactus -size=large -water=WD -light=BPSO -petsafe=no -difficulty=easy
 aspidistra elatior,cast-iron plant -type=hp -size=large -water=THD -light=BND -petsafe=yes -difficulty=easy
-chamaedorea elegans,parlor palm, -type=hp -size=large -water=THD -light=BND -petsafe=yes -difficulty=easy
+chamaedorea elegans,parlor palm -type=hp -size=large -water=THD -light=BND -petsafe=yes -difficulty=easy
 haworthiopsis fasciata,zebra plant -type=succ -size=small -water=WD -light=BND -petsafe=yes -difficulty=easy
 peperomia caperata,emerald ripple peperomia -type=hp -size=small -water=THD -light=BND -petsafe=yes -difficulty=easy
 ficus elastica,rubber fig -type=hp -size=large -water=THD -light=BPSO -petsafe=no -difficulty=easy
@@ -48,56 +48,3 @@ tradescantia spathacea,oyster plant -type=hp -size=small -water=SM -light=BND -p
 schefflera actinophylla,umbrella tree -type=hp -size=large -water=SM -light=BND -petsafe=no -difficulty=moderate
 polyscias scutellaria,shield aralia -type=hp -size=large -water=THD -light=BND -petsafe=no -difficulty=moderate
 spathiphyllum wallisii,peace lilly -type=hp -size=medium -water=SM -light=BND -petsafe=no -difficulty=easy
-echinocactus grusonii,golden barrel cactus
-epipremnum aureum,devil's ivy
-cymbidium,boat orchids
-vanda,vanda orchids
-dendrobium,dendrobium orchids
-oncidium,dancing lady orchids
-cattleya,cattleya orchids
-phalaenopsis,moth orchids
-aeschynanthus radicans,lipstick plant
-cissus rhombifolia,grape ivy
-strelitzia reginae,bird of paradise
-eucalyptus globulus,blue gem
-plectranthus verticillatus,swedish ivy
-sedum morganianum,donkey tail
-kalanchoe beharensis,felt bush
-araucaria heterophylla,norfolk pine
-dracaena fragrans,striped dracaena
-dracaena sanderiana,lucky bamboo
-ocimum basilicum,basil
-nephrolepis exaltata,sword fern
-cordyline fruticosa,tiplant
-schefflera arboricola,dwarf umbrella tree
-euphorbia milii,crown of thorns
-euphorbia trigona,african milk tree
-senecio rowleyanus,string of pearls
-euphorbia pulcherrima,poinsettia
-cyclamen persicum,persian cyclamen
-aechmea fasciata,silver vase
-polystichum munitum,western sword fern
-ctenanthe oppenheimiana,never never plant
-dracaena reflexa,song of india
-ficus pumila,climbing fig
-pilea involucrata,friendship plant
-equisetum arvense,field horsetail
-peperomia obtusifolia,baby rubberplant
-hypoestes phyllostachya,polka dot plant
-callisia repens,creeping inchplant
-fittonia albivenis,nerve plant
-philodendron bipinnatifidum,tree philodendron
-philodendron erubescens,blushing philodendron
-philodendron gloriosum,heart leaf philodendron
-philodendron pedatum,oak leaf philodendron
-philodendron esmeraldense,broadleaf philodendron
-philodendron brandtianum,silver leaf philodendron
-philodendron micans,velvet leaf philodendron
-philodendron lacerum,toothed philodendron
-philodendron cordatum,sweetheart philodendron
-jasminum officinale,common jasmine
-streptocarpus goetzeanus,african violet
-peperomia prostrata,string of turtles
-philodendron grazielae,philodendron grazielae
-philodendron subhastatum,philodendron subhastatum
-philodendron crassinervium,philodendron crassinervium

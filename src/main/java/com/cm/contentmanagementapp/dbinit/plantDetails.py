@@ -1,6 +1,7 @@
 import os
 import mysql.connector
 import requests
+import json
 
 dB = mysql.connector.connect(
     host=os.environ.get('HOST'),
@@ -15,16 +16,16 @@ tagFile = open("tags.txt", 'r', encoding='utf-8')
 writeFile = open("plantDetails.txt", 'a', encoding='utf-8')
 
 # Add content tags to dB
-for tag in tagFile:
-    t = tag.split(",", 1)
-    value = t[0].strip()
-    category = t[1].strip()
-    sql = "INSERT INTO content_tag (category, value) VALUES (%s, %s)"
-    val = (value, category)
-    print(value, category)
-    dBCursor.execute(sql, val)
+#for tag in tagFile:
+#    t = tag.split(",", 1)
+#    value = t[0].strip()
+#    category = t[1].strip()
+#    sql = "INSERT INTO content_tag (category, value) VALUES (%s, %s)"
+#    val = (value, category)
+#    print(value, category)
+#    dBCursor.execute(sql, val)
 
-dB.commit()
+#dB.commit()
 
 waterCondition = {"WD": "plant-name tend to be tolerant of drought and should be watered once the soil has had a "
                         "chance to dry out. Soil may take a week or two to dry between waterings but this dependent "
@@ -84,22 +85,24 @@ for line in plantFile:
                 plant["sizeDesc"] = petSafeAndSize.get("large")
 
             plant["water"] = attributes[3].split("=", 1)[1]
+            if plant["water"] == "AL":
+                plant["waterDesc"] = waterCondition.get("AL")
             if plant["water"] == "WD":
-                plant["waterDesc"] = petSafeAndSize.get("WD")
+                plant["waterDesc"] = waterCondition.get("WD")
             elif plant["water"] == "THD":
-                plant["waterDesc"] = petSafeAndSize.get("THD")
+                plant["waterDesc"] = waterCondition.get("THD")
             elif plant["water"] == "SM":
-                plant["waterDesc"] = petSafeAndSize.get("SM")
+                plant["waterDesc"] = waterCondition.get("SM")
 
             plant["light"] = attributes[4].split("=", 1)[1]
             if plant["light"] == "AL":
-                plant["lightDesc"] = petSafeAndSize.get("AL")
+                plant["lightDesc"] = lightCondition.get("AL")
             elif plant["light"] == "IPS":
-                plant["lightDesc"] = petSafeAndSize.get("IPS")
+                plant["lightDesc"] = lightCondition.get("IPS")
             elif plant["light"] == "BND":
-                plant["lightDesc"] = petSafeAndSize.get("BND")
+                plant["lightDesc"] = lightCondition.get("BND")
             elif plant["light"] == "BPSO":
-                plant["lightDesc"] = petSafeAndSize.get("BPSO")
+                plant["lightDesc"] = lightCondition.get("BPSO")
 
             plant["petsafe"] = attributes[5].split("=", 1)[1]
             if plant["petsafe"] == "no":
@@ -111,6 +114,7 @@ for line in plantFile:
 
     plants.append(plant)
 
+for plant in plants: print(plant)
 
 for plant in plants:
     scienceName = plant["scienceName"]
@@ -144,6 +148,6 @@ for plant in plants:
         plant["desc"] = list(parseResponseScience.values())[0]['extract']
         print(plant)
 
-    writeFile.write(str(plant) + '\n')
+    writeFile.write(json.dumps(plant) + "\n")
 
 writeFile.close()
