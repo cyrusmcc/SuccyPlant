@@ -25,4 +25,6 @@ public interface PlantRepository extends JpaRepository<Plant, Long> {
 
     boolean existsGalleryPostByPostTitle(String title);
 
+    boolean existsByScientificName(String scienceName);
+
 }

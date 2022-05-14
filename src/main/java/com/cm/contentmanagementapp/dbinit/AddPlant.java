@@ -37,33 +37,39 @@ public class AddPlant {
         while (in != null) {
             JSONObject obj = new JSONObject(in);
 
-            Plant plant = new Plant();
-            Post plantPost = plant.getPost();
+            if (!plantService.existsByScienceName(obj.getString("scienceName"))) {
+                Plant plant = new Plant();
+                Post plantPost = plant.getPost();
 
-            String size = obj.getString("size");
-            size = size.substring(0,1).toUpperCase() + size.substring(1).toLowerCase();
+                String size = obj.getString("size");
+                size = size.substring(0,1).toUpperCase() + size.substring(1).toLowerCase();
 
-            String petsafe = obj.getString("petsafe");
-            petsafe = petsafe.substring(0,1).toUpperCase() + petsafe.substring(1).toLowerCase();
+                String petsafe = obj.getString("petsafe");
+                petsafe = petsafe.substring(0,1).toUpperCase() + petsafe.substring(1).toLowerCase();
 
-            // Set title of plant's post
-            plant.setTitle(obj.getString("scienceName"));
-            plant.setScientificName(obj.getString("scienceName"));
-            plant.setCommonName(obj.getString("commonName"));
-            plant.setDescription(obj.getString("desc"));
-            plant.setLightDesc(obj.getString("lightDesc"));
-            plant.setWaterDesc(obj.getString("waterDesc"));
-            plant.setPetDesc(obj.getString("petDesc"));
-            plant.setSizeDesc(obj.getString("sizeDesc"));
-            plantPost.addTag(tagService.findByCategoryAndValue(EnumTagCategory.GENUS, obj.getString("genus")));
-            plantPost.addTag(tagService.findByCategoryAndValue(EnumTagCategory.DIFFICULTY, obj.getString("difficulty")));
-            plantPost.addTag(tagService.findByCategoryAndValue(EnumTagCategory.SIZE, size));
-            plantPost.addTag(tagService.findByCategoryAndValue(EnumTagCategory.PET, petsafe));
-            plantPost.addTag(tagService.findByCategoryAndValue(EnumTagCategory.TYPE, getType(obj)));
-            plantPost.addTag(tagService.findByCategoryAndValue(EnumTagCategory.WATER, getWater(obj)));
-            plantPost.addTag(tagService.findByCategoryAndValue(EnumTagCategory.LIGHT, getLight(obj)));
-            plantService.save(plant);
+                String difficulty = obj.getString("difficulty");
+                difficulty = difficulty.substring(0,1).toUpperCase() + difficulty.substring(1).toLowerCase();
 
+
+                // Set title of plant's post
+                plant.setTitle(obj.getString("scienceName"));
+                plant.setScientificName(obj.getString("scienceName"));
+                plant.setCommonName(obj.getString("commonName"));
+                plant.setDescription(obj.getString("desc"));
+                plant.setLightDesc(obj.getString("lightDesc"));
+                plant.setWaterDesc(obj.getString("waterDesc"));
+                plant.setPetDesc(obj.getString("petDesc"));
+                plant.setSizeDesc(obj.getString("sizeDesc"));
+                plantPost.addTag(tagService.findByCategoryAndValue(EnumTagCategory.GENUS, obj.getString("genus")));
+                plantPost.addTag(tagService.findByCategoryAndValue(EnumTagCategory.DIFFICULTY, difficulty));
+                plantPost.addTag(tagService.findByCategoryAndValue(EnumTagCategory.SIZE, size));
+                plantPost.addTag(tagService.findByCategoryAndValue(EnumTagCategory.PET, petsafe));
+                plantPost.addTag(tagService.findByCategoryAndValue(EnumTagCategory.TYPE, getType(obj)));
+                plantPost.addTag(tagService.findByCategoryAndValue(EnumTagCategory.WATER, getWater(obj)));
+                plantPost.addTag(tagService.findByCategoryAndValue(EnumTagCategory.LIGHT, getLight(obj)));
+                plantService.save(plant);
+
+            }
             in = br.readLine();
         }
     }

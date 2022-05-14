@@ -29,8 +29,8 @@ public class ContentManagementAppApplication implements CommandLineRunner {
 	@Override
 	public void run(String... arg) throws Exception {
 		storageService.init();
-		//AddPlant addPlant = new AddPlant(plantService, tagService);
-		//addPlant.initdb();
+		AddPlant addPlant = new AddPlant(plantService, tagService);
+		addPlant.initdb();
 	}
 
 }

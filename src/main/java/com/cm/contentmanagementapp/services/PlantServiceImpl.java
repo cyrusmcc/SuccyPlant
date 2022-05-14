@@ -9,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -85,9 +84,12 @@ public class PlantServiceImpl implements PlantService {
 
     @Override
     public boolean existsById(Long id) {
-        if (plantRepo.existsById(id)) return true;
+        return plantRepo.existsById(id);
+    }
 
-        return false;
+    @Override
+    public boolean existsByScienceName(String scienceName) {
+        return plantRepo.existsByScientificName(scienceName);
     }
 
     @Override

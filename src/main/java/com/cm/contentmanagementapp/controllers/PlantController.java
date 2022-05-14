@@ -45,7 +45,7 @@ public class PlantController {
 
     @GetMapping("/get-all")
     public ResponseEntity<?> getGalleryplants(@RequestHeader(defaultValue = "0") Integer pageNum,
-                                             @RequestHeader(defaultValue = "5") Integer pageSize,
+                                             @RequestHeader(defaultValue = "18") Integer pageSize,
                                              @RequestParam(required = false) String searchTerm,
                                              @RequestParam(required = false) String tags) {
 

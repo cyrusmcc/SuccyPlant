@@ -11,6 +11,8 @@ public interface PlantService {
 
     boolean existsById(Long id);
 
+    boolean existsByScienceName(String scienceName);
+
     void save(Plant plant);
 
     List<Plant> findAllByContentTagsAndSearchTerm(Integer pageNum, Integer pageSize,

@@ -29,7 +29,6 @@ public class ContentTagServiceImpl implements  ContentTagService{
 
         if (exists(value, category)) {
             log.info("Tag by value {} in category {} already exists", value, category);
-            throw new IllegalArgumentException();
         }
 
         ContentTag tag = new ContentTag(value, category);
