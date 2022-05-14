@@ -76,17 +76,15 @@ for line in plantFile:
             plant["commonName"] = attributes[0].title()
             plant["type"] = attributes[1].split("=", 1)[1]
 
-            plant["size"] = attributes[2].split("=", 1)[1]
-            if plant["size"] == "small":
+            plant["size"] = attributes[2].capitalize().split("=", 1)[1]
+            if plant["size"] == "Small":
                 plant["sizeDesc"] = petSafeAndSize.get("small")
-            elif plant["size"] == "medium":
+            elif plant["size"] == "Medium":
                 plant["sizeDesc"] = petSafeAndSize.get("medium")
-            elif plant["size"] == "large":
+            elif plant["size"] == "Large":
                 plant["sizeDesc"] = petSafeAndSize.get("large")
 
             plant["water"] = attributes[3].split("=", 1)[1]
-            if plant["water"] == "AL":
-                plant["waterDesc"] = waterCondition.get("AL")
             if plant["water"] == "WD":
                 plant["waterDesc"] = waterCondition.get("WD")
             elif plant["water"] == "THD":
@@ -104,10 +102,10 @@ for line in plantFile:
             elif plant["light"] == "BPSO":
                 plant["lightDesc"] = lightCondition.get("BPSO")
 
-            plant["petsafe"] = attributes[5].split("=", 1)[1]
-            if plant["petsafe"] == "no":
+            plant["petsafe"] = attributes[5].capitalize().split("=", 1)[1]
+            if plant["petsafe"] == "No":
                 plant["petDesc"] = petSafeAndSize.get("psno")
-            elif plant["petsafe"] == "yes":
+            elif plant["petsafe"] == "Yes":
                 plant["petDesc"] = petSafeAndSize.get("psyes")
 
             plant["difficulty"] = attributes[6].split("=", 1)[1].strip()

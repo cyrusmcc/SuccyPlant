@@ -65,12 +65,9 @@ class ContentManagementAppApplicationTests {
 
 	@Test
 	void addUserTest() {
-
 		User testUser = new User();
-
 		testUser.setUsername("testUsername");
 		testUser.setPassword("password");
-
 		userService.save(testUser);
 
 		assert (userService.findByUsername("testUsername").equals(testUser));
