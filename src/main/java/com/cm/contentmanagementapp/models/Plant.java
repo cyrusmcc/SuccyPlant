@@ -16,7 +16,20 @@ public class Plant {
     @Column(name = "science_name")
     private String scientificName;
 
-    private String descTextFileUrl;
+    @Column(name = "size_desc", columnDefinition = "TEXT")
+    private String sizeDesc;
+
+    @Column(name = "water_desc", columnDefinition = "TEXT")
+    private String waterDesc;
+
+    @Column(name = "light_desc", columnDefinition = "TEXT")
+    private String lightDesc;
+
+    @Column(name = "pet_desc", columnDefinition = "TEXT")
+    private String petDesc;
+
+    @Column(name = "description", columnDefinition = "TEXT")
+    private String description;
 
     @OneToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "post_id")
@@ -41,6 +54,54 @@ public class Plant {
 
     public void setScientificName(String scientificName) {
         this.scientificName = scientificName;
+    }
+
+    public String getCommonName() {
+        return commonName;
+    }
+
+    public void setCommonName(String commonName) {
+        this.commonName = commonName;
+    }
+
+    public String getSizeDesc() {
+        return sizeDesc;
+    }
+
+    public void setSizeDesc(String sizeDesc) {
+        this.sizeDesc = sizeDesc;
+    }
+
+    public String getWaterDesc() {
+        return waterDesc;
+    }
+
+    public void setWaterDesc(String waterDesc) {
+        this.waterDesc = waterDesc;
+    }
+
+    public String getLightDesc() {
+        return lightDesc;
+    }
+
+    public void setLightDesc(String lightDesc) {
+        this.lightDesc = lightDesc;
+    }
+
+    public String getPetDesc() {
+        return petDesc;
+    }
+
+    public void setPetDesc(String petDesc) {
+        this.petDesc = petDesc;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Post getPost() {
