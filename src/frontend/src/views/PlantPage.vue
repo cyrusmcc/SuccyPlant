@@ -25,41 +25,26 @@
       </button>
     </div>
     <div class="titleContainer">
-      <h1>{{ plantPost.title }}</h1>
+      <h1>{{ plant.scientificName }}</h1>
       <h3>
-        {{ plant.scientificName }}
+        {{ plant.commonName }}
       </h3>
     </div>
     <div class="descGuideContainer">
       <div class="descContainer">
         <h2>Description</h2>
         <div class="plantDescription">
-          Fittonia (nerve plant) is a genus of flowering plants in the acanthus
-          family Acanthaceae, native to tropical rainforest in South America,
-          mainly Peru.[2] The most commonly grown are F. albivenis and its
-          cultivars. They are spreading evergreen perennials growing 10–15 cm
-          (4–6 in) tall. They bear lush green leaves with accented veins of
-          white to deep pink and have a short fuzz covering their stems. Small
-          buds may appear after a time where the stem splits into leaves.
-          Flowers are small with a white to off-white colour. Plants are best
-          kept in a moist area with mild sunlight and temperatures above 55 °F
-          (13 °C), therefore in temperate areas they must be grown as
-          houseplants. Without water for a few days, this plant is known to
-          "faint" but is easily revived with a quick watering. Its spreading
-          habit makes it ideal as groundcover.
+          <p>{{ plant.description }}</p>
         </div>
       </div>
       <div class="careGuide">
         <div class="careGuideHead">
-          <h2>Care Guide</h2>
+          <h2>Quick Care Guide</h2>
         </div>
         <div class="careGuideSize">
           <h4 class="careGuideCategoryHead">How big?</h4>
           <span>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
-            ratione, tenetur iusto veniam illum dignissimos aperiam dolor totam
-            veritatis quas pariatur reprehenderit maiores aut deleniti
-            doloremque laboriosam! Fugiat, facere maxime.
+            {{ plant.sizeDesc }}
           </span>
         </div>
         <div class="careGuideDifficulty">
@@ -74,10 +59,7 @@
         <div class="careGuideLight">
           <h4 class="careGuideCategoryHead">How much light?</h4>
           <span>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
-            ratione, tenetur iusto veniam illum dignissimos aperiam dolor totam
-            veritatis quas pariatur reprehenderit maiores aut deleniti
-            doloremque laboriosam! Fugiat, facere maxime.
+            {{ plant.lightDesc }}
           </span>
         </div>
         <div class="careGuidePet">
@@ -85,10 +67,7 @@
             Are {{ plantPost.title }} pet safe?
           </h4>
           <span>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
-            ratione, tenetur iusto veniam illum dignissimos aperiam dolor totam
-            veritatis quas pariatur reprehenderit maiores aut deleniti
-            doloremque laboriosam! Fugiat, facere maxime.
+            {{ plant.petDesc }}
           </span>
         </div>
       </div>
@@ -130,6 +109,7 @@ export default {
     const getPlant = async () => {
       this.plant = await plantService.getPlantById(this.$route.params.id)
       this.plantPost = this.plant.post
+      console.log(this.plant)
     }
     getPlant().then(() => {
       this.hasPlantInList('userPlants')
@@ -222,7 +202,7 @@ export default {
 <style scoped lang="scss">
 h1 {
   font-family: $raleway;
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   font-weight: normal;
   margin-bottom: 0;
 }
@@ -252,6 +232,7 @@ h3 {
   justify-content: center;
   align-items: center;
   width: 100%;
+  text-align: center;
 }
 .plantPageContainer {
   display: flex;
