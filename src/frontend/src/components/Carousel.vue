@@ -62,8 +62,11 @@ img {
   height: 100%;
   object-fit: cover;
 }
+.homeContainer {
+  height: 100%;
+}
 .carousel {
-  height: 17rem;
+  height: 100%;
   width: 100%;
   position: relative;
 }

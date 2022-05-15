@@ -45,7 +45,7 @@ lightCondition = {"AL": "plant-name tend to do well in most lighting situations 
                   }
 petSafeAndSize = {
     "psno": "plant-name are toxic for house pets and can cause health complications if ingested. 'plant-name' should "
-            "be kept in areas unreachable by pets and can be closely monitored.",
+            "be kept in areas unreachable by pets.",
     "psyes": "plant-name are not known to be toxic for house pets and make for great houseplants for those with dogs "
              "or cats in their homes!",
     "small": "plant-name make great houseplants for those with limited space. When fully grown & indoors, plant-name "

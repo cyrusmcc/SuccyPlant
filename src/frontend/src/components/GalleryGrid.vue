@@ -165,7 +165,7 @@ export default {
   background-color: $accentTwo;
   padding: 3px;
   font-size: 0.8rem;
-  border-radius: 8px;
+  border-radius: 4px;
   margin-top: 10px;
 }
 

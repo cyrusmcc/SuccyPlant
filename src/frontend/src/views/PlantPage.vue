@@ -1,78 +1,92 @@
 <template>
   <div class="plantPageContainer" v-if="plant">
     <title>{{ plantPost.title }}</title>
-    <div class="carouselContainer">
-      <carousel :images="images" :arrows="true"></carousel>
-    </div>
-    <div class="plantListButtons" v-if="currentUser">
-      <button
-        :class="[
-          hasPlantInUserPlants ? 'removeButton' : 'button-primaryDark-noBorder',
-        ]"
-        @click="updatePlantList('userPlants')"
-      >
-        {{
-          hasPlantInUserPlants ? 'Remove from my plants' : 'Add to my plants'
-        }}
-      </button>
-      <button
-        :class="[
-          hasPlantInWishList ? 'removeButton' : 'button-primaryDark-noBorder',
-        ]"
-        @click="updatePlantList('wishList')"
-      >
-        {{ hasPlantInWishList ? 'Remove from wishlist' : 'Add to wishlist' }}
-      </button>
-    </div>
-    <div class="titleContainer">
-      <h1>{{ plant.scientificName }}</h1>
-      <h3>
-        {{ plant.commonName }}
-      </h3>
-    </div>
-    <div class="descGuideContainer">
-      <div class="descContainer">
-        <h2>Description</h2>
-        <div class="plantDescription">
-          <p>{{ plant.description }}</p>
+
+    <div class="boxContainer">
+      <div class="mediaBox">
+        <div class="carouselContainer">
+          <carousel :images="images" :arrows="true"></carousel>
+        </div>
+        <div class="plantListButtons" v-if="currentUser">
+          <button
+            :class="[
+              hasPlantInUserPlants
+                ? 'removeButton'
+                : 'button-primaryDark-noBorder',
+            ]"
+            @click="updatePlantList('userPlants')"
+          >
+            {{
+              hasPlantInUserPlants
+                ? 'Remove from my plants'
+                : 'Add to my plants'
+            }}
+          </button>
+          <button
+            :class="[
+              hasPlantInWishList
+                ? 'removeButton'
+                : 'button-primaryDark-noBorder',
+            ]"
+            @click="updatePlantList('wishList')"
+          >
+            {{
+              hasPlantInWishList ? 'Remove from wishlist' : 'Add to wishlist'
+            }}
+          </button>
+        </div>
+        <side-scroll-gallery></side-scroll-gallery>
+      </div>
+      <div class="infoBox">
+        <div class="titleContainer">
+          <h1>{{ plant.scientificName }}</h1>
+          <h3>
+            {{ plant.commonName }}
+          </h3>
+        </div>
+        <div class="descGuideContainer">
+          <div class="descContainer">
+            <div class="plantDescription">
+              <p>{{ plant.description }}</p>
+            </div>
+          </div>
+          <div class="careGuide">
+            <div class="careGuideHead">
+              <h2>Quick Care Guide</h2>
+            </div>
+            <div class="careGuideSize">
+              <h4 class="careGuideCategoryHead">How big?</h4>
+              <span>
+                {{ plant.sizeDesc }}
+              </span>
+            </div>
+            <div class="careGuideDifficulty">
+              <h4 class="careGuideCategoryHead">How hard?</h4>
+              <span>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
+                ratione, tenetur iusto veniam illum dignissimos aperiam dolor
+                totam veritatis quas pariatur reprehenderit maiores aut deleniti
+                doloremque laboriosam! Fugiat, facere maxime.
+              </span>
+            </div>
+            <div class="careGuideLight">
+              <h4 class="careGuideCategoryHead">How much light?</h4>
+              <span>
+                {{ plant.lightDesc }}
+              </span>
+            </div>
+            <div class="careGuidePet">
+              <h4 class="careGuideCategoryHead">
+                Are {{ plantPost.title }} pet safe?
+              </h4>
+              <span>
+                {{ plant.petDesc }}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="careGuide">
-        <div class="careGuideHead">
-          <h2>Quick Care Guide</h2>
-        </div>
-        <div class="careGuideSize">
-          <h4 class="careGuideCategoryHead">How big?</h4>
-          <span>
-            {{ plant.sizeDesc }}
-          </span>
-        </div>
-        <div class="careGuideDifficulty">
-          <h4 class="careGuideCategoryHead">How hard?</h4>
-          <span>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
-            ratione, tenetur iusto veniam illum dignissimos aperiam dolor totam
-            veritatis quas pariatur reprehenderit maiores aut deleniti
-            doloremque laboriosam! Fugiat, facere maxime.
-          </span>
-        </div>
-        <div class="careGuideLight">
-          <h4 class="careGuideCategoryHead">How much light?</h4>
-          <span>
-            {{ plant.lightDesc }}
-          </span>
-        </div>
-        <div class="careGuidePet">
-          <h4 class="careGuideCategoryHead">
-            Are {{ plantPost.title }} pet safe?
-          </h4>
-          <span>
-            {{ plant.petDesc }}
-          </span>
-        </div>
-      </div>
     </div>
-    <side-scroll-gallery></side-scroll-gallery>
   </div>
 </template>
 
@@ -240,10 +254,21 @@ h3 {
   justify-content: center;
   align-items: center;
   height: fit-content;
+  width: 100%;
+}
+.boxContainer {
+  height: 100%;
+  width: 95%;
+}
+.mediaBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 .carouselContainer {
   width: 95%;
-  height: fit-content;
+  height: 17rem;
   border-radius: 5px;
   border: 1px solid $outline;
   box-shadow: $shadowLight;
@@ -254,7 +279,7 @@ h3 {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 95%;
+  width: 100%;
   margin-top: 25px;
   text-align: center;
   font-family: $raleway;
@@ -277,7 +302,8 @@ h3 {
 
 .careGuide {
   width: 100%;
-  margin-top: 30px;
+  margin-top: 35px;
+  margin-bottom: 10px;
   border: 1px solid $outline;
   border-radius: 5px;
   overflow: hidden;
@@ -286,14 +312,15 @@ h3 {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   width: 100%;
-  height: 6rem;
+  height: 9rem;
   overflow: hidden;
 }
 
 .careGuide > div:nth-child(n + 2) > * {
-  margin-left: 5px;
+  width: 95%;
+  text-align: center;
 }
 
 .careGuideHead {
@@ -303,30 +330,42 @@ h3 {
   align-items: center;
   width: 100%;
   height: 6rem;
-  background: $accentTwo;
+  //background: $accentTwo;
+  box-sizing: border-box;
+  border: 2px solid $accentTwo;
+  border-bottom: 0px;
 }
 .careGuideSize {
-  background: $accentFive;
+  box-sizing: border-box;
+  border-left: 2px solid $accentFive;
+  border-right: 2px solid $accentFive;
 }
 .careGuideDifficulty {
-  background: $accentFour;
+  box-sizing: border-box;
+  border-left: 2px solid $accentFour;
+  border-right: 2px solid $accentFour;
 }
 .careGuideLight {
-  background: $accentThree;
+  box-sizing: border-box;
+  border-left: 2px solid $accentThree;
+  border-right: 2px solid $accentThree;
 }
 .careGuidePet {
-  background: $accentSix;
+  box-sizing: border-box;
+  border: 2px solid $accentSix;
+  border-top: 0px;
+  //background: $accentSix;
 }
 
 @include screen-lg() {
   .descGuideContainer {
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
-    justify-content: space-evenly;
-    align-items: flex-start;
+    justify-content: flex-start;
+    align-items: center;
   }
   .descContainer {
-    width: 45%;
+    width: 95%;
     text-align: center;
   }
   .descContainer > h2 {
@@ -334,8 +373,26 @@ h3 {
     margin: 0;
   }
   .careGuide {
-    width: 45%;
-    margin-top: 0;
+    width: 95%;
+  }
+  .boxContainer {
+    display: flex;
+    flex-direction: row;
+  }
+  .mediaBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+  }
+  .infoBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .carouselContainer {
+    height: 30rem;
   }
 }
 </style>

@@ -35,6 +35,7 @@ public class AddPlant {
         BufferedReader br = new BufferedReader(new FileReader(file));
         String in = br.readLine();
         while (in != null) {
+
             JSONObject obj = new JSONObject(in);
 
             if (!plantService.existsByScienceName(obj.getString("scienceName"))) {
@@ -50,16 +51,31 @@ public class AddPlant {
                 String difficulty = obj.getString("difficulty");
                 difficulty = difficulty.substring(0,1).toUpperCase() + difficulty.substring(1).toLowerCase();
 
-
                 // Set title of plant's post
                 plant.setTitle(obj.getString("scienceName"));
                 plant.setScientificName(obj.getString("scienceName"));
                 plant.setCommonName(obj.getString("commonName"));
-                plant.setDescription(obj.getString("desc"));
-                plant.setLightDesc(obj.getString("lightDesc"));
-                plant.setWaterDesc(obj.getString("waterDesc"));
-                plant.setPetDesc(obj.getString("petDesc"));
-                plant.setSizeDesc(obj.getString("sizeDesc"));
+
+                String desc = obj.getString("desc");
+                desc = desc.replace("plant-name", obj.getString("scienceName"));
+                plant.setDescription(desc);
+
+                String lightDesc = obj.getString("lightDesc");
+                lightDesc = lightDesc.replace("plant-name", obj.getString("scienceName"));
+                plant.setLightDesc(lightDesc);
+
+                String waterDesc = obj.getString("waterDesc");
+                waterDesc = waterDesc.replace("plant-name", obj.getString("scienceName"));
+                plant.setWaterDesc(waterDesc);
+
+                String petDesc = obj.getString("petDesc");
+                petDesc = petDesc.replace("plant-name", obj.getString("scienceName"));
+                plant.setPetDesc(petDesc);
+
+                String sizeDesc = obj.getString("sizeDesc");
+                sizeDesc = sizeDesc.replace("plant-name", obj.getString("scienceName"));
+                plant.setSizeDesc(sizeDesc);
+
                 plantPost.addTag(tagService.findByCategoryAndValue(EnumTagCategory.GENUS, obj.getString("genus")));
                 plantPost.addTag(tagService.findByCategoryAndValue(EnumTagCategory.DIFFICULTY, difficulty));
                 plantPost.addTag(tagService.findByCategoryAndValue(EnumTagCategory.SIZE, size));

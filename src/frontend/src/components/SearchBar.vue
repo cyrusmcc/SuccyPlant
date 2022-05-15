@@ -41,7 +41,7 @@ export default {
   width: 80%;
   height: 100%;
   font-size: 1rem;
-  margin-left: 5px;
+  margin-left: 10px;
   border: none;
   outline: none;
   background: transparent;
