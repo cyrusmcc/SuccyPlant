@@ -61,12 +61,9 @@
               </span>
             </div>
             <div class="careGuideDifficulty">
-              <h4 class="careGuideCategoryHead">How hard?</h4>
+              <h4 class="careGuideCategoryHead">How much water?</h4>
               <span>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
-                ratione, tenetur iusto veniam illum dignissimos aperiam dolor
-                totam veritatis quas pariatur reprehenderit maiores aut deleniti
-                doloremque laboriosam! Fugiat, facere maxime.
+                {{ plant.waterDesc }}
               </span>
             </div>
             <div class="careGuideLight">
@@ -304,7 +301,6 @@ h3 {
   width: 100%;
   margin-top: 35px;
   margin-bottom: 10px;
-  border: 1px solid $outline;
   border-radius: 5px;
   overflow: hidden;
 }
@@ -329,16 +325,16 @@ h3 {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 6rem;
+  height: 4rem;
   //background: $accentTwo;
-  box-sizing: border-box;
-  border: 2px solid $accentTwo;
   border-bottom: 0px;
 }
 .careGuideSize {
   box-sizing: border-box;
+  border-top: 2px solid $accentFive;
   border-left: 2px solid $accentFive;
   border-right: 2px solid $accentFive;
+  border-radius: 4px 4px 0 0;
 }
 .careGuideDifficulty {
   box-sizing: border-box;
@@ -354,6 +350,7 @@ h3 {
   box-sizing: border-box;
   border: 2px solid $accentSix;
   border-top: 0px;
+  border-radius: 0 0 4px 4px;
   //background: $accentSix;
 }
 
@@ -383,13 +380,14 @@ h3 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 70%;
+    width: 65%;
   }
   .infoBox {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 35%;
   }
   .carouselContainer {
     height: 30rem;
