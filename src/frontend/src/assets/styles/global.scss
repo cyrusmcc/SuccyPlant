@@ -79,9 +79,10 @@ h2 {
 
 a {
   cursor: pointer;
-  color: $primaryDark;
+  //color: $primaryDark;
   text-decoration: none;
 }
+
 
 a:hover,
 a:focus {
@@ -338,6 +339,7 @@ html::-webkit-scrollbar-thumb {
 
 .navLink {
   border: 2px solid transparent;
+  color: $primaryLight;
 }
 
 .navLink:hover {

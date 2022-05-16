@@ -28,7 +28,6 @@ h2 {
 
 a {
   cursor: pointer;
-  color: #121113;
   text-decoration: none;
 }
 
@@ -492,6 +491,7 @@ html::-webkit-scrollbar-thumb {
 
 .navLink {
   border: 2px solid transparent;
+  color: #f4f4f3;
 }
 
 .navLink:hover {

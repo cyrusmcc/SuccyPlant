@@ -217,6 +217,9 @@ h1 {
   font-weight: normal;
   margin-bottom: 0;
 }
+h2 {
+  font-weight: normal;
+}
 h3 {
   font-family: $raleway;
   font-size: 1.5rem;
@@ -252,6 +255,7 @@ h3 {
   align-items: center;
   height: fit-content;
   width: 100%;
+  padding-top: 10px;
 }
 .boxContainer {
   height: 100%;
@@ -304,13 +308,13 @@ h3 {
   border-radius: 5px;
   overflow: hidden;
 }
-.careGuide > div:nth-child(n + 2) {
+.careGuide > div {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: 9rem;
+  height: fit-content;
   overflow: hidden;
 }
 
@@ -326,15 +330,16 @@ h3 {
   align-items: center;
   width: 100%;
   height: 4rem;
-  //background: $accentTwo;
   border-bottom: 0px;
+  // TODO do I like this style?
+  color: $primaryLight;
+  background: $primaryDark;
+  border-radius: 4px 4px 0px 0px;
 }
 .careGuideSize {
   box-sizing: border-box;
-  border-top: 2px solid $accentFive;
   border-left: 2px solid $accentFive;
   border-right: 2px solid $accentFive;
-  border-radius: 4px 4px 0 0;
 }
 .careGuideDifficulty {
   box-sizing: border-box;
@@ -352,6 +357,10 @@ h3 {
   border-top: 0px;
   border-radius: 0 0 4px 4px;
   //background: $accentSix;
+}
+
+.careGuidePet > span {
+  margin-bottom: 10px;
 }
 
 @include screen-lg() {

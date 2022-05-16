@@ -82,6 +82,9 @@ export default {
   width: fit-content;
   grid-area: 1 / 2 / 5 / 4;
 }
+a {
+  color: $primaryDark;
+}
 .galPostList {
   box-sizing: border-box;
   width: 100%;

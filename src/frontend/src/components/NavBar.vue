@@ -122,7 +122,8 @@ export default {
   position: fixed;
   top: 0;
   max-height: 100%;
-  background: $primaryLight;
+  //background: $primaryLight;
+  background: $primaryDark;
 }
 
 .mobileNav {
@@ -131,14 +132,16 @@ export default {
   height: 25px;
   max-width: 100%;
   font-family: $amatic;
-  color: $primaryDark;
+  //color: $primaryDark;
+  color: $primaryLight;
   font-size: 1.5rem;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-content: center;
   padding: 10px 0 10px 10px;
-  background: $primaryLight;
+  //background: $primaryLight;
+  background: $primaryDark;
 }
 
 .desktopNavBar {
@@ -156,7 +159,6 @@ export default {
   column-gap: 10px;
   width: fit-content;
 }
-
 .sideBarContent {
   z-index: 5px;
   display: flex;
@@ -168,7 +170,8 @@ export default {
   position: absolute;
   bottom: -145px;
   right: 0;
-  background: $primaryLight;
+  //background: $primaryLight;
+  background: $primaryDark;
   box-shadow: $shadowLight;
 }
 
@@ -178,7 +181,8 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: $amatic;
-  color: $primaryDark;
+  //color: $primaryDark;
+  color: $primaryLight;
   font-size: 1.5rem;
   cursor: pointer;
   border-bottom: 2px solid transparent;
@@ -195,7 +199,8 @@ export default {
   margin: 4px;
   height: 3px;
   border-radius: 4px;
-  background-color: $primaryDark;
+  //background-color: $primaryDark;
+  background-color: $primaryLight;
 }
 
 .closeHamburgerButton {
@@ -204,7 +209,8 @@ export default {
   top: -7px;
   left: 10px;
   transform: rotate(45deg);
-  color: $primaryDark;
+  //color: $primaryDark;
+  color: $primaryLight;
   user-select: none;
   font-size: 45px;
   cursor: pointer;
@@ -219,7 +225,8 @@ export default {
   align-items: flex-start;
   padding: 60px 15px 15px 15px;
   row-gap: 20px;
-  background: $primaryLight;
+  //background: $primaryLight;
+  background: $primaryDark;
   height: fit-content;
   max-width: 100%;
   font-size: 1.2rem;
@@ -229,5 +236,9 @@ export default {
   width: 2rem;
   height: 2rem;
   cursor: pointer;
+}
+
+.navLink {
+  color: $primaryLight;
 }
 </style>
