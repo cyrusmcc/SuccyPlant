@@ -4,7 +4,7 @@
     <div class="itemList">
       <div class="directionArrowLeft" @click="handleLeftClick">&lt;</div>
       <div class="directionArrowRight" @click="handleRightClick">&gt;</div>
-      <div class="sideScrollItem" v-for="(item, i) in items" :key="i">
+      <div class="sideScrollItem" v-for="(item, i) in itemsSubArr" :key="i">
         <img class="itemImg" :src="item.image" alt="carousel-image" />
         <span class="itemTitle">{{ item.title }}</span>
       </div>
@@ -15,35 +15,50 @@
 <script>
 export default {
   name: 'SideScrollGallery',
+  props: ['length'],
   data() {
     return {
-      items: {
-        p1: {
-          title: 'test',
+      len: 3,
+      items: [
+        {
+          title: 'test1',
           image: require('@/assets/imgs/house.jpg'),
         },
-        p2: {
-          title: 'test',
+        {
+          title: 'test2',
           image: require('@/assets/imgs/house.jpg'),
         },
-        p3: {
-          title: 'test',
+        {
+          title: 'test3',
           image: require('@/assets/imgs/house.jpg'),
         },
-        p4: {
-          title: 'test',
+        {
+          title: 'test4',
           image: require('@/assets/imgs/house.jpg'),
         },
-        p5: {
-          title: 'test',
+        {
+          title: 'test5',
           image: require('@/assets/imgs/house.jpg'),
         },
-        p6: {
-          title: 'test',
+        {
+          title: 'test6',
           image: require('@/assets/imgs/house.jpg'),
         },
-      },
+      ],
     }
+  },
+  methods: {
+    handleRightClick() {
+      this.items.unshift(this.items.pop())
+    },
+    handleLeftClick() {
+      this.items.push(this.items.shift())
+    },
+  },
+  computed: {
+    itemsSubArr() {
+      return this.items.slice(0, this.len)
+    },
   },
 }
 </script>
@@ -54,12 +69,12 @@ export default {
   flex-direction: column;
   align-items: center;
   width: fit-content;
-  max-width: 95%;
+  max-width: 100%;
 }
 .sideScrollLabel {
   width: 100%;
   margin: 25px 0 0 0;
-  padding-left: 10px;
+  padding-left: 5px;
   font-size: 1.1rem;
   font-weight: normal;
 }
