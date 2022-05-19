@@ -1,6 +1,7 @@
 package com.cm.contentmanagementapp.models;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Plant {
@@ -15,6 +16,12 @@ public class Plant {
 
     @Column(name = "science_name")
     private String scientificName;
+
+    @Column(name = "genus")
+    private String genus;
+
+    @Column(name = "type")
+    private String type;
 
     @Column(name = "size_desc", columnDefinition = "TEXT")
     private String sizeDesc;
@@ -48,6 +55,14 @@ public class Plant {
         this.id = id;
     }
 
+    public String getCommonName() {
+        return commonName;
+    }
+
+    public void setCommonName(String commonName) {
+        this.commonName = commonName;
+    }
+
     public String getScientificName() {
         return scientificName;
     }
@@ -56,12 +71,20 @@ public class Plant {
         this.scientificName = scientificName;
     }
 
-    public String getCommonName() {
-        return commonName;
+    public String getGenus() {
+        return genus;
     }
 
-    public void setCommonName(String commonName) {
-        this.commonName = commonName;
+    public void setGenus(String genus) {
+        this.genus = genus;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getSizeDesc() {
@@ -106,6 +129,10 @@ public class Plant {
 
     public Post getPost() {
         return post;
+    }
+
+    public Set<ContentTag> getPostTags() {
+        return post.getTags();
     }
 
     public void setTitle(String title) {

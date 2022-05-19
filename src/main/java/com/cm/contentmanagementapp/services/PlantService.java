@@ -20,5 +20,5 @@ public interface PlantService {
 
     List<Plant> findAllByAlphabetical(Integer pageNum, Integer pageSize);
 
-
+    List<Plant> findAllRelated(Integer pageNum, Integer pageSize, Long plantId);
 }

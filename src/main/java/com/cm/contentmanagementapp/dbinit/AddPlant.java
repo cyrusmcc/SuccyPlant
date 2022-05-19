@@ -76,6 +76,9 @@ public class AddPlant {
                 sizeDesc = sizeDesc.replace("plant-name", obj.getString("scienceName"));
                 plant.setSizeDesc(sizeDesc);
 
+                plant.setGenus(obj.getString("genus"));
+                plant.setType(getType(obj));
+
                 plantPost.addTag(tagService.findByCategoryAndValue(EnumTagCategory.GENUS, obj.getString("genus")));
                 plantPost.addTag(tagService.findByCategoryAndValue(EnumTagCategory.DIFFICULTY, difficulty));
                 plantPost.addTag(tagService.findByCategoryAndValue(EnumTagCategory.SIZE, size));

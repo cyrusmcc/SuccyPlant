@@ -83,6 +83,27 @@ public class PlantServiceImpl implements PlantService {
     }
 
     @Override
+    public List<Plant> findAllRelated(Integer pageNum, Integer pageSize, Long plantId) {
+        Plant plant = findById(plantId);
+        Pageable paging = PageRequest.of(pageNum, pageSize, Sort.by("id").descending());
+
+        // Split genus from plant's scientific denotation
+        String[] scientificName = plant.getScientificName().split(" ");
+        String plantGenus = scientificName[0];
+        Slice<Plant> sliceResult = plantRepo.findAllByPostTitleContainingIgnoreCase(plantGenus, paging);
+
+        if (!sliceResult.hasContent()) {
+            sliceResult = plantRepo.findPlantsByType(plant.getType(), paging);
+        }
+
+        if (sliceResult.hasContent()) {
+            return sliceResult.getContent();
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
     public boolean existsById(Long id) {
         return plantRepo.existsById(id);
     }

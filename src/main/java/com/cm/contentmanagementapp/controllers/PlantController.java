@@ -43,6 +43,27 @@ public class PlantController {
                 .body(new MessageResponse("No plant with ID " + plantId + " found") );
     }
 
+    /*
+     * Returns a list of plants related to plant w/ id equal to plantId,
+     *  where related plants share genus, if no common genus plants found,
+     *  returns plants related by type (house plant, succ, cactus)
+     * */
+    @GetMapping("/get-related/{plantId}")
+    public ResponseEntity<?> getRelatedPlants(@RequestHeader(defaultValue = "0") Integer pageNum,
+                                              @RequestHeader(defaultValue = "18") Integer pageSize,
+                                              @PathVariable Long plantId) {
+
+        List<Plant> plants = plantService.findAllRelated(pageNum, pageSize,
+                plantId);
+
+        for (Plant plant : plants) System.out.println(plant.getPost().getTitle());
+        System.out.println(plants);
+
+        return new ResponseEntity<>(plants, new HttpHeaders(), HttpStatus.OK);
+
+
+    }
+
     @GetMapping("/get-all")
     public ResponseEntity<?> getGalleryplants(@RequestHeader(defaultValue = "0") Integer pageNum,
                                              @RequestHeader(defaultValue = "18") Integer pageSize,
@@ -66,9 +87,6 @@ public class PlantController {
 
         List<Plant> plants = plantService.findAllByContentTagsAndSearchTerm(pageNum, pageSize,
                 tagList, searchTerm);
-
-        for (Plant plant : plants) System.out.println(plant.getPost().getTitle());
-        System.out.println(plants);
 
         return new ResponseEntity<>(plants, new HttpHeaders(), HttpStatus.OK);
 

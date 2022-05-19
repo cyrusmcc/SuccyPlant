@@ -21,6 +21,8 @@ public interface PlantRepository extends JpaRepository<Plant, Long> {
     Page<Plant> findGalleryPostsByPostContentTags(@Param("tags") List<ContentTag> tags,
                                                   @Param("tagCount") long tagCount, Pageable paging);
 
+    Page<Plant> findPlantsByType(String type, Pageable pageable);
+
     List<Plant> findPlantsByIdInAndPostContentTagsIn(List<Long> ids, List<ContentTag> tags);
 
     boolean existsGalleryPostByPostTitle(String title);
