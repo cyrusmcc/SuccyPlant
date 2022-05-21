@@ -14,53 +14,62 @@
 
 <script>
 export default {
-  name: 'SideScrollGallery',
-  props: ['length'],
+  name: "SideScrollGallery",
+  props: ["length", "items"],
   data() {
     return {
       len: 3,
+      itemList: this.items,
+      /*
       items: [
         {
-          title: 'test1',
-          image: require('@/assets/imgs/house.jpg'),
+          title: "test1",
+          image: require("@/assets/imgs/house.jpg"),
         },
         {
-          title: 'test2',
-          image: require('@/assets/imgs/house.jpg'),
+          title: "test2",
+          image: require("@/assets/imgs/house.jpg"),
         },
         {
-          title: 'test3',
-          image: require('@/assets/imgs/house.jpg'),
+          title: "test3",
+          image: require("@/assets/imgs/house.jpg"),
         },
         {
-          title: 'test4',
-          image: require('@/assets/imgs/house.jpg'),
+          title: "test4",
+          image: require("@/assets/imgs/house.jpg"),
         },
         {
-          title: 'test5',
-          image: require('@/assets/imgs/house.jpg'),
+          title: "test5",
+          image: require("@/assets/imgs/house.jpg"),
         },
         {
-          title: 'test6',
-          image: require('@/assets/imgs/house.jpg'),
+          title: "test6",
+          image: require("@/assets/imgs/house.jpg"),
         },
       ],
-    }
+      */
+    };
+  },
+  mounted() {
+    console.log(this.items);
+    this.itemsList = this.items;
   },
   methods: {
     handleRightClick() {
-      this.items.unshift(this.items.pop())
+      this.itemList.push(this.itemList.shift());
     },
     handleLeftClick() {
-      this.items.push(this.items.shift())
+      this.itemList.unshift(this.itemList.pop());
     },
   },
   computed: {
+    // Returns a subarray of the items array with the length of the len prop
     itemsSubArr() {
-      return this.items.slice(0, this.len)
+      //this.itemList = this.items;
+      return this.items.slice(0, this.length);
     },
   },
-}
+};
 </script>
 
 <style scoped lang="scss">

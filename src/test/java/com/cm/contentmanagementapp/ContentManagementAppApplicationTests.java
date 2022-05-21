@@ -254,6 +254,12 @@ class ContentManagementAppApplicationTests {
 	}
 
 	@Test
+	void findRelatedPlants() {
+		List<Plant> plants = plantService.findAllRelated(0, 6, 1L);
+		for (Plant p : plants) System.out.println(p.getCommonName() + " " + p.getGenus() + " " + p.getType());
+	}
+
+	@Test
 	void findGalleryPostByPostTitleLike() {
 
 		Pageable paging = PageRequest.of(0, 5, Sort.by("id").descending());

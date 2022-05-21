@@ -5,7 +5,11 @@
     <div class="boxContainer">
       <div class="mediaBox">
         <div class="carouselContainer">
-          <carousel :images="images" :arrows="true"></carousel>
+          <carousel
+            :images="images"
+            :items="relatedPlants"
+            :arrows="true"
+          ></carousel>
         </div>
         <div class="plantListButtons" v-if="currentUser">
           <button
@@ -18,8 +22,8 @@
           >
             {{
               hasPlantInUserPlants
-                ? 'Remove from my plants'
-                : 'Add to my plants'
+                ? "Remove from my plants"
+                : "Add to my plants"
             }}
           </button>
           <button
@@ -31,11 +35,11 @@
             @click="updatePlantList('wishList')"
           >
             {{
-              hasPlantInWishList ? 'Remove from wishlist' : 'Add to wishlist'
+              hasPlantInWishList ? "Remove from wishlist" : "Add to wishlist"
             }}
           </button>
         </div>
-        <side-scroll-gallery></side-scroll-gallery>
+        <side-scroll-gallery :length="sideScrollLength"></side-scroll-gallery>
       </div>
       <div class="infoBox">
         <div class="titleContainer">
@@ -88,44 +92,59 @@
 </template>
 
 <script>
-import Carousel from '../components/Carousel.vue'
-import SideScrollGallery from '../components/SideScrollGallery.vue'
-import plantService from '../service/plant.service'
-import userService from '../service/user.service'
+import Carousel from "../components/Carousel.vue";
+import SideScrollGallery from "../components/SideScrollGallery.vue";
+import plantService from "../service/plant.service";
+import userService from "../service/user.service";
 
 export default {
-  name: 'PlantPage',
+  name: "PlantPage",
   components: { Carousel, SideScrollGallery },
   props: [],
   data() {
     return {
       plant: {},
       plantPost: {},
-      message: '',
+      message: "",
       images: [
         {
-          url: require('@/assets/imgs/house.jpg'),
+          url: require("@/assets/imgs/house.jpg"),
         },
       ],
       hasPlantInUserPlants: false,
       hasPlantInWishList: false,
-    }
+      sideScrollLength: 3,
+    };
   },
   computed: {
     currentUser() {
-      return this.$store.state.auth.user
+      return this.$store.state.auth.user;
+    },
+    relatedPlants() {
+      // length is equal to number of plants in initial view, so * 2 fetches two full slides of plants
+      const numPlantsToRetrieve = this.sideScrollLength * 2;
+      const getRelatedPlants = async () => {
+        const relatedPlants = await plantService.getRelatedPlants(
+          numPlantsToRetrieve,
+          this.plant.id
+        );
+        return relatedPlants;
+      };
+      const plants = getRelatedPlants();
+      console.log(plants);
+      return getRelatedPlants();
     },
   },
   mounted() {
     const getPlant = async () => {
-      this.plant = await plantService.getPlantById(this.$route.params.id)
-      this.plantPost = this.plant.post
-      console.log(this.plant)
-    }
+      this.plant = await plantService.getPlantById(this.$route.params.id);
+      this.plantPost = this.plant.post;
+      console.log(this.plant);
+    };
     getPlant().then(() => {
-      this.hasPlantInList('userPlants')
-      this.hasPlantInList('wishList')
-    })
+      this.hasPlantInList("userPlants");
+      this.hasPlantInList("wishList");
+    });
   },
   methods: {
     addPlantToList(listName) {
@@ -134,10 +153,10 @@ export default {
           .addPlantToList(this.currentUser.id, this.$route.params.id, listName)
           .then(
             (res) => {
-              if (listName === 'userPlants') {
-                this.hasPlantInUserPlants = res
-              } else if (listName === 'wishList') {
-                this.hasPlantInWishList = res
+              if (listName === "userPlants") {
+                this.hasPlantInUserPlants = res;
+              } else if (listName === "wishList") {
+                this.hasPlantInWishList = res;
               }
             },
             (error) => {
@@ -146,9 +165,9 @@ export default {
                   error.response.data &&
                   error.response.data.message) ||
                 error.message ||
-                error.toString()
-            },
-          )
+                error.toString();
+            }
+          );
       }
     },
     removePlantFromList(listName) {
@@ -156,14 +175,14 @@ export default {
         .removePlantFromList(
           this.currentUser.id,
           this.$route.params.id,
-          listName,
+          listName
         )
         .then(
           () => {
-            if (listName === 'userPlants') {
-              this.hasPlantInUserPlants = false
-            } else if (listName === 'wishList') {
-              this.hasPlantInWishList = false
+            if (listName === "userPlants") {
+              this.hasPlantInUserPlants = false;
+            } else if (listName === "wishList") {
+              this.hasPlantInWishList = false;
             }
           },
           (error) => {
@@ -172,23 +191,23 @@ export default {
                 error.response.data &&
                 error.response.data.message) ||
               error.message ||
-              error.toString()
-          },
-        )
+              error.toString();
+          }
+        );
     },
     updatePlantList(listName) {
       if (this.currentUser) {
-        if (listName === 'userPlants') {
+        if (listName === "userPlants") {
           if (this.hasPlantInUserPlants) {
-            this.removePlantFromList(listName)
+            this.removePlantFromList(listName);
           } else {
-            this.addPlantToList(listName)
+            this.addPlantToList(listName);
           }
-        } else if (listName === 'wishList') {
+        } else if (listName === "wishList") {
           if (this.hasPlantInWishList) {
-            this.removePlantFromList(listName)
+            this.removePlantFromList(listName);
           } else {
-            this.addPlantToList(listName)
+            this.addPlantToList(listName);
           }
         }
       }
@@ -198,16 +217,16 @@ export default {
         userService
           .hasPlantInList(this.currentUser.id, this.$route.params.id, listName)
           .then((res) => {
-            if (listName === 'userPlants') {
-              this.hasPlantInUserPlants = res
-            } else if (listName === 'wishList') {
-              this.hasPlantInWishList = res
+            if (listName === "userPlants") {
+              this.hasPlantInUserPlants = res;
+            } else if (listName === "wishList") {
+              this.hasPlantInWishList = res;
             }
-          })
+          });
       }
     },
   },
-}
+};
 </script>
 
 <style scoped lang="scss">
@@ -371,19 +390,16 @@ h3 {
     align-items: center;
   }
   .descContainer {
-    width: 95%;
     text-align: center;
   }
   .descContainer > h2 {
     height: 6rem;
     margin: 0;
   }
-  .careGuide {
-    width: 95%;
-  }
   .boxContainer {
     display: flex;
     flex-direction: row;
+    column-gap: 15px;
   }
   .mediaBox {
     display: flex;
@@ -399,7 +415,11 @@ h3 {
     width: 35%;
   }
   .carouselContainer {
+    width: 100%;
     height: 30rem;
+  }
+  .plantListButtons {
+    width: 100%;
   }
 }
 </style>

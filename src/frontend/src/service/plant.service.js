@@ -27,6 +27,17 @@ class PlantService {
         return response.data;
       });
   }
+  getRelatedPlants(pageSize, plantId) {
+    return api
+      .get(PLANT_API_URL + "get-related/" + plantId, {
+        headers: {
+          pageSize,
+        },
+      })
+      .then((response) => {
+        return response.data;
+      });
+  }
   getSortedPlants(params) {
     return api
       .get(PLANT_API_URL + "plants" + "?" + params, {

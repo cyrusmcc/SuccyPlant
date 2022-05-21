@@ -50,7 +50,7 @@ public class PlantController {
      * */
     @GetMapping("/get-related/{plantId}")
     public ResponseEntity<?> getRelatedPlants(@RequestHeader(defaultValue = "0") Integer pageNum,
-                                              @RequestHeader(defaultValue = "18") Integer pageSize,
+                                              @RequestHeader(defaultValue = "6") Integer pageSize,
                                               @PathVariable Long plantId) {
 
         List<Plant> plants = plantService.findAllRelated(pageNum, pageSize,
@@ -60,8 +60,6 @@ public class PlantController {
         System.out.println(plants);
 
         return new ResponseEntity<>(plants, new HttpHeaders(), HttpStatus.OK);
-
-
     }
 
     @GetMapping("/get-all")
