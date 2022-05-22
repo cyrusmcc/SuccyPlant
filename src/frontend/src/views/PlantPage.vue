@@ -8,38 +8,29 @@
           <carousel :images="images" :arrows="true"></carousel>
         </div>
         <div class="plantListButtons" v-if="currentUser">
-          <button
-            :class="[
-              hasPlantInUserPlants
-                ? 'removeButton'
-                : 'button-primaryDark-noBorder',
-            ]"
-            @click="updatePlantList('userPlants')"
-          >
+          <button :class="[
+            hasPlantInUserPlants
+              ? 'removeButton'
+              : 'button-primaryDark-noBorder',
+          ]" @click="updatePlantList('userPlants')">
             {{
-              hasPlantInUserPlants
-                ? "Remove from my plants"
-                : "Add to my plants"
+                hasPlantInUserPlants
+                  ? "Remove from my plants"
+                  : "Add to my plants"
             }}
           </button>
-          <button
-            :class="[
-              hasPlantInWishList
-                ? 'removeButton'
-                : 'button-primaryDark-noBorder',
-            ]"
-            @click="updatePlantList('wishList')"
-          >
+          <button :class="[
+            hasPlantInWishList
+              ? 'removeButton'
+              : 'button-primaryDark-noBorder',
+          ]" @click="updatePlantList('wishList')">
             {{
-              hasPlantInWishList ? "Remove from wishlist" : "Add to wishlist"
+                hasPlantInWishList ? "Remove from wishlist" : "Add to wishlist"
             }}
           </button>
         </div>
-        <side-scroll-gallery
-          :length="sideScrollLength"
-          :items="relatedPlants"
-          v-if="relatedPlants.length > 0"
-        ></side-scroll-gallery>
+        <side-scroll-gallery :length="sideScrollLength" :items="relatedPlants" v-if="relatedPlants.length > 0">
+        </side-scroll-gallery>
       </div>
       <div class="infoBox">
         <div class="titleContainer">
@@ -141,7 +132,8 @@ export default {
     getPlant() {
       const getPlant = async () => {
         this.plant = await plantService.getPlantById(this.$route.params.id);
-        this.plantPost = this.plant.post;
+        if (this.plant) this.plantPost = this.plant.post;
+        else this.message = "Plant not found";
       };
       getPlant().then(() => {
         this.hasPlantInList("userPlants");
@@ -251,184 +243,204 @@ h1 {
   font-weight: normal;
   margin-bottom: 0;
 }
+
 h2 {
   font-weight: normal;
 }
+
 h3 {
   font-family: $raleway;
   font-size: 1.5rem;
-  font-weight: 300;
   font-style: italic;
+  font-weight: 300;
   margin: 10px 0 0 0;
 }
+
 .plantListButtons {
+  column-gap: 5px;
   display: flex;
   justify-content: flex-start;
-  width: 100%;
-  column-gap: 5px;
   margin: 20px 0 10px 0;
+  width: 100%;
 }
+
 .button-primaryDark-noBorder {
-  font-size: 0.8rem;
   font-family: $inter;
+  font-size: 0.8rem;
   padding: 1px 10px;
 }
 
 .titleContainer {
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  width: 100%;
   text-align: center;
+  width: 100%;
 }
+
 .plantPageContainer {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   height: fit-content;
-  width: 100%;
+  justify-content: center;
   padding-top: 10px;
+  width: 100%;
 }
+
 .boxContainer {
   height: 100%;
   width: 95%;
 }
+
 .mediaBox {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 100%;
 }
+
 .carouselContainer {
-  width: 100%;
-  height: 17rem;
   border-radius: 5px;
   border: 1px solid $outline;
   box-shadow: $shadowLight;
+  height: 17rem;
   overflow: hidden;
+  width: 100%;
 }
+
 .descGuideContainer {
+  align-items: center;
   display: flex;
   flex-direction: column;
+  font-family: $raleway;
   justify-content: flex-start;
-  align-items: center;
-  width: 100%;
   margin-top: 25px;
   text-align: center;
-  font-family: $raleway;
+  width: 100%;
 }
 
 .descContainer {
+  align-content: flex-start;
   display: flex;
   flex-direction: column;
-  align-content: flex-start;
   justify-content: center;
 }
 
-.descContainer > h2 {
+.descContainer>h2 {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  text-align: center;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .careGuide {
-  width: 100%;
-  margin-top: 35px;
-  margin-bottom: 10px;
   border-radius: 5px;
+  margin-bottom: 10px;
+  margin-top: 35px;
   overflow: hidden;
-}
-.careGuide > div {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
   width: 100%;
-  height: fit-content;
-  overflow: hidden;
 }
 
-.careGuide > div:nth-child(n + 2) > * {
-  width: 95%;
+.careGuide>div {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  justify-content: flex-start;
+  overflow: hidden;
+  width: 100%;
+}
+
+.careGuide>div:nth-child(n + 2)>* {
   text-align: center;
+  width: 95%;
 }
 
 .careGuideHead {
+  // TODO do I like this style?
+  align-items: center;
+  background: $primaryDark;
+  border-bottom: 0px;
+  border-radius: 4px 4px 0px 0px;
+  color: $primaryLight;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
   height: 4rem;
-  border-bottom: 0px;
-  // TODO do I like this style?
-  color: $primaryLight;
-  background: $primaryDark;
-  border-radius: 4px 4px 0px 0px;
-}
-.careGuideSize {
-  box-sizing: border-box;
-  border-left: 2px solid $accentFive;
-  border-right: 2px solid $accentFive;
-}
-.careGuideDifficulty {
-  box-sizing: border-box;
-  border-left: 2px solid $accentFour;
-  border-right: 2px solid $accentFour;
-}
-.careGuideLight {
-  box-sizing: border-box;
-  border-left: 2px solid $accentThree;
-  border-right: 2px solid $accentThree;
-}
-.careGuidePet {
-  box-sizing: border-box;
-  border: 2px solid $accentSix;
-  border-top: 0px;
-  border-radius: 0 0 4px 4px;
-  //background: $accentSix;
+  justify-content: center;
+  width: 100%;
 }
 
-.careGuidePet > span {
+.careGuideSize {
+  border-left: 2px solid $accentFive;
+  border-right: 2px solid $accentFive;
+  box-sizing: border-box;
+}
+
+.careGuideDifficulty {
+  border-left: 2px solid $accentFour;
+  border-right: 2px solid $accentFour;
+  box-sizing: border-box;
+}
+
+.careGuideLight {
+  border-left: 2px solid $accentThree;
+  border-right: 2px solid $accentThree;
+  box-sizing: border-box;
+}
+
+.careGuidePet {
+  //background: $accentSix;
+  border-radius: 0 0 4px 4px;
+  border-top: 0px;
+  border: 2px solid $accentSix;
+  box-sizing: border-box;
+}
+
+.careGuidePet>span {
   margin-bottom: 10px;
 }
 
 @include screen-lg() {
   .descGuideContainer {
-    flex-direction: column;
-    width: 100%;
-    justify-content: flex-start;
     align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
   }
+
   .descContainer {
     text-align: center;
   }
-  .descContainer > h2 {
+
+  .descContainer>h2 {
     height: 6rem;
     margin: 0;
   }
+
   .boxContainer {
+    column-gap: 15px;
     display: flex;
     flex-direction: row;
-    column-gap: 15px;
   }
+
   .mediaBox {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 65%;
   }
+
   .infoBox {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     width: 35%;
   }
+
   .carouselContainer {
     height: 30rem;
   }

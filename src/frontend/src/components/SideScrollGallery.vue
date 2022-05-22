@@ -2,28 +2,16 @@
   <div class="sideScrollContainer">
     <h4 class="sideScrollLabel">Similar SuccyPlants</h4>
     <div class="itemList">
-      <div
-        class="directionArrowLeft"
-        @click="handleLeftClick"
-        v-if="items.length > length"
-      >
+      <div class="directionArrowLeft" @click="handleLeftClick" v-if="items.length > length">
         &lt;
       </div>
-      <div
-        class="directionArrowRight"
-        @click="handleRightClick"
-        v-if="items.length > length"
-      >
+      <div class="directionArrowRight" @click="handleRightClick" v-if="items.length > length">
         &gt;
       </div>
       <div class="sideScrollItem" v-for="(item, i) in itemsSubArr" :key="i">
-        <img
-          class="itemImg"
-          :src="require('@/assets/imgs/house.jpg')"
-          alt="carousel-image"
-        />
+        <img class="itemImg" :src="require('@/assets/imgs/house.jpg')" alt="carousel-image" />
         <router-link class="itemTitle" :to="'/plant/' + item.id">{{
-          item.scientificName
+            item.scientificName
         }}</router-link>
       </div>
     </div>
@@ -50,17 +38,6 @@ export default {
     handleLeftClick() {
       this.itemList.unshift(this.itemList.pop());
     },
-    pushRoute(route) {
-      try {
-        this.$router.push(route);
-      } catch (error) {
-        if (error.message === "NavigationDuplicated") {
-          this.$router.replace(route);
-        } else {
-          throw error;
-        }
-      }
-    },
   },
   computed: {
     // Returns a subarray of the items array with the length of the len prop
@@ -84,6 +61,7 @@ export default {
   width: fit-content;
   max-width: 100%;
 }
+
 .sideScrollLabel {
   width: 100%;
   margin: 25px 0 0 0;
@@ -91,6 +69,7 @@ export default {
   font-size: 1.1rem;
   font-weight: normal;
 }
+
 .directionArrowLeft {
   z-index: 1;
   position: absolute;
@@ -109,6 +88,7 @@ export default {
   font-size: 2rem;
   cursor: pointer;
 }
+
 .directionArrowRight {
   z-index: 1;
   position: absolute;
@@ -127,6 +107,7 @@ export default {
   font-size: 2rem;
   cursor: pointer;
 }
+
 .itemList {
   position: relative;
   display: flex;
@@ -137,6 +118,7 @@ export default {
   width: fit-content;
   max-width: 100%;
 }
+
 .sideScrollItem {
   display: flex;
   flex-direction: column;
@@ -150,6 +132,7 @@ export default {
   overflow: hidden;
   box-shadow: $shadowLight;
 }
+
 .itemImg {
   width: 100%;
   height: 6rem;

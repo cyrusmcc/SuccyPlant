@@ -53,13 +53,19 @@ public class PlantController {
                                               @RequestHeader(defaultValue = "6") Integer pageSize,
                                               @PathVariable Long plantId) {
 
-        List<Plant> plants = plantService.findAllRelated(pageNum, pageSize,
-                plantId);
+        try {
+            List<Plant> plants = plantService.findAllRelated(pageNum, pageSize,
+                    plantId);
 
-        for (Plant plant : plants) System.out.println(plant.getPost().getTitle());
-        System.out.println(plants);
+            return new ResponseEntity<>(plants, new HttpHeaders(), HttpStatus.OK);
 
-        return new ResponseEntity<>(plants, new HttpHeaders(), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ResponseEntity
+                .badRequest()
+                .body(new MessageResponse("Error encountered while fetching related plants"));
     }
 
     @GetMapping("/get-all")
