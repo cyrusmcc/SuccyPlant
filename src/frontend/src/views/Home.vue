@@ -1,5 +1,5 @@
 <template>
-  <search-carousel-card></search-carousel-card>
+  <search-carousel-card class="searchCard"></search-carousel-card>
   <div class="parent">
     <square-grid></square-grid>
     <blog-feed />
@@ -34,9 +34,13 @@ export default {
   align-items: center;
 }
 
-.parent > * {
+.parent>* {
   width: 95%;
   margin: 10px 0;
+}
+
+.searchCard {
+  margin-top: -5px;
 }
 
 @include screen-md() {
@@ -44,7 +48,8 @@ export default {
     width: 80%;
     max-width: 1500px;
   }
-  .parent > * {
+
+  .parent>* {
     width: 100%;
   }
 }
