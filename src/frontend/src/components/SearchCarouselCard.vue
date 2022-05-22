@@ -7,11 +7,11 @@
 </template>
 
 <script>
-import Carousel from './Carousel.vue'
-import SearchBar from './SearchBar.vue'
+import Carousel from "./Carousel.vue";
+import SearchBar from "./SearchBar.vue";
 
 export default {
-  name: 'SearchCarouselCard',
+  name: "SearchCarouselCard",
   components: {
     Carousel,
     SearchBar,
@@ -20,12 +20,12 @@ export default {
     return {
       images: [
         {
-          url: require('@/assets/imgs/house.jpg'),
+          url: require("@/assets/imgs/house.jpg"),
         },
       ],
-    }
+    };
   },
-}
+};
 </script>
 
 <style scoped lang="scss">

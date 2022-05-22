@@ -26,10 +26,10 @@
 </template>
 
 <script>
-import TokenService from './service/token.service'
-import EventBus from './EventBus'
-import NavBar from './components/NavBar.vue'
-import PageFooter from './components/PageFooter.vue'
+import TokenService from "./service/token.service";
+import EventBus from "./EventBus";
+import NavBar from "./components/NavBar.vue";
+import PageFooter from "./components/PageFooter.vue";
 
 export default {
   components: {
@@ -40,28 +40,28 @@ export default {
     currentUser() {
       // read user to local storage after refresh
       if (!TokenService.getUser()) {
-        TokenService.setUser(this.$store.state.auth.user)
+        TokenService.setUser(this.$store.state.auth.user);
       }
 
-      return this.$store.state.auth.user
+      return this.$store.state.auth.user;
     },
   },
   methods: {
     logOut() {
-      this.$store.dispatch('auth/logout', this.currentUser).then(() => {
-        this.$router.push('/login')
-      })
+      this.$store.dispatch("auth/logout", this.currentUser).then(() => {
+        this.$router.push("/login");
+      });
     },
   },
   mounted() {
-    EventBus.on('logout', () => {
-      this.logOut()
-    })
+    EventBus.on("logout", () => {
+      this.logOut();
+    });
   },
   beforeUnmount() {
-    EventBus.remove('logout')
+    EventBus.remove("logout");
   },
-}
+};
 </script>
 
 <style lang="scss">

@@ -20,6 +20,11 @@
 <script>
 export default {
   name: "SearchBar",
+  data() {
+    return {
+      content: "",
+    };
+  },
 };
 </script>
 

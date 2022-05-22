@@ -1,7 +1,11 @@
 <template>
   <div class="container">
-    <img src="../assets/imgs/potPlantDotDark.svg" alt="user-icon" />
-
+    <router-link class="plantIcon" :to="'/'">
+      <img
+        src="../assets/imgs/potPlantDotDark.svg"
+        alt="plant icon redirect to home"
+      />
+    </router-link>
     <div class="card" id="loginCard">
       <!-- only works with "handleLogin", not "handeLogin()"-->
       <Form @submit="handleLogin" :validation-schema="schema">
@@ -106,12 +110,6 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-img {
-  max-height: auto;
-  width: 7.5rem;
-  margin: 0 auto 15px auto;
-}
-
 Form {
   height: 100%;
   width: 100%;
@@ -138,6 +136,12 @@ fieldset {
 
 .alert {
   margin-top: 5px;
+}
+
+.plantIcon {
+  max-height: auto;
+  width: 7.5rem;
+  margin: 0 auto 15px auto;
 }
 
 #loginButton {

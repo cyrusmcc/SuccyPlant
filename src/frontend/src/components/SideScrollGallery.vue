@@ -2,11 +2,29 @@
   <div class="sideScrollContainer">
     <h4 class="sideScrollLabel">Similar SuccyPlants</h4>
     <div class="itemList">
-      <div class="directionArrowLeft" @click="handleLeftClick">&lt;</div>
-      <div class="directionArrowRight" @click="handleRightClick">&gt;</div>
+      <div
+        class="directionArrowLeft"
+        @click="handleLeftClick"
+        v-if="items.length > length"
+      >
+        &lt;
+      </div>
+      <div
+        class="directionArrowRight"
+        @click="handleRightClick"
+        v-if="items.length > length"
+      >
+        &gt;
+      </div>
       <div class="sideScrollItem" v-for="(item, i) in itemsSubArr" :key="i">
-        <img class="itemImg" :src="item.image" alt="carousel-image" />
-        <span class="itemTitle">{{ item.title }}</span>
+        <img
+          class="itemImg"
+          :src="require('@/assets/imgs/house.jpg')"
+          alt="carousel-image"
+        />
+        <router-link class="itemTitle" :to="'/plant/' + item.id">{{
+          item.scientificName
+        }}</router-link>
       </div>
     </div>
   </div>
@@ -19,40 +37,11 @@ export default {
   data() {
     return {
       len: 3,
-      itemList: this.items,
-      /*
-      items: [
-        {
-          title: "test1",
-          image: require("@/assets/imgs/house.jpg"),
-        },
-        {
-          title: "test2",
-          image: require("@/assets/imgs/house.jpg"),
-        },
-        {
-          title: "test3",
-          image: require("@/assets/imgs/house.jpg"),
-        },
-        {
-          title: "test4",
-          image: require("@/assets/imgs/house.jpg"),
-        },
-        {
-          title: "test5",
-          image: require("@/assets/imgs/house.jpg"),
-        },
-        {
-          title: "test6",
-          image: require("@/assets/imgs/house.jpg"),
-        },
-      ],
-      */
+      itemList: [],
     };
   },
   mounted() {
-    console.log(this.items);
-    this.itemsList = this.items;
+    this.itemList = this.items;
   },
   methods: {
     handleRightClick() {
@@ -61,12 +50,27 @@ export default {
     handleLeftClick() {
       this.itemList.unshift(this.itemList.pop());
     },
+    pushRoute(route) {
+      try {
+        this.$router.push(route);
+      } catch (error) {
+        if (error.message === "NavigationDuplicated") {
+          this.$router.replace(route);
+        } else {
+          throw error;
+        }
+      }
+    },
   },
   computed: {
     // Returns a subarray of the items array with the length of the len prop
     itemsSubArr() {
-      //this.itemList = this.items;
-      return this.items.slice(0, this.length);
+      return this.itemList.slice(0, this.length);
+    },
+  },
+  watch: {
+    items() {
+      this.itemList = this.items;
     },
   },
 };
@@ -156,8 +160,9 @@ export default {
   height: 100%;
   width: fit-content;
   margin: 10px 0;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-style: italic;
-  border-bottom: 4px solid $highlightOne;
+  color: $primaryDark;
+  text-align: center;
 }
 </style>

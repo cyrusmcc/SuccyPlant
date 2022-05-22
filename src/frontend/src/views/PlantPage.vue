@@ -5,11 +5,7 @@
     <div class="boxContainer">
       <div class="mediaBox">
         <div class="carouselContainer">
-          <carousel
-            :images="images"
-            :items="relatedPlants"
-            :arrows="true"
-          ></carousel>
+          <carousel :images="images" :arrows="true"></carousel>
         </div>
         <div class="plantListButtons" v-if="currentUser">
           <button
@@ -39,7 +35,11 @@
             }}
           </button>
         </div>
-        <side-scroll-gallery :length="sideScrollLength"></side-scroll-gallery>
+        <side-scroll-gallery
+          :length="sideScrollLength"
+          :items="relatedPlants"
+          v-if="relatedPlants.length > 0"
+        ></side-scroll-gallery>
       </div>
       <div class="infoBox">
         <div class="titleContainer">
@@ -105,6 +105,7 @@ export default {
     return {
       plant: {},
       plantPost: {},
+      relatedPlants: [],
       message: "",
       images: [
         {
@@ -120,33 +121,47 @@ export default {
     currentUser() {
       return this.$store.state.auth.user;
     },
-    relatedPlants() {
-      // length is equal to number of plants in initial view, so * 2 fetches two full slides of plants
+  },
+  created() {
+    // allows redirects to same path ('/plant/:id'), does not need
+    // to redraw page
+    this.$watch(
+      () => this.$route.params.id,
+      () => {
+        this.getPlant();
+        this.getRelatedPlants();
+      }
+    );
+  },
+  mounted() {
+    this.getPlant();
+    this.getRelatedPlants();
+  },
+  methods: {
+    getPlant() {
+      const getPlant = async () => {
+        this.plant = await plantService.getPlantById(this.$route.params.id);
+        this.plantPost = this.plant.post;
+      };
+      getPlant().then(() => {
+        this.hasPlantInList("userPlants");
+        this.hasPlantInList("wishList");
+      });
+    },
+    getRelatedPlants() {
+      //length is equal to number of plants in initial view, so * 2 fetches two full slides of plants
       const numPlantsToRetrieve = this.sideScrollLength * 2;
       const getRelatedPlants = async () => {
         const relatedPlants = await plantService.getRelatedPlants(
           numPlantsToRetrieve,
-          this.plant.id
+          this.$route.params.id
         );
         return relatedPlants;
       };
-      const plants = getRelatedPlants();
-      console.log(plants);
-      return getRelatedPlants();
+      getRelatedPlants().then((relatedPlants) => {
+        this.relatedPlants = relatedPlants;
+      });
     },
-  },
-  mounted() {
-    const getPlant = async () => {
-      this.plant = await plantService.getPlantById(this.$route.params.id);
-      this.plantPost = this.plant.post;
-      console.log(this.plant);
-    };
-    getPlant().then(() => {
-      this.hasPlantInList("userPlants");
-      this.hasPlantInList("wishList");
-    });
-  },
-  methods: {
     addPlantToList(listName) {
       if (this.currentUser) {
         userService
@@ -249,7 +264,7 @@ h3 {
 .plantListButtons {
   display: flex;
   justify-content: flex-start;
-  width: 95%;
+  width: 100%;
   column-gap: 5px;
   margin: 20px 0 10px 0;
 }
@@ -287,7 +302,7 @@ h3 {
   width: 100%;
 }
 .carouselContainer {
-  width: 95%;
+  width: 100%;
   height: 17rem;
   border-radius: 5px;
   border: 1px solid $outline;
@@ -415,11 +430,7 @@ h3 {
     width: 35%;
   }
   .carouselContainer {
-    width: 100%;
     height: 30rem;
-  }
-  .plantListButtons {
-    width: 100%;
   }
 }
 </style>

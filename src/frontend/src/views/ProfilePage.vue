@@ -76,29 +76,29 @@
 </template>
 
 <script>
-import profilePic from '../components/ProfilePic.vue'
-import formattedDate from '../components/FormattedDate.vue'
-import userService from '../service/user.service'
-import UserPlantList from '../components/UserPlantList.vue'
+import profilePic from "../components/ProfilePic.vue";
+import formattedDate from "../components/FormattedDate.vue";
+import userService from "../service/user.service";
+import UserPlantList from "../components/UserPlantList.vue";
 
 export default {
   components: { profilePic, formattedDate, UserPlantList },
-  name: 'Profile',
+  name: "Profile",
   data() {
     return {
-      joinDate: '',
+      joinDate: "",
       username: this.$route.params.username,
       noProfile: false,
-      activeTab: 'all',
+      activeTab: "all",
       userPlants: [],
-    }
+    };
   },
   created() {
     userService.getUserProfilePic(this.$route.params.username).then(
       (response) => {
-        let imageNode = document.getElementById('userPic')
-        let imgUrl = URL.createObjectURL(response.data)
-        imageNode.src = imgUrl
+        let imageNode = document.getElementById("userPic");
+        let imgUrl = URL.createObjectURL(response.data);
+        imageNode.src = imgUrl;
       },
       (error) => {
         this.message =
@@ -106,13 +106,13 @@ export default {
             error.response.data &&
             error.response.data.message) ||
           error.message ||
-          error.toString()
-      },
+          error.toString();
+      }
     ),
       userService.getUserProfileInfo(this.$route.params.username).then(
         (response) => {
-          this.joinDate = response.data.joinDate
-          this.username = response.data.username
+          this.joinDate = response.data.joinDate;
+          this.username = response.data.username;
         },
         (error) => {
           this.message =
@@ -120,22 +120,22 @@ export default {
               error.response.data &&
               error.response.data.message) ||
             error.message ||
-            error.toString()
-          this.noProfile = true
-        },
+            error.toString();
+          this.noProfile = true;
+        }
       ),
       userService
-        .getUserPlants(this.$route.params.username, 'userPlants')
+        .getUserPlants(this.$route.params.username, "userPlants")
         .then((res) => {
-          this.userPlants = res
-        })
+          this.userPlants = res;
+        });
   },
   methods: {
     updateTab(tab) {
-      this.activeTab = tab
+      this.activeTab = tab;
     },
   },
-}
+};
 </script>
 <style scoped lang="scss">
 .profileContainer {
@@ -267,7 +267,7 @@ export default {
     justify-content: flex-start;
     align-items: flex-start;
     width: 100%;
-    align-items: start;
+    align-items: flex-start;
     margin-left: 10px;
     height: 100%;
   }

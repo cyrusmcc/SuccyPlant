@@ -16,15 +16,15 @@
 
 <script>
 export default {
-  name: 'UserPlantList',
-  props: ['plants'],
+  name: "UserPlantList",
+  props: ["plants"],
   data() {
     return {
       username: this.$route.params.username,
-      url: 'https://via.placeholder.com/150',
-    }
+      url: "https://via.placeholder.com/150",
+    };
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

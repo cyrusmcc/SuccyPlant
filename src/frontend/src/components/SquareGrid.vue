@@ -1,11 +1,7 @@
 <template>
   <div class="gridContainer">
     <router-link class="link" to="/plants?type=house+plant"
-      ><img
-        src="../assets/imgs/plant.jpg"
-        class="contentBanner"
-        alt=""
-      />
+      ><img src="../assets/imgs/plant.jpg" class="contentBanner" alt="" />
       <div class="textContainer">
         <span class="text">Browse</span>
         <span class="text">House Plants</span>
@@ -19,11 +15,7 @@
       </div>
     </router-link>
     <router-link class="link" to="/plants?type=cactus"
-      ><img
-        src="../assets/imgs/cactus.jpg"
-        class="contentBanner"
-        alt=""
-      />
+      ><img src="../assets/imgs/cactus.jpg" class="contentBanner" alt="" />
       <div class="textContainer">
         <span class="text">Browse</span>
         <span class="text">Cactuses</span>

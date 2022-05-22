@@ -7,7 +7,7 @@
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 
 <style scopd lang="scss">
@@ -30,7 +30,8 @@ export default {}
   color: $primaryLight;
   text-shadow: -1px 2px 2px black;
 }
-.footerDesc, .footerCredits {
+.footerDesc,
+.footerCredits {
   font-family: $inter;
   font-size: 0.6rem;
   color: $primaryLight;
