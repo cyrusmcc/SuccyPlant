@@ -16,12 +16,14 @@ public interface PlantRepository extends JpaRepository<Plant, Long> {
 
     Page<Plant> findAllByPostTitleContainingIgnoreCase(String postTitleLike, Pageable pageable);
 
+    Page<Plant> findAllByPostTitleContainingIgnoreCaseAndIdNotIn(String postTitleLike, Pageable pageable, List<Long> ids);
+
     @Query("select i from Plant i join i.post.contentTags t " +
             "where t in :tags group by i.id having count(i.id) = :tagCount")
     Page<Plant> findGalleryPostsByPostContentTags(@Param("tags") List<ContentTag> tags,
                                                   @Param("tagCount") long tagCount, Pageable paging);
 
-    Page<Plant> findPlantsByType(String type, Pageable pageable);
+    Page<Plant> findPlantsByTypeAndIdNotIn(String type, Pageable pageable, List<Long> ids);
 
     List<Plant> findPlantsByIdInAndPostContentTagsIn(List<Long> ids, List<ContentTag> tags);
 

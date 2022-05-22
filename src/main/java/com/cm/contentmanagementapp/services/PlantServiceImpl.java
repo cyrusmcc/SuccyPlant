@@ -90,10 +90,14 @@ public class PlantServiceImpl implements PlantService {
         // Split genus from plant's scientific denotation
         String[] scientificName = plant.getScientificName().split(" ");
         String plantGenus = scientificName[0];
-        Slice<Plant> sliceResult = plantRepo.findAllByPostTitleContainingIgnoreCase(plantGenus, paging);
+        // list of plants to ignore (by id_ in repo query
+        List<Long> plantIds = new ArrayList<>();
+        plantIds.add(plant.getId());
+        Slice<Plant> sliceResult = plantRepo
+                .findAllByPostTitleContainingIgnoreCaseAndIdNotIn(plantGenus, paging, plantIds);
 
         if (!sliceResult.hasContent()) {
-            sliceResult = plantRepo.findPlantsByType(plant.getType(), paging);
+            sliceResult = plantRepo.findPlantsByTypeAndIdNotIn(plant.getType(), paging, plantIds);
         }
 
         if (sliceResult.hasContent()) {
