@@ -16,15 +16,12 @@
         <div id="galPostInfoContainer">
           <div id="galPostTitle">
             <router-link :to="'/plant/' + galPost.id">{{
-              galPost.post.title
+                galPost.post.title
             }}</router-link>
           </div>
           <ol id="galPostTagList">
             <li v-for="(tag, index) in galPost.post.tags" :key="index">
-              <div
-                class="galPostTag"
-                :style="{ background: getColor(tag.category) }"
-              >
+              <div class="galPostTag" :style="{ background: getColor(tag.category) }">
                 {{ tag.value }}
               </div>
             </li>
@@ -57,13 +54,15 @@ export default {
         case "Genus":
           return "#86c2b6";
         case "Type":
-          return "#8caed3";
+          return "#95d991";
         case "Size":
           return "#bdb2ff";
         case "Difficulty":
           return "#ffb2b2";
         case "Light":
           return "#f5c881";
+        case "Water":
+          return "#93c3f5";
         case "Pet Safe":
           return "#cbb7ac";
         default:
@@ -76,132 +75,135 @@ export default {
 
 <style scoped lang="scss">
 .gridContainer {
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  width: fit-content;
   grid-area: 1 / 2 / 5 / 4;
+  width: fit-content;
 }
+
 a {
   color: $primaryDark;
 }
+
 .galPostList {
+  align-items: center;
   box-sizing: border-box;
-  width: 100%;
-  margin-top: 0;
-  padding: 0;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
   gap: 10px;
+  justify-content: center;
+  margin-top: 0;
+  padding: 0;
+  width: 100%;
 }
-.galPostList > li {
+
+.galPostList>li {
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid $outline;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  height: 20rem;
   list-style-type: none;
-  height: fit-content;
-  width: 95%;
-  box-sizing: border-box;
-  padding: 10px;
-  border: 1px solid $outline;
-  border-radius: 4px;
   overflow: hidden;
+  width: 45%;
 }
 
 .container {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100%;
   margin: 10px auto;
+  width: 100%;
 }
 
 #galleryImgContainer {
-  display: flex;
   align-items: center;
+  display: flex;
+  height: 170px;
   justify-content: center;
   overflow: hidden;
-  height: 170px;
-  width: 170px;
+  width: 200px;
 }
 
 .galPostImg {
   height: 170px;
-  width: fit-content;
   object-fit: cover;
+  width: fit-content;
 }
 
 #galPostInfoContainer {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  row-gap: 10px;
-  margin-top: 10px;
   height: fit-content;
-  width: 95%;
+  justify-content: center;
+  margin-top: 10px;
   padding-bottom: 5px;
+  row-gap: 10px;
+  width: 95%;
 }
 
 #galPostTagList {
-  width: 95%;
-  padding: 0;
+  align-content: flex-start;
+  column-gap: 5px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  align-content: flex-start;
-  column-gap: 5px;
+  justify-content: center;
+  padding: 0;
+  width: 95%;
 }
 
-#galPostTagList > li {
+#galPostTagList>li {
   list-style-type: none;
 }
 
 .galPostTag {
-  height: fit-content;
-  width: fit-content;
-  cursor: default;
   background-color: $accentTwo;
-  padding: 3px;
-  font-size: 0.8rem;
   border-radius: 4px;
+  cursor: default;
+  font-size: 0.8rem;
+  height: fit-content;
   margin-top: 10px;
+  padding: 3px;
+  width: fit-content;
 }
 
 #galPostTitle {
   @include flexCenter();
-  text-align: center;
-  font-style: italic;
   color: $primaryLight;
   font-style: italic;
+  font-style: italic;
   height: 40px;
+  text-align: center;
   width: 100%;
 }
 
-#galPostTitle > * {
+#galPostTitle>* {
   display: block;
-  width: 100%;
-  white-space: normal;
-  text-overflow: ellipsis;
   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  width: 100%;
 }
 
 #galPostDate {
+  color: $accentOne;
   display: flex;
   flex-direction: row;
   font-size: small;
-  color: $accentOne;
 }
 
 @include screen-md() {
   .galPostList {
     justify-content: flex-start;
   }
-  .galPostList > li {
+
+  .galPostList>li {
     width: 200px;
   }
 }

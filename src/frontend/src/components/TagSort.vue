@@ -1,63 +1,32 @@
 <template>
   <div class="tagSort" v-if="showFilter">
     <div id="genus" class="dropBoxContainer">
-      <drop-down
-        label="Genus"
-        :options="genusValues"
-        :color="'#86c2b6'"
-        ref="genusDropDown"
-        @selectTag="addTagChip"
-      ></drop-down>
+      <drop-down label="Genus" :options="genusValues" :color="'#86c2b6'" ref="genusDropDown" @selectTag="addTagChip">
+      </drop-down>
     </div>
     <div id="type" class="dropBoxContainer">
-      <drop-down
-        label="Type"
-        :options="['House Plant', 'Succ', 'Cactus']"
-        :color="'#8caed3'"
-        :display-type="'sideSelect'"
-        ref="typeDropDown"
-        @selectTag="addTagChip"
-      ></drop-down>
+      <drop-down label="Type" :options="['House Plant', 'Succ', 'Cactus']" :color="'#95d991'"
+        :display-type="'sideSelect'" ref="typeDropDown" @selectTag="addTagChip"></drop-down>
     </div>
     <div id="size" class="dropBoxContainer">
-      <drop-down
-        label="Size"
-        :options="['Small', 'Medium', 'Large']"
-        :color="'#bdb2ff'"
-        :display-type="'sideSelect'"
-        ref="sizeDropDown"
-        @selectTag="addTagChip"
-      ></drop-down>
+      <drop-down label="Size" :options="['Small', 'Medium', 'Large']" :color="'#bdb2ff'" :display-type="'sideSelect'"
+        ref="sizeDropDown" @selectTag="addTagChip"></drop-down>
     </div>
     <div id="difficulty" class="dropBoxContainer">
-      <drop-down
-        label="Difficulty"
-        :options="['Easy', 'Moderate', 'Advanced']"
-        :color="'#ffb2b2'"
-        :display-type="'sideSelect'"
-        ref="difficultyDropDown"
-        @selectTag="addTagChip"
-      ></drop-down>
+      <drop-down label="Difficulty" :options="['Easy', 'Moderate', 'Advanced']" :color="'#ffb2b2'"
+        :display-type="'sideSelect'" ref="difficultyDropDown" @selectTag="addTagChip"></drop-down>
     </div>
     <div id="light" class="dropBoxContainer">
-      <drop-down
-        label="Light"
-        :options="['Low', 'Medium', 'High']"
-        :color="'#f5c881'"
-        :display-type="'sideSelect'"
-        ref="lightDropDown"
-        @selectTag="addTagChip"
-      ></drop-down>
+      <drop-down label="Light" :options="['Low', 'Medium', 'High']" :color="'#f5c881'" :display-type="'sideSelect'"
+        ref="lightDropDown" @selectTag="addTagChip"></drop-down>
+    </div>
+    <div id="water" class="dropBoxContainer">
+      <drop-down label="Water" :options="['Low', 'Medium', 'High']" :color="'#93c3f5'" :display-type="'sideSelect'"
+        ref="waterDropDown" @selectTag="addTagChip"></drop-down>
     </div>
     <div class="dropBoxContainer" id="petSafe">
-      <drop-down
-        label="Pet Safe"
-        :options="['Yes', 'No']"
-        :color="'#cbb7ac'"
-        :display-type="'sideSelect'"
-        ref="petsafeDropDown"
-        @selectTag="addTagChip"
-      ></drop-down>
+      <drop-down label="Pet Safe" :options="['Yes', 'No']" :color="'#cbb7ac'" :display-type="'sideSelect'"
+        ref="petsafeDropDown" @selectTag="addTagChip"></drop-down>
     </div>
   </div>
 </template>
@@ -184,13 +153,15 @@ export default {
         case "Genus":
           return "#86c2b6";
         case "Type":
-          return "#8caed3";
+          return "#95d991";
         case "Size":
           return "#bdb2ff";
         case "Difficulty":
           return "#ffb2b2";
         case "Light":
           return "#f5c881";
+        case "Water":
+          return "#93c3f5";
         case "Pet Safe":
           return "#cbb7ac";
         default:
@@ -203,24 +174,24 @@ export default {
 
 <style lang="scss" scoped>
 .tagSort {
+  align-items: flex-start;
+  column-gap: 10px;
   display: flex;
   flex-direction: row;
-  column-gap: 10px;
-  row-gap: 10px;
-  justify-content: center;
-  align-items: flex-start;
   flex-wrap: wrap;
+  height: fit-content;
+  justify-content: center;
   margin-top: 10px;
   overflow: hidden;
-  height: fit-content;
-  width: 100%;
   padding: 10px 0;
+  row-gap: 10px;
+  width: 100%;
 }
 
 .dropBoxContainer {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 100%;
 }
 

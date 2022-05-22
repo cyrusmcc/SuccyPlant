@@ -2,12 +2,13 @@ $primaryLight: #f4f4f3;
 $primaryDark: #121113;
 
 $accentDark: #353537;
-$accentOne: #8caed3;
+$accentOne: #93c3f5;
 $accentTwo: #86c2b6;
 $accentThree: #f5c881;
 $accentFour: #ffb2b2;
 $accentFive: #bdb2ff;
 $accentSix: #cbb7ac;
+$accentSeven: #95d991;
 
 $highlightOne: #004da2;
 $highlightTwo: #29a525;
@@ -50,10 +51,10 @@ $inter: 'Inter', sans-serif;
 }
 
 @mixin flexCenter {
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 
 :root {
@@ -62,15 +63,15 @@ $inter: 'Inter', sans-serif;
 
 html,
 body {
-  font-family: $rubik;
-  font-size: 100%;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  scroll-behavior: smooth;
   background-color: $primaryLight;
   box-sizing: border-box;
+  font-family: $rubik;
+  font-size: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  width: 100%;
 }
 
 h2 {
@@ -90,14 +91,14 @@ a:focus {
 }
 
 fieldset {
-  padding: 0;
-  margin: 0;
   border: none;
+  margin: 0;
+  padding: 0;
 }
 
 table {
-  border-spacing: 0;
   border-collapse: collapse;
+  border-spacing: 0;
   border: 1px solid $primaryLight;
 }
 
@@ -110,16 +111,16 @@ th {
 // BUTTON STYLES
 @mixin buttonBase($bgColor, $txtColor, $brdrColor) {
   background-color: $bgColor;
-  color: $txtColor;
   border-radius: 20px;
+  border: 2px solid $brdrColor;
+  box-shadow: $shadowLight;
+  color: $txtColor;
+  cursor: pointer;
   font-family: $inter;
   font-size: 0.9rem;
-  border: 2px solid $brdrColor;
   line-height: 2rem;
   padding: 0px 20px;
   width: fit-content;
-  cursor: pointer;
-  box-shadow: $shadowLight;
 }
 
 .button-primaryLight-accentOne {
@@ -184,16 +185,16 @@ th {
 }
 
 .removeButton {
-  margin: 0;
-  padding: 0 10px;
+  background: $highlightThree;
+  border-radius: 20px;
+  border: none;
+  color: $primaryLight;
+  cursor: pointer;
   font-family: $inter;
   font-size: 0.8em;
-  background: $highlightThree;
-  border: none;
-  border-radius: 20px;
-  color: $primaryLight;
   line-height: 1.8rem;
-  cursor: pointer;
+  margin: 0;
+  padding: 0 10px;
 }
 
 .button:hover,
@@ -218,58 +219,58 @@ th {
 }
 
 .labelButton {
+  border-radius: 4px;
   border: $accentOne 1px solid;
   color: $primaryLight;
-  border-radius: 4px;
-  padding: 5px;
   cursor: pointer;
+  padding: 5px;
 }
 
 // FORM STYLES
 .form-title {
-  margin-bottom: 25px;
   font-size: 1.5rem;
+  margin-bottom: 25px;
 }
 
 .form-in {
+  align-items: flex-start;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-  margin-top: 20px;
   margin-bottom: 20px;
+  margin-top: 20px;
+  width: 100%;
 }
 
 .form-label {
-  box-sizing: border-box;
-  padding-bottom: 10px;
-  color: $primaryDark;
   border-radius: 4px;
+  box-sizing: border-box;
+  color: $primaryDark;
+  padding-bottom: 10px;
 }
 
 .form-control {
+  border-radius: 4px;
+  border: medium solid $accentDark;
+  border: none;
   box-sizing: border-box;
   color: $primaryDark;
-  border: none;
   line-height: 2rem;
   width: 100%;
-  border: medium solid $accentDark;
-  border-radius: 4px;
 }
 
 .alert,
 .error-feedback {
-  box-sizing: border-box;
-  background: $accentDark;
-  color: $primaryLight;
-  padding: 5px;
   /* align-self: center; */
-  margin-top: 10px;
-  margin-bottom: 10px;
+  background: $accentDark;
   border-radius: 4px;
-  width: 100%;
+  box-sizing: border-box;
+  color: $primaryLight;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 5px;
   text-align: left;
+  width: 100%;
 }
 
 .form-submit {
@@ -279,8 +280,8 @@ th {
 }
 // SCROLL BAR
 html::-webkit-scrollbar {
-  width: 10px;
   background-color: $primaryLight;
+  width: 10px;
 }
 
 html::-webkit-scrollbar-thumb {
@@ -289,10 +290,10 @@ html::-webkit-scrollbar-thumb {
 }
 
 .scrollContainer::-webkit-scrollbar {
-  width: 8px;
   background-color: $primaryLight;
   border-left: medium solid $accentDark;
   border-radius: 0 6px 6px 0;
+  width: 8px;
 }
 
 .scrollContainer::-webkit-scrollbar-thumb {
@@ -303,38 +304,38 @@ html::-webkit-scrollbar-thumb {
 
 // COMPONENT STYLES
 .backArrow {
+  filter: drop-shadow(2px 3px 3px rgba(0, 0, 0, 0.3));
+  left: 10px;
   max-width: 1.5rem;
   position: absolute;
   top: 10px;
-  left: 10px;
   z-index: 2;
-  filter: drop-shadow(2px 3px 3px rgba(0, 0, 0, 0.3));
 }
 
 .modalBackground {
-  z-index: 4;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
-  position: fixed;
-  top: 0;
+  display: flex;
+  height: 100%;
+  justify-content: center;
   left: 0;
+  position: fixed;
   right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 4;
 }
 
 .card {
   background-color: $primaryLight;
-  color: $primaryDark;
   border-radius: 4px;
-  height: fit-content;
-  max-width: 80%;
-  width: 400px;
-  margin: 15px auto;
-  padding-bottom: 5px;
   box-shadow: 0 4px 8px 0 RGB(0 0 0/20%), 0 6px 20px 0 RGB(0 0 0/19%);
+  color: $primaryDark;
+  height: fit-content;
+  margin: 15px auto;
+  max-width: 80%;
+  padding-bottom: 5px;
+  width: 400px;
 }
 
 .navLink {
@@ -349,11 +350,11 @@ html::-webkit-scrollbar-thumb {
 .sideBarLink {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   height: 1.8rem;
+  justify-content: center;
 }
 
 .sideBarLink:hover {
-  border: 2px solid transparent;
   background: $outline;
+  border: 2px solid transparent;
 }

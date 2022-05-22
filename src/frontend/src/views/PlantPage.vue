@@ -29,7 +29,8 @@
             }}
           </button>
         </div>
-        <side-scroll-gallery :length="sideScrollLength" :items="relatedPlants" v-if="relatedPlants.length > 0">
+        <side-scroll-gallery :length="sideScrollLength" :items="relatedPlants"
+          v-if="relatedPlants.length > 0 && width >= 1115">
         </side-scroll-gallery>
       </div>
       <div class="infoBox">
@@ -77,6 +78,9 @@
             </div>
           </div>
         </div>
+        <side-scroll-gallery :length="sideScrollLength" :items="relatedPlants"
+          v-if="relatedPlants.length > 0 && width < 1115">
+        </side-scroll-gallery>
       </div>
     </div>
   </div>
@@ -98,6 +102,7 @@ export default {
       plantPost: {},
       relatedPlants: [],
       message: "",
+      width: 0,
       images: [
         {
           url: require("@/assets/imgs/house.jpg"),
@@ -116,6 +121,7 @@ export default {
   created() {
     // allows redirects to same path ('/plant/:id'), does not need
     // to redraw page
+    window.addEventListener("resize", this.updateWidth);
     this.$watch(
       () => this.$route.params.id,
       () => {
@@ -127,6 +133,9 @@ export default {
   mounted() {
     this.getPlant();
     this.getRelatedPlants();
+  },
+  unmounted() {
+    window.removeEventListener("resize", this.updateWidth);
   },
   methods: {
     getPlant() {
@@ -153,6 +162,9 @@ export default {
       getRelatedPlants().then((relatedPlants) => {
         this.relatedPlants = relatedPlants;
       });
+    },
+    updateWidth() {
+      this.width = window.innerWidth;
     },
     addPlantToList(listName) {
       if (this.currentUser) {
@@ -394,8 +406,8 @@ h3 {
 .careGuidePet {
   //background: $accentSix;
   border-radius: 0 0 4px 4px;
-  border-top: 0px;
   border: 2px solid $accentSix;
+  border-top: 0px;
   box-sizing: border-box;
 }
 

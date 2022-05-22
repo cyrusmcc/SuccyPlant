@@ -55,97 +55,99 @@ export default {
 
 <style scoped lang="scss">
 .sideScrollContainer {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: fit-content;
   max-width: 100%;
+  width: fit-content;
 }
 
 .sideScrollLabel {
-  width: 100%;
-  margin: 25px 0 0 0;
-  padding-left: 5px;
   font-size: 1.1rem;
   font-weight: normal;
+  margin: 25px 0 0 0;
+  padding-left: 5px;
+  width: 100%;
 }
 
 .directionArrowLeft {
-  z-index: 1;
-  position: absolute;
-  left: 0;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  margin-left: 10px;
   background: $primaryLight;
   border-radius: 50%;
-  outline: $outline;
-  color: $primaryDark;
   box-shadow: $shadowLight;
-  font-size: 2rem;
+  color: $primaryDark;
   cursor: pointer;
+  display: flex;
+  font-size: 2rem;
+  height: 2.5rem;
+  justify-content: center;
+  left: 0;
+  margin-bottom: 25px;
+  margin-left: 10px;
+  outline: $outline;
+  position: absolute;
+  width: 2.5rem;
+  z-index: 1;
 }
 
 .directionArrowRight {
-  z-index: 1;
-  position: absolute;
-  right: 0;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  margin-right: 10px;
   background: $primaryLight;
   border-radius: 50%;
-  outline: $outline;
-  color: $primaryDark;
   box-shadow: $shadowLight;
-  font-size: 2rem;
+  color: $primaryDark;
   cursor: pointer;
+  display: flex;
+  font-size: 2rem;
+  height: 2.5rem;
+  justify-content: center;
+  margin-bottom: 25px;
+  margin-right: 10px;
+  outline: $outline;
+  position: absolute;
+  right: 0;
+  width: 2.5rem;
+  z-index: 1;
 }
 
 .itemList {
-  position: relative;
+  align-items: center;
+  column-gap: 10px;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
-  column-gap: 10px;
-  width: fit-content;
   max-width: 100%;
+  position: relative;
+  width: fit-content;
 }
 
 .sideScrollItem {
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid $outline;
+  box-shadow: $shadowLight;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  width: 20rem;
   height: fit-content;
+  justify-content: flex-start;
   margin: 1rem 0;
-  border: 1px solid $outline;
-  border-radius: 10px;
   overflow: hidden;
-  box-shadow: $shadowLight;
+  width: 20rem;
 }
 
 .itemImg {
-  width: 100%;
   height: 6rem;
   object-fit: cover;
+  width: 100%;
 }
 
 .itemTitle {
-  height: 100%;
-  width: fit-content;
-  margin: 10px 0;
+  color: $primaryDark;
   font-size: 1rem;
   font-style: italic;
-  color: $primaryDark;
+  height: 100%;
+  margin: 10px 0;
   text-align: center;
+  width: fit-content;
 }
 </style>
