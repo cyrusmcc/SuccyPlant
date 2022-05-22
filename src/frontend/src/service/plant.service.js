@@ -7,11 +7,9 @@ var sortedPageNum = 0;
 
 class PlantService {
   getPlantById(id) {
-    if (id) {
-      return api.get(PLANT_API_URL + "get-by-id/" + id).then((response) => {
-        return response.data;
-      });
-    }
+    return api.get(PLANT_API_URL + "get-by-id/" + id).then((response) => {
+      return response.data;
+    });
   }
   getPlants(tags, searchTerm) {
     return api
@@ -30,20 +28,15 @@ class PlantService {
       });
   }
   getRelatedPlants(pageSize, plantId) {
-    if (plantId) {
-      return api
-        .get(PLANT_API_URL + "get-related-plants/" + plantId, {
+    return api
+      .get(PLANT_API_URL + "get-related/" + plantId, {
+        headers: {
           pageSize,
-        })
-        .then((response) => {
-          return response.data;
-        })
-        .catch((error) => {
-          if (error.response.status === 404) {
-            return [];
-          }
-        });
-    }
+        },
+      })
+      .then((response) => {
+        return response.data;
+      });
   }
   getSortedPlants(params) {
     return api
