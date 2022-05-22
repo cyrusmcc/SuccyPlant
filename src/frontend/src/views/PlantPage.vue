@@ -322,6 +322,10 @@ h3 {
   width: 100%;
 }
 
+.careGuideCategoryHead {
+  margin-bottom: 5px;
+}
+
 .descGuideContainer {
   align-items: center;
   display: flex;

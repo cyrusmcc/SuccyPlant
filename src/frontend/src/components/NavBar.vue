@@ -117,7 +117,7 @@ export default {
   position: relative;
   z-index: 4;
   width: 100%;
-  max-width: 1500px;
+  //max-width: 1500px;
   height: 45px;
   position: fixed;
   top: 0;

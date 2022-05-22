@@ -75,9 +75,9 @@ export default {
   padding-bottom: 10rem;
 }
 .viewContainer {
-  max-width: 1500px;
+  //max-width: 1500px;
   height: 100%;
   width: 100%;
-  padding-top: 45px;
+  padding-top: 50px;
 }
 </style>

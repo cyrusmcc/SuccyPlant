@@ -421,16 +421,17 @@ th {
   gap: 1rem;
 }
 
+/*
 html::-webkit-scrollbar {
-  background-color: #f4f4f3;
+  background-color: $primaryLight;
   width: 10px;
 }
 
 html::-webkit-scrollbar-thumb {
-  background-color: #353537;
+  background-color: $accentDark;
   border-radius: 4px 0 0 4px;
 }
-
+*/
 .scrollContainer::-webkit-scrollbar {
   background-color: #f4f4f3;
   border-left: medium solid #353537;

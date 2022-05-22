@@ -274,7 +274,7 @@ export default {
 
   #userInfoCard {
     position: sticky;
-    top: 45px;
+    top: 50px;
     border-radius: 4px 4px 0 0;
     width: 20rem;
   }

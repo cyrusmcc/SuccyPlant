@@ -97,7 +97,7 @@ export default {
 @include screen-md {
   .filterBarContainer {
     position: sticky;
-    top: 45px;
+    top: 50px;
     //box-sizing: border-box;
     // border: 1px solid $outline;
     // border-radius: 4px;

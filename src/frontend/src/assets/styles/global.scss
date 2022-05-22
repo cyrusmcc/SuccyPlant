@@ -279,6 +279,7 @@ th {
   gap: 1rem;
 }
 // SCROLL BAR
+/*
 html::-webkit-scrollbar {
   background-color: $primaryLight;
   width: 10px;
@@ -288,6 +289,7 @@ html::-webkit-scrollbar-thumb {
   background-color: $accentDark;
   border-radius: 4px 0 0 4px;
 }
+*/
 
 .scrollContainer::-webkit-scrollbar {
   background-color: $primaryLight;
