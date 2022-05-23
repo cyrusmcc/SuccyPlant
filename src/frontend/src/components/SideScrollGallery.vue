@@ -143,8 +143,7 @@ export default {
 
 .itemTitle {
   color: $primaryDark;
-  font-size: 1rem;
-  font-style: italic;
+  font-size: 0.9rem;
   height: 100%;
   margin: 10px 0;
   text-align: center;

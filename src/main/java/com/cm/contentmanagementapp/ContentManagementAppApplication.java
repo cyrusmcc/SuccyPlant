@@ -27,6 +27,7 @@ public class ContentManagementAppApplication implements CommandLineRunner {
 	}
 
 	@Override
+	// TODO many many replicas of tags being created
 	public void run(String... arg) throws Exception {
 		storageService.init();
 		AddPlant addPlant = new AddPlant(plantService, tagService);

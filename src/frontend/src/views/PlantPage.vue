@@ -133,6 +133,7 @@ export default {
   mounted() {
     this.getPlant();
     this.getRelatedPlants();
+    this.updateWidth();
   },
   unmounted() {
     window.removeEventListener("resize", this.updateWidth);
@@ -303,6 +304,7 @@ h3 {
 
 .boxContainer {
   height: 100%;
+  max-width: 100rem;
   width: 95%;
 }
 
@@ -355,7 +357,7 @@ h3 {
 .careGuide {
   border-radius: 5px;
   margin-bottom: 10px;
-  margin-top: 35px;
+  margin-top: 20px;
   overflow: hidden;
   width: 100%;
 }

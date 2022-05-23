@@ -78,7 +78,7 @@ export default {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
-  grid-area: 1 / 2 / 5 / 4;
+  grid-area: 1 / 2 / 5 / 6;
   width: fit-content;
 }
 
@@ -140,7 +140,7 @@ a {
   display: flex;
   flex-direction: column;
   height: fit-content;
-  justify-content: center;
+  justify-content: flex-start;
   margin-top: 10px;
   padding-bottom: 5px;
   row-gap: 10px;
@@ -199,6 +199,10 @@ a {
 }
 
 @include screen-md() {
+  .gridContainer {
+    max-width: 70%;
+  }
+
   .galPostList {
     justify-content: flex-start;
   }

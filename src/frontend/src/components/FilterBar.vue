@@ -115,6 +115,7 @@ export default {
   align-items: center;
   grid-area: 1 / 1 / 5 / 2;
   width: 95%;
+  max-width: 25rem;
   min-width: 320px;
   padding-bottom: 10px;
   border: 1px solid $outline;
