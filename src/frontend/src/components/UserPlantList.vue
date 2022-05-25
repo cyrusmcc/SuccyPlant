@@ -1,5 +1,5 @@
 <template>
-  <div class="plantContainer">
+  <div class="plantContainer" v-if="plants.length > 0">
     <h3 class="plantListTitle">{{ username }}'s succyplants</h3>
     <div class="plantList">
       <div v-for="(plant, p) in plants" :key="p" class="plant">
@@ -11,6 +11,9 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="notFoundContainer" v-if="plants.length == 0">
+    <span class="noPlantFoundLabel">No Succyplants found for {{ username }}</span>
   </div>
 </template>
 
@@ -33,36 +36,43 @@ export default {
   border-radius: 4px;
   height: fit-content;
 }
+
 .plantListTitle {
   font-size: 1.2rem;
   font-weight: normal;
   margin: 1rem;
   text-align: center;
 }
+
 .plantList {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 10px 0;
 }
-.plantList > div {
+
+.plantList>div {
   margin: 5px 0;
 }
+
 .plant {
   display: flex;
   flex-direction: row;
   height: 100px;
   width: 95%;
 }
+
 .plantImage {
   height: 100px;
   width: 100px;
 }
+
 .nameContainer {
   height: 100%;
   width: 100%;
   @include flexCenter();
 }
+
 .plantName {
   display: block;
   width: 100%;
@@ -70,6 +80,18 @@ export default {
   text-overflow: ellipsis;
   overflow: hidden;
   text-align: center;
+}
+
+.notFoundContainer {
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid $outline;
+  box-shadow: $shadowLight;
+  display: flex;
+  flex-direction: column;
+  height: 10rem;
+  justify-content: center;
+  width: 100%;
 }
 
 @include screen-md() {
@@ -80,6 +102,7 @@ export default {
     overflow: hidden;
     justify-items: center;
   }
+
   .plant {
     flex-direction: column;
     align-items: center;
@@ -87,6 +110,7 @@ export default {
     height: fit-content;
     width: 150px;
   }
+
   .plantContainer {
     width: 100%;
   }
