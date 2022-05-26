@@ -143,10 +143,6 @@ public class Plant {
         this.post.setAuthorUsername(author);
     }
 
-    public void setPostImageId(String imageId) {
-        this.post.setImageId(imageId);
-    }
-
     public void setPostList(PostList list) {
         this.post.setPostList(list);
     }

@@ -61,7 +61,7 @@ public class BlogPost {
     }
 
     public void setPostImageId(String imageId) {
-        this.post.setImageId(imageId);
+        this.post.getImage().setfileName(imageId);
     }
 
     public void setPostList(PostList list) {

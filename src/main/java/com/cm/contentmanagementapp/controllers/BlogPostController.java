@@ -103,7 +103,6 @@ public class BlogPostController {
     @GetMapping("get-image/{id}")
     @ResponseBody
     public ResponseEntity<?> getBlogImage(@PathVariable Long id) {
-
         try {
             if (!blogPostService.existsById(id)) {
                 return ResponseEntity
@@ -113,8 +112,7 @@ public class BlogPostController {
 
             BlogPost post = blogPostService.findBlogPostById(id);
             Path filePath = Paths.get("uploads/blogs/blogImg");
-
-            File file = fileService.load(post.getPost().getImageId(), filePath).getFile();
+            File file = fileService.load(post.getPost().getImage().getfileName(), filePath).getFile();
 
             return ResponseEntity.ok()
                     .header("Content-Disposition", "attachment; filename=" + file.getName())

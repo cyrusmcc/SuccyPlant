@@ -17,6 +17,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -99,16 +100,16 @@ public class BlogPostServiceImpl implements BlogPostService {
 
     @Override
     public boolean updateBlogImage(BlogPost blogPost, MultipartFile file) {
-
         Path filePath = Paths.get("uploads/blogs/blogImg");
 
-        if (blogPost.getPost().getImageId() != null) {
-            fileService.deleteIfExists(filePath, blogPost.getPost().getImageId());
+        if (!blogPost.getPost().getImage().getfileName().isEmpty()) {
+            fileService.deleteIfExists(filePath, blogPost.getPost().getImage().getfileName());
         }
 
         try {
-
-            String[] fileExtension = file.getOriginalFilename().split("\\.");
+            String[] fileExtension = Objects
+                    .requireNonNull(file.getOriginalFilename())
+                    .split("\\.");
             String fileId = UUID.randomUUID().toString();
             fileId += "." + fileExtension[1];
 

@@ -1,16 +1,23 @@
 package com.cm.contentmanagementapp.dbinit;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import com.cm.contentmanagementapp.models.EnumTagCategory;
+import com.cm.contentmanagementapp.models.Image;
 import com.cm.contentmanagementapp.models.Plant;
 import com.cm.contentmanagementapp.models.Post;
+import com.cm.contentmanagementapp.repositories.ImageRepository;
 import com.cm.contentmanagementapp.services.ContentTagService;
 import com.cm.contentmanagementapp.services.PlantService;
 import org.json.JSONObject;
+import org.springframework.web.multipart.MultipartFile;
 
 public class AddPlant {
 
@@ -52,28 +59,29 @@ public class AddPlant {
                 difficulty = difficulty.substring(0,1).toUpperCase() + difficulty.substring(1).toLowerCase();
 
                 // Set title of plant's post
-                plant.setTitle(obj.getString("scienceName"));
-                plant.setScientificName(obj.getString("scienceName"));
+                String scientificName = obj.getString("scienceName");
+                plant.setTitle(scientificName);
+                plant.setScientificName(scientificName);
                 plant.setCommonName(obj.getString("commonName"));
 
                 String desc = obj.getString("desc");
-                desc = desc.replace("plant-name", obj.getString("scienceName"));
+                desc = desc.replace("plant-name", scientificName);
                 plant.setDescription(desc);
 
                 String lightDesc = obj.getString("lightDesc");
-                lightDesc = lightDesc.replace("plant-name", obj.getString("scienceName"));
+                lightDesc = lightDesc.replace("plant-name", scientificName);
                 plant.setLightDesc(lightDesc);
 
                 String waterDesc = obj.getString("waterDesc");
-                waterDesc = waterDesc.replace("plant-name", obj.getString("scienceName"));
+                waterDesc = waterDesc.replace("plant-name", scientificName);
                 plant.setWaterDesc(waterDesc);
 
                 String petDesc = obj.getString("petDesc");
-                petDesc = petDesc.replace("plant-name", obj.getString("scienceName"));
+                petDesc = petDesc.replace("plant-name", scientificName);
                 plant.setPetDesc(petDesc);
 
                 String sizeDesc = obj.getString("sizeDesc");
-                sizeDesc = sizeDesc.replace("plant-name", obj.getString("scienceName"));
+                sizeDesc = sizeDesc.replace("plant-name", scientificName);
                 plant.setSizeDesc(sizeDesc);
 
                 plant.setGenus(obj.getString("genus"));
@@ -86,6 +94,21 @@ public class AddPlant {
                 plantPost.addTag(tagService.findByCategoryAndValue(EnumTagCategory.TYPE, getType(obj)));
                 plantPost.addTag(tagService.findByCategoryAndValue(EnumTagCategory.WATER, getWater(obj)));
                 plantPost.addTag(tagService.findByCategoryAndValue(EnumTagCategory.LIGHT, getLight(obj)));
+
+                Path plantImgPath = Paths.get("uploads/posts/plants/");
+                plantImgPath = plantImgPath.resolve(scientificName.toLowerCase() + ".jpg");
+                System.out.println(Files.exists(plantImgPath) + " " + plantImgPath);
+                if (Files.exists(plantImgPath)) {
+                    System.out.println("Path to img for plant " + scientificName + " exists!");
+                    File imgFile = new File(plantImgPath.toString());
+                    String fileName = imgFile.getName();
+                    Image plantPostImg = plantPost.getImage();
+                    plantPostImg.setfileName(fileName);
+                    plantPostImg.setFilePath(plantImgPath.toString());
+                    plantPostImg.setUploadDate(LocalDate.now());
+                    //imageRepository.save(plantPostImg);
+                };
+
                 plantService.save(plant);
 
             }

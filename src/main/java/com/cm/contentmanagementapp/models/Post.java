@@ -6,7 +6,6 @@ import java.util.TreeSet;
 
 @Entity
 public class Post {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
@@ -20,8 +19,6 @@ public class Post {
 
     @Column(name="type")
     private PostType type;
-
-    private String imageId;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Image image;
@@ -41,6 +38,7 @@ public class Post {
     private PostList postList;
 
     public Post() {
+        this.image = new Image();
         this.contentTags = new TreeSet<>();
     }
 
@@ -74,14 +72,6 @@ public class Post {
 
     public void setPostType(PostType type) {
         this.type = type;
-    }
-
-    public String getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(String imageId) {
-        this.imageId = imageId;
     }
 
     public PostList getPostList() {
