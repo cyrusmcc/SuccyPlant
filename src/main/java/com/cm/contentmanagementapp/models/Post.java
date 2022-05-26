@@ -23,6 +23,9 @@ public class Post {
 
     private String imageId;
 
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private Image image;
+
     @ManyToMany
     @JoinTable(
             name = "post_tag",
@@ -97,8 +100,15 @@ public class Post {
         this.contentTags = contentTags;
     }
 
-    public void addTag(ContentTag tag) {
+    public Image getImage() {
+        return image;
+    }
 
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public void addTag(ContentTag tag) {
         if (contentTags.contains(tag))
             throw new IllegalArgumentException();
 

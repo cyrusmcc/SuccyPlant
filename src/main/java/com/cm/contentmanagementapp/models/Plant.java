@@ -44,7 +44,7 @@ public class Plant {
 
     public Plant() {
         this.post = new Post();
-        this.post.setPostType(PostType.GALLERY);
+        this.post.setPostType(PostType.PLANT);
     }
 
     public Long getId() {

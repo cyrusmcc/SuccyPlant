@@ -47,4 +47,4 @@ polyscias fruticosa,ming aralia -type=hp -size=large -water=SM -light=BND -petsa
 tradescantia spathacea,oyster plant -type=hp -size=small -water=SM -light=BND -petsafe=no -difficulty=moderate
 schefflera actinophylla,umbrella tree -type=hp -size=large -water=SM -light=BND -petsafe=no -difficulty=moderate
 polyscias scutellaria,shield aralia -type=hp -size=large -water=THD -light=BND -petsafe=no -difficulty=moderate
-spathiphyllum wallisii,peace lilly -type=hp -size=medium -water=SM -light=BND -petsafe=no -difficulty=easy
+spathiphyllum wallisii,peace lily -type=hp -size=medium -water=SM -light=BND -petsafe=no -difficulty=easy

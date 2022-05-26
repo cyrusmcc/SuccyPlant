@@ -23,7 +23,6 @@ public class FileStorageServiceImpl implements FileStorageService{
 
     private static final Logger log = LoggerFactory.getLogger(AuthController.class);
 
-
     @Override
     public void init() {
         try {
