@@ -1,8 +1,6 @@
 package com.cm.contentmanagementapp;
 
 import com.cm.contentmanagementapp.dbinit.AddPlant;
-import com.cm.contentmanagementapp.repositories.ImageRepository;
-import com.cm.contentmanagementapp.repositories.PlantRepository;
 import com.cm.contentmanagementapp.services.ContentTagService;
 import com.cm.contentmanagementapp.services.FileStorageService;
 import com.cm.contentmanagementapp.services.PlantService;

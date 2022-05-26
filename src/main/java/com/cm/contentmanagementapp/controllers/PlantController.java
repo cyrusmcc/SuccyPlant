@@ -1,32 +1,44 @@
 package com.cm.contentmanagementapp.controllers;
 
-import com.cm.contentmanagementapp.models.ContentTag;
-import com.cm.contentmanagementapp.models.EnumTagCategory;
-import com.cm.contentmanagementapp.models.Plant;
+import com.cm.contentmanagementapp.models.*;
 import com.cm.contentmanagementapp.payload.response.MessageResponse;
 import com.cm.contentmanagementapp.services.ContentTagService;
+import com.cm.contentmanagementapp.services.FileStorageService;
 import com.cm.contentmanagementapp.services.PlantService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.activation.FileTypeMap;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/plants")
 public class PlantController {
-
     private PlantService plantService;
 
     private ContentTagService tagService;
 
+    private FileStorageService fileStorageService;
+
+    private static final Logger log = LoggerFactory.getLogger(AuthController.class);
+
     @Autowired
-    public PlantController(PlantService plantService, ContentTagService tagService) {
+    public PlantController(PlantService plantService, ContentTagService tagService,
+                           FileStorageService fileStorageService) {
         this.plantService = plantService;
         this.tagService = tagService;
+        this.fileStorageService = fileStorageService;
     }
 
     @GetMapping("/get-by-id/{plantId}")
@@ -122,10 +134,6 @@ public class PlantController {
                 .map(ContentTag::getValue)
                 .collect(Collectors.toList());
 
-        for (String s : tagValues) {
-            System.out.println(s);
-        }
-
         return new ResponseEntity<>(tagValues, new HttpHeaders(), HttpStatus.OK);
     }
 
@@ -163,6 +171,31 @@ public class PlantController {
 
         return new ResponseEntity<>(plants, new HttpHeaders(), HttpStatus.OK);
 
+    }
+
+    @GetMapping("get-image/{id}")
+    @ResponseBody
+    public ResponseEntity<?> getPlantImageById(@PathVariable Long id) {
+        try {
+            if (!plantService.existsById(id)) {
+                return ResponseEntity
+                        .badRequest()
+                        .body(new MessageResponse("Plant does not exist"));
+            }
+
+            Plant plant = plantService.findById(id);
+            Image plantImg = plant.getPost().getImage();
+            Path imgPath = Paths.get(plantImg.getFilePath());
+            File file = fileStorageService.load(plantImg.getfileName(), imgPath).getFile();
+
+            return ResponseEntity.ok()
+                    .header("Content-Disposition", "attachment; filename=" + file.getName())
+                    .contentType(MediaType.valueOf(FileTypeMap.getDefaultFileTypeMap().getContentType(file)))
+                    .body(Files.readAllBytes(file.toPath()));
+        } catch (Exception e) {
+            log.info("Failed to load blog image: {}", e);
+            return ResponseEntity.badRequest().body(new MessageResponse("Failed to load blog image"));
+        }
     }
 
 }
