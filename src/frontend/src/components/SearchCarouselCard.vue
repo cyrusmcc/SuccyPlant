@@ -22,6 +22,12 @@ export default {
         {
           url: require("@/assets/imgs/house.jpg"),
         },
+        {
+          url: require("@/assets/imgs/house2.jpg"),
+        },
+        {
+          url: require("@/assets/imgs/house3.jpg"),
+        },
       ],
     };
   },
@@ -47,11 +53,13 @@ h2 {
   z-index: 1;
   text-shadow: -1px 2px 2px black;
 }
+
 .container {
   position: relative;
   height: 17rem;
   margin-bottom: 10px;
 }
+
 .searchBar {
   position: absolute;
   top: 40%;

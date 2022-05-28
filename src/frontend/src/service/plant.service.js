@@ -26,7 +26,6 @@ class PlantService {
       })
       .then((response) => {
         //pageNum++;
-        console.log(response.data);
         return response.data;
       });
   }
