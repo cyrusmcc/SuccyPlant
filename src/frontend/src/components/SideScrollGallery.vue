@@ -2,16 +2,28 @@
   <div class="sideScrollContainer">
     <h4 class="sideScrollLabel">Similar SuccyPlants</h4>
     <div class="itemList">
-      <div class="directionArrowLeft" @click="handleLeftClick" v-if="items.length > length">
+      <div
+        class="directionArrowLeft"
+        @click="handleLeftClick"
+        v-if="items.length > length"
+      >
         &lt;
       </div>
-      <div class="directionArrowRight" @click="handleRightClick" v-if="items.length > length">
+      <div
+        class="directionArrowRight"
+        @click="handleRightClick"
+        v-if="items.length > length"
+      >
         &gt;
       </div>
       <div class="sideScrollItem" v-for="(item, i) in itemsSubArr" :key="i">
-        <img class="itemImg" :src="require('@/assets/imgs/house.jpg')" alt="carousel-image" />
+        <img
+          class="itemImg"
+          :src="require('@/assets/imgs/house.jpg')"
+          alt="carousel-image"
+        />
         <router-link class="itemTitle" :to="'/plant/' + item.id">{{
-            item.scientificName
+          item.scientificName
         }}</router-link>
       </div>
     </div>

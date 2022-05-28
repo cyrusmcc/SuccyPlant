@@ -97,8 +97,9 @@ import userService from "../service/user.service";
 
 export default {
   name: "PlantPage",
-  components: { //Carousel,
-    SideScrollGallery
+  components: {
+    //Carousel,
+    SideScrollGallery,
   },
   props: [],
   data() {
@@ -133,14 +134,12 @@ export default {
       () => {
         this.getPlant();
         this.getRelatedPlants();
-        this.getPlantImg();
       }
     );
   },
   mounted() {
     this.getPlant();
     this.getRelatedPlants();
-    this.getPlantImg();
     this.updateWidth();
   },
   unmounted() {
@@ -149,24 +148,19 @@ export default {
   methods: {
     getPlant() {
       const getPlant = async () => {
-        this.plant = await plantService.getPlantById(this.$route.params.id);
-        if (this.plant) this.plantPost = this.plant.post;
-        else this.message = "Plant not found";
-      };
-      getPlant().then(() => {
-        this.hasPlantInList("userPlants");
-        this.hasPlantInList("wishList");
-      });
-    },
-    getPlantImg() {
-      plantService.getPlantImageById(this.$route.params.id).then((response) => {
-        this.imgUrl = URL.createObjectURL(response.data);
+        let temp = await plantService.getPlantAndImgById(this.$route.params.id);
+        if (temp) {
+          this.plant = temp.info;
+          this.plantPost = this.plant.post;
+          this.imgUrl = URL.createObjectURL(temp.imgUrl.data);
+        }
         /*
         this.images.push({
-          url: URL.createObjectURL(response.data),
+        url: URL.createObjectURL(response.data),
         });
         */
-      });
+      };
+      getPlant();
     },
     getRelatedPlants() {
       //length is equal to number of plants in initial view, so * 2 fetches two full slides of plants

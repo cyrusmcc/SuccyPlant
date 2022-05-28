@@ -1,4 +1,4 @@
-const galState = [
+const plantState = [
   {
     tags: [],
     searchTerm: "",
@@ -6,9 +6,9 @@ const galState = [
   },
 ];
 
-export const gallery = {
+export const plants = {
   namespaced: true,
-  state: galState,
+  state: plantState,
   actions: {},
   getters: {
     getTags: (state) => {
@@ -17,7 +17,7 @@ export const gallery = {
     getSearchTerm: (state) => {
       return state[0].searchTerm;
     },
-    getPosts: (state) => {
+    getPlants: (state) => {
       return state[0].posts;
     },
     getSelectedTagsByLabel: (state) => (label) => {
@@ -50,7 +50,7 @@ export const gallery = {
     setSearchTerm: (state, searchTerm) => {
       state[0].searchTerm = searchTerm;
     },
-    setPosts: (state, posts) => {
+    setPlants: (state, posts) => {
       state[0].posts = posts;
     },
   },

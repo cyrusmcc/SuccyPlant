@@ -3,7 +3,11 @@
     <nav-bar v-show="!$route.meta.hideNav">
       <router-link class="navLink" to="/">Home</router-link>
       <router-link class="navLink" to="/plants">Plants</router-link>
-      <router-link class="navLink" :to="'/p/' + currentUser.username" v-if="currentUser">
+      <router-link
+        class="navLink"
+        :to="'/p/' + currentUser.username"
+        v-if="currentUser"
+      >
         Profile
       </router-link>
       <router-link class="navLink" to="/settings" v-if="currentUser">

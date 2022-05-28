@@ -13,7 +13,9 @@
     </div>
   </div>
   <div class="notFoundContainer" v-if="plants.length == 0">
-    <span class="noPlantFoundLabel">No Succyplants found for {{ username }}</span>
+    <span class="noPlantFoundLabel"
+      >No Succyplants found for {{ username }}</span
+    >
   </div>
 </template>
 
@@ -51,7 +53,7 @@ export default {
   margin: 10px 0;
 }
 
-.plantList>div {
+.plantList > div {
   margin: 5px 0;
 }
 

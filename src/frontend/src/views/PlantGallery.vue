@@ -23,7 +23,7 @@ export default {
   },
   computed: {
     posts() {
-      return this.$store.getters["gallery/getPosts"];
+      return this.$store.getters["plants/getPlants"];
     },
   },
   mounted() {
@@ -39,8 +39,9 @@ export default {
       }
 
       const arr = async () => {
-        const arr = await plantService.getPlants(tagString, searchTerm);
-        this.$store.commit("gallery/setPosts", arr);
+        //const arr = await plantService.getPlants(tagString, searchTerm);
+        const arr = await plantService.getPlantsAndImgs(tagString, searchTerm);
+        this.$store.commit("plants/setPlants", arr);
       };
       arr();
     },

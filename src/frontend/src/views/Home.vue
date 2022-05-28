@@ -34,7 +34,7 @@ export default {
   align-items: center;
 }
 
-.parent>* {
+.parent > * {
   width: 95%;
   margin: 10px 0;
 }
@@ -49,7 +49,7 @@ export default {
     max-width: 1500px;
   }
 
-  .parent>* {
+  .parent > * {
     width: 100%;
   }
 }

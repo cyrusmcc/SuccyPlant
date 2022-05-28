@@ -3,20 +3,12 @@
     <ol class="galPostList">
       <li v-for="(galPost, index) in galleryPosts" :key="index">
         <div id="galleryImgContainer">
-          <img src="../assets/blogplacehold.webp" class="galPostImg" alt="" />
-          <!--
-          <img
-            class="blogImg"
-            :src="getImgFromBlogId(index, blog.id)"
-            alt="blog post cover image"
-            onload="this.style.display='block'"
-          />
-          -->
+          <img :src="getImg(galPost.imgUrl)" class="galPostImg" :alt="'image of ' + galPost.scientificName" />
         </div>
         <div id="galPostInfoContainer">
           <div id="galPostTitle">
             <router-link :to="'/plant/' + galPost.id">{{
-                galPost.post.title
+                galPost.scientificName
             }}</router-link>
           </div>
           <ol id="galPostTagList">
@@ -68,6 +60,9 @@ export default {
         default:
           return "#86c2b6";
       }
+    },
+    getImg(imgUrl) {
+      return URL.createObjectURL(imgUrl);
     },
   },
 };
@@ -130,9 +125,9 @@ a {
 }
 
 .galPostImg {
-  height: 170px;
+  height: 100%;
   object-fit: cover;
-  width: fit-content;
+  width: 100%;
 }
 
 #galPostInfoContainer {

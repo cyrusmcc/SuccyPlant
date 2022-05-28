@@ -29,6 +29,22 @@ class PlantService {
         return response.data;
       });
   }
+  getPlantsAndImgs(tags, searchTerm) {
+    let plants = [];
+
+    const getPlantsInfo = async () => {
+      plants = await this.getPlants(tags, searchTerm);
+
+      for (let i = 0; i < plants.length; i++) {
+        let imgUrl = await this.getPlantImgById(plants[i].id);
+        plants[i].imgUrl = imgUrl.data;
+      }
+
+      return plants;
+    }
+
+    return getPlantsInfo();
+  }
   getRelatedPlants(pageSize, plantId) {
     if (plantId) {
       return api
@@ -45,10 +61,24 @@ class PlantService {
         });
     }
   }
-  getPlantImageById(id) {
+  getPlantImgById(id) {
     return api.get(PLANT_API_URL + "get-image/" + id, {
       responseType: "blob",
     });
+  }
+  getPlantAndImgById(id) {
+    let plant = {
+      info: {},
+      imgUrl: {},
+    };
+
+    const getPlantInfo = async () => {
+      plant.info = await this.getPlantById(id);
+      plant.imgUrl = await this.getPlantImgById(id);
+      return plant;
+    }
+
+    return getPlantInfo();
   }
   getSortedPlants(params) {
     return api
