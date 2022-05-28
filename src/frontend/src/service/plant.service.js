@@ -61,6 +61,22 @@ class PlantService {
         });
     }
   }
+  getRelatedPlantsAndImgs(pageSize, plantId) {
+    let plants = [];
+
+    const getPlantsInfo = async () => {
+      plants = await this.getRelatedPlants(pageSize, plantId);
+
+      for (let i = 0; i < plants.length; i++) {
+        let imgUrl = await this.getPlantImgById(plants[i].id);
+        plants[i].imgUrl = imgUrl.data;
+      }
+
+      return plants;
+    }
+
+    return getPlantsInfo();
+  }
   getPlantImgById(id) {
     return api.get(PLANT_API_URL + "get-image/" + id, {
       responseType: "blob",

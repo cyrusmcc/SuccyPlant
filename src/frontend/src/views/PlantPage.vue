@@ -166,7 +166,7 @@ export default {
       //length is equal to number of plants in initial view, so * 2 fetches two full slides of plants
       const numPlantsToRetrieve = this.sideScrollLength * 2;
       const getRelatedPlants = async () => {
-        const relatedPlants = await plantService.getRelatedPlants(
+        const relatedPlants = await plantService.getRelatedPlantsAndImgs(
           numPlantsToRetrieve,
           this.$route.params.id
         );
