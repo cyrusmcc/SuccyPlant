@@ -3,18 +3,14 @@
     <nav-bar v-show="!$route.meta.hideNav">
       <router-link class="navLink" to="/">Home</router-link>
       <router-link class="navLink" to="/plants">Plants</router-link>
-      <router-link
-        class="navLink"
-        :to="'/p/' + currentUser.username"
-        v-if="currentUser"
-      >
+      <router-link class="navLink" :to="'/p/' + currentUser.username" v-if="currentUser">
         Profile
       </router-link>
       <router-link class="navLink" to="/settings" v-if="currentUser">
         Settings
       </router-link>
-      <div class="navLink" v-if="!currentUser">
-        <router-link to="/login">Login</router-link>
+      <div v-if="!currentUser">
+        <router-link class="navLink" to="/login">Login</router-link>
       </div>
       <div v-if="currentUser">
         <a class="navLink" @click.prevent="logOut">Logout</a>
@@ -74,6 +70,7 @@ export default {
   min-height: 100vh;
   padding-bottom: 10rem;
 }
+
 .viewContainer {
   //max-width: 1500px;
   height: 100%;

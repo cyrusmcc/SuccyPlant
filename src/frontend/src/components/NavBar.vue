@@ -206,8 +206,8 @@ export default {
 .closeHamburgerButton {
   z-index: 5;
   position: absolute;
-  top: -7px;
-  left: 10px;
+  top: -5px;
+  left: 12px;
   transform: rotate(45deg);
   //color: $primaryDark;
   color: $primaryLight;
