@@ -186,14 +186,15 @@ public class PlantController {
             Plant plant = plantService.findById(id);
             Image plantImg = plant.getPost().getImage();
             Path imgPath = Paths.get(plantImg.getFilePath());
-            File file = fileStorageService.load(plantImg.getfileName(), imgPath).getFile();
+            // TODO fix so filepath does not contain name
+            File file = fileStorageService.load("", imgPath).getFile();
 
             return ResponseEntity.ok()
                     .header("Content-Disposition", "attachment; filename=" + file.getName())
                     .contentType(MediaType.valueOf(FileTypeMap.getDefaultFileTypeMap().getContentType(file)))
                     .body(Files.readAllBytes(file.toPath()));
         } catch (Exception e) {
-            log.info("Failed to load blog image: {}", e);
+            log.info("Error fetching plant img: ", e);
             return ResponseEntity.badRequest().body(new MessageResponse("Failed to load blog image"));
         }
     }

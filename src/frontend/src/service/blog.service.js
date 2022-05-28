@@ -23,6 +23,7 @@ class BlogService {
   }
   getBlogPostById(id) {
     return api.get(BLOG_API_URL + "get/" + id).then((response) => {
+      console.log(response.data);
       return response;
     });
   }

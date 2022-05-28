@@ -119,7 +119,7 @@ public class BlogPostController {
                     .contentType(MediaType.valueOf(FileTypeMap.getDefaultFileTypeMap().getContentType(file)))
                     .body(Files.readAllBytes(file.toPath()));
         } catch (Exception e) {
-            log.info("Failed to load blog image: {}", e);
+            log.info("Failed to load blog image: ", e);
             return ResponseEntity.badRequest().body(new MessageResponse("Failed to load blog image"));
         }
     }
@@ -145,7 +145,7 @@ public class BlogPostController {
                     .contentType(MediaType.valueOf(FileTypeMap.getDefaultFileTypeMap().getContentType(file)))
                     .body(Files.readAllBytes(file.toPath()));
         } catch (Exception e) {
-            log.info("Failed to load blog text: {}", e);
+            log.info("Failed to load blog text: ", e);
             return ResponseEntity.badRequest().body(new MessageResponse("Failed to load blog text"));
         }
     }

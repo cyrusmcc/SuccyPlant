@@ -5,7 +5,10 @@
     <div class="boxContainer">
       <div class="mediaBox">
         <div class="carouselContainer">
+          <!--
           <carousel :images="images" :arrows="true"></carousel>
+          -->
+          <img class="plantImg" :src="imgUrl" alt="" />
         </div>
         <div class="plantListButtons" v-if="currentUser">
           <button :class="[
@@ -87,25 +90,28 @@
 </template>
 
 <script>
-import Carousel from "../components/Carousel.vue";
+//import Carousel from "../components/Carousel.vue";
 import SideScrollGallery from "../components/SideScrollGallery.vue";
 import plantService from "../service/plant.service";
 import userService from "../service/user.service";
 
 export default {
   name: "PlantPage",
-  components: { Carousel, SideScrollGallery },
+  components: { //Carousel,
+    SideScrollGallery
+  },
   props: [],
   data() {
     return {
       plant: {},
       plantPost: {},
+      imgUrl: "",
       relatedPlants: [],
       message: "",
       width: 0,
       images: [
         {
-          url: require("@/assets/imgs/house.jpg"),
+          //url: require("@/assets/imgs/house.jpg"),
         },
       ],
       hasPlantInUserPlants: false,
@@ -127,12 +133,14 @@ export default {
       () => {
         this.getPlant();
         this.getRelatedPlants();
+        this.getPlantImg();
       }
     );
   },
   mounted() {
     this.getPlant();
     this.getRelatedPlants();
+    this.getPlantImg();
     this.updateWidth();
   },
   unmounted() {
@@ -148,6 +156,16 @@ export default {
       getPlant().then(() => {
         this.hasPlantInList("userPlants");
         this.hasPlantInList("wishList");
+      });
+    },
+    getPlantImg() {
+      plantService.getPlantImageById(this.$route.params.id).then((response) => {
+        this.imgUrl = URL.createObjectURL(response.data);
+        /*
+        this.images.push({
+          url: URL.createObjectURL(response.data),
+        });
+        */
       });
     },
     getRelatedPlants() {
@@ -419,6 +437,13 @@ h3 {
 
 .careGuidePet>span {
   margin-bottom: 10px;
+}
+
+// TEMP?
+.plantImg {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
 }
 
 @include screen-lg() {

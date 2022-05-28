@@ -96,25 +96,25 @@ export default {
 
 <style lang="scss" scoped>
 ol {
-  width: 100%;
-  max-width: 800px;
-  padding: 0;
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   font-weight: 500;
   margin-top: 0;
+  max-width: 800px;
+  padding: 0;
   row-gap: 20px;
+  width: 100%;
 }
 li {
+  align-items: center;
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  list-style-type: none;
   height: fit-content;
-  width: 100%;
+  list-style-type: none;
   overflow: hidden;
-  box-sizing: border-box;
+  width: 100%;
 }
 
 img {
@@ -122,13 +122,12 @@ img {
 }
 
 .container {
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
   margin: 10px auto;
+  width: 100%;
 }
-
 .blogFeedHead {
   align-self: flex-start;
   color: $primaryDark;
@@ -137,34 +136,34 @@ img {
 }
 
 .blogImgContainer {
-  display: flex;
   align-items: center;
-  justify-content: center;
+  display: flex;
   height: 115px;
+  justify-content: center;
   width: 350px;
 }
 
 .blogImg {
   height: inherit;
-  width: 100%;
   object-fit: cover;
+  width: 100%;
 }
 
 #blogTextContainer {
+  align-items: flex-start;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  row-gap: 15px;
   height: fit-content;
-  width: 100%;
-  box-sizing: border-box;
   margin-left: 15px;
   padding: 10px 0 10px 10px;
+  row-gap: 15px;
+  width: 100%;
 }
 
 .blogTitle {
-  font-size: 1.2rem;
   color: $primaryDark;
+  font-size: 1.2rem;
   font-style: italic;
   text-align: start;
 }

@@ -45,6 +45,11 @@ class PlantService {
         });
     }
   }
+  getPlantImageById(id) {
+    return api.get(PLANT_API_URL + "get-image/" + id, {
+      responseType: "blob",
+    });
+  }
   getSortedPlants(params) {
     return api
       .get(PLANT_API_URL + "plants" + "?" + params, {
