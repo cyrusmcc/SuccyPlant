@@ -3,7 +3,9 @@
     <h3 class="plantListTitle">{{ username }}'s succyplants</h3>
     <div class="plantList">
       <div v-for="(plant, p) in plants" :key="p" class="plant">
-        <img class="plantImage" :src="url" alt="plant image" />
+        <div class="plantImgContainer">
+          <img class="plantImage" :src="getImg(plant.imgUrl)" alt="plant image" />
+        </div>
         <div class="nameContainer">
           <router-link :to="'/plant/' + plant.id">
             <span class="plantName">{{ plant.post.title }}</span>
@@ -13,9 +15,7 @@
     </div>
   </div>
   <div class="notFoundContainer" v-if="plants.length == 0">
-    <span class="noPlantFoundLabel"
-      >No Succyplants found for {{ username }}</span
-    >
+    <span class="noPlantFoundLabel">No Succyplants found for {{ username }}</span>
   </div>
 </template>
 
@@ -29,14 +29,19 @@ export default {
       url: "https://via.placeholder.com/150",
     };
   },
+  methods: {
+    getImg(imgUrl) {
+      return URL.createObjectURL(imgUrl);
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .plantContainer {
-  width: 95%;
   border-radius: 4px;
   height: fit-content;
+  width: 95%;
 }
 
 .plantListTitle {
@@ -47,13 +52,13 @@ export default {
 }
 
 .plantList {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin: 10px 0;
 }
 
-.plantList > div {
+.plantList>div {
   margin: 5px 0;
 }
 
@@ -64,24 +69,30 @@ export default {
   width: 95%;
 }
 
-.plantImage {
+.plantImgContainer {
   height: 100px;
-  width: 100px;
+  width: 150px;
+}
+
+.plantImage {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 }
 
 .nameContainer {
+  @include flexCenter();
   height: 100%;
   width: 100%;
-  @include flexCenter();
 }
 
 .plantName {
   display: block;
-  width: 100%;
-  white-space: normal;
-  text-overflow: ellipsis;
   overflow: hidden;
   text-align: center;
+  text-overflow: ellipsis;
+  white-space: normal;
+  width: 100%;
 }
 
 .notFoundContainer {
@@ -101,20 +112,25 @@ export default {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    overflow: hidden;
     justify-items: center;
+    overflow: hidden;
   }
 
   .plant {
-    flex-direction: column;
     align-items: center;
-    row-gap: 10px;
+    flex-direction: column;
     height: fit-content;
+    row-gap: 10px;
     width: 150px;
   }
 
   .plantContainer {
-    width: 100%;
+    border: 1px solid $outline;
+  }
+
+  .plantImgContainer {
+    height: 100px;
+    width: 100px;
   }
 }
 </style>

@@ -1,4 +1,5 @@
 import api from "./api";
+import plantService from "./plant.service";
 
 const USER_API_URL = "http://localhost:8080/api/user/";
 
@@ -29,7 +30,18 @@ class UserService {
         params: { username, listType },
       })
       .then((response) => {
-        return response.data;
+        let plants = response.data;
+
+        const getUserPlantsInfo = async () => {
+          for (let i = 0; i < plants.length; i++) {
+            let imgUrl = await plantService.getPlantImgById(plants[i].id);
+            plants[i].imgUrl = imgUrl.data;
+          }
+
+          return plants;
+        }
+
+        return getUserPlantsInfo();
       });
   }
 
