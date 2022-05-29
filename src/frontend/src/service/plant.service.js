@@ -41,7 +41,7 @@ class PlantService {
       }
 
       return plants;
-    }
+    };
 
     return getPlantsInfo();
   }
@@ -73,7 +73,7 @@ class PlantService {
       }
 
       return plants;
-    }
+    };
 
     return getPlantsInfo();
   }
@@ -92,7 +92,7 @@ class PlantService {
       plant.info = await this.getPlantById(id);
       plant.imgUrl = await this.getPlantImgById(id);
       return plant;
-    }
+    };
 
     return getPlantInfo();
   }

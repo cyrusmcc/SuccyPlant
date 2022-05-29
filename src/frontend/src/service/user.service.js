@@ -39,7 +39,7 @@ class UserService {
           }
 
           return plants;
-        }
+        };
 
         return getUserPlantsInfo();
       });

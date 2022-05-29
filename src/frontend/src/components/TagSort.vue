@@ -97,7 +97,7 @@ export default {
   },
   computed: {
     selectedTags() {
-      return this.$store.getters["gallery/getTags"];
+      return this.$store.getters["plants/getTags"];
     },
   },
   methods: {
@@ -105,7 +105,7 @@ export default {
       // if no tags with provided label exist
       if (
         this.selectedTags.length === 0 ||
-        this.$store.getters["gallery/getSelectedTagsByLabel"](label).length == 0
+        this.$store.getters["plants/getSelectedTagsByLabel"](label).length == 0
       ) {
         this.selectedTags.push({
           label: label,
@@ -122,7 +122,7 @@ export default {
       if (this.isDropDownOptionSelected(label, option)) {
         this.removeTagChip(label, option);
       } else {
-        this.$store.commit("gallery/setTags", this.selectedTags);
+        this.$store.commit("plants/setTags", this.selectedTags);
         this.enableDropDownOption(label, option);
       }
 
@@ -170,9 +170,9 @@ export default {
       this.$emit("sort-posts-by-tags", this.selectedTags);
     },
     removeTagChip(label, option) {
-      this.$store.commit("gallery/removeTag", { label, option });
+      this.$store.commit("plants/removeTag", { label, option });
       this.removeDropDownOption(label, option);
-      this.$store.commit("gallery/setTags", this.selectedTags);
+      this.$store.commit("plants/setTags", this.selectedTags);
       this.$emit("sort-posts-by-tags", this.selectedTags);
     },
     removeDropDownOption(label, option) {

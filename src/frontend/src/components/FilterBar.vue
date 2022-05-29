@@ -69,7 +69,7 @@ export default {
       this.emitSortOptions();
     },
     setSearchValue(value) {
-      this.$store.commit("gallery/setSearchTerm", value);
+      this.$store.commit("plants/setSearchTerm", value);
       this.emitSortOptions();
     },
     emitSortOptions() {
@@ -84,10 +84,10 @@ export default {
   },
   computed: {
     selectedTags() {
-      return this.$store.getters["gallery/getTags"];
+      return this.$store.getters["plants/getTags"];
     },
     searchTerm() {
-      return this.$store.getters["gallery/getSearchTerm"];
+      return this.$store.getters["plants/getSearchTerm"];
     },
   },
 };
@@ -109,6 +109,7 @@ export default {
 .searchBar {
   width: 90%;
 }
+
 .filterBarContainer {
   display: flex;
   flex-direction: column;
@@ -122,6 +123,7 @@ export default {
   border-radius: 4px;
   box-shadow: $shadowLight;
 }
+
 .filterButton {
   display: flex;
   flex-direction: row;
@@ -133,6 +135,7 @@ export default {
   background: $primaryLight;
   cursor: pointer;
 }
+
 .filterIcon {
   cursor: pointer;
   width: 16px;

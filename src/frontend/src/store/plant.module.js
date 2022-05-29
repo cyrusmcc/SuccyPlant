@@ -2,7 +2,7 @@ const plantState = [
   {
     tags: [],
     searchTerm: "",
-    posts: [],
+    plants: [],
   },
 ];
 
@@ -18,7 +18,16 @@ export const plants = {
       return state[0].searchTerm;
     },
     getPlants: (state) => {
-      return state[0].posts;
+      return state[0].plants;
+    },
+    getPlantById: (state) => (id) => {
+      console.log(id);
+      for (let i = 0; i < state[0].plants.length; i++) {
+        if (state[0].plants[i].id == id) {
+          console.log("found");
+          return state[0].plants[i];
+        }
+      }
     },
     getSelectedTagsByLabel: (state) => (label) => {
       return state[0].tags.filter((tag) => tag.label === label);
@@ -50,8 +59,8 @@ export const plants = {
     setSearchTerm: (state, searchTerm) => {
       state[0].searchTerm = searchTerm;
     },
-    setPlants: (state, posts) => {
-      state[0].posts = posts;
+    setPlants: (state, plants) => {
+      state[0].plants = plants;
     },
   },
 };

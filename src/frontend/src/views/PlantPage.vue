@@ -11,29 +11,38 @@
           <img class="plantImg" :src="imgUrl" alt="" />
         </div>
         <div class="plantListButtons" v-if="currentUser">
-          <button :class="[
-            hasPlantInUserPlants
-              ? 'removeButton'
-              : 'button-primaryDark-noBorder',
-          ]" @click="updatePlantList('userPlants')">
+          <button
+            :class="[
+              hasPlantInUserPlants
+                ? 'removeButton'
+                : 'button-primaryDark-noBorder',
+            ]"
+            @click="updatePlantList('userPlants')"
+          >
             {{
-                hasPlantInUserPlants
-                  ? "Remove from my plants"
-                  : "Add to my plants"
+              hasPlantInUserPlants
+                ? "Remove from my plants"
+                : "Add to my plants"
             }}
           </button>
-          <button :class="[
-            hasPlantInWishList
-              ? 'removeButton'
-              : 'button-primaryDark-noBorder',
-          ]" @click="updatePlantList('wishList')">
+          <button
+            :class="[
+              hasPlantInWishList
+                ? 'removeButton'
+                : 'button-primaryDark-noBorder',
+            ]"
+            @click="updatePlantList('wishList')"
+          >
             {{
-                hasPlantInWishList ? "Remove from wishlist" : "Add to wishlist"
+              hasPlantInWishList ? "Remove from wishlist" : "Add to wishlist"
             }}
           </button>
         </div>
-        <side-scroll-gallery :length="sideScrollLength" :items="relatedPlants"
-          v-if="relatedPlants.length > 0 && width >= 1115">
+        <side-scroll-gallery
+          :length="sideScrollLength"
+          :items="relatedPlants"
+          v-if="relatedPlants.length > 0 && width >= 1115"
+        >
         </side-scroll-gallery>
       </div>
       <div class="infoBox">
@@ -81,8 +90,11 @@
             </div>
           </div>
         </div>
-        <side-scroll-gallery :length="sideScrollLength" :items="relatedPlants"
-          v-if="relatedPlants.length > 0 && width < 1115">
+        <side-scroll-gallery
+          :length="sideScrollLength"
+          :items="relatedPlants"
+          v-if="relatedPlants.length > 0 && width < 1115"
+        >
         </side-scroll-gallery>
       </div>
     </div>
@@ -124,6 +136,9 @@ export default {
     currentUser() {
       return this.$store.state.auth.user;
     },
+    getPlantFromStore() {
+      return this.$store.getters["plants/getPlantById"](this.$route.params.id);
+    },
   },
   created() {
     // allows redirects to same path ('/plant/:id'), does not need
@@ -147,20 +162,29 @@ export default {
   },
   methods: {
     getPlant() {
-      const getPlant = async () => {
-        let temp = await plantService.getPlantAndImgById(this.$route.params.id);
-        if (temp) {
-          this.plant = temp.info;
-          this.plantPost = this.plant.post;
-          this.imgUrl = URL.createObjectURL(temp.imgUrl.data);
-        }
+      // avoid having call server to get plant if already in store
+      this.plant = this.getPlantFromStore;
+      if (this.plant) {
+        this.plantPost = this.plant.post;
+        this.imgUrl = URL.createObjectURL(this.plant.imgUrl);
+      } else {
+        const getPlant = async () => {
+          let temp = await plantService.getPlantAndImgById(
+            this.$route.params.id
+          );
+          if (temp) {
+            this.plant = temp.info;
+            this.plantPost = this.plant.post;
+            this.imgUrl = URL.createObjectURL(temp.imgUrl.data);
+          }
+        };
         /*
         this.images.push({
         url: URL.createObjectURL(response.data),
         });
         */
-      };
-      getPlant();
+        getPlant();
+      }
     },
     getRelatedPlants() {
       //length is equal to number of plants in initial view, so * 2 fetches two full slides of plants
@@ -358,7 +382,7 @@ h3 {
   justify-content: center;
 }
 
-.descContainer>h2 {
+.descContainer > h2 {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -374,7 +398,7 @@ h3 {
   width: 100%;
 }
 
-.careGuide>div {
+.careGuide > div {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -384,7 +408,7 @@ h3 {
   width: 100%;
 }
 
-.careGuide>div:nth-child(n + 2)>* {
+.careGuide > div:nth-child(n + 2) > * {
   text-align: center;
   width: 95%;
 }
@@ -429,7 +453,7 @@ h3 {
   box-sizing: border-box;
 }
 
-.careGuidePet>span {
+.careGuidePet > span {
   margin-bottom: 10px;
 }
 
@@ -452,7 +476,7 @@ h3 {
     text-align: center;
   }
 
-  .descContainer>h2 {
+  .descContainer > h2 {
     height: 6rem;
     margin: 0;
   }
