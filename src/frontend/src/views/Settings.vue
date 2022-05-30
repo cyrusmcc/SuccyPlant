@@ -3,31 +3,18 @@
     <!-- setting forms hidden in modal -->
     <modal v-if="showModal" @closeModal="toggleModal">
       <div id="changeEmailModal" v-if="getModalType == 'changeEmail'">
-        <Form
-          @submit="handleChangeEmailRequest"
-          :validation-schema="emailSchema"
-        >
+        <Form @submit="handleChangeEmailRequest" :validation-schema="emailSchema">
           <p class="form-title">Change account email</p>
           <div class="form-in">
-            <Field
-              name="password"
-              class="form-control"
-              type="password"
-              placeholder="Current password"
-            />
+            <Field name="password" class="form-control" type="password" placeholder="Current password" />
             <ErrorMessage name="password" class="error-feedback" />
           </div>
           <div class="form-in">
-            <Field
-              name="email"
-              class="form-control"
-              type="email"
-              placeholder="New email"
-            />
+            <Field name="email" class="form-control" type="email" placeholder="New email" />
             <ErrorMessage name="email" class="error-feedback" />
           </div>
 
-          <button class="button-accentTwo-primaryDark">Submit change</button>
+          <button class="button-primaryDark-noBorder">Submit change</button>
 
           <div v-if="loading" class="alert" role="alert">
             Submitting request...
@@ -37,50 +24,29 @@
           </div>
         </Form>
       </div>
-      <div
-        id="changeEmailModalSuccess"
-        v-if="getModalType == 'changeEmailSuccess'"
-      >
+      <div id="changeEmailModalSuccess" v-if="getModalType == 'changeEmailSuccess'">
         We've sent a confirmation email to the address provided. Click the link
         provided to update your account's email.
       </div>
       <div id="changePasswordModal" v-if="getModalType == 'changePassword'">
-        <Form
-          @Submit="handlePasswordResetRequest"
-          :validation-schema="passwordSchema"
-        >
+        <Form @Submit="handlePasswordResetRequest" :validation-schema="passwordSchema">
           <p class="form-title">Change account password</p>
           <div class="form-in">
-            <Field
-              name="currentPassword"
-              class="form-control"
-              type="password"
-              placeholder="Current password"
-            />
+            <Field name="currentPassword" class="form-control" type="password" placeholder="Current password" />
             <ErrorMessage name="currentPassword" class="error-feedback" />
           </div>
           <div class="form-in">
-            <Field
-              name="newPassword"
-              class="form-control"
-              type="password"
-              placeholder="New password"
-            />
+            <Field name="newPassword" class="form-control" type="password" placeholder="New password" />
             <ErrorMessage name="newPassword" class="error-feedback" />
           </div>
           <div class="form-in">
-            <Field
-              name="confirmNewPassword"
-              class="form-control"
-              type="password"
-              placeholder="Confirm new password"
-              rules="confirmed:newpassword"
-            />
+            <Field name="confirmNewPassword" class="form-control" type="password" placeholder="Confirm new password"
+              rules="confirmed:newpassword" />
             <ErrorMessage name="confirmNewPassword" class="error-feedback" />
           </div>
 
           <div class="form-submit">
-            <button class="button-accentTwo-primaryDark">Submit change</button>
+            <button class="button-primaryDark-noBorder">Submit change</button>
           </div>
 
           <div v-if="message" class="alert" role="alert">
@@ -94,70 +60,43 @@
       <div id="settingTabPanel">
         <span v-if="currentUser">{{ currentUser.username }}'s settings</span>
         <div id="settingTabs">
-          <div
-            class="settingTab"
-            @click="currentSettingTab = 'profile'"
-            :style="[
-              currentSettingTab == 'profile'
-                ? { color: '#004da2', fontWeight: 'bold' }
-                : { color: '#121113', fontWeight: 'normal' },
-            ]"
-          >
+          <div class="settingTab" @click="currentSettingTab = 'profile'" :style="[
+            currentSettingTab == 'profile'
+              ? { color: '#004da2', fontWeight: 'bold' }
+              : { color: '#121113', fontWeight: 'normal' },
+          ]">
             Profile
           </div>
-          <div
-            class="settingTab"
-            @click="currentSettingTab = 'account'"
-            :style="[
-              currentSettingTab == 'account'
-                ? { color: '#004da2', fontWeight: 'bold' }
-                : { color: '#121113', fontWeight: 'normal' },
-            ]"
-          >
+          <div class="settingTab" @click="currentSettingTab = 'account'" :style="[
+            currentSettingTab == 'account'
+              ? { color: '#004da2', fontWeight: 'bold' }
+              : { color: '#121113', fontWeight: 'normal' },
+          ]">
             Account
           </div>
         </div>
       </div>
       <div class="settingTabOptions">
-        <div
-          id="profileOptions"
-          class="option"
-          v-show="currentSettingTab == 'profile'"
-        >
+        <div id="profileOptions" class="option" v-show="currentSettingTab == 'profile'">
           <div id="changePicture">
             <profile-pic-upload />
           </div>
         </div>
-        <div
-          id="accountOptions"
-          class="option"
-          v-show="currentSettingTab == 'account'"
-        >
+        <div id="accountOptions" class="option" v-show="currentSettingTab == 'account'">
           <div id="changeEmailContainer" class="settingContainer">
             <div id="changeEmailText">
               <label for="changeEmailText">Email address</label>
               <br />
-              <label id="currentEmailLabel" for="changeEmail" v-if="currentUser"
-                >&nbsp;&nbsp;{{ currentUser.email }}</label
-              >
+              <label id="currentEmailLabel" for="changeEmail" v-if="currentUser">&nbsp;&nbsp;{{ currentUser.email
+              }}</label>
             </div>
-            <label
-              for=""
-              id="changeEmailButton"
-              class="button-highlightOne-primaryLight"
-              @click="toggleModal('changeEmail')"
-              >Change</label
-            >
+            <label for="" id="changeEmailButton" class="button-primaryDark-noBorder"
+              @click="toggleModal('changeEmail')">Change</label>
           </div>
           <div id="changePasswordContainer" class="settingContainer">
             <div id="changePasswordText">Account password</div>
-            <label
-              for=""
-              id="changePasswordButton"
-              class="button-highlightOne-primaryLight"
-              @click="toggleModal('changePassword')"
-              >Change</label
-            >
+            <label for="" id="changePasswordButton" class="button-primaryDark-noBorder"
+              @click="toggleModal('changePassword')">Change</label>
           </div>
         </div>
       </div>
@@ -352,7 +291,7 @@ export default {
   justify-content: space-evenly;
 }
 
-#accountOptions > * {
+#accountOptions>* {
   margin-bottom: 20px;
 }
 

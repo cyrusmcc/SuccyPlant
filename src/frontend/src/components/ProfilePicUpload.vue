@@ -2,28 +2,14 @@
   <div class="picUploadContainer">
     <div id="profilePicContainer">
       <profile-pic>
-        <img
-          id="userPic"
-          alt="profile picture"
-          src="../assets/imgs/userDark.svg"
-        />
+        <img id="userPic" alt="profile picture" src="../assets/imgs/userDark.svg" />
       </profile-pic>
     </div>
     <div class="fileContainer">
-      <Form
-        ref="form"
-        id="fileInputForm"
-        :validation-schema="schema"
-        @submit="handleProfilePictureUpload"
-        class="button-highlightOne-primaryLight"
-      >
-        <Field
-          id="fileInput"
-          name="file"
-          type="file"
-          rules="dimensions:120,120"
-          @change="previewPic('profPicUpload')"
-        />
+      <Form ref="form" id="fileInputForm" :validation-schema="schema" @submit="handleProfilePictureUpload"
+        class="button-primaryDark-noBorder">
+        <Field id="fileInput" name="file" type="file" rules="dimensions:120,120"
+          @change="previewPic('profPicUpload')" />
         <label for="fileInput" v-html="fileName" />
         <ErrorMessage name="file" class="error-feedback" />
 
@@ -37,7 +23,7 @@
                 <img id="previewImgCircle" src="" alt="your img" />
               </div>
             </div>
-            <button id="uploadButton" class="button-accentTwo-primaryDark">
+            <button id="uploadButton" class="button-primaryDark-noBorder">
               Update Profile Picture
             </button>
           </div>

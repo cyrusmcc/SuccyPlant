@@ -3,11 +3,7 @@
     <div id="profile" v-if="!noProfile">
       <div id="userInfoCard">
         <profile-pic>
-          <img
-            id="userPic"
-            alt="profile picture"
-            src="../assets/imgs/userDark.svg"
-          />
+          <img id="profileUserPic" alt="profile picture" src="../assets/imgs/userDark.svg" />
         </profile-pic>
         <div id="userInfo">
           <span id="usernameText" v-if="username">{{ username }}</span>
@@ -22,40 +18,25 @@
         <user-plant-list :plants="userPlants"></user-plant-list>
         <div id="userContentNavContainer">
           <div id="navTabs">
-            <span
-              class="navTab"
-              id="navTab1"
-              @click="updateTab('all')"
-              :style="[
-                activeTab == 'all'
-                  ? { opacity: '1', height: '1.5rem' }
-                  : { opacity: '0.6', height: '1rem' },
-              ]"
-            >
+            <span class="navTab" id="navTab1" @click="updateTab('all')" :style="[
+              activeTab == 'all'
+                ? { opacity: '1', height: '1.5rem' }
+                : { opacity: '0.6', height: '1rem' },
+            ]">
               All
             </span>
-            <span
-              class="navTab"
-              id="navTab2"
-              @click="updateTab('posts')"
-              :style="[
-                activeTab == 'posts'
-                  ? { opacity: '1', height: '1.5rem' }
-                  : { opacity: '0.6', height: '1rem' },
-              ]"
-            >
+            <span class="navTab" id="navTab2" @click="updateTab('posts')" :style="[
+              activeTab == 'posts'
+                ? { opacity: '1', height: '1.5rem' }
+                : { opacity: '0.6', height: '1rem' },
+            ]">
               Posts
             </span>
-            <span
-              class="navTab"
-              id="navTab3"
-              @click="updateTab('comments')"
-              :style="[
-                activeTab == 'comments'
-                  ? { opacity: '1', height: '1.5rem' }
-                  : { opacity: '0.6', height: '1rem' },
-              ]"
-            >
+            <span class="navTab" id="navTab3" @click="updateTab('comments')" :style="[
+              activeTab == 'comments'
+                ? { opacity: '1', height: '1.5rem' }
+                : { opacity: '0.6', height: '1rem' },
+            ]">
               Comments
             </span>
           </div>
@@ -96,8 +77,9 @@ export default {
   created() {
     userService.getUserProfilePic(this.$route.params.username).then(
       (response) => {
-        let imageNode = document.getElementById("userPic");
+        let imageNode = document.getElementById("profileUserPic");
         let imgUrl = URL.createObjectURL(response.data);
+        console.log(imgUrl);
         imageNode.src = imgUrl;
       },
       (error) => {
@@ -221,7 +203,7 @@ export default {
   column-gap: 5px;
 }
 
-#navTabs > span {
+#navTabs>span {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -234,6 +216,7 @@ export default {
   padding: 5px 15px;
   cursor: pointer;
 }
+
 #noProfile {
   align-items: center;
   padding: 10px;
@@ -243,7 +226,7 @@ export default {
   font-size: 3rem;
 }
 
-#noProfileUsername > span {
+#noProfileUsername>span {
   color: $accentOne;
 }
 
@@ -257,10 +240,12 @@ export default {
   .card {
     align-items: flex-start;
   }
+
   .profileContainer {
     display: flex;
     justify-content: center;
   }
+
   #profile {
     display: flex;
     flex-direction: row;

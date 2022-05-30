@@ -1,58 +1,29 @@
 <template>
   <div class="navBarContainer">
     <router-link to="/" class="navBarText">succyplant</router-link>
-    <div
-      class="modalBackground"
-      v-if="!displayHamburger"
-      @click.self="toggleHamburger()"
-    ></div>
-    <div
-      class="hamburgerContent"
-      v-if="!displayHamburger"
-      @click="toggleHamburger"
-    >
+    <div class="modalBackground" v-if="!displayHamburger" @click.self="toggleHamburger()"></div>
+    <div class="hamburgerContent" v-if="!displayHamburger" @click="toggleHamburger">
       <slot></slot>
     </div>
     <div class="sideBarContent" v-show="displaySideBar">
-      <router-link
-        class="navLink sideBarLink"
-        @click="toggleSideBar"
-        v-if="$root.currentUser"
-        :to="'/p/' + $root.currentUser.username"
-      >
+      <router-link class="navLink sideBarLink" @click="toggleSideBar" v-if="$root.currentUser"
+        :to="'/p/' + $root.currentUser.username">
         Profile
       </router-link>
-      <router-link
-        to="/settings"
-        class="navLink sideBarLink"
-        @click="toggleSideBar"
-      >
+      <router-link to="/settings" class="navLink sideBarLink" @click="toggleSideBar">
         Settings
       </router-link>
-      <router-link
-        to="/"
-        class="navLink sideBarLink"
-        @click="toggleSideBar"
-        @click.prevent="$root.logOut()"
-      >
+      <router-link to="/" class="navLink sideBarLink" @click="toggleSideBar" @click.prevent="$root.logOut()">
         Logout
       </router-link>
     </div>
     <div class="mobileNavBar" v-if="navType == 'mobile'">
-      <div
-        class="hamburgerLineContainer"
-        v-if="displayHamburger"
-        @click="toggleHamburger"
-      >
+      <div class="hamburgerLineContainer" v-if="displayHamburger" @click="toggleHamburger">
         <div class="hamburgerLine"></div>
         <div class="hamburgerLine"></div>
         <div class="hamburgerLine"></div>
       </div>
-      <div
-        class="closeHamburgerButton"
-        v-if="!displayHamburger"
-        @click="toggleHamburger"
-      >
+      <div class="closeHamburgerButton" v-if="!displayHamburger" @click="toggleHamburger">
         +
       </div>
     </div>
@@ -62,17 +33,17 @@
         <router-link to="/plants" class="navLink"> Plants </router-link>
       </div>
       <profile-pic v-if="$root.currentUser" @click="toggleSideBar()">
-        <img alt="profile picture" src="../assets/imgs/userDark.svg" />
+        <img id="navUserPic" alt="profile picture" src="../assets/imgs/userDark.svg" />
       </profile-pic>
-      <router-link v-if="!$root.currentUser" to="/login" class="navLink"
-        >Login</router-link
-      >
+      <router-link v-if="!$root.currentUser" to="/login" class="navLink">Login</router-link>
     </div>
   </div>
 </template>
 
 <script>
 import ProfilePic from "./ProfilePic.vue";
+import userService from "../service/user.service";
+
 
 export default {
   name: "NavBar",
@@ -83,6 +54,31 @@ export default {
       screenWidth: window.innerWidth,
       navType: "desktop",
     };
+  },
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
+  },
+  created() {
+    let currentUserName = this.currentUser.username;
+    if (currentUserName) {
+      userService.getUserProfilePic(currentUserName).then(
+        (response) => {
+          let imageNode = document.getElementById("navUserPic");
+          let imgUrl = URL.createObjectURL(response.data);
+          imageNode.src = imgUrl;
+        },
+        (error) => {
+          this.message =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+        }
+      )
+    }
   },
   components: {
     ProfilePic,
@@ -159,6 +155,7 @@ export default {
   column-gap: 10px;
   width: fit-content;
 }
+
 .sideBarContent {
   z-index: 5px;
   display: flex;
@@ -166,12 +163,12 @@ export default {
   border-radius: 4px;
   border: 1px solid $outline;
   width: 150px;
-  height: 150px;
+  height: fit-content;
   position: absolute;
-  bottom: -145px;
-  right: 0;
+  bottom: -99px;
+  right: 1px;
   //background: $primaryLight;
-  background: $primaryDark;
+  background: $primaryLight;
   box-shadow: $shadowLight;
 }
 
@@ -240,5 +237,9 @@ export default {
 
 .navLink {
   color: $primaryLight;
+}
+
+.sideBarLink {
+  color: $primaryDark;
 }
 </style>

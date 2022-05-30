@@ -94,9 +94,6 @@ public class UserController {
         }
 
         if (listType.equals("userPlants")) {
-            for (Plant p : userService.findByUsername(username).get().getUserPlants())
-                System.out.println(p.getPost().getTitle());
-            System.out.println(userService.findByUsername(username).get().getUserPlants());
             return ResponseEntity.ok(userService.findByUsername(username).get().getUserPlants());
         }
 
