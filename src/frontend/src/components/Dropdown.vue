@@ -1,49 +1,27 @@
 <template>
-  <div
-    class="dropDown"
-    @click="toggle()"
-    :style="{ background: color }"
-    v-if="displayType == 'dropDown'"
-  >
+  <div class="dropDown" @click="toggle()" :style="{ background: color }" v-if="displayType == 'dropDown'">
     <div class="dropBoxSelectContainer">
       <span class="dropBoxLabel">{{ label }}</span>
       <div class="imgContainer" v-if="!isOpen">
         <img class="downArrow" src="../assets/imgs/downArrowDark.svg" />
       </div>
     </div>
-    <div
-      class="dropBoxOptionsContainer scrollContainer"
-      v-show="isOpen"
-      :style="{ border: '2px solid ' + color }"
-    >
-      <div
-        class="dropBoxOptionContainer sideBarLink"
-        v-for="option in options"
-        :key="option"
-        :id="label + '-' + option"
-      >
+    <div class="dropBoxOptionsContainer scrollContainer" v-show="isOpen" :style="{ border: '2px solid ' + color }">
+      <div class="dropBoxOptionContainer sideBarLink" v-for="option in options" :key="option"
+        :id="label + '-' + option">
         <div class="dropBoxOption" @click="$emit('selectTag', label, option)">
           {{ option }}
         </div>
       </div>
     </div>
   </div>
-  <div
-    class="sideSelect"
-    :style="{ background: color }"
-    v-if="displayType == 'sideSelect'"
-  >
+  <div class="sideSelect" :style="{ background: color }" v-if="displayType == 'sideSelect'">
     <div class="sideSelectContainer">
       <span class="dropBoxLabel">{{ label }}</span>
     </div>
     <div class="sideSelectOptions">
-      <div
-        class="sideSelectOptionContainer sideBarLink"
-        v-for="option in options"
-        :key="option"
-        @click="selectOption(label, option)"
-        :id="label + '-' + option"
-      >
+      <div class="sideSelectOptionContainer sideBarLink" v-for="option in options" :key="option"
+        @click="selectOption(label, option)" :id="label + '-' + option">
         <div>
           {{ option }}
         </div>
@@ -81,6 +59,14 @@ export default {
       selected: [],
     };
   },
+  computed: {
+    cssVars() {
+      return {
+        "--background": this.color,
+        "--border": "1px solid " + this.color,
+      };
+    },
+  },
   methods: {
     toggle() {
       this.isOpen = !this.isOpen;
@@ -88,27 +74,23 @@ export default {
     selectOption(label, option) {
       this.$emit("selectTag", label, option);
     },
+    // called by component which implements dropdown functionality, used to update option style to show selected status
     enableSelect(filterOption) {
       let element = document.getElementById(filterOption);
-      element.style.background = "#e4ebf8";
-      this.selected.push(filterOption);
+      if (element) {
+        element.style.background = "#e4ebf8";
+        this.selected.push(filterOption);
+      }
     },
     removeSelect(filterOption) {
       let element = document.getElementById(filterOption);
-      console.log(filterOption);
-      element.style.background = "#f4f4f3";
-      this.selected.splice(this.selected.indexOf(filterOption), 1);
+      if (element) {
+        element.style.background = "#f4f4f3";
+        this.selected.splice(this.selected.indexOf(filterOption), 1);
+      }
     },
     isSelected(filterOption) {
       return this.selected.includes(filterOption);
-    },
-  },
-  computed: {
-    cssVars() {
-      return {
-        "--background": this.color,
-        "--border": "1px solid " + this.color,
-      };
     },
   },
 };
@@ -226,6 +208,7 @@ export default {
   font-size: 0.8rem;
   cursor: pointer;
 }
+
 .scrollContainer::-webkit-scrollbar {
   background-color: $primaryLight;
   border-left: none;

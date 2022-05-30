@@ -3,6 +3,8 @@ const plantState = [
     tags: [],
     searchTerm: "",
     plants: [],
+    // preselected allows us to create links which will filter plans on redirect to plant gallery page
+    preselectedTags: [],
   },
 ];
 
@@ -21,10 +23,8 @@ export const plants = {
       return state[0].plants;
     },
     getPlantById: (state) => (id) => {
-      console.log(id);
       for (let i = 0; i < state[0].plants.length; i++) {
         if (state[0].plants[i].id == id) {
-          console.log("found");
           return state[0].plants[i];
         }
       }
@@ -32,6 +32,9 @@ export const plants = {
     getSelectedTagsByLabel: (state) => (label) => {
       return state[0].tags.filter((tag) => tag.label === label);
     },
+    getPreselectedTags: (state) => {
+      return state[0].preselectedTags;
+    }
   },
   mutations: {
     setTags: (state, tags) => {
@@ -61,6 +64,9 @@ export const plants = {
     },
     setPlants: (state, plants) => {
       state[0].plants = plants;
+    },
+    setPreselectedTags: (state, tags) => {
+      state[0].preselectedTags = tags;
     },
   },
 };

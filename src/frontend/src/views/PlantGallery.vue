@@ -19,15 +19,21 @@ export default {
     filterBar,
   },
   data() {
-    return {};
+    return {
+    };
   },
   computed: {
     posts() {
       return this.$store.getters["plants/getPlants"];
     },
+    preselectedTags() {
+      return this.$store.getters["plants/getPreselectedTags"];
+    },
   },
   mounted() {
-    this.getPosts();
+    // only want to retrieve plants once, if there are preselected tags in store then sortPostsByTags will be called
+    // which calls getPosts
+    if (!this.preselectedTags || this.preselectedTags.length == 0) this.getPosts();
   },
   methods: {
     getPosts(tags, searchTerm) {
@@ -39,11 +45,15 @@ export default {
       }
 
       const arr = async () => {
-        //const arr = await plantService.getPlants(tagString, searchTerm);
         const arr = await plantService.getPlantsAndImgs(tagString, searchTerm);
         this.$store.commit("plants/setPlants", arr);
       };
       arr();
+
+      if (this.preselectedTags) {
+        this.$store.commit("plants/setPreselectedTags", []);
+        this.$store.commit("plants/setPlants", []);
+      }
     },
   },
 };
