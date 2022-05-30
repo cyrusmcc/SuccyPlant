@@ -44,7 +44,6 @@ export default {
       this.title = response.data.post.title;
       this.author = response.data.post.authorUsername;
       this.date = response.data.postDate;
-      console.log(response.data);
     });
 
     blogService.getBlogImageById(this.$route.params.id).then((response) => {

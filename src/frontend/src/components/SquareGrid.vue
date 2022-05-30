@@ -30,7 +30,7 @@ export default {
   methods: {
     setPreselectedTags(option) {
       let preselectedTags = [{
-        label: "type",
+        label: "Type",
         option: option,
       }];
       this.$store.commit("plants/setPreselectedTags", preselectedTags);

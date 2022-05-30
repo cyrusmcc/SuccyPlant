@@ -6,13 +6,8 @@
         <div class="directionArrowRight" @click="handleRightClick">&gt;</div>
       </div>
       <div class="carouselDots" v-if="images.length <= 5">
-        <div
-          class="carouselDot"
-          v-for="(image, i) in images"
-          :key="i"
-          @click="handleDotClick(i)"
-          :style="[i == index ? { opacity: 1 } : { opacity: 0.5 }]"
-        ></div>
+        <div class="carouselDot" v-for="(image, i) in images" :key="i" @click="handleDotClick(i)"
+          :style="[i == index ? { opacity: 1 } : { opacity: 0.5 }]"></div>
       </div>
       <img :src="images[index].url" alt="carousel-image" />
     </div>
@@ -43,11 +38,9 @@ export default {
   methods: {
     handleRightClick() {
       this.index = (this.index + 1) % this.length;
-      console.log(this.index);
     },
     handleLeftClick() {
       this.index = (this.index - 1 + this.length) % this.length;
-      console.log(this.index);
     },
     handleDotClick(i) {
       this.index = i;
@@ -62,14 +55,17 @@ img {
   height: 100%;
   object-fit: cover;
 }
+
 .homeContainer {
   height: 100%;
 }
+
 .carousel {
   height: 100%;
   width: 100%;
   position: relative;
 }
+
 .directionArrowLeft {
   position: absolute;
   top: 50%;
@@ -81,6 +77,7 @@ img {
   cursor: pointer;
   z-index: 1;
 }
+
 .directionArrowRight {
   position: absolute;
   top: 50%;
@@ -93,6 +90,7 @@ img {
   cursor: pointer;
   z-index: 1;
 }
+
 .carouselDots {
   position: absolute;
   bottom: 10px;
@@ -102,6 +100,7 @@ img {
   justify-content: center;
   z-index: 1;
 }
+
 .carouselDot {
   width: 10px;
   height: 10px;
