@@ -175,7 +175,8 @@ public class PlantController {
 
     @GetMapping("get-image/{id}")
     @ResponseBody
-    public ResponseEntity<?> getPlantImageById(@PathVariable Long id) {
+    public ResponseEntity<?> getPlantImageById(@PathVariable Long id,
+                                               @RequestParam(required = false) String imgType) {
         try {
             if (!plantService.existsById(id)) {
                 return ResponseEntity
@@ -185,9 +186,17 @@ public class PlantController {
 
             Plant plant = plantService.findById(id);
             Image plantImg = plant.getPost().getImage();
-            Path imgPath = Paths.get(plantImg.getFilePath());
-            // TODO fix so filepath does not contain name
-            File file = fileStorageService.load("", imgPath).getFile();
+            Path imgPath = Paths.get(plantImg.getImgPath());
+            String imgName = plantImg.getImgName();
+            File file;
+
+            // Get thumbnail img
+            if (imgType.equals("thumbnail")) {
+                imgName = plantImg.getThumbnailName();
+                imgPath = Paths.get(plantImg.getThumbnailPath());
+            }
+
+            file = fileStorageService.load(imgName, imgPath).getFile();
 
             return ResponseEntity.ok()
                     .header("Content-Disposition", "attachment; filename=" + file.getName())

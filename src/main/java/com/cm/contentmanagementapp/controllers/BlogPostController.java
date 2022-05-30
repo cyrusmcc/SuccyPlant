@@ -112,7 +112,7 @@ public class BlogPostController {
 
             BlogPost post = blogPostService.findBlogPostById(id);
             Path filePath = Paths.get("uploads/blogs/blogImg");
-            File file = fileService.load(post.getPost().getImage().getfileName(), filePath).getFile();
+            File file = fileService.load(post.getPost().getImage().getImgName(), filePath).getFile();
 
             return ResponseEntity.ok()
                     .header("Content-Disposition", "attachment; filename=" + file.getName())

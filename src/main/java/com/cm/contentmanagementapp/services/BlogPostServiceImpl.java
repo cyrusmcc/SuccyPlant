@@ -102,8 +102,8 @@ public class BlogPostServiceImpl implements BlogPostService {
     public boolean updateBlogImage(BlogPost blogPost, MultipartFile file) {
         Path filePath = Paths.get("uploads/blogs/blogImg");
 
-        if (!blogPost.getPost().getImage().getfileName().isEmpty()) {
-            fileService.deleteIfExists(filePath, blogPost.getPost().getImage().getfileName());
+        if (!blogPost.getPost().getImage().getImgName().isEmpty()) {
+            fileService.deleteIfExists(filePath, blogPost.getPost().getImage().getImgName());
         }
 
         try {

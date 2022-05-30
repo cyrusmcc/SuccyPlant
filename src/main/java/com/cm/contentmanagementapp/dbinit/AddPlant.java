@@ -111,12 +111,13 @@ public class AddPlant {
     private void addPlantImg(Path plantImgPath, String scientificName, Post plantPost) {
         // Add img path to plant post
         Path fullPlantImgPath = plantImgPath.resolve(scientificName.toLowerCase() + ".jpg");
+        Image plantPostImg = plantPost.getImage();
         if (Files.exists(fullPlantImgPath)) {
             File imgFile = new File(fullPlantImgPath.toString());
             String fileName = imgFile.getName();
-            Image plantPostImg = plantPost.getImage();
-            plantPostImg.setfileName(fileName);
-            plantPostImg.setFilePath(fullPlantImgPath.toString());
+            plantPostImg = plantPost.getImage();
+            plantPostImg.setImgName(fileName);
+            plantPostImg.setImgPath(plantImgPath.toString());
             plantPostImg.setUploadDate(LocalDate.now());
         }
 
@@ -134,10 +135,16 @@ public class AddPlant {
                         .toOutputStream(outputStream);
                 byte[] data = outputStream.toByteArray();
                 outputStream.writeTo(outToFile);
+                plantPostImg.setThumbnailName("tn-" + scientificName + ".jpg");
+                plantPostImg.setThumbnailPath(plantImgPath + "thumbnails/");
+                System.out.println("Generating thumbnail for " + plantImgPath.getFileName() + ".....");
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
+        }
+        else if (Files.exists(fullPlantImgPath) && Files.exists(plantThumbnailPath)) {
+            plantPostImg.setThumbnailName("tn-" + scientificName + ".jpg");
+            plantPostImg.setThumbnailPath(plantImgPath + "\\thumbnails");   
         }
 
     }

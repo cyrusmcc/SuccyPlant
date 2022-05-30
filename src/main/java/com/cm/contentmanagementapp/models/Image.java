@@ -10,11 +10,17 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="filePath")
-    private String filePath;
+    @Column(name="img_path")
+    private String imgPath;
 
-    @Column(name="image_id")
-    private String fileName;
+    @Column(name="img_id")
+    private String imgName;
+
+    @Column(name="thumbnail_path")
+    private String thumbnailPath;
+
+    @Column(name="thumbnail_id")
+    private String thumbnailName;
 
     @Column(name="author")
     private String author;
@@ -25,28 +31,44 @@ public class Image {
     public Image() {
     }
 
-    public Image(String fileName) {
-        this.fileName = fileName;
+    public Image(String imgname) {
+        this.imgName = imgName;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getFilePath() {
-        return filePath;
+    public String getImgPath() {
+        return imgPath;
     }
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
     }
 
-    public String getfileName() {
-        return fileName;
+    public String getImgName() {
+        return imgName;
     }
 
-    public void setfileName(String imageId) {
-        this.fileName = imageId;
+    public void setImgName(String imgName) {
+        this.imgName = imgName;
+    }
+
+    public String getThumbnailPath() {
+        return thumbnailPath;
+    }
+
+    public void setThumbnailPath(String thumbnailPath) {
+        this.thumbnailPath = thumbnailPath;
+    }
+
+    public String getThumbnailName() {
+        return thumbnailName;
+    }
+
+    public void setThumbnailName(String thumbnailName) {
+        this.thumbnailName = thumbnailName;
     }
 
     public String getAuthor() {

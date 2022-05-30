@@ -55,33 +55,33 @@ public class PostServiceImpl implements PostService {
     public boolean updatePostImg(Post post, String postType, MultipartFile imageFile) {
         String path = "uploads/post/" + postType;
         Path filePath = Paths.get(path);
-        String fileName = "";
+        String imgname = "";
 
         // if image already exists, delete
-        if (!post.getImage().getfileName().isEmpty()
-                && !post.getImage().getFilePath().isEmpty()) {
-            filePath = Paths.get(post.getImage().getFilePath());
-            fileName = post.getImage().getfileName();
-            fileService.deleteIfExists(filePath, post.getImage().getfileName());
+        if (!post.getImage().getImgName().isEmpty()
+                && !post.getImage().getImgPath().isEmpty()) {
+            filePath = Paths.get(post.getImage().getImgPath());
+            imgname = post.getImage().getImgName();
+            fileService.deleteIfExists(filePath, post.getImage().getImgName());
         }
 
         // Set image path if none exists
-        if (post.getImage().getFilePath().isEmpty()) {
-            post.getImage().setFilePath(path);
+        if (post.getImage().getImgPath().isEmpty()) {
+            post.getImage().setImgPath(path);
         }
 
         // Set image name if none exists
-        if (post.getImage().getfileName().isEmpty()) {
+        if (post.getImage().getImgName().isEmpty()) {
             String[] fileExtension = Objects
                     .requireNonNull(imageFile.getOriginalFilename())
                     .split("\\.");
-            fileName = UUID.randomUUID().toString();
-            fileName += "." + fileExtension[1];
-            post.getImage().setfileName(fileName);
+            imgname = UUID.randomUUID().toString();
+            imgname += "." + fileExtension[1];
+            post.getImage().setImgName(imgname);
         }
 
         try {
-            fileService.save(imageFile,filePath,fileName);
+            fileService.save(imageFile,filePath,imgname);
             save(post);
             return true;
         } catch (Exception e) {
