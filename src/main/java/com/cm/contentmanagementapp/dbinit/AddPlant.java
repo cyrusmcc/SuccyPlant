@@ -1,5 +1,6 @@
 package com.cm.contentmanagementapp.dbinit;
 
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,8 +17,11 @@ import com.cm.contentmanagementapp.models.Post;
 import com.cm.contentmanagementapp.repositories.ImageRepository;
 import com.cm.contentmanagementapp.services.ContentTagService;
 import com.cm.contentmanagementapp.services.PlantService;
+import net.coobird.thumbnailator.Thumbnails;
 import org.json.JSONObject;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.imageio.ImageIO;
 
 public class AddPlant {
 
@@ -96,24 +100,46 @@ public class AddPlant {
                 plantPost.addTag(tagService.findByCategoryAndValue(EnumTagCategory.LIGHT, getLight(obj)));
 
                 Path plantImgPath = Paths.get("uploads/posts/plants/");
-                plantImgPath = plantImgPath.resolve(scientificName.toLowerCase() + ".jpg");
-                System.out.println(Files.exists(plantImgPath) + " " + plantImgPath);
-                if (Files.exists(plantImgPath)) {
-                    System.out.println("Path to img for plant " + scientificName + " exists!");
-                    File imgFile = new File(plantImgPath.toString());
-                    String fileName = imgFile.getName();
-                    Image plantPostImg = plantPost.getImage();
-                    plantPostImg.setfileName(fileName);
-                    plantPostImg.setFilePath(plantImgPath.toString());
-                    plantPostImg.setUploadDate(LocalDate.now());
-                    //imageRepository.save(plantPostImg);
-                };
-
+                addPlantImg(plantImgPath, scientificName, plantPost);
                 plantService.save(plant);
 
             }
             in = br.readLine();
         }
+    }
+
+    private void addPlantImg(Path plantImgPath, String scientificName, Post plantPost) {
+        // Add img path to plant post
+        Path fullPlantImgPath = plantImgPath.resolve(scientificName.toLowerCase() + ".jpg");
+        if (Files.exists(fullPlantImgPath)) {
+            File imgFile = new File(fullPlantImgPath.toString());
+            String fileName = imgFile.getName();
+            Image plantPostImg = plantPost.getImage();
+            plantPostImg.setfileName(fileName);
+            plantPostImg.setFilePath(fullPlantImgPath.toString());
+            plantPostImg.setUploadDate(LocalDate.now());
+        }
+
+        // Create thumbnail image for plant if doesn't exist
+        Path plantThumbnailPath = plantImgPath.resolve("thumbnails/tn-" + scientificName.toLowerCase() + ".jpg");
+        if (Files.exists(fullPlantImgPath) && !Files.exists(plantThumbnailPath)) {
+            try {
+                BufferedImage originalImg = ImageIO.read(new File(fullPlantImgPath.toString()));
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                FileOutputStream outToFile = new FileOutputStream(plantThumbnailPath.toString());
+                Thumbnails.of(originalImg)
+                        .size(200, 170)
+                        .outputFormat("jpg")
+                        .outputQuality(0.8)
+                        .toOutputStream(outputStream);
+                byte[] data = outputStream.toByteArray();
+                outputStream.writeTo(outToFile);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
     }
 
     private void addPlant() throws IOException {

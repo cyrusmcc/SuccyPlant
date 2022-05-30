@@ -44,7 +44,6 @@
 import ProfilePic from "./ProfilePic.vue";
 import userService from "../service/user.service";
 
-
 export default {
   name: "NavBar",
   data() {
