@@ -191,7 +191,7 @@ public class PlantController {
             File file;
 
             // Get thumbnail img
-            if (imgType.equals("thumbnail")) {
+            if (imgType != null && imgType.equals("thumbnail")) {
                 imgName = plantImg.getThumbnailName();
                 imgPath = Paths.get(plantImg.getThumbnailPath());
             }

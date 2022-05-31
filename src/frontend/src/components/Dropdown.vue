@@ -77,7 +77,6 @@ export default {
     // called by component which implements dropdown functionality, used to update option style to show selected status
     enableSelect(filterOption) {
       let element = document.getElementById(filterOption);
-      console.log(filterOption);
       if (element) {
         element.style.background = "#e4ebf8";
         this.selected.push(filterOption);

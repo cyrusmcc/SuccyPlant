@@ -34,8 +34,8 @@ class UserService {
 
         const getUserPlantsInfo = async () => {
           for (let i = 0; i < plants.length; i++) {
-            let imgUrl = await plantService.getPlantImgById(plants[i].id);
-            plants[i].imgUrl = imgUrl.data;
+            let thumbnailUrl = await plantService.getPlantImgById(plants[i].id, "thumbnail");
+            plants[i].thumbnailUrl = thumbnailUrl.data;
           }
 
           return plants;

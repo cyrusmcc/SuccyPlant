@@ -1,7 +1,6 @@
 import api from "./api";
 
 const PLANT_API_URL = "http://localhost:8080/api/plants/";
-
 var pageNum = 0;
 var sortedPageNum = 0;
 
@@ -36,7 +35,11 @@ class PlantService {
 
       for (let i = 0; i < plants.length; i++) {
         let imgUrl = await this.getPlantImgById(plants[i].id, imgType);
-        plants[i].imgUrl = imgUrl.data;
+
+        if (imgType === "thumbnail") {
+          plants[i].thumbnailUrl = imgUrl.data;
+        }
+        else plants[i].imgUrl = imgUrl.data;
       }
 
       return plants;
@@ -66,11 +69,12 @@ class PlantService {
     const getPlantsInfo = async () => {
       plants = await this.getRelatedPlants(pageSize, plantId);
 
-      for (let i = 0; i < plants.length; i++) {
-        let imgUrl = await this.getPlantImgById(plants[i].id);
-        plants[i].imgUrl = imgUrl.data;
+      if (plants) {
+        for (let i = 0; i < plants.length; i++) {
+          let imgUrl = await this.getPlantImgById(plants[i].id);
+          plants[i].imgUrl = imgUrl.data;
+        }
       }
-
       return plants;
     };
 

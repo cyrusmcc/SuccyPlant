@@ -43,7 +43,7 @@ public class PlantServiceImpl implements PlantService {
             return findAllByAlphabetical(pageNum, pageSize);
         }
 
-        Pageable paging = PageRequest.of(0, 5, Sort.by("id").descending());
+        Pageable paging = PageRequest.of(0, 18, Sort.by("id").descending());
         List<Plant> plants = new ArrayList<>();
 
         if (tags.size() == 0 && searchTerm.length() > 3) {

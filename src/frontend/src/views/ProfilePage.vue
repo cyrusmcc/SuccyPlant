@@ -43,6 +43,7 @@
         </div>
         <div id="userContent"></div>
       </div>
+      <div class="rightBuffer"></div>
     </div>
     <div id="noProfile" class="card" v-if="noProfile">
       <img src="../assets/imgs/exclamationDark.svg" alt="exclamation point" />
@@ -126,60 +127,60 @@ export default {
 }
 
 .card {
-  display: flex;
-  flex-direction: column;
-  row-gap: 1rem;
-  justify-content: center;
   align-items: center;
   align-self: center;
-  max-width: 95%;
-  height: fit-content;
+  display: flex;
+  flex-direction: column;
   font: 2rem;
+  height: fit-content;
+  justify-content: center;
+  max-width: 95%;
+  row-gap: 1rem;
 }
 
 #profile {
+  align-content: flex-start;
   display: flex;
   flex-direction: column;
-  align-content: flex-start;
+  height: 100%;
   justify-content: flex-start;
   min-height: 80vh;
-  height: 100%;
   width: 100%;
 }
 
 #userInfoCard {
-  z-index: 1;
-  position: relative;
-  left: 0;
+  align-items: center;
+  box-shadow: none;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  overflow: hidden;
   height: fit-content;
+  justify-content: flex-start;
+  left: 0;
+  overflow: hidden;
+  position: relative;
   width: 100%;
-  box-shadow: none;
+  z-index: 1;
 }
 
 #userContentCard {
-  margin-top: 20px;
   box-shadow: none;
+  margin-top: 20px;
 }
 
 #userInfo {
-  z-index: 3;
+  color: $primaryDark;
   display: flex;
   flex-direction: column;
+  font-family: $inter;
   line-height: 1.6rem;
   margin: 15px 0 5px 0;
   text-align: center;
-  font-family: $inter;
-  color: $primaryDark;
+  z-index: 3;
 }
 
 #usernameText {
-  font-weight: medium;
   font-size: 1.5rem;
+  font-weight: medium;
 }
 
 #joinDateText {
@@ -195,26 +196,25 @@ export default {
 }
 
 #navTabs {
-  display: flex;
   align-items: flex-end;
-  width: 100%;
+  column-gap: 5px;
+  display: flex;
   height: 4vh;
   justify-content: space-around;
-  column-gap: 5px;
+  width: 100%;
 }
 
 #navTabs>span {
-  display: flex;
   align-items: center;
-  justify-content: center;
-  width: 4rem;
-  border-radius: 3px 3px 0 0;
-  background-color: $accentDark;
-  color: $primaryLight;
-  font-size: 0.8rem;
+  background-color: $primaryDark;
   border-radius: 20px;
-  padding: 5px 15px;
+  color: $primaryLight;
   cursor: pointer;
+  display: flex;
+  font-size: 0.8rem;
+  justify-content: center;
+  padding: 5px 15px;
+  width: 4rem;
 }
 
 #noProfile {
@@ -232,8 +232,12 @@ export default {
 
 #userPicImgCont {
   height: 6rem;
-  width: 6rem;
   margin-top: 5px;
+  width: 6rem;
+}
+
+.rightBuffer {
+  display: none;
 }
 
 @include screen-md() {
@@ -247,28 +251,33 @@ export default {
   }
 
   #profile {
+    align-items: flex-start;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 100%;
-    align-items: flex-start;
-    margin-left: 10px;
     height: 100%;
+    justify-content: center;
+    margin-left: 10px;
+    width: 85%;
   }
 
   #userInfoCard {
+    border-radius: 4px 4px 0 0;
     position: sticky;
     top: 50px;
-    border-radius: 4px 4px 0 0;
     width: 20rem;
   }
 
   #userContentCard {
+    align-self: unset;
     justify-content: center;
     margin: 0;
     width: 40rem;
-    align-self: unset;
+  }
+
+  .rightBuffer {
+    display: block;
+    width: 20rem;
+    background: $primaryLight;
   }
 }
 </style>

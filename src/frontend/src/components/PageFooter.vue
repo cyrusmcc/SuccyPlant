@@ -1,6 +1,6 @@
 <template>
   <div class="footerContainer">
-    <span class="footerTitle">SUCCYPLANT</span>
+    <router-link class="footerTitle" to="/">SUCCYPLANT</router-link>
     <span class="footerDesc">Home plant encyclopedia since 2021</span>
     <span class="footerCredits">Developed with love by Cyrus</span>
   </div>
@@ -23,6 +23,7 @@ export default {};
   height: 10rem;
   background: $primaryDark;
 }
+
 .footerTitle {
   font-family: $amatic;
   font-size: 1.5rem;
@@ -30,6 +31,7 @@ export default {};
   color: $primaryLight;
   text-shadow: -1px 2px 2px black;
 }
+
 .footerDesc,
 .footerCredits {
   font-family: $inter;

@@ -28,7 +28,7 @@
           <ErrorMessage name="email" class="error-feedback" />
         </div>
 
-        <button class="button-accentTwo-primaryDark" id="registerButton">
+        <button class="button-primaryDark-noBorder" id="registerButton">
           Register
         </button>
 
