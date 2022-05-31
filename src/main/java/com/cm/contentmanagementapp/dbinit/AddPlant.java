@@ -129,14 +129,13 @@ public class AddPlant {
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                 FileOutputStream outToFile = new FileOutputStream(plantThumbnailPath.toString());
                 Thumbnails.of(originalImg)
-                        .size(200, 170)
+                        .size(280, 238)
                         .outputFormat("jpg")
-                        .outputQuality(0.8)
+                        .outputQuality(0.85)
                         .toOutputStream(outputStream);
-                byte[] data = outputStream.toByteArray();
                 outputStream.writeTo(outToFile);
                 plantPostImg.setThumbnailName("tn-" + scientificName + ".jpg");
-                plantPostImg.setThumbnailPath(plantImgPath + "thumbnails/");
+                plantPostImg.setThumbnailPath(plantImgPath + "\\thumbnails");
                 System.out.println("Generating thumbnail for " + plantImgPath.getFileName() + ".....");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -144,7 +143,7 @@ public class AddPlant {
         }
         else if (Files.exists(fullPlantImgPath) && Files.exists(plantThumbnailPath)) {
             plantPostImg.setThumbnailName("tn-" + scientificName + ".jpg");
-            plantPostImg.setThumbnailPath(plantImgPath + "\\thumbnails");   
+            plantPostImg.setThumbnailPath(plantImgPath + "\\thumbnails");
         }
 
     }

@@ -29,14 +29,13 @@ class PlantService {
         return response.data;
       });
   }
-  getPlantsAndImgs(tags, searchTerm) {
+  getPlantsAndImgs(tags, searchTerm, imgType) {
     let plants = [];
-
     const getPlantsInfo = async () => {
       plants = await this.getPlants(tags, searchTerm);
 
       for (let i = 0; i < plants.length; i++) {
-        let imgUrl = await this.getPlantImgById(plants[i].id);
+        let imgUrl = await this.getPlantImgById(plants[i].id, imgType);
         plants[i].imgUrl = imgUrl.data;
       }
 
@@ -77,8 +76,12 @@ class PlantService {
 
     return getPlantsInfo();
   }
-  getPlantImgById(id) {
+  // imgType: full, or thumbnail
+  getPlantImgById(id, imgType) {
     return api.get(PLANT_API_URL + "get-image/" + id, {
+      params: {
+        imgType,
+      },
       responseType: "blob",
     });
   }

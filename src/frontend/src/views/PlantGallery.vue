@@ -45,7 +45,7 @@ export default {
       }
 
       const arr = async () => {
-        const arr = await plantService.getPlantsAndImgs(tagString, searchTerm);
+        const arr = await plantService.getPlantsAndImgs(tagString, searchTerm, "thumbnail");
         this.$store.commit("plants/setPlants", arr);
       };
       arr();
