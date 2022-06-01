@@ -1,7 +1,10 @@
 <template>
   <div class="container">
     <router-link class="plantIcon" :to="'/'">
-      <img src="../assets/imgs/potPlantDotDark.svg" alt="plant icon redirect to home" />
+      <img
+        src="../assets/imgs/potPlantDotDark.svg"
+        alt="plant icon redirect to home"
+      />
     </router-link>
     <div class="card" id="loginCard">
       <!-- only works with "handleLogin", not "handeLogin()"-->

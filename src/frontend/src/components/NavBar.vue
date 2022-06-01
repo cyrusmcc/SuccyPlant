@@ -1,29 +1,58 @@
 <template>
   <div class="navBarContainer">
     <router-link to="/" class="navBarText">succyplant</router-link>
-    <div class="modalBackground" v-if="!displayHamburger" @click.self="toggleHamburger()"></div>
-    <div class="hamburgerContent" v-if="!displayHamburger" @click="toggleHamburger">
+    <div
+      class="modalBackground"
+      v-if="!displayHamburger"
+      @click.self="toggleHamburger()"
+    ></div>
+    <div
+      class="hamburgerContent"
+      v-if="!displayHamburger"
+      @click="toggleHamburger"
+    >
       <slot></slot>
     </div>
     <div class="sideBarContent" v-show="displaySideBar">
-      <router-link class="navLink sideBarLink" @click="toggleSideBar" v-if="$root.currentUser"
-        :to="'/p/' + $root.currentUser.username">
+      <router-link
+        class="navLink sideBarLink"
+        @click="toggleSideBar"
+        v-if="$root.currentUser"
+        :to="'/p/' + $root.currentUser.username"
+      >
         Profile
       </router-link>
-      <router-link to="/settings" class="navLink sideBarLink" @click="toggleSideBar">
+      <router-link
+        to="/settings"
+        class="navLink sideBarLink"
+        @click="toggleSideBar"
+      >
         Settings
       </router-link>
-      <router-link to="/" class="navLink sideBarLink" @click="toggleSideBar" @click.prevent="$root.logOut()">
+      <router-link
+        to="/"
+        class="navLink sideBarLink"
+        @click="toggleSideBar"
+        @click.prevent="$root.logOut()"
+      >
         Logout
       </router-link>
     </div>
     <div class="mobileNavBar" v-if="navType == 'mobile'">
-      <div class="hamburgerLineContainer" v-if="displayHamburger" @click="toggleHamburger">
+      <div
+        class="hamburgerLineContainer"
+        v-if="displayHamburger"
+        @click="toggleHamburger"
+      >
         <div class="hamburgerLine"></div>
         <div class="hamburgerLine"></div>
         <div class="hamburgerLine"></div>
       </div>
-      <div class="closeHamburgerButton" v-if="!displayHamburger" @click="toggleHamburger">
+      <div
+        class="closeHamburgerButton"
+        v-if="!displayHamburger"
+        @click="toggleHamburger"
+      >
         +
       </div>
     </div>
@@ -33,9 +62,15 @@
         <router-link to="/plants" class="navLink"> Plants </router-link>
       </div>
       <profile-pic v-if="$root.currentUser" @click="toggleSideBar()">
-        <img id="navUserPic" alt="profile picture" src="../assets/imgs/userDark.svg" />
+        <img
+          id="navUserPic"
+          alt="profile picture"
+          src="../assets/imgs/userDark.svg"
+        />
       </profile-pic>
-      <router-link v-if="!$root.currentUser" to="/login" class="navLink">Login</router-link>
+      <router-link v-if="!$root.currentUser" to="/login" class="navLink"
+        >Login</router-link
+      >
     </div>
   </div>
 </template>
@@ -76,7 +111,7 @@ export default {
             error.message ||
             error.toString();
         }
-      )
+      );
     }
   },
   components: {

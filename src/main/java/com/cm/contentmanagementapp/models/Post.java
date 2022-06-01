@@ -32,10 +32,17 @@ public class Post {
     )
     @OrderBy("category ASC")
     private Set<ContentTag> contentTags;
+    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    private CommentBook commentBook = new CommentBook();
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "post_list_id")
-    private PostList postList;
+    public CommentBook getCommentBook() {
+        return commentBook;
+    }
+
+    public void setCommentBook(CommentBook commentBook) {
+        this.commentBook = commentBook;
+    }
 
     public Post() {
         this.image = new Image();
@@ -72,14 +79,6 @@ public class Post {
 
     public void setPostType(PostType type) {
         this.type = type;
-    }
-
-    public PostList getPostList() {
-        return postList;
-    }
-
-    public void setPostList(PostList postList) {
-        this.postList = postList;
     }
 
     public Set<ContentTag> getTags() {

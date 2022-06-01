@@ -34,7 +34,7 @@ export const plants = {
     },
     getPreselectedTags: (state) => {
       return state[0].preselectedTags;
-    }
+    },
   },
   mutations: {
     setTags: (state, tags) => {

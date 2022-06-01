@@ -1,20 +1,28 @@
 <template>
   <div class="gridContainer">
-    <router-link class="link" to="/plants" @click="setPreselectedTags('House Plant')">
+    <router-link
+      class="link"
+      to="/plants"
+      @click="setPreselectedTags('House Plant')"
+    >
       <img src="../assets/imgs/plant.jpg" class="contentBanner" alt="" />
       <div class="textContainer">
         <span class="text">Browse</span>
         <span class="text">House Plants</span>
       </div>
     </router-link>
-    <router-link class="link" to="/plants" @click="setPreselectedTags('Succ')"><img src="../assets/imgs/succulent.jpg"
-        class="contentBanner" alt="" />
+    <router-link class="link" to="/plants" @click="setPreselectedTags('Succ')"
+      ><img src="../assets/imgs/succulent.jpg" class="contentBanner" alt="" />
       <div class="textContainer">
         <span class="text">Browse</span>
         <span class="text">Succulents</span>
       </div>
     </router-link>
-    <router-link class="link" to="/plants" @click="setPreselectedTags('Cactus')">
+    <router-link
+      class="link"
+      to="/plants"
+      @click="setPreselectedTags('Cactus')"
+    >
       <img src="../assets/imgs/cactus.jpg" class="contentBanner" alt="" />
       <div class="textContainer">
         <span class="text">Browse</span>
@@ -29,13 +37,15 @@ export default {
   name: "squareGrid",
   methods: {
     setPreselectedTags(option) {
-      let preselectedTags = [{
-        label: "Type",
-        option: option,
-      }];
+      let preselectedTags = [
+        {
+          label: "Type",
+          option: option,
+        },
+      ];
       this.$store.commit("plants/setPreselectedTags", preselectedTags);
     },
-  }
+  },
 };
 </script>
 
@@ -48,7 +58,7 @@ export default {
   gap: 10px;
 }
 
-.gridContainer>* {
+.gridContainer > * {
   width: 30rem;
   max-width: 100%;
   min-height: 85px;

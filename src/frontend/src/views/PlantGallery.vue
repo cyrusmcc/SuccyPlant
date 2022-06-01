@@ -19,8 +19,7 @@ export default {
     filterBar,
   },
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
     posts() {
@@ -33,7 +32,8 @@ export default {
   mounted() {
     // only want to retrieve plants once, if there are preselected tags in store then sortPostsByTags will be called
     // which calls getPosts
-    if (!this.preselectedTags || this.preselectedTags.length == 0) this.getPosts();
+    if (!this.preselectedTags || this.preselectedTags.length == 0)
+      this.getPosts();
   },
   methods: {
     getPosts(tags, searchTerm) {
@@ -45,7 +45,11 @@ export default {
       }
 
       const arr = async () => {
-        const arr = await plantService.getPlantsAndImgs(tagString, searchTerm, "thumbnail");
+        const arr = await plantService.getPlantsAndImgs(
+          tagString,
+          searchTerm,
+          "thumbnail"
+        );
         this.$store.commit("plants/setPlants", arr);
       };
       arr();

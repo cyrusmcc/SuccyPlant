@@ -38,8 +38,7 @@ class PlantService {
 
         if (imgType === "thumbnail") {
           plants[i].thumbnailUrl = imgUrl.data;
-        }
-        else plants[i].imgUrl = imgUrl.data;
+        } else plants[i].imgUrl = imgUrl.data;
       }
 
       return plants;

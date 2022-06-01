@@ -1,27 +1,49 @@
 <template>
-  <div class="dropDown" @click="toggle()" :style="{ background: color }" v-if="displayType == 'dropDown'">
+  <div
+    class="dropDown"
+    @click="toggle()"
+    :style="{ background: color }"
+    v-if="displayType == 'dropDown'"
+  >
     <div class="dropBoxSelectContainer">
       <span class="dropBoxLabel">{{ label }}</span>
       <div class="imgContainer" v-if="!isOpen">
         <img class="downArrow" src="../assets/imgs/downArrowDark.svg" />
       </div>
     </div>
-    <div class="dropBoxOptionsContainer scrollContainer" v-show="isOpen" :style="{ border: '2px solid ' + color }">
-      <div class="dropBoxOptionContainer sideBarLink" v-for="option in options" :key="option"
-        :id="label + '-' + option">
+    <div
+      class="dropBoxOptionsContainer scrollContainer"
+      v-show="isOpen"
+      :style="{ border: '2px solid ' + color }"
+    >
+      <div
+        class="dropBoxOptionContainer sideBarLink"
+        v-for="option in options"
+        :key="option"
+        :id="label + '-' + option"
+      >
         <div class="dropBoxOption" @click="$emit('selectTag', label, option)">
           {{ option }}
         </div>
       </div>
     </div>
   </div>
-  <div class="sideSelect" :style="{ background: color }" v-if="displayType == 'sideSelect'">
+  <div
+    class="sideSelect"
+    :style="{ background: color }"
+    v-if="displayType == 'sideSelect'"
+  >
     <div class="sideSelectContainer">
       <span class="dropBoxLabel">{{ label }}</span>
     </div>
     <div class="sideSelectOptions">
-      <div class="sideSelectOptionContainer sideBarLink" v-for="option in options" :key="option"
-        @click="selectOption(label, option)" :id="label + '-' + option">
+      <div
+        class="sideSelectOptionContainer sideBarLink"
+        v-for="option in options"
+        :key="option"
+        @click="selectOption(label, option)"
+        :id="label + '-' + option"
+      >
         <div>
           {{ option }}
         </div>

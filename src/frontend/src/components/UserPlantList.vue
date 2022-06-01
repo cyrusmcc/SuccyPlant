@@ -4,7 +4,11 @@
     <div class="plantList">
       <div v-for="(plant, p) in plants" :key="p" class="plant">
         <div class="plantImgContainer">
-          <img class="plantImage" :src="getImg(plant.thumbnailUrl)" alt="plant image" />
+          <img
+            class="plantImage"
+            :src="getImg(plant.thumbnailUrl)"
+            alt="plant image"
+          />
         </div>
         <div class="nameContainer">
           <router-link :to="'/plant/' + plant.id">
@@ -15,7 +19,9 @@
     </div>
   </div>
   <div class="notFoundContainer" v-if="plants.length == 0">
-    <span class="noPlantFoundLabel">No Succyplants found for {{ username }}</span>
+    <span class="noPlantFoundLabel"
+      >No Succyplants found for {{ username }}</span
+    >
   </div>
 </template>
 
@@ -58,7 +64,7 @@ export default {
   margin: 10px 0;
 }
 
-.plantList>div {
+.plantList > div {
   margin: 5px 0;
 }
 
@@ -121,7 +127,7 @@ export default {
     flex-direction: column;
     height: fit-content;
     row-gap: 10px;
-    width: 150px;
+    width: 135px;
   }
 
   .plantContainer {
