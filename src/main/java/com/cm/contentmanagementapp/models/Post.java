@@ -44,6 +44,11 @@ public class Post {
         this.commentBook = commentBook;
     }
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "post_list_id")
+    private PostList postList;
+
+
     public Post() {
         this.image = new Image();
         this.contentTags = new TreeSet<>();
@@ -104,4 +109,11 @@ public class Post {
         contentTags.add(tag);
     }
 
+    public PostList getPostList() {
+        return postList;
+    }
+
+    public void setPostList(PostList postList) {
+        this.postList = postList;
+    }
 }

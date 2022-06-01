@@ -45,6 +45,10 @@ public class User {
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Plant> plantWishList = new HashSet<>();
 
+    @OneToOne(fetch = FetchType.LAZY)
+    private CommentBook userComments = new CommentBook();
+
+
     public User() {
         this.role = EnumRole.ROLE_USER;
         postList = new PostList();
@@ -137,6 +141,14 @@ public class User {
 
     public boolean hasPlantInUserPlants(Plant plant) {
         return userPlants.contains(plant);
+    }
+
+    public CommentBook getUserComments() {
+        return userComments;
+    }
+
+    public void setUserComments(CommentBook userComments) {
+        this.userComments = userComments;
     }
 
     public boolean removePlantFromPlantList(Plant plant) {
