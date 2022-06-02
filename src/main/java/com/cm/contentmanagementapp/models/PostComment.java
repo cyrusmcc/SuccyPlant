@@ -13,8 +13,8 @@ public class PostComment {
     @Column(name = "comment_id")
     private Long commentId;
 
-    @OneToOne
-    @Column(name="parent_comment_id")
+    @JoinColumn(name="parent_comment_id")
+    @ManyToOne
     private PostComment parentComment;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -40,12 +40,16 @@ public class PostComment {
     @Column(name="depth")
     private int depth;
 
-    public PostComment() {
-    }
+    @Column(name="score")
+    private int score;
 
-    public PostComment(PostComment parentComment) {
+    public PostComment(PostComment parentComment, String content) {
         this.parentComment = parentComment;
         depth = findDepth();
+    }
+
+    public PostComment() {
+
     }
 
     public int findDepth() {
@@ -53,11 +57,19 @@ public class PostComment {
         PostComment currComment = this;
 
         while (currComment.parentComment != null) {
-            currComment = parentComment;
+            currComment = currComment.parentComment;
             depth++;
         }
 
         return depth;
+    }
+
+    public void incrScore() {
+        this.score++;
+    }
+
+    public void decScore() {
+        this.score--;
     }
 
     public CommentBook getCommentBook() {
@@ -78,5 +90,13 @@ public class PostComment {
 
     public void setParentComment(PostComment parentComment) {
         this.parentComment = parentComment;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

@@ -8,11 +8,11 @@ import java.util.List;
 public class CommentBook {
 
     @Id
-    @Column(name = "post_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "comment_book_id")
     private Long id;
 
-    @OneToOne()
-    @MapsId
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Post post;
 

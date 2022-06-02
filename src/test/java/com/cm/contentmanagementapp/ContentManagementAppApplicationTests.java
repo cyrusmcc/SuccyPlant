@@ -4,7 +4,9 @@ import com.cm.contentmanagementapp.controllers.AuthController;
 import com.cm.contentmanagementapp.models.*;
 import com.cm.contentmanagementapp.payload.request.SignupRequest;
 import com.cm.contentmanagementapp.payload.response.MessageResponse;
+import com.cm.contentmanagementapp.repositories.CommentBookRepository;
 import com.cm.contentmanagementapp.repositories.PlantRepository;
+import com.cm.contentmanagementapp.repositories.PostCommentRepository;
 import com.cm.contentmanagementapp.repositories.PostRepository;
 import com.cm.contentmanagementapp.services.*;
 import org.junit.jupiter.api.Test;
@@ -15,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,6 +61,15 @@ class ContentManagementAppApplicationTests {
 
 	@Autowired
 	PostRepository postRepo;
+
+	@Autowired
+	PostCommentRepository commentRepository;
+
+	@Autowired
+	CommentBookRepository commentBookRepository;
+
+	@Autowired
+	CommentBookService commentBookService;
 
 	@Test
 	void contextLoads() {
@@ -247,7 +259,7 @@ class ContentManagementAppApplicationTests {
 	@Test
 	void findPostContentTags() {
 
-		Optional<Plant> gp = gpRepo.findById(Long.valueOf(1));
+		Optional<Plant> gp = gpRepo.findById(1L);
 		Plant g = gp.get();
 
 		System.out.println(g.getPost().getTags());
@@ -271,6 +283,29 @@ class ContentManagementAppApplicationTests {
 
 	}
 
+	@Test
+	void createPostComments() {
+		Post p1 = new Post();
+		postService.save(p1);
+		CommentBook cb1 = p1.setTitle("p1").getCommentBook();
 
+		PostComment parentComment1 = new PostComment(null, "I am parent comment 1");
+		PostComment childComment1 = new PostComment(parentComment1, "I am child comment 1");
+		PostComment childComment2 = new PostComment(parentComment1, "I am child comment 2");
+		PostComment childComment3 = new PostComment(parentComment1, "I am child comment 3");
+		PostComment leafComment1 = new PostComment(childComment3, "I am child comment 3");
+
+		cb1.addComment(parentComment1);
+		postService.save(p1);
+
+		List<PostComment> t1 = commentRepository.findAllByCommentBook(cb1);
+		assert(t1.size() == 1 && t1.get(0).getContent().equals("I am parent comment 1"));
+
+		List<PostComment> t2 = commentRepository.findAllByParentComment(parentComment1);
+		assert(t2.size() == 3);
+
+		List<PostComment> t3 = commentRepository.findAllByParentComment(leafComment1);
+		assert(t3.size() == 1 && t3.get(0).getContent().equals("I am child comment 3"));
+	}
 
 }

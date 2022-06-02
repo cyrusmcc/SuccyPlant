@@ -32,8 +32,11 @@ public class Post {
     )
     @OrderBy("category ASC")
     private Set<ContentTag> contentTags;
-    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
+
+    @OneToOne(orphanRemoval = true,
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "post")
     private CommentBook commentBook = new CommentBook();
 
     public CommentBook getCommentBook() {
@@ -58,48 +61,49 @@ public class Post {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public Post setTitle(String title) {
         this.title = title;
+        return this;
     }
 
     public String getAuthorUsername() {
         return authorUsername;
     }
 
-    public void setAuthorUsername(String authorUsername) {
+    public Post setAuthorUsername(String authorUsername) {
         this.authorUsername = authorUsername;
+        return this;
     }
 
     public PostType getPostType() {
         return type;
     }
 
-    public void setPostType(PostType type) {
+    public Post setPostType(PostType type) {
         this.type = type;
+        return this;
     }
 
     public Set<ContentTag> getTags() {
         return contentTags;
     }
 
-    public void setTags(Set<ContentTag> contentTags) {
+    public Post setTags(Set<ContentTag> contentTags) {
         this.contentTags = contentTags;
+        return this;
     }
 
     public Image getImage() {
         return image;
     }
 
-    public void setImage(Image image) {
+    public Post setImage(Image image) {
         this.image = image;
+        return this;
     }
 
     public void addTag(ContentTag tag) {
@@ -113,7 +117,8 @@ public class Post {
         return postList;
     }
 
-    public void setPostList(PostList postList) {
+    public Post setPostList(PostList postList) {
         this.postList = postList;
+        return this;
     }
 }
