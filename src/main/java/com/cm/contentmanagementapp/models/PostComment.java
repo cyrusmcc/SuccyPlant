@@ -3,7 +3,6 @@ package com.cm.contentmanagementapp.models;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -14,8 +13,9 @@ public class PostComment {
     @Column(name = "comment_id")
     private Long commentId;
 
+    @OneToOne
     @Column(name="parent_comment_id")
-    private Long parentCommentId;
+    private PostComment parentComment;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private CommentBook commentBook;
@@ -28,18 +28,36 @@ public class PostComment {
     @OneToOne()
     private User author;
 
-
+    @Column(name="time_stamp")
     private Timestamp timestamp = new Timestamp(new Date().getTime());
 
+    @Column(name="deleted")
     private boolean deleted;
 
+    @Column(name="flagged")
     private boolean flagged;
+
+    @Column(name="depth")
+    private int depth;
 
     public PostComment() {
     }
 
-    public PostComment(Long parentCommentId) {
-        this.parentCommentId = parentCommentId;
+    public PostComment(PostComment parentComment) {
+        this.parentComment = parentComment;
+        depth = findDepth();
+    }
+
+    public int findDepth() {
+        int depth = 0;
+        PostComment currComment = this;
+
+        while (currComment.parentComment != null) {
+            currComment = parentComment;
+            depth++;
+        }
+
+        return depth;
     }
 
     public CommentBook getCommentBook() {
@@ -54,11 +72,11 @@ public class PostComment {
         return commentId;
     }
 
-    public Long getParentCommentId() {
-        return parentCommentId;
+    public PostComment getParentComment() {
+        return parentComment;
     }
 
-    public void setParentCommentId(Long parentCommentId) {
-        this.parentCommentId = parentCommentId;
+    public void setParentComment(PostComment parentComment) {
+        this.parentComment = parentComment;
     }
 }
