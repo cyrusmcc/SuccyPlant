@@ -20,11 +20,4 @@ public class CommentBookServiceImpl implements CommentBookService {
         this.commentBookRepository = commentBookRepository;
     }
 
-    @Override
-    public void newComment(Post post, PostComment parentComment, String content) {
-        PostComment comment = new PostComment(parentComment, content);
-        post.getCommentBook().addComment(comment);
-        commentRepository.save(comment);
-    }
-
 }

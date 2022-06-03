@@ -35,26 +35,22 @@ public class Post {
 
     @OneToOne(orphanRemoval = true,
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            mappedBy = "post")
+            fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
     private CommentBook commentBook = new CommentBook();
 
     public CommentBook getCommentBook() {
         return commentBook;
     }
 
-    public void setCommentBook(CommentBook commentBook) {
-        this.commentBook = commentBook;
-    }
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_list_id")
     private PostList postList;
 
-
     public Post() {
         this.image = new Image();
         this.contentTags = new TreeSet<>();
+        this.commentBook.setPost(this);
     }
 
     public Long getId() {
@@ -120,5 +116,9 @@ public class Post {
     public Post setPostList(PostList postList) {
         this.postList = postList;
         return this;
+    }
+
+    public void addComment(PostComment comment) {
+        commentBook.addComment(comment);
     }
 }

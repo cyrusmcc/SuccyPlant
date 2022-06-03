@@ -14,10 +14,10 @@ public class PostComment {
     private Long commentId;
 
     @JoinColumn(name="parent_comment_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private PostComment parentComment;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private CommentBook commentBook;
 
     @Column(name = "content", columnDefinition = "TEXT")
@@ -45,6 +45,7 @@ public class PostComment {
 
     public PostComment(PostComment parentComment, String content) {
         this.parentComment = parentComment;
+        this.content = content;
         depth = findDepth();
     }
 

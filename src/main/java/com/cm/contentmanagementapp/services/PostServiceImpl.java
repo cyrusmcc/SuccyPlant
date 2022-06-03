@@ -4,6 +4,8 @@ import com.cm.contentmanagementapp.controllers.AuthController;
 import com.cm.contentmanagementapp.models.BlogPost;
 import com.cm.contentmanagementapp.models.ContentTag;
 import com.cm.contentmanagementapp.models.Post;
+import com.cm.contentmanagementapp.models.PostComment;
+import com.cm.contentmanagementapp.repositories.PostCommentRepository;
 import com.cm.contentmanagementapp.repositories.PostRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +23,8 @@ import java.util.UUID;
 public class PostServiceImpl implements PostService {
 
     private PostRepository postRepository;
+
+    private PostCommentRepository commentRepository;
 
     private FileStorageService fileService;
 
@@ -88,6 +92,12 @@ public class PostServiceImpl implements PostService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public void addComment(Post post, PostComment comment) {
+        post.addComment(comment);
+        postRepository.save(post);
     }
 
 }

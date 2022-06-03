@@ -284,22 +284,28 @@ class ContentManagementAppApplicationTests {
 	}
 
 	@Test
+	@Transactional
+	@Rollback()
 	void createPostComments() {
 		Post p1 = new Post();
-		postService.save(p1);
-		CommentBook cb1 = p1.setTitle("p1").getCommentBook();
 
+		//TODO create comment, then separately set parent to comment fetched by id from repo
 		PostComment parentComment1 = new PostComment(null, "I am parent comment 1");
+		postService.addComment(p1, parentComment1);
 		PostComment childComment1 = new PostComment(parentComment1, "I am child comment 1");
+		postService.addComment(p1, childComment1);
 		PostComment childComment2 = new PostComment(parentComment1, "I am child comment 2");
-		PostComment childComment3 = new PostComment(parentComment1, "I am child comment 3");
-		PostComment leafComment1 = new PostComment(childComment3, "I am child comment 3");
+		postService.addComment(p1, childComment2);
 
-		cb1.addComment(parentComment1);
+		PostComment leafComment1 = new PostComment(childComment1, "I am leaf comment 1");
+		postService.addComment(p1, leafComment1);
+		PostComment leafComment2 = new PostComment(childComment1, "I am leaf comment 2");
+		postService.addComment(p1, leafComment2);
+
 		postService.save(p1);
 
-		List<PostComment> t1 = commentRepository.findAllByCommentBook(cb1);
-		assert(t1.size() == 1 && t1.get(0).getContent().equals("I am parent comment 1"));
+		List<PostComment> t1 = commentRepository.findAllByCommentBook(p1.getCommentBook());
+		assert(t1.size() == 6 && t1.get(0).getContent().equals("I am parent comment 1"));
 
 		List<PostComment> t2 = commentRepository.findAllByParentComment(parentComment1);
 		assert(t2.size() == 3);

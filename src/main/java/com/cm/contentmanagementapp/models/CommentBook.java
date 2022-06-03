@@ -12,7 +12,7 @@ public class CommentBook {
     @Column(name = "comment_book_id")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "post_id")
     private Post post;
 
@@ -49,6 +49,7 @@ public class CommentBook {
 
     public void setPost(Post post) {
         this.post = post;
+        this.id = post.getId();
     }
 
     public List<PostComment> getComments() {
