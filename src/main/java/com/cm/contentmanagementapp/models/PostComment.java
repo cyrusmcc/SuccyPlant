@@ -14,7 +14,7 @@ public class PostComment {
     private Long commentId;
 
     @JoinColumn(name="parent_comment_id")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     private PostComment parentComment;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
