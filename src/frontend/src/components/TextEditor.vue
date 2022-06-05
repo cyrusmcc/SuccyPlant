@@ -1,21 +1,11 @@
 <template>
   <div id="editor">
     <div id="editorToolBar">
-      <img
-        id="previewIcon"
-        src="../assets/imgs/previewLight.svg"
-        alt="preview icon"
-        @click="togglePreview"
-      />
+      <img id="previewIcon" src="../assets/imgs/previewLight.svg" alt="preview icon" @click="togglePreview" />
     </div>
     <div id="bodyContainer">
       <textarea id="body" :value="bodyText" @input="update"></textarea>
-      <div
-        id="previewBodyText"
-        class="scrollContainer"
-        v-html="compiledMarkdown"
-        v-if="displayPreview"
-      ></div>
+      <div id="previewBodyText" class="scrollContainer" v-html="compiledMarkdown" v-if="displayPreview"></div>
     </div>
   </div>
 </template>
@@ -33,7 +23,7 @@ export default {
   },
   computed: {
     compiledMarkdown() {
-      return DOMPurify.sanitize(marked(this.bodyText));
+      return DOMPurify.sanitize(marked.parseInline(this.bodyText));
     },
   },
   methods: {
@@ -46,7 +36,26 @@ export default {
         document.getElementById("body").style.display = "block";
       }
     },
+
+    adjustTextArea() {
+      let textArea = document.getElementById("body");
+      let textAreaContainer = document.getElementById("bodyContainer");
+
+      if (textArea.scrollHeight > textArea.clientHeight) {
+        textArea.style.height = "1px";
+        textArea.style.height = (25 + textArea.scrollHeight) + "px";
+
+        textAreaContainer.style.height = "1px";
+        textAreaContainer.style.height = (25 + textAreaContainer.scrollHeight) + "px";
+      }
+      else {
+        console.log(textArea.clientHeight.toString() + "px", textArea.scrollHeight.toString() + "px");
+        textArea.style.height = "70px";
+        textAreaContainer.style.height = "70px";
+      }
+    },
     update: function (e) {
+      this.adjustTextArea();
       this.bodyText = e.target.value;
       this.$emit("bodyText", DOMPurify.sanitize(marked(this.bodyText)));
     },
@@ -56,46 +65,48 @@ export default {
 
 <style scoped lang="scss">
 #editor {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  height: fit-content;
-  vertical-align: top;
   box-sizing: border-box;
+  display: inline-block;
+  height: fit-content;
+  position: relative;
+  vertical-align: top;
+  width: 100%;
 }
 
-#editor > * {
+#editor>* {
   background-color: $primaryLight;
 }
 
 #editorToolBar {
+  align-items: center;
+  background-color: $primaryDark;
+  border-radius: 4px 4px 0 0;
   display: flex;
   flex-direction: row;
-  align-items: center;
   height: 2rem;
-  border-radius: 4px 4px 0 0;
   width: 100%;
-  border-bottom: thick solid $primaryLight;
-  background-color: $accentDark;
 }
 
 #bodyContainer {
   background-color: $accentDark;
+  border-radius: 0 0 4px 4px;
+  box-sizing: border-box;
+  height: 70px;
+  overflow: hidden;
   position: relative;
-  height: 15rem;
 }
 
 #body {
   background-color: $accentDark;
+  border-radius: 0 0 4px 4px;
+  border: none;
   color: $primaryLight;
-  width: 100%;
-  height: 100%;
+  height: 98%;
+  outline: none;
+  padding: 1px;
   position: absolute;
   resize: none;
-  border: none;
-  outline: none;
-  border-radius: 4px;
-  padding: 1px;
+  width: 100%;
 }
 
 #previewIcon {
@@ -108,13 +119,19 @@ export default {
 }
 
 #previewBodyText {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background-color: $accentDark;
-  color: $primaryLight;
+  background-color: $primaryLight;
+  border-radius: 0 0 4px 4px;
   border: none;
-  overflow: scroll;
+  color: $primaryDark;
+  height: 100%;
+  line-break: anywhere;
   overflow-x: hidden;
+  overflow: scroll;
+  position: absolute;
+  width: 100%;
+}
+
+#previewBodyText>p {
+  margin: 0;
 }
 </style>
