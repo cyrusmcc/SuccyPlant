@@ -37,6 +37,9 @@ export default {
       }
     },
 
+    // When user types in the text area, if text area is full, increase height
+    // of the text area and text area container elements.
+    // TODO: Need to decrease height of text area/container when user removes
     adjustTextArea() {
       let textArea = document.getElementById("body");
       let textAreaContainer = document.getElementById("bodyContainer");
@@ -47,11 +50,6 @@ export default {
 
         textAreaContainer.style.height = "1px";
         textAreaContainer.style.height = (25 + textAreaContainer.scrollHeight) + "px";
-      }
-      else {
-        console.log(textArea.clientHeight.toString() + "px", textArea.scrollHeight.toString() + "px");
-        textArea.style.height = "70px";
-        textAreaContainer.style.height = "70px";
       }
     },
     update: function (e) {

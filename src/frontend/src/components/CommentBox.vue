@@ -1,17 +1,29 @@
 <template>
     <div class="commentBoxContainer">
-        <span class="commentCount">0 Comments</span>
+        <span class="commentCount">{{ commentCount }} Comments</span>
         <div class="replyBox" v-if="currentUser">
+            <!--
             <profile-pic class="profileUserPic" alt="profile picture">
                 <img id="replyBoxProfilePic" alt="profile picture" src="../assets/imgs/userDark.svg" />
             </profile-pic>
+-->
             <text-editor />
             <!--
             <textarea id="userReplyTextArea" class="replyTextArea" placeholder="Reply here..."
                 @input="adjustTextArea()"></textarea>
-                -->
+-->
         </div>
-        <div class="commentsContainer"></div>
+        <div class="commentsContainer" v-for="(comment, index) in comments" :key="index">
+            <div class="commentContainer">
+                <div class="commentHeader">
+                    <profile-pic class="profileUserPic" alt="profile picture">
+                        <img id="commentProfilePic" alt="profile picture" src="../assets/imgs/userDark.svg" />
+                    </profile-pic>
+                    {{ comment.user.name }}
+                </div>
+                {{ comment.body }}
+            </div>
+        </div>
     </div>
 </template>
 
@@ -27,6 +39,53 @@ export default {
         TextEditor
     },
     data() {
+        return {
+            comments: [
+                {
+                    id: 1,
+                    user: {
+                        id: 1,
+                        name: "John Doe",
+                        profilePic: "../assets/imgs/userDark.svg"
+                    },
+                    body: "This is a comment",
+                    replies: [
+                        {
+                            id: 1,
+                            user: {
+                                id: 1,
+                                name: "John Doe",
+                                profilePic: "../assets/imgs/userDark.svg"
+                            },
+                            body: "This is a reply"
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    user: {
+                        id: 2,
+                        name: "Jane Doe",
+                        profilePic: "../assets/imgs/userDark.svg"
+                    },
+                    body: "This is a comment",
+                    replies: [
+                        {
+                            id: 1,
+                            user: {
+                                id: 1,
+                                name: "John Doe",
+                                profilePic: "../assets/imgs/userDark.svg"
+                            },
+                            body: "This is a reply"
+                        }
+                    ]
+                }
+            ],
+            commentCount: 12,
+            replyBoxHeight: 0,
+            replyBoxWidth: 0,
+        }
     },
     computed: {
         currentUser() {
