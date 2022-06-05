@@ -34,7 +34,7 @@ public class User {
 
     private LocalDate userJoinDate;
 
-    @OneToOne(cascade = CascadeType.ALL, optional = false)
+    @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "post_list_id")
     @JsonManagedReference
     private PostList postList;
@@ -45,7 +45,7 @@ public class User {
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Plant> plantWishList = new HashSet<>();
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private CommentBook userComments = new CommentBook();
 
 

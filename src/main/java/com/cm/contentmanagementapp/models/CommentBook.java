@@ -1,5 +1,7 @@
 package com.cm.contentmanagementapp.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,7 @@ public class CommentBook {
     @OneToMany(mappedBy = "commentBook",
             cascade = CascadeType.ALL, orphanRemoval = true)
     @Column(name = "comments")
+    @JsonIgnore
     private List<PostComment> comments = new ArrayList<>();
 
     @Column(name = "num_comments")

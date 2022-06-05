@@ -11,39 +11,30 @@
           <img class="plantImg" :src="imgUrl" alt="" />
         </div>
         <div class="plantListButtons" v-if="currentUser">
-          <button
-            :class="[
-              hasPlantInUserPlants
-                ? 'removeButton'
-                : 'button-primaryDark-noBorder',
-            ]"
-            @click="updatePlantList('userPlants')"
-          >
+          <button :class="[
+            hasPlantInUserPlants
+              ? 'removeButton'
+              : 'button-primaryDark-noBorder',
+          ]" @click="updatePlantList('userPlants')">
             {{
-              hasPlantInUserPlants
-                ? "Remove from my plants"
-                : "Add to my plants"
+                hasPlantInUserPlants
+                  ? "Remove from my plants"
+                  : "Add to my plants"
             }}
           </button>
-          <button
-            :class="[
-              hasPlantInWishList
-                ? 'removeButton'
-                : 'button-primaryDark-noBorder',
-            ]"
-            @click="updatePlantList('wishList')"
-          >
+          <button :class="[
+            hasPlantInWishList
+              ? 'removeButton'
+              : 'button-primaryDark-noBorder',
+          ]" @click="updatePlantList('wishList')">
             {{
-              hasPlantInWishList ? "Remove from wishlist" : "Add to wishlist"
+                hasPlantInWishList ? "Remove from wishlist" : "Add to wishlist"
             }}
           </button>
         </div>
-        <side-scroll-gallery
-          :length="sideScrollLength"
-          :items="relatedPlants"
-          v-if="relatedPlants.length > 0 && width >= 1115"
-        >
-        </side-scroll-gallery>
+        <side-scroll-gallery :length="sideScrollLength" :items="relatedPlants"
+          v-if="relatedPlants.length > 0 && width >= 1115" />
+        <comment-box />
       </div>
       <div class="infoBox">
         <div class="titleContainer">
@@ -90,11 +81,8 @@
             </div>
           </div>
         </div>
-        <side-scroll-gallery
-          :length="sideScrollLength"
-          :items="relatedPlants"
-          v-if="relatedPlants.length > 0 && width < 1115"
-        >
+        <side-scroll-gallery :length="sideScrollLength" :items="relatedPlants"
+          v-if="relatedPlants.length > 0 && width < 1115">
         </side-scroll-gallery>
       </div>
     </div>
@@ -104,6 +92,7 @@
 <script>
 //import Carousel from "../components/Carousel.vue";
 import SideScrollGallery from "../components/SideScrollGallery.vue";
+import CommentBox from "../components/CommentBox.vue";
 import plantService from "../service/plant.service";
 import userService from "../service/user.service";
 
@@ -112,6 +101,7 @@ export default {
   components: {
     //Carousel,
     SideScrollGallery,
+    CommentBox,
   },
   props: [],
   data() {
@@ -383,7 +373,7 @@ h3 {
   justify-content: center;
 }
 
-.descContainer > h2 {
+.descContainer>h2 {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -399,7 +389,7 @@ h3 {
   width: 100%;
 }
 
-.careGuide > div {
+.careGuide>div {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -409,7 +399,7 @@ h3 {
   width: 100%;
 }
 
-.careGuide > div:nth-child(n + 2) > * {
+.careGuide>div:nth-child(n + 2)>* {
   text-align: center;
   width: 95%;
 }
@@ -454,7 +444,7 @@ h3 {
   box-sizing: border-box;
 }
 
-.careGuidePet > span {
+.careGuidePet>span {
   margin-bottom: 10px;
 }
 
@@ -477,7 +467,7 @@ h3 {
     text-align: center;
   }
 
-  .descContainer > h2 {
+  .descContainer>h2 {
     height: 6rem;
     margin: 0;
   }

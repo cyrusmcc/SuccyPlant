@@ -1,5 +1,7 @@
 package com.cm.contentmanagementapp.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 import java.util.TreeSet;
@@ -37,11 +39,9 @@ public class Post {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
+    @JsonIgnore
     private CommentBook commentBook = new CommentBook();
 
-    public CommentBook getCommentBook() {
-        return commentBook;
-    }
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_list_id")
@@ -107,6 +107,10 @@ public class Post {
             throw new IllegalArgumentException();
 
         contentTags.add(tag);
+    }
+
+    public CommentBook getCommentBook() {
+        return commentBook;
     }
 
     public PostList getPostList() {
