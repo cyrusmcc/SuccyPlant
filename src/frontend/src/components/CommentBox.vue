@@ -142,7 +142,7 @@ export default {
                 (response) => {
                     let imageNode = document.getElementById("replyBoxProfilePic");
                     let imgUrl = URL.createObjectURL(response.data);
-                    imageNode.src = imgUrl;
+                    if (imageNode) imageNode.src = imgUrl;
                 },
                 (error) => {
                     this.message =

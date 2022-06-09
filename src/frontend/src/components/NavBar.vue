@@ -60,14 +60,16 @@ export default {
     },
   },
   created() {
-    if (this.currentUser) {
+    this.setWindowWidth();
+
+    if (this.currentUser && this.navType == "desktop") {
       let currentUserName = this.currentUser.username;
 
       userService.getUserProfilePic(currentUserName).then(
         (response) => {
           let imageNode = document.getElementById("navUserPic");
           let imgUrl = URL.createObjectURL(response.data);
-          imageNode.src = imgUrl;
+          if (imageNode) imageNode.src = imgUrl;
         },
         (error) => {
           this.message =
