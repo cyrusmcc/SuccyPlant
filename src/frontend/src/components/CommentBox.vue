@@ -35,22 +35,23 @@
                     </div>
                 </div>
                 <div class="commentReplies">
-                    <div class="childComment comment" v-for="(reply, index) in comment.replies" :key="index">
+                    <div class="childComment comment" v-for="(reply, index) in comment.replies" :key="index"
+                        :style="{ 'margin-left': reply.depth * 15 + 'px' }">
                         <profile-pic class="profileUserPic" alt="profile picture">
                             <img id="commentProfilePic" alt="profile picture" src="../assets/imgs/userDark.svg" />
                         </profile-pic>
                         <div class="commentText">
                             <div class="commentHeader">
                                 <div class="commentUsername">
-                                    {{ comment.user.name }}
+                                    {{ reply.user.name }}
                                 </div>
                                 <span class="separatorDot"></span>
                                 <div class="commentDate">
-                                    {{ comment.date }}
+                                    {{ reply.date }}
                                 </div>
                             </div>
                             <div class="commentBody" lang="en">
-                                {{ comment.body }}
+                                {{ reply.body }}
                             </div>
                         </div>
                     </div>
@@ -83,6 +84,7 @@ export default {
                     },
                     body: "This is a comment",
                     date: "01/21/2022",
+                    depth: 0,
                     replies: [
                         {
                             id: 1,
@@ -91,7 +93,10 @@ export default {
                                 name: "John Doe",
                                 profilePic: "../assets/imgs/userDark.svg"
                             },
-                            body: "This is a reply"
+                            body: "This is a reply",
+                            date: "01/21/2022",
+                            depth: 1,
+
                         }
                     ]
                 },
@@ -112,7 +117,9 @@ export default {
                                 name: "John Doe",
                                 profilePic: "../assets/imgs/userDark.svg"
                             },
-                            body: "This is a reply"
+                            body: "This is a reply",
+                            date: "01/21/2022",
+                            depth: 1,
                         }
                     ]
                 }
@@ -260,7 +267,7 @@ export default {
 
 .childComment {
     border-left: 1px solid $primaryDark;
-    margin: 15px 0 0 15px;
+    margin-top: 10px;
     padding-left: 5px;
 }
 </style>
