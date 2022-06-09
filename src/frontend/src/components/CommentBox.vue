@@ -13,15 +13,48 @@
                 @input="adjustTextArea()"></textarea>
 -->
         </div>
-        <div class="commentsContainer" v-for="(comment, index) in comments" :key="index">
-            <div class="commentContainer">
-                <div class="commentHeader">
+        <div class="commentsContainer">
+            <div class="threadContainer" v-for="(comment, index) in comments" :key="index">
+                <div class="parentComment comment">
                     <profile-pic class="profileUserPic" alt="profile picture">
                         <img id="commentProfilePic" alt="profile picture" src="../assets/imgs/userDark.svg" />
                     </profile-pic>
-                    {{ comment.user.name }}
+                    <div class="commentText">
+                        <div class="commentHeader">
+                            <div class="commentUsername">
+                                {{ comment.user.name }}
+                            </div>
+                            <span class="separatorDot"></span>
+                            <div class="commentDate">
+                                {{ comment.date }}
+                            </div>
+                        </div>
+                        <div class="commentBody" lang="en">
+                            {{ comment.body }}
+                        </div>
+                    </div>
                 </div>
-                {{ comment.body }}
+                <div class="commentReplies">
+                    <div class="childComment comment" v-for="(reply, index) in comment.replies" :key="index">
+                        <profile-pic class="profileUserPic" alt="profile picture">
+                            <img id="commentProfilePic" alt="profile picture" src="../assets/imgs/userDark.svg" />
+                        </profile-pic>
+                        <div class="commentText">
+                            <div class="commentHeader">
+                                <div class="commentUsername">
+                                    {{ comment.user.name }}
+                                </div>
+                                <span class="separatorDot"></span>
+                                <div class="commentDate">
+                                    {{ comment.date }}
+                                </div>
+                            </div>
+                            <div class="commentBody" lang="en">
+                                {{ comment.body }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -49,6 +82,7 @@ export default {
                         profilePic: "../assets/imgs/userDark.svg"
                     },
                     body: "This is a comment",
+                    date: "01/21/2022",
                     replies: [
                         {
                             id: 1,
@@ -69,6 +103,7 @@ export default {
                         profilePic: "../assets/imgs/userDark.svg"
                     },
                     body: "This is a comment",
+                    date: "01/21/2022",
                     replies: [
                         {
                             id: 1,
@@ -126,16 +161,16 @@ export default {
 
 <style scoped lang="scss">
 .commentBoxContainer {
-    margin-top: 30px;
     display: flex;
     flex-direction: column;
-    width: 100%;
     height: fit-content;
+    margin: 30px 0 10px 0;
+    width: 100%;
 }
 
 .commentCount {
-    color: $primaryDark;
     align-self: flex-start;
+    color: $primaryDark;
     margin-bottom: 20px;
 }
 
@@ -150,15 +185,82 @@ export default {
     display: flex;
     flex-direction: row;
     height: fit-content;
+    margin-bottom: 30px;
     width: 100%;
-    margin-bottom: 10px;
 }
 
 .replyTextArea {
-    height: 44px;
-    width: 100%;
-    border: none;
-    resize: none;
     background: $primaryLight;
+    border: none;
+    height: 44px;
+    resize: none;
+    width: 100%;
+}
+
+#userPicImgCont {
+    height: 2rem;
+    min-width: 2rem;
+    width: 2rem;
+}
+
+.separatorDot {
+    align-self: center;
+    background-color: $highlightTwo;
+    border-radius: 50%;
+    display: inline-block;
+    height: 5px;
+    width: 5px;
+}
+
+.commentsContainer {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    ;
+}
+
+.threadContainer {
+    display: flex;
+    flex-direction: column;
+    column-gap: 10px;
+}
+
+.comment {
+    column-gap: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.commentText {
+    display: flex;
+    flex-direction: column;
+    row-gap: 3px;
+}
+
+.commentHeader {
+    align-items: center;
+    column-gap: 10px;
+    display: flex;
+}
+
+.commentUsername {
+    font-size: 0.8rem;
+}
+
+.commentDate {
+    font-size: 0.7rem;
+}
+
+.commentBody {
+    font-family: $raleway;
+    font-size: 0.9rem;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.childComment {
+    border-left: 1px solid $primaryDark;
+    margin: 15px 0 0 15px;
+    padding-left: 5px;
 }
 </style>

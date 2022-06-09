@@ -32,9 +32,10 @@
             }}
           </button>
         </div>
-        <side-scroll-gallery :length="sideScrollLength" :items="relatedPlants"
-          v-if="relatedPlants.length > 0 && width >= 1115" />
-        <comment-box />
+        <div class="desktopContainer" v-if="width >= 1115">
+          <side-scroll-gallery :length="sideScrollLength" :items="relatedPlants" v-if="relatedPlants.length > 0" />
+          <comment-box />
+        </div>
       </div>
       <div class="infoBox">
         <div class="titleContainer">
@@ -81,9 +82,11 @@
             </div>
           </div>
         </div>
-        <side-scroll-gallery :length="sideScrollLength" :items="relatedPlants"
-          v-if="relatedPlants.length > 0 && width < 1115">
-        </side-scroll-gallery>
+        <div class="mobileContainer" v-if="width < 1115">
+          <side-scroll-gallery :length="sideScrollLength" :items="relatedPlants" v-if="relatedPlants.length > 0">
+          </side-scroll-gallery>
+          <comment-box />
+        </div>
       </div>
     </div>
   </div>
