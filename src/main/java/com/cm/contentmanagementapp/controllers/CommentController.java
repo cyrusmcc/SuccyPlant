@@ -26,7 +26,7 @@ public class CommentController {
 
     private final PostService postService;
 
-    private final UserService userService
+    private final UserService userService;
 
     @Autowired
     public CommentController(PostService postService, UserService userService) {
