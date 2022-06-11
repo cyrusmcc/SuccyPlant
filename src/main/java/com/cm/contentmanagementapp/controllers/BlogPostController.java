@@ -2,7 +2,7 @@ package com.cm.contentmanagementapp.controllers;
 
 import com.cm.contentmanagementapp.models.BlogPost;
 import com.cm.contentmanagementapp.models.User;
-import com.cm.contentmanagementapp.payload.request.BlogPostRequest;
+import com.cm.contentmanagementapp.payload.request.NewBlogPostRequest;
 import com.cm.contentmanagementapp.payload.response.MessageResponse;
 import com.cm.contentmanagementapp.services.BlogPostService;
 import com.cm.contentmanagementapp.services.FileStorageService;
@@ -39,7 +39,7 @@ public class BlogPostController {
     private FileStorageService fileService;
 
     private static final Logger log = LoggerFactory.getLogger(AuthController.class);
-    
+
     @Autowired
     public BlogPostController(BlogPostService blogPostService, UserService userService, FileStorageService fileService) {
         this.blogPostService = blogPostService;
@@ -49,7 +49,7 @@ public class BlogPostController {
 
 
     @PostMapping("/new-post")
-    public ResponseEntity<?> newBlogPost(@Valid @ModelAttribute BlogPostRequest request) throws IOException {
+    public ResponseEntity<?> newBlogPost(@Valid @ModelAttribute NewBlogPostRequest request) throws IOException {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {

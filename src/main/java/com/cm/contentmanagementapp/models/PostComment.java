@@ -43,6 +43,9 @@ public class PostComment {
     @Column(name="score")
     private int score;
 
+    @Column(name="image")
+    private Image image;
+
     public PostComment(PostComment parentComment, String content) {
         this.parentComment = parentComment;
         this.content = content;
@@ -99,5 +102,21 @@ public class PostComment {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 }

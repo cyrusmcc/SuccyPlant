@@ -1,10 +1,8 @@
 package com.cm.contentmanagementapp.services;
 
 import com.cm.contentmanagementapp.controllers.AuthController;
-import com.cm.contentmanagementapp.models.BlogPost;
-import com.cm.contentmanagementapp.models.ContentTag;
-import com.cm.contentmanagementapp.models.Post;
-import com.cm.contentmanagementapp.models.PostComment;
+import com.cm.contentmanagementapp.models.*;
+import com.cm.contentmanagementapp.payload.request.NewCommentRequest;
 import com.cm.contentmanagementapp.repositories.PostCommentRepository;
 import com.cm.contentmanagementapp.repositories.PostRepository;
 import org.slf4j.Logger;
@@ -22,18 +20,23 @@ import java.util.UUID;
 @Service
 public class PostServiceImpl implements PostService {
 
-    private PostRepository postRepository;
+    private final PostRepository postRepository;
 
-    private PostCommentRepository commentRepository;
+    private final PostCommentRepository commentRepository;
 
-    private FileStorageService fileService;
+    private final UserService userService;
+
+    private final FileStorageService fileService;
 
     private static final Logger log = LoggerFactory.getLogger(AuthController.class);
 
     @Autowired
-    public PostServiceImpl(PostRepository postRepository, FileStorageService fileService) {
+    public PostServiceImpl(PostRepository postRepository, PostCommentRepository commentRepository,
+                           FileStorageService fileService, UserService userService) {
         this.postRepository = postRepository;
+        this.commentRepository = commentRepository;
         this.fileService = fileService;
+        this.userService = userService;
     }
 
     @Override
@@ -99,5 +102,38 @@ public class PostServiceImpl implements PostService {
         post.addComment(comment);
         postRepository.save(post);
     }
+
+    @Override
+    public void addComment(Post post, User user, NewCommentRequest commentRequest) {
+        PostComment comment = new PostComment();
+
+        comment.setContent(commentRequest.getCommentContent());
+        comment.setAuthor(comment.getAuthor());
+        if (commentRequest.getReplyToId() != null) {
+            PostComment parentComment =
+                    commentRepository.findById(commentRequest.getReplyToId()).get();
+        }
+        //TODO: deal w/ comment images later
+        /*
+        if (commentRequest.getImage() != null) {
+            Image image = new Image();
+        }
+        */
+
+        addComment(post, comment);
+        user.addComment(comment);
+        userService.save(user);
+    }
+
+    @Override
+    public Post findById(Long id) {
+        return postRepository.findPostById(id);
+    }
+
+    @Override
+    public boolean exists(Long id) {
+        return postRepository.existsById(id);
+    }
+
 
 }

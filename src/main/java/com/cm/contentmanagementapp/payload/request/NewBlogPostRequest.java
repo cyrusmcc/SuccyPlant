@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-public class BlogPostRequest {
+public class NewBlogPostRequest {
 
     @NotBlank
     String title;

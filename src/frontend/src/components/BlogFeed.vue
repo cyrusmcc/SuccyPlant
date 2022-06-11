@@ -1,22 +1,20 @@
 <template>
   <div class="container">
+    <!--
+    <div class="blogFeedHead">Recent articles</div>
+    -->
     <ol>
-      <!--
-      <div class="blogFeedHead">Recent articles</div>
-      -->
       <li v-for="(blog, index) in blogArr" :key="index">
+        <div class="blogPostDate">
+          <span class="postedOn">Posted on&nbsp;</span>
+          <formatted-date :date="blog.postDate" :format="'full'" class="formattedDate" />
+        </div>
+        <router-link class="blogTitle" :to="'/blog/' + blog.id">{{
+            blog.post.title
+        }}</router-link>
         <div class="blogImgContainer">
           <img class="blogImg" :src="getImgFromBlogId(index, blog.id)" alt="blog post cover image"
             onload="this.style.display='block'" />
-        </div>
-        <div id="blogTextContainer">
-          <div id="blogPostDate">
-            <span id="postedOn">Posted on&nbsp;</span>
-            <formatted-date :date="blog.postDate" :format="'full'" class="formattedDate" />
-          </div>
-          <router-link class="blogTitle" :to="'/blog/' + blog.id">{{
-              blog.post.title
-          }}</router-link>
         </div>
       </li>
     </ol>
@@ -88,12 +86,12 @@ export default {
 
 <style lang="scss" scoped>
 ol {
-  align-items: flex-start;
-  display: flex;
-  flex-direction: column;
+  display: grid;
   font-weight: 500;
-  margin-top: 0;
-  max-width: 800px;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(MAX(200px, 100%/4), 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(10px, 1fr));
+  margin-top: 30px;
   padding: 0;
   row-gap: 20px;
   width: 100%;
@@ -106,17 +104,13 @@ li {
   box-shadow: $shadowLight;
   box-sizing: border-box;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   height: 25rem;
   height: fit-content;
   justify-content: flex-start;
   list-style-type: none;
   overflow: hidden;
   width: 100%;
-}
-
-li:hover>.blogImgContainer>.blogImg {
-  transform: scale(1.1);
 }
 
 img {
@@ -143,9 +137,10 @@ img {
   border-radius: 4px;
   border: 1px solid $outline;
   display: flex;
-  height: 17rem;
+  height: 14rem;
   justify-content: center;
   margin-top: 10px;
+  order: 3;
   overflow: hidden;
   width: 95%;
 }
@@ -153,20 +148,8 @@ img {
 .blogImg {
   height: inherit;
   object-fit: cover;
-  width: 100%;
   transition: transform .3s ease-in-out;
-}
-
-#blogTextContainer {
-  align-items: center;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  height: 6rem;
-  height: fit-content;
-  margin-bottom: 10px;
-  row-gap: 10px;
-  width: 90%;
+  width: 100%;
 }
 
 .blogTitle {
@@ -174,33 +157,35 @@ img {
   font-family: $inter;
   font-size: 1rem;
   font-weight: bold;
+  margin-bottom: 10px;
+  order: 1;
   text-align: center;
-  transition: color .3s ease-in-out;
+  transition: color .2s ease-in-out;
+  width: 90%;
 }
 
 .blogTitle:hover {
   color: $highlightTwo;
 }
 
-#blogPostDate {
+.blogTitle:hover+.blogImgContainer>img {
+  transform: scale(1.1);
+  color: $highlightTwo;
+}
+
+.blogPostDate {
   display: flex;
   flex-direction: row;
   font-size: small;
-  margin-top: 10px;
+  margin: 10px 0 10px 0;
+  order: 2;
 }
 
-#postedOn {
+.postedOn {
   color: $primaryDark;
 }
 
 .formattedDate {
   color: $accentTwo;
-}
-
-@include screen-md {
-  .blogImgContainer {
-    height: 150px;
-    width: 550px;
-  }
 }
 </style>

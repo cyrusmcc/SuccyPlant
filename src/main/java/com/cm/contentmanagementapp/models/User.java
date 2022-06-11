@@ -179,6 +179,11 @@ public class User {
         return false;
     }
 
+    public void addComment(PostComment comment) {
+        userComments.addComment(comment);
+    }
+
+
     public Set<Plant> getPlantWishList() {
         return plantWishList;
     }

@@ -227,9 +227,12 @@ export default {
 }
 
 .threadContainer {
+    border: 1px solid $outline;
+    box-shadow: $shadowLight;
+    column-gap: 10px;
     display: flex;
     flex-direction: column;
-    column-gap: 10px;
+    padding: 4px;
 }
 
 .comment {

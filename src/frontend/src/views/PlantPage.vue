@@ -458,6 +458,10 @@ h3 {
   width: 100%;
 }
 
+.desktopContainer {
+  width: 100%;
+}
+
 @include screen-lg() {
   .descGuideContainer {
     align-items: center;
