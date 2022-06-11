@@ -6,25 +6,17 @@
       -->
       <li v-for="(blog, index) in blogArr" :key="index">
         <div class="blogImgContainer">
-          <img
-            class="blogImg"
-            :src="getImgFromBlogId(index, blog.id)"
-            alt="blog post cover image"
-            onload="this.style.display='block'"
-          />
+          <img class="blogImg" :src="getImgFromBlogId(index, blog.id)" alt="blog post cover image"
+            onload="this.style.display='block'" />
         </div>
         <div id="blogTextContainer">
-          <router-link class="blogTitle" :to="'/blog/' + blog.id">{{
-            blog.post.title
-          }}</router-link>
           <div id="blogPostDate">
             <span id="postedOn">Posted on&nbsp;</span>
-            <formatted-date
-              :date="blog.postDate"
-              :format="'full'"
-              class="formattedDate"
-            />
+            <formatted-date :date="blog.postDate" :format="'full'" class="formattedDate" />
           </div>
+          <router-link class="blogTitle" :to="'/blog/' + blog.id">{{
+              blog.post.title
+          }}</router-link>
         </div>
       </li>
     </ol>
@@ -106,15 +98,25 @@ ol {
   row-gap: 20px;
   width: 100%;
 }
+
 li {
   align-items: center;
+  border-radius: 4px;
+  border: 1px solid $outline;
+  box-shadow: $shadowLight;
   box-sizing: border-box;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  height: 25rem;
   height: fit-content;
+  justify-content: flex-start;
   list-style-type: none;
   overflow: hidden;
   width: 100%;
+}
+
+li:hover>.blogImgContainer>.blogImg {
+  transform: scale(1.1);
 }
 
 img {
@@ -128,6 +130,7 @@ img {
   margin: 10px auto;
   width: 100%;
 }
+
 .blogFeedHead {
   align-self: flex-start;
   color: $primaryDark;
@@ -137,42 +140,53 @@ img {
 
 .blogImgContainer {
   align-items: center;
+  border-radius: 4px;
+  border: 1px solid $outline;
   display: flex;
-  height: 115px;
+  height: 17rem;
   justify-content: center;
-  width: 350px;
+  margin-top: 10px;
+  overflow: hidden;
+  width: 95%;
 }
 
 .blogImg {
   height: inherit;
   object-fit: cover;
   width: 100%;
+  transition: transform .3s ease-in-out;
 }
 
 #blogTextContainer {
-  align-items: flex-start;
+  align-items: center;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  height: 6rem;
   height: fit-content;
-  margin-left: 15px;
-  padding: 10px 0 10px 10px;
-  row-gap: 15px;
-  width: 100%;
+  margin-bottom: 10px;
+  row-gap: 10px;
+  width: 90%;
 }
 
 .blogTitle {
   color: $primaryDark;
-  font-size: 1.2rem;
-  font-style: italic;
-  text-align: start;
+  font-family: $inter;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  transition: color .3s ease-in-out;
+}
+
+.blogTitle:hover {
+  color: $highlightTwo;
 }
 
 #blogPostDate {
-  margin-top: 5px;
   display: flex;
   flex-direction: row;
   font-size: small;
+  margin-top: 10px;
 }
 
 #postedOn {
@@ -181,7 +195,6 @@ img {
 
 .formattedDate {
   color: $accentTwo;
-  font-weight: bold;
 }
 
 @include screen-md {

@@ -39,8 +39,7 @@ public class BlogPostController {
     private FileStorageService fileService;
 
     private static final Logger log = LoggerFactory.getLogger(AuthController.class);
-
-
+    
     @Autowired
     public BlogPostController(BlogPostService blogPostService, UserService userService, FileStorageService fileService) {
         this.blogPostService = blogPostService;
