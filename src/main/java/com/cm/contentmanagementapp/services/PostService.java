@@ -7,6 +7,8 @@ import com.cm.contentmanagementapp.models.User;
 import com.cm.contentmanagementapp.payload.request.NewCommentRequest;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 public interface PostService {
 
     void addTag(Post post, ContentTag tag);
@@ -20,5 +22,7 @@ public interface PostService {
     Post findById(Long id);
 
     boolean exists(Long id);
+
+    List<PostComment> getPostCommentsByTimeDesc(Post post);
 
 }

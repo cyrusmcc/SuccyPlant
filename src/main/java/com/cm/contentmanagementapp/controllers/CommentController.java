@@ -41,7 +41,7 @@ public class CommentController {
         }
 
         Post post = postService.findById(postId);
-        List<PostComment> comments = post.getCommentBook().getComments();
+        List<PostComment> comments = postService.getPostCommentsByTimeDesc(post);
 
         return new ResponseEntity<>(comments, new HttpHeaders(), HttpStatus.OK);
     }

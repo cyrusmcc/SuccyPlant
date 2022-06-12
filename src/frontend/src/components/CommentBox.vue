@@ -10,35 +10,12 @@
         <div class="commentsContainer">
             <div class="threadContainer" v-for="(comment, index) in comments" :key="index">
                 <comment :comment="comment"></comment>
-                <div class="commentReplies">
-                    <div class="childComment comment" v-for="(reply, index) in comment.replies" :key="index"
-                        :style="{ 'margin-left': reply.depth * 15 + 'px' }">
-                        <profile-pic class="profileUserPic" alt="profile picture">
-                            <img id="commentProfilePic" alt="profile picture" src="../assets/imgs/userDark.svg" />
-                        </profile-pic>
-                        <div class="commentText">
-                            <div class="commentHeader">
-                                <div class="commentUsername">
-                                    {{ reply.user.name }}
-                                </div>
-                                <span class="separatorDot"></span>
-                                <div class="commentDate">
-                                    {{ reply.date }}
-                                </div>
-                            </div>
-                            <div class="commentBody" lang="en">
-                                {{ reply.body }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import ProfilePic from "./ProfilePic.vue";
 //import userService from "../service/user.service";
 import TextEditor from "./TextEditor.vue";
 import commentService from "../service/comment.service";
@@ -49,7 +26,6 @@ import Comment from "./Comment.vue"
 export default {
     name: "CommentBox",
     components: {
-        ProfilePic,
         TextEditor,
         Comment,
     },
@@ -109,6 +85,7 @@ export default {
                 (response) => {
                     this.comments = response;
                     this.commentCount = response.length;
+                    this.buildCommentTree(this.comments)
                 },
                 (error) => {
                     this.message =
@@ -119,6 +96,26 @@ export default {
                         error.toString();
                 }
             );
+        },
+
+        // e/a comment has reference to parent comment, so we need to build a tree of comments
+        // to represent a threaded comment structure
+        buildCommentTree(comments) {
+            let commentTree = [];
+            let commentMap = {};
+            for (let comment of comments) {
+                commentMap[comment.id] = comment;
+                comment.children = [];
+            }
+            for (let comment of comments) {
+                if (comment.parentId) {
+                    commentMap[comment.parentId].children.push(comment);
+                } else {
+                    commentTree.push(comment);
+                }
+            }
+            console.log(commentTree)
+            return commentTree;
         },
     }
 }

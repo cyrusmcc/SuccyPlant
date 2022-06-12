@@ -1,5 +1,6 @@
 <template>
-    <div class="parentComment comment">
+    <div :class="comment.depth == 0 ? 'comment parentComment' : 'comment childComment'" :id="'comment ' + comment.id"
+        :style="{ 'margin-left': comment.depth * 15 + 'px' }">
         <profile-pic class="profileUserPic" alt="profile picture">
             <img id="commentProfilePic" alt="profile picture" src="../assets/imgs/userDark.svg" />
         </profile-pic>
@@ -20,6 +21,9 @@
                 <button class="replyButton">Reply</button>
             </div>
         </div>
+    </div>
+    <div v-if="comment.children.length > 0">
+        <comment v-for="child in comment.children" :key="child" :comment="child"></comment>
     </div>
 </template>
 

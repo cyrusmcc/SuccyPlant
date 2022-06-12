@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -135,6 +136,11 @@ public class PostServiceImpl implements PostService {
     @Override
     public boolean exists(Long id) {
         return postRepository.existsById(id);
+    }
+
+    @Override
+    public List<PostComment> getPostCommentsByTimeDesc(Post post) {
+        return commentRepository.findTop20ByCommentBooksContainingOrderByTimestampDesc(post.getCommentBook());
     }
 
 
