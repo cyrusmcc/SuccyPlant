@@ -102,7 +102,7 @@ public class PostServiceImpl implements PostService {
         PostComment comment = new PostComment();
         User user = userService.findByUsername(authorUsername).get();
         comment.setContent(commentRequest.getCommentContent());
-        comment.setAuthorUsername(authorUsername);
+        comment.setUser(user);
 
         if (commentRequest.getReplyToId() >= 0 && commentRequest.getReplyToId() != null) {
             PostComment parentComment =

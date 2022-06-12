@@ -1,6 +1,7 @@
 <template>
     <div class="commentBoxContainer">
-        <span class="commentCount">{{ commentCount }} Comments</span>
+        <span class="commentCount" v-html="commentCount == 1 ?
+        commentCount + ' Comment' : commentCount + ' Comments'"></span>
         <div class="replyBox" v-if="currentUser">
             <text-editor @bodyText="setCommentContent" />
             <button class="submitCommentButton" @click="handleNewComment">Submit</button>
@@ -14,15 +15,15 @@
                     <div class="commentText">
                         <div class="commentHeader">
                             <div class="commentUsername">
-                                {{ comment.user.name }}
+                                {{ comment.user.username }}
                             </div>
                             <span class="separatorDot"></span>
                             <div class="commentDate">
-                                {{ comment.date }}
+                                {{ parseCommentDate(comment.timestamp) }}
                             </div>
                         </div>
                         <div class="commentBody" lang="en">
-                            {{ comment.body }}
+                            {{ comment.content }}
                         </div>
                     </div>
                 </div>
@@ -70,62 +71,16 @@ export default {
     data() {
         return {
             message: "",
-            comments: [
-                {
-                    id: 1,
-                    user: {
-                        id: 1,
-                        name: "John Doe",
-                        profilePic: "../assets/imgs/userDark.svg"
-                    },
-                    body: "This is a comment",
-                    date: "01/21/2022",
-                    depth: 0,
-                    replies: [
-                        {
-                            id: 1,
-                            user: {
-                                id: 1,
-                                name: "John Doe",
-                                profilePic: "../assets/imgs/userDark.svg"
-                            },
-                            body: "This is a reply",
-                            date: "01/21/2022",
-                            depth: 1,
-
-                        }
-                    ]
-                },
-                {
-                    id: 2,
-                    user: {
-                        id: 2,
-                        name: "Jane Doe",
-                        profilePic: "../assets/imgs/userDark.svg"
-                    },
-                    body: "This is a comment",
-                    date: "01/21/2022",
-                    replies: [
-                        {
-                            id: 1,
-                            user: {
-                                id: 1,
-                                name: "John Doe",
-                                profilePic: "../assets/imgs/userDark.svg"
-                            },
-                            body: "This is a reply",
-                            date: "01/21/2022",
-                            depth: 1,
-                        }
-                    ]
-                }
-            ],
+            comments: [],
             commentContent: "",
-            commentCount: 12,
+            commentCount: 0,
             replyBoxHeight: 0,
             replyBoxWidth: 0,
             replyToId: -1,
         }
+    },
+    created() {
+        this.getComments();
     },
     computed: {
         currentUser() {
@@ -163,15 +118,36 @@ export default {
             this.commentContent = content;
         },
         handleNewComment() {
-            console.log(this.$route.params.id)
             commentService.newComment(
                 this.commentContent,
                 this.currentUser.username,
                 this.$route.params.id,
                 this.replyToId)
+        },
+        getComments() {
+            commentService.getPostComments(this.$route.params.id).then(
+                (response) => {
+                    this.comments = response;
+                    this.commentCount = response.length;
+                },
+                (error) => {
+                    this.message =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString();
+                }
+            );
+        },
+        parseCommentDate(timestamp) {
+            let date = new Date(timestamp);
+            let month = date.getMonth();
+            let day = date.getDate();
+            let year = date.getFullYear();
+            return month + "/" + day + "/" + year;
         }
     }
-
 }
 </script>
 

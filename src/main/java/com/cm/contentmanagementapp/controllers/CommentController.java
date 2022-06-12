@@ -39,7 +39,6 @@ public class CommentController {
 
         Post post = postService.findById(postId);
         List<PostComment> comments = post.getCommentBook().getComments();
-        System.out.println(comments.size() + " <----------------");
 
         return new ResponseEntity<>(comments, new HttpHeaders(), HttpStatus.OK);
     }

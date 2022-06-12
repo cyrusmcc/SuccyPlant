@@ -58,7 +58,6 @@ public class UserController {
 
     @GetMapping("/does-user-exist")
     public ResponseEntity<?> getDoesUserExistById(@RequestParam Long userId) {
-        System.out.println(userService.existsById(userId) + " <================");
         return ResponseEntity.ok(userService.existsById(userId));
     }
 

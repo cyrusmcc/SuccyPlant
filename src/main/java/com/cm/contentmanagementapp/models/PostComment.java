@@ -27,7 +27,9 @@ public class PostComment {
     @Size(max = 3000, message = "{validation.name.size.too_long}")
     private String content;
 
-    private String authorUsername;
+    @JoinColumn(name="user_id")
+    @ManyToOne()
+    private User user;
 
     @Column(name="time_stamp")
     private Timestamp timestamp = new Timestamp(new Date().getTime());
@@ -114,12 +116,12 @@ public class PostComment {
         this.content = content;
     }
 
-    public String getAuthorUsername() {
-        return authorUsername;
+    public User getUser() {
+        return user;
     }
 
-    public void setAuthorUsername(String authorUsername) {
-        this.authorUsername = authorUsername;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void addCommentBook(CommentBook commentBook) {

@@ -1,5 +1,7 @@
 package com.cm.contentmanagementapp.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -36,7 +38,7 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "post_list_id")
-    @JsonManagedReference
+    @JsonIgnore
     private PostList postList;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -46,6 +48,7 @@ public class User {
     private Set<Plant> plantWishList = new HashSet<>();
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     private CommentBook userComments = new CommentBook();
 
     public User() {
