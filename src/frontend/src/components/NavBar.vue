@@ -62,7 +62,7 @@ export default {
   created() {
     this.setWindowWidth();
 
-    if (this.currentUser && this.navType == "desktop") {
+    if (this.currentUser && this.currentUser.hasProfileImage && this.navType == "desktop") {
       let currentUserName = this.currentUser.username;
 
       userService.getUserProfilePic(currentUserName).then(

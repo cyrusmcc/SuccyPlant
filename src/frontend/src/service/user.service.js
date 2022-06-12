@@ -8,7 +8,6 @@ class UserService {
     return api.get(USER_API_URL + "does-user-exist", {
       params: { userId },
     }).then((response) => {
-      console.log(response.data)
       return response.data;
     })
   }

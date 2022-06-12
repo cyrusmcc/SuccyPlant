@@ -34,6 +34,8 @@ public class User {
 
     private String profileImageUrl;
 
+    private Boolean hasProfileImage = false;
+
     private LocalDate userJoinDate;
 
     @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
@@ -119,6 +121,14 @@ public class User {
 
     public void setProfileImageUrl(String profileImageUrl) {
         this.profileImageUrl = profileImageUrl;
+    }
+
+    public Boolean hasProfileImage() {
+        return hasProfileImage;
+    }
+
+    public void setHasProfileImage(Boolean hasProfileImage) {
+        this.hasProfileImage = hasProfileImage;
     }
 
     public LocalDate getUserJoinDate() {

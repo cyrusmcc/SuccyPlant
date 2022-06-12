@@ -122,7 +122,9 @@ export default {
                 this.commentContent,
                 this.currentUser.username,
                 this.$route.params.id,
-                this.replyToId)
+                this.replyToId).then((response) => {
+                    this.message = response.data;
+                })
         },
         getComments() {
             commentService.getPostComments(this.$route.params.id).then(
@@ -142,7 +144,7 @@ export default {
         },
         parseCommentDate(timestamp) {
             let date = new Date(timestamp);
-            let month = date.getMonth();
+            let month = date.getMonth() + 1;
             let day = date.getDate();
             let year = date.getFullYear();
             return month + "/" + day + "/" + year;

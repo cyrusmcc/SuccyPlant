@@ -7,7 +7,6 @@ class CommentService {
         return api
             .get(COMMENT_API_URL + "get-comments/" + postId)
             .then((response) => {
-                console.log(response.data)
                 return response.data;
             });
     }

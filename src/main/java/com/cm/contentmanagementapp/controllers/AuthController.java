@@ -41,7 +41,6 @@ public class AuthController {
 
     private static final Logger log = LoggerFactory.getLogger(AuthController.class);
 
-
     @Autowired
     public AuthController(AuthenticationManager authManager, UserService userService,
                           PasswordEncoder encoder, JwtUtils utils, RefreshTokenService refreshTokenService) {
@@ -75,7 +74,9 @@ public class AuthController {
                 userDetails.getUsername(),
                 userDetails.getEmail(),
                 userDetails.getUserJoinDate(),
-                roles));
+                userDetails.getHasProfileImage(),
+                roles
+                ));
     }
 
     @PostMapping("/register")

@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
 
         Path filePath = Paths.get("uploads/profilePictures");
 
-        if (user.getProfileImageUrl() != null) {
+        if (user.hasProfileImage() && user.getProfileImageUrl() != null) {
             String oldFilePath = user.getProfileImageUrl();
             fileService.deleteIfExists(filePath, oldFilePath);
         }
@@ -75,6 +75,7 @@ public class UserServiceImpl implements UserService {
             fileId += "." + fileExtension[1];
 
             user.setProfileImageUrl(fileId);
+            user.setHasProfileImage(true);
             save(user);
             fileService.save(file, filePath, fileId);
 

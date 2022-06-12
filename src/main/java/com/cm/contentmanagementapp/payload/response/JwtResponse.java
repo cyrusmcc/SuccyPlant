@@ -8,22 +8,32 @@ import java.util.List;
 public class JwtResponse {
 
     private String accessToken;
+
     private String type = "Bearer";
+
     private String refreshToken;
+
     private Long id;
+
     private String username;
+
     private String email;
-    private List<String> roles;
+
     private String joinDate;
 
+    private Boolean hasProfileImage;
+
+    private List<String> roles;
+
     public JwtResponse(String accessToken, String refreshToken, Long id, String username,
-                       String email, LocalDate joinDate, List<String> roles) {
+                       String email, LocalDate joinDate,  Boolean hasProfileImage, List<String> roles) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
         this.id = id;
         this.username = username;
         this.email = email;
         this.roles = roles;
+        this.hasProfileImage = hasProfileImage;
         this.joinDate = joinDate.toString();
     }
 
@@ -89,5 +99,13 @@ public class JwtResponse {
 
     public void setJoinDate(String joinDate) {
         this.joinDate = joinDate;
+    }
+
+    public Boolean getHasProfileImage() {
+        return hasProfileImage;
+    }
+
+    public void setHasProfileImage(Boolean hasProfileImage) {
+        this.hasProfileImage = hasProfileImage;
     }
 }

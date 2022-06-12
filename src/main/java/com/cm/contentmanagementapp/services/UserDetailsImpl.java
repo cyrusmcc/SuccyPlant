@@ -25,18 +25,21 @@ public class UserDetailsImpl implements UserDetails {
 
     private LocalDate userJoinDate;
 
+    private Boolean hasProfileImage;
+
     @JsonIgnore
     private String password;
 
     private Collection<? extends GrantedAuthority> authorities;
 
     public UserDetailsImpl(Long id, String username, String email, String password, LocalDate userJoinDate,
-                           Collection<? extends GrantedAuthority> authorities) {
+                           Boolean hasProfileImage, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.userJoinDate = userJoinDate;
+        this.hasProfileImage = hasProfileImage;
         this.authorities = authorities;
     }
 
@@ -50,6 +53,7 @@ public class UserDetailsImpl implements UserDetails {
                 user.getEmail(),
                 user.getPassword(),
                 user.getUserJoinDate(),
+                user.hasProfileImage(),
                 authorities);
     }
 
@@ -89,6 +93,14 @@ public class UserDetailsImpl implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Boolean getHasProfileImage() {
+        return hasProfileImage;
+    }
+
+    public void setHasProfileImage(Boolean hasProfileImage) {
+        this.hasProfileImage = hasProfileImage;
     }
 
     @Override

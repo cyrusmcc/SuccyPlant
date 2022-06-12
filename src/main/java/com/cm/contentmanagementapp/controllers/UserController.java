@@ -49,9 +49,12 @@ public class UserController {
                     .body(new MessageResponse("User does not exist"));
         }
 
+        User user = userService.findByUsername(username).get();
+
         return ResponseEntity.ok(new UserInfoResponse(
                 username,
-                userService.findByUsername(username).get().getUserJoinDate()
+                user.getUserJoinDate(),
+                user.hasProfileImage()
         ));
 
     }
