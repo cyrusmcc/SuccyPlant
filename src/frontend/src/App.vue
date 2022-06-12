@@ -3,11 +3,7 @@
     <nav-bar v-show="!$route.meta.hideNav">
       <router-link class="navLink" to="/">Home</router-link>
       <router-link class="navLink" to="/plants">Plants</router-link>
-      <router-link
-        class="navLink"
-        :to="'/p/' + currentUser.username"
-        v-if="currentUser"
-      >
+      <router-link class="navLink" :to="'/p/' + currentUser.username" v-if="currentUser">
         Profile
       </router-link>
       <router-link class="navLink" to="/settings" v-if="currentUser">
@@ -26,7 +22,8 @@
 </template>
 
 <script>
-import TokenService from "./service/token.service";
+import tokenService from "./service/token.service";
+import userService from "./service/user.service";
 import EventBus from "./EventBus";
 import NavBar from "./components/NavBar.vue";
 import PageFooter from "./components/PageFooter.vue";
@@ -39,8 +36,8 @@ export default {
   computed: {
     currentUser() {
       // read user to local storage after refresh
-      if (!TokenService.getUser()) {
-        TokenService.setUser(this.$store.state.auth.user);
+      if (!tokenService.getUser()) {
+        tokenService.setUser(this.$store.state.auth.user);
       }
 
       return this.$store.state.auth.user;
@@ -57,6 +54,16 @@ export default {
     EventBus.on("logout", () => {
       this.logOut();
     });
+
+    // if user logged in but account dne, remove from local storage (e.x. if account deleted from db)
+    if (tokenService.getUser()) {
+      userService.getDoesUserExist(tokenService.getUser().id).then(res => {
+        if (res == false) {
+          this.logOut();
+        }
+      });
+    }
+
   },
   beforeUnmount() {
     EventBus.remove("logout");
