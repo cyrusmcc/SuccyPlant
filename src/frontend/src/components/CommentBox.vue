@@ -2,21 +2,22 @@
     <div class="commentBoxContainer">
         <span class="commentCount" v-html="commentCount == 1 ?
         commentCount + ' Comment' : commentCount + ' Comments'"></span>
-        <div class="replyBox" v-if="currentUser">
+        <div class="replyBox" id="replyBox" v-if="currentUser">
             <text-editor @bodyText="setCommentContent" />
             <button class="submitCommentButton" @click="handleNewComment">Submit</button>
             <div v-if="message" class="error-feedback"> {{ message }}</div>
         </div>
         <div class="commentsContainer">
             <div class="threadContainer" v-for="(comment, index) in comments" :key="index">
-                <comment :comment="comment"></comment>
+                <div :id="'commentContainer ' + comment.commentId">
+                    <comment :comment="comment" @handleReply="handleReply"></comment>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-//import userService from "../service/user.service";
 import TextEditor from "./TextEditor.vue";
 import commentService from "../service/comment.service";
 import Comment from "./Comment.vue"
@@ -57,8 +58,30 @@ export default {
         setCommentContent(content) {
             this.commentContent = content;
         },
-        handleNewComment() {
+        handleReply(commentId) {
 
+            // Only want one reply box open at a time.
+            if (document.getElementById("userReplyTextArea")) {
+                document.getElementById("userReplyTextArea").remove();
+            }
+            // Cancel reply if user clicks reply to same comment again.
+            if (commentId === this.replyToId) {
+                let userReply = document.getElementById("userReplyTextArea");
+                this.replyToId = -1;
+                if (userReply) userReply.remove();
+            }
+            else {
+                this.replyToId = commentId;
+                let textArea = document.getElementById("replyBox");
+                let textAreaClone = textArea.cloneNode(true);
+                let parentCommentContainer = document.getElementById('commentContainer ' + commentId);
+
+                textAreaClone.id = "userReplyTextArea";
+                parentCommentContainer.appendChild(textAreaClone);
+            }
+
+        },
+        handleNewComment() {
             if (this.commentContent.length < 3) {
                 this.message = "Comment must be at least 3 characters long";
                 return;
@@ -70,7 +93,6 @@ export default {
                 this.$route.params.id,
                 this.replyToId).then((response) => {
                     this.message = response.data.message;
-                    console.log(response.data)
                     this.getComments();
                     this.commentContent = "";
                     this.replyToId = -1;
@@ -185,5 +207,10 @@ export default {
     display: flex;
     flex-direction: column;
     padding: 4px;
+}
+
+#commentContainer {
+    display: flex;
+    flex-direction: column;
 }
 </style>

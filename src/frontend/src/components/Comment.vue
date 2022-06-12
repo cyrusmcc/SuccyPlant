@@ -1,6 +1,6 @@
 <template>
-    <div :class="comment.depth == 0 ? 'comment parentComment' : 'comment childComment'" :id="'comment ' + comment.id"
-        :style="{ 'margin-left': comment.depth * 15 + 'px' }">
+    <div :class="comment.depth == 0 ? 'comment parentComment' : 'comment childComment'"
+        :id="'comment ' + comment.commentId" :style="{ 'margin-left': comment.depth * 15 + 'px' }">
         <profile-pic class="profileUserPic" alt="profile picture">
             <img id="commentProfilePic" alt="profile picture" src="../assets/imgs/userDark.svg" />
         </profile-pic>
@@ -18,7 +18,7 @@
                 {{ comment.content }}
             </div>
             <div class="commentActions">
-                <button class="replyButton">Reply</button>
+                <button class="replyButton" @click="emitReply(comment.commentId)">Reply</button>
             </div>
         </div>
     </div>
@@ -33,6 +33,7 @@ import ProfilePic from "./ProfilePic.vue";
 export default {
     name: "CommentThread",
     props: ["comment"],
+    emits: ["handleReply"],
     components: {
         ProfilePic,
     },
@@ -47,7 +48,11 @@ export default {
             let day = date.getDate();
             let year = date.getFullYear();
             return month + "/" + day + "/" + year;
-        }
+        },
+        emitReply(commentId) {
+            this.$emit("handleReply", commentId);
+        },
+
     }
 }
 </script>
@@ -108,6 +113,11 @@ export default {
     margin-top: 5px;
     border: none;
     background: none;
+    cursor: pointer;
+}
+
+.replyButton:hover {
+    opacity: 1;
 }
 
 #userPicImgCont {
