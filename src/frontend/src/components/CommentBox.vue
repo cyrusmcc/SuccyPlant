@@ -2,16 +2,8 @@
     <div class="commentBoxContainer">
         <span class="commentCount">{{ commentCount }} Comments</span>
         <div class="replyBox" v-if="currentUser">
-            <!--
-            <profile-pic class="profileUserPic" alt="profile picture">
-                <img id="replyBoxProfilePic" alt="profile picture" src="../assets/imgs/userDark.svg" />
-            </profile-pic>
--->
-            <text-editor />
-            <!--
-            <textarea id="userReplyTextArea" class="replyTextArea" placeholder="Reply here..."
-                @input="adjustTextArea()"></textarea>
--->
+            <text-editor @bodyText="setCommentContent" />
+            <button class="submitCommentButton">Submit</button>
         </div>
         <div class="commentsContainer">
             <div class="threadContainer" v-for="(comment, index) in comments" :key="index">
@@ -65,15 +57,18 @@
 import ProfilePic from "./ProfilePic.vue";
 import userService from "../service/user.service";
 import TextEditor from "./TextEditor.vue";
+//import { Form, Field, ErrorMessage } from "vee-validate";
+//import * as yup from "yup";
 
 export default {
     name: "CommentBox",
     components: {
         ProfilePic,
-        TextEditor
+        TextEditor,
     },
     data() {
         return {
+            message: "",
             comments: [
                 {
                     id: 1,
@@ -124,6 +119,7 @@ export default {
                     ]
                 }
             ],
+            commentContent: "",
             commentCount: 12,
             replyBoxHeight: 0,
             replyBoxWidth: 0,
@@ -160,7 +156,10 @@ export default {
             let textArea = document.getElementById("userReplyTextArea");
             textArea.style.height = "1px";
             textArea.style.height = (25 + textArea.scrollHeight) + "px";
-        }
+        },
+        setCommentContent(content) {
+            this.content = content;
+        },
     }
 
 }
@@ -193,6 +192,7 @@ export default {
     flex-direction: row;
     height: fit-content;
     margin-bottom: 30px;
+    position: relative;
     width: 100%;
 }
 
@@ -202,6 +202,23 @@ export default {
     height: 44px;
     resize: none;
     width: 100%;
+}
+
+.submitCommentButton {
+    background: none;
+    border: none;
+    color: $primaryLight;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin: 8px;
+    opacity: 0.9;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.submitCommentButton:hover {
+    opacity: 1;
 }
 
 #userPicImgCont {

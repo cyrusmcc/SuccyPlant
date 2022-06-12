@@ -1,11 +1,14 @@
 <template>
   <div id="editor">
     <div id="editorToolBar">
-      <img id="previewIcon" src="../assets/imgs/previewLight.svg" alt="preview icon" @click="togglePreview" />
+      <div class="previewTool">
+        <span class="topToolTip">Preview comment</span>
+        <img id="previewIcon" src="../assets/imgs/previewLight.svg" alt="preview icon" @click="togglePreview" />
+      </div>
     </div>
     <div id="bodyContainer">
       <textarea id="body" :value="bodyText" @input="update"></textarea>
-      <div id="previewBodyText" class="scrollContainer" v-html="compiledMarkdown" v-if="displayPreview"></div>
+      <div id="previewBodyText" class="" v-html="compiledMarkdown" v-if="displayPreview"></div>
     </div>
   </div>
 </template>
@@ -107,13 +110,37 @@ export default {
   width: 100%;
 }
 
+.previewTool {
+  position: relative;
+}
+
+.previewTool .topToolTip {
+  visibility: hidden;
+}
+
+.previewTool:hover .topToolTip {
+  visibility: visible;
+}
+
 #previewIcon {
   height: 0.8rem;
   margin-left: 10px;
+  cursor: pointer;
 }
 
 #previewIcon:hover {
   opacity: 0.8;
+}
+
+.topToolTip {
+  background: $primaryDark;
+  color: $primaryLight;
+  font-size: 0.8rem;
+  position: absolute;
+  top: -20px;
+  white-space: nowrap;
+  padding: 3px;
+  border-radius: 4px;
 }
 
 #previewBodyText {
@@ -121,10 +148,11 @@ export default {
   border-radius: 0 0 4px 4px;
   border: none;
   color: $primaryDark;
+  font-family: $raleway;
+  font-size: 0.9rem;
   height: 100%;
   line-break: anywhere;
-  overflow-x: hidden;
-  overflow: scroll;
+  overflow: hidden;
   position: absolute;
   width: 100%;
 }
