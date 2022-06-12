@@ -15,9 +15,7 @@ public interface PostService {
 
     boolean updatePostImg(Post post, String postType, MultipartFile imageFile);
 
-    void addComment(Post post, PostComment comment);
-
-    void addComment(Post post, User user, NewCommentRequest commentRequest);
+    void addComment(Post post, String authorUsername, NewCommentRequest commentRequest);
 
     Post findById(Long id);
 

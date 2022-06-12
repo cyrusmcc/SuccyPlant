@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface PostCommentRepository extends JpaRepository<PostComment, Long> {
-    List<PostComment> findAllByCommentBook(CommentBook commentBook);
+    List<PostComment> findAllByCommentBooksContaining(CommentBook commentBook);
     List<PostComment> findAllByParentCommentAndDepth(PostComment parentComment, int depth);
     List<PostComment> findAllByParentComment(PostComment parentComment);
 

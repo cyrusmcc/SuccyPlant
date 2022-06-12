@@ -4,12 +4,19 @@ import plantService from "./plant.service";
 const USER_API_URL = "http://localhost:8080/api/user/";
 
 class UserService {
+  getDoesUserExist(userId) {
+    return api.get(USER_API_URL + "does-user-exist", {
+      params: { userId },
+    }).then((response) => {
+      console.log(response.data)
+      return response.data;
+    })
+  }
   getUserProfilePic(username) {
     return api.get(USER_API_URL + "get-image/" + username, {
       responseType: "blob",
     });
   }
-
   getUserProfileInfo(username) {
     return api.get(USER_API_URL + "profile/" + username);
   }

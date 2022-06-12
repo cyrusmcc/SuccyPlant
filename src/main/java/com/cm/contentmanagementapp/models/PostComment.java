@@ -4,6 +4,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class PostComment {
@@ -17,16 +19,15 @@ public class PostComment {
     @ManyToOne()
     private PostComment parentComment;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private CommentBook commentBook;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private Set<CommentBook> commentBooks = new HashSet<>();
 
     @Column(name = "content", columnDefinition = "TEXT")
     @Size(min = 1, message = "{validation.name.size.too_short}")
     @Size(max = 3000, message = "{validation.name.size.too_long}")
     private String content;
 
-    @OneToOne()
-    private User author;
+    private String authorUsername;
 
     @Column(name="time_stamp")
     private Timestamp timestamp = new Timestamp(new Date().getTime());
@@ -43,8 +44,8 @@ public class PostComment {
     @Column(name="score")
     private int score;
 
-    @Column(name="image")
-    private Image image;
+    //@Column(name="image")
+    //private Image image;
 
     public PostComment(PostComment parentComment, String content) {
         this.parentComment = parentComment;
@@ -76,6 +77,7 @@ public class PostComment {
         this.score--;
     }
 
+    /*
     public CommentBook getCommentBook() {
         return commentBook;
     }
@@ -83,7 +85,7 @@ public class PostComment {
     public void setCommentBook(CommentBook commentBook) {
         this.commentBook = commentBook;
     }
-
+*/
     public Long getCommentId() {
         return commentId;
     }
@@ -96,6 +98,14 @@ public class PostComment {
         this.parentComment = parentComment;
     }
 
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
+    }
+
     public String getContent() {
         return content;
     }
@@ -104,14 +114,19 @@ public class PostComment {
         this.content = content;
     }
 
-    public User getAuthor() {
-        return author;
+    public String getAuthorUsername() {
+        return authorUsername;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setAuthorUsername(String authorUsername) {
+        this.authorUsername = authorUsername;
     }
 
+    public void addCommentBook(CommentBook commentBook) {
+        this.commentBooks.add(commentBook);
+    }
+
+  /*
     public Image getImage() {
         return image;
     }
@@ -119,4 +134,5 @@ public class PostComment {
     public void setImage(Image image) {
         this.image = image;
     }
+     */
 }

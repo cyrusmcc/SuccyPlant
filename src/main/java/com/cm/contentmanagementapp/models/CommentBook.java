@@ -18,8 +18,8 @@ public class CommentBook {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    @OneToMany(mappedBy = "commentBook",
-            cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(mappedBy = "commentBooks",
+            cascade = CascadeType.ALL)
     @Column(name = "comments")
     @JsonIgnore
     private List<PostComment> comments = new ArrayList<>();
@@ -32,13 +32,13 @@ public class CommentBook {
 
     public void addComment(PostComment comment) {
         comments.add(comment);
-        comment.setCommentBook(this);
+        //comment.setCommentBook(this);
         numComments = (long) comments.size();
     }
 
     public void removeComment(PostComment comment) {
         comments.remove(comment);
-        comment.setCommentBook(null);
+        //comment.setCommentBook(null);
         numComments = (long) comments.size();
     }
 

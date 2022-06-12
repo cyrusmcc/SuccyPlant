@@ -8,7 +8,8 @@
     </div>
     <div id="bodyContainer">
       <textarea id="body" :value="bodyText" @input="update"></textarea>
-      <div id="previewBodyText" class="" v-html="compiledMarkdown" v-if="displayPreview"></div>
+      <div id="previewBodyText" class="" v-html="textType == 'md' ? compiledMarkdown : bodyText" v-if="displayPreview">
+      </div>
     </div>
   </div>
 </template>
@@ -24,9 +25,11 @@ export default {
       displayPreview: false,
     };
   },
+  // Text types: "plain", "html", "md"
+  props: ["textType"],
   computed: {
     compiledMarkdown() {
-      return DOMPurify.sanitize(marked.parseInline(this.bodyText));
+      return DOMPurify.sanitize(marked(this.bodyText));
     },
   },
   methods: {
@@ -58,7 +61,11 @@ export default {
     update: function (e) {
       this.adjustTextArea();
       this.bodyText = e.target.value;
-      this.$emit("bodyText", DOMPurify.sanitize(marked(this.bodyText)));
+      if (this.textType == "md") {
+        this.$emit("bodyText", this.compiledMarkdown);
+      } else {
+        this.$emit("bodyText", this.bodyText);
+      }
     },
   },
 };

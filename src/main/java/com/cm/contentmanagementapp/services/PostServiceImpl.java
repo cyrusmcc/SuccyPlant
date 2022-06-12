@@ -98,20 +98,16 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void addComment(Post post, PostComment comment) {
-        post.addComment(comment);
-        postRepository.save(post);
-    }
-
-    @Override
-    public void addComment(Post post, User user, NewCommentRequest commentRequest) {
+    public void addComment(Post post, String authorUsername, NewCommentRequest commentRequest) {
         PostComment comment = new PostComment();
-
+        User user = userService.findByUsername(authorUsername).get();
         comment.setContent(commentRequest.getCommentContent());
-        comment.setAuthor(comment.getAuthor());
-        if (commentRequest.getReplyToId() != null) {
+        comment.setAuthorUsername(authorUsername);
+
+        if (commentRequest.getReplyToId() >= 0 && commentRequest.getReplyToId() != null) {
             PostComment parentComment =
                     commentRepository.findById(commentRequest.getReplyToId()).get();
+            comment.setParentComment(parentComment);
         }
         //TODO: deal w/ comment images later
         /*
@@ -120,9 +116,15 @@ public class PostServiceImpl implements PostService {
         }
         */
 
-        addComment(post, comment);
+        comment.addCommentBook(user.getUserComments());
+        comment.addCommentBook(post.getCommentBook());
+        commentRepository.save(comment);
+
         user.addComment(comment);
         userService.save(user);
+
+        post.addComment(comment);
+        save(post);
     }
 
     @Override

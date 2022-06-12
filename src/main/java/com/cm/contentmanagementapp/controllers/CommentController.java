@@ -2,18 +2,14 @@ package com.cm.contentmanagementapp.controllers;
 
 import com.cm.contentmanagementapp.models.Post;
 import com.cm.contentmanagementapp.models.PostComment;
-import com.cm.contentmanagementapp.models.User;
 import com.cm.contentmanagementapp.payload.request.NewCommentRequest;
 import com.cm.contentmanagementapp.payload.response.MessageResponse;
 import com.cm.contentmanagementapp.services.PostService;
 import com.cm.contentmanagementapp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -34,15 +30,16 @@ public class CommentController {
         this.userService = userService;
     }
 
-    @GetMapping("/get-comments")
+    @GetMapping("/get-comments/{postId}")
     public ResponseEntity<?> getPostComments(@Valid @PathVariable Long postId) {
         if (!postService.exists(postId)) {
             return ResponseEntity.badRequest()
-                    .body("No post found with ID" + postId + " found.");
+                    .body("No post found with ID " + postId + " found.");
         }
 
         Post post = postService.findById(postId);
         List<PostComment> comments = post.getCommentBook().getComments();
+        System.out.println(comments.size() + " <----------------");
 
         return new ResponseEntity<>(comments, new HttpHeaders(), HttpStatus.OK);
     }
@@ -61,12 +58,13 @@ public class CommentController {
                     .body("Invalid request, try re-logging and submitting comment again.");
         }
 
+        System.out.println(principal.getName());
+
         // Use principal to retrieve username instead of including as param in commentRequest
         // so api cannot be provided different user's username
-        User user = userService.findByUsername(principal.getName()).get();
         Post post = postService.findById(commentRequest.getPostId());
-
-        postService.addComment(post, user, commentRequest);
+        System.out.println("POSTID: " + post.getId() + " CBID: " + post.getCommentBook().getId());
+        postService.addComment(post, principal.getName(), commentRequest);
 
         return ResponseEntity.ok(new MessageResponse("Comment posted successfully."));
     }

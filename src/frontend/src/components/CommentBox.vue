@@ -3,7 +3,7 @@
         <span class="commentCount">{{ commentCount }} Comments</span>
         <div class="replyBox" v-if="currentUser">
             <text-editor @bodyText="setCommentContent" />
-            <button class="submitCommentButton">Submit</button>
+            <button class="submitCommentButton" @click="handleNewComment">Submit</button>
         </div>
         <div class="commentsContainer">
             <div class="threadContainer" v-for="(comment, index) in comments" :key="index">
@@ -57,6 +57,7 @@
 import ProfilePic from "./ProfilePic.vue";
 import userService from "../service/user.service";
 import TextEditor from "./TextEditor.vue";
+import commentService from "../service/comment.service";
 //import { Form, Field, ErrorMessage } from "vee-validate";
 //import * as yup from "yup";
 
@@ -123,6 +124,7 @@ export default {
             commentCount: 12,
             replyBoxHeight: 0,
             replyBoxWidth: 0,
+            replyToId: -1,
         }
     },
     computed: {
@@ -158,8 +160,16 @@ export default {
             textArea.style.height = (25 + textArea.scrollHeight) + "px";
         },
         setCommentContent(content) {
-            this.content = content;
+            this.commentContent = content;
         },
+        handleNewComment() {
+            console.log(this.$route.params.id)
+            commentService.newComment(
+                this.commentContent,
+                this.currentUser.username,
+                this.$route.params.id,
+                this.replyToId)
+        }
     }
 
 }

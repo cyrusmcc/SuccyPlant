@@ -48,7 +48,6 @@ public class User {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private CommentBook userComments = new CommentBook();
 
-
     public User() {
         this.role = EnumRole.ROLE_USER;
         postList = new PostList();
