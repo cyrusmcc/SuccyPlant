@@ -7,7 +7,7 @@
       </div>
     </div>
     <div id="bodyContainer">
-      <textarea id="body" :value="bodyText" @input="update"></textarea>
+      <textarea id="textEditorBody" :value="bodyText" @input="update"></textarea>
       <div id="previewBodyText" class="" v-html="textType == 'md' ? compiledMarkdown : bodyText" v-if="displayPreview">
       </div>
     </div>
@@ -37,9 +37,9 @@ export default {
       this.displayPreview = !this.displayPreview;
 
       if (this.displayPreview) {
-        document.getElementById("body").style.display = "none";
+        document.getElementById("textEditorBody").style.display = "none";
       } else {
-        document.getElementById("body").style.display = "block";
+        document.getElementById("textEditorBody").style.display = "block";
       }
     },
 
@@ -47,7 +47,7 @@ export default {
     // of the text area and text area container elements.
     // TODO: Need to decrease height of text area/container when user removes
     adjustTextArea() {
-      let textArea = document.getElementById("body");
+      let textArea = document.getElementById("textEditorBody");
       let textAreaContainer = document.getElementById("bodyContainer");
 
       if (textArea.scrollHeight > textArea.clientHeight) {
@@ -104,7 +104,7 @@ export default {
   position: relative;
 }
 
-#body {
+#textEditorBody {
   background-color: $accentDark;
   border-radius: 0 0 4px 4px;
   border: none;

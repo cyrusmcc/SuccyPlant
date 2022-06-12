@@ -496,7 +496,8 @@ h3 {
     align-items: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    margin-top: 30px;
+    justify-content: flex-start;
     width: 35%;
   }
 

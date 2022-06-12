@@ -22,6 +22,10 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -314,6 +318,20 @@ class ContentManagementAppApplicationTests {
 		List<PostComment> t3 = commentRepository.findAllByParentComment(leafComment1);
 		assert(t3.size() == 1 && t3.get(0).getContent().equals("I am child comment 3"));
 		*/
+	}
+
+	@Test
+	void lastComment() {
+		User user = userService.findByUsername("user").get();
+		PostComment lastComment = commentRepository.findTopByUserOrderByTimestampDesc(user);
+
+		System.out.println(lastComment.getCommentId() + " " + lastComment.getTimestamp());
+
+		Instant commentPostTime = lastComment.getTimestamp().toInstant();
+		Instant currentTime = Instant.now();
+		Long secondsSinceLastPost = Duration.between(commentPostTime, currentTime).getSeconds();
+		System.out.println(secondsSinceLastPost/60 + " <----------------");
+
 	}
 
 

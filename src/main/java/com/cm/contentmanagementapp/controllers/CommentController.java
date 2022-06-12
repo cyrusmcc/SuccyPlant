@@ -57,7 +57,7 @@ public class CommentController {
                     .body("Invalid request, try re-logging and submitting comment again.");
         }
 
-        System.out.println(principal.getName());
+        if ()
 
         // Use principal to retrieve username instead of including as param in commentRequest
         // so api cannot be provided different user's username
@@ -65,6 +65,6 @@ public class CommentController {
         System.out.println("POSTID: " + post.getId() + " CBID: " + post.getCommentBook().getId());
         postService.addComment(post, principal.getName(), commentRequest);
 
-        return ResponseEntity.ok(new MessageResponse("Comment posted successfully."));
+        return ResponseEntity.ok(new MessageResponse("Comment posted successfully.", true));
     }
 }
