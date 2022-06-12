@@ -1,6 +1,8 @@
 package com.cm.contentmanagementapp.services;
 
+import com.cm.contentmanagementapp.models.PostComment;
 import com.cm.contentmanagementapp.models.User;
+import com.cm.contentmanagementapp.repositories.PostCommentRepository;
 import com.cm.contentmanagementapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,14 +22,20 @@ public class UserServiceImpl implements UserService {
 
     private PasswordEncoder passwordEncoder;
 
+    private PostCommentRepository commentRepository;
+
     FileStorageService fileService;
 
     @Autowired
-    public UserServiceImpl(UserRepository theUserRepository,
-                           PasswordEncoder passwordEncoder, FileStorageService fileService) {
+    public UserServiceImpl(
+            UserRepository theUserRepository,
+            PasswordEncoder passwordEncoder,
+            FileStorageService fileService,
+            PostCommentRepository commentRepository) {
         this.userRepository = theUserRepository;
         this.passwordEncoder = passwordEncoder;
         this.fileService = fileService;
+        this.commentRepository = commentRepository;
     }
 
     @Override
@@ -84,6 +92,11 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public PostComment findLastComment(User user) {
+        return commentRepository.findTopByUserOrderByTimestampDesc(user);
     }
 
     @Override

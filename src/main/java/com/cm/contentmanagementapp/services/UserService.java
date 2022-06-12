@@ -1,5 +1,6 @@
 package com.cm.contentmanagementapp.services;
 
+import com.cm.contentmanagementapp.models.PostComment;
 import com.cm.contentmanagementapp.models.User;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,5 +34,7 @@ public interface UserService {
     boolean existsById(Long id);
 
     boolean updateProfilePicture(User user, MultipartFile file);
+
+    PostComment findLastComment(User user);
 
 }

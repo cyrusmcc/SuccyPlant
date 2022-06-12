@@ -94,20 +94,14 @@ export default {
                 this.$route.params.id,
                 this.replyToId).then((response) => {
                     this.message = response.data.message;
-                    if (response.data.success) {
-                        this.getComments();
-                        this.commentContent = "";
-                        this.replyToId = -1;
-                        document.getElementById("textEditorBody").value = "";
-                    }
+                    console.log(response.data)
+                    this.getComments();
+                    this.commentContent = "";
+                    this.replyToId = -1;
+                    document.getElementById("textEditorBody").value = "";
                 })
                 .catch((error) => {
-                    this.message =
-                        (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
-                        error.message ||
-                        error.toString();
+                    this.message = error.response.data ? error.response.data : error.toString();
                 });
         },
         getComments() {
