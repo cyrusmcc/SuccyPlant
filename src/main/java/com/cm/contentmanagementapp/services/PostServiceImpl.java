@@ -110,6 +110,7 @@ public class PostServiceImpl implements PostService {
                     commentRepository.findById(commentRequest.getReplyToId()).get();
             comment.setParentComment(parentComment);
         }
+
         //TODO: deal w/ comment images later
         /*
         if (commentRequest.getImage() != null) {
@@ -140,7 +141,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostComment> getPostCommentsByTimeDesc(Post post) {
-        return commentRepository.findTop20ByCommentBooksContainingOrderByTimestampDesc(post.getCommentBook());
+        return commentRepository.findTop20ByCommentBooksContainingOrderByTimestampAsc(post.getCommentBook());
     }
 
 

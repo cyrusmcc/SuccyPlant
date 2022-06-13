@@ -1,5 +1,5 @@
 <template>
-  <div id="textEditor">
+  <div class="textEditor">
     <div id="editorToolBar">
       <div class="previewTool">
         <span class="topToolTip">Preview comment</span>
@@ -72,7 +72,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-#textEditor {
+.textEditor {
   box-sizing: border-box;
   display: inline-block;
   height: fit-content;
@@ -81,7 +81,7 @@ export default {
   width: 100%;
 }
 
-#textEditor>* {
+.textEditor>* {
   background-color: $primaryLight;
 }
 

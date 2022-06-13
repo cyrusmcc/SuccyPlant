@@ -98,6 +98,7 @@ public class PostComment {
 
     public void setParentComment(PostComment parentComment) {
         this.parentComment = parentComment;
+        setDepth(findDepth());
     }
 
     public Timestamp getTimestamp() {

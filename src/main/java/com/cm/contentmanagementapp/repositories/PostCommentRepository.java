@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface PostCommentRepository extends JpaRepository<PostComment, Long> {
     List<PostComment> findAllByCommentBooksContaining(CommentBook commentBook);
-    List<PostComment> findTop20ByCommentBooksContainingOrderByTimestampDesc(CommentBook commentBook);
+    List<PostComment> findTop20ByCommentBooksContainingOrderByTimestampAsc(CommentBook commentBook);
     List<PostComment> findAllByParentCommentAndDepth(PostComment parentComment, int depth);
     List<PostComment> findAllByParentComment(PostComment parentComment);
     PostComment findTopByUserOrderByTimestampDesc(User user);

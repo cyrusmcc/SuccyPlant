@@ -6,9 +6,8 @@
         </profile-pic>
         <div class="commentText">
             <div class="commentHeader">
-                <div class="commentUsername">
-                    {{ comment.user.username }}
-                </div>
+                <router-link class="commentUsername" :to="'/p/' + comment.user.username"> {{ comment.user.username }}
+                </router-link>
                 <span class="separatorDot"></span>
                 <div class="commentDate">
                     {{ parseCommentDate(comment.timestamp) }}
@@ -43,6 +42,7 @@ export default {
     },
     methods: {
         parseCommentDate(timestamp) {
+            console.log(this.comment.depth);
             let date = new Date(timestamp);
             let month = date.getMonth() + 1;
             let day = date.getDate();

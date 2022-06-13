@@ -59,7 +59,6 @@ export default {
             this.commentContent = content;
         },
         handleReply(commentId) {
-
             // Only want one reply box open at a time.
             if (document.getElementById("userReplyTextArea")) {
                 document.getElementById("userReplyTextArea").remove();
@@ -68,6 +67,7 @@ export default {
             if (commentId === this.replyToId) {
                 let userReply = document.getElementById("userReplyTextArea");
                 this.replyToId = -1;
+                this.commentContent = "";
                 if (userReply) userReply.remove();
             }
             else {
@@ -75,18 +75,49 @@ export default {
                 let textArea = document.getElementById("replyBox");
                 let textAreaClone = textArea.cloneNode(true);
                 let parentCommentContainer = document.getElementById('commentContainer ' + commentId);
+                let parentComment = document.getElementById("comment " + commentId);
+                let parentCommentMarginLeft = parseInt(parentComment.style.marginLeft);
 
+                // indent reply box according to level of comment
                 textAreaClone.id = "userReplyTextArea";
+                textAreaClone.style.marginLeft = parentCommentMarginLeft + "px";
+                textAreaClone.style.width = "";
+                textAreaClone.style.maxWidth = "100%";
+                textAreaClone.style.minWidth = "50%";
+
+                // update comment content on input to reply text area
+                let taCloneText = textAreaClone
+                    .getElementsByClassName("textEditor")[0]
+                    .querySelector("#bodyContainer")
+                    .querySelector("#textEditorBody");
+                taCloneText.addEventListener("input", () => {
+                    this.setCommentContent(taCloneText.value);
+                });
+
+                // handle new comment on reply box submit
+                let textAreaCloneSubmitButton = textAreaClone.querySelector(".submitCommentButton");
+                textAreaCloneSubmitButton.addEventListener("click", () => {
+                    this.handleNewComment();
+                    textAreaClone.remove();
+                });
+
                 parentCommentContainer.appendChild(textAreaClone);
             }
-
         },
         handleNewComment() {
+            if (!this.commentContent) {
+                return;
+            }
+            else {
+                this.message = "";
+            }
+
             if (this.commentContent.length < 3) {
                 this.message = "Comment must be at least 3 characters long";
                 return;
             }
 
+            console.log(this.replyToId)
             commentService.newComment(
                 this.commentContent,
                 this.currentUser.username,
@@ -126,18 +157,20 @@ export default {
             let commentTree = [];
             let commentMap = {};
             for (let comment of comments) {
-                commentMap[comment.id] = comment;
+                commentMap[comment.commentId] = comment;
                 comment.children = [];
             }
             for (let comment of comments) {
-                if (comment.parentId) {
-                    commentMap[comment.parentId].children.push(comment);
+                if (comment.parentComment && comment.parentComment.commentId) {
+                    commentMap[comment.parentComment.commentId].children.push(comment);
                 } else {
                     commentTree.push(comment);
                 }
             }
+
             console.log(commentTree)
-            return commentTree;
+            console.log(commentMap)
+            this.comments = commentTree;
         },
     }
 }
