@@ -50,6 +50,7 @@ export default {
             return month + "/" + day + "/" + year;
         },
         emitReply(commentId) {
+
             this.$emit("handleReply", commentId);
         },
 

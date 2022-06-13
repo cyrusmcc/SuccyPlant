@@ -24,7 +24,6 @@
 <script>
 import tokenService from "./service/token.service";
 import userService from "./service/user.service";
-import EventBus from "./EventBus";
 import NavBar from "./components/NavBar.vue";
 import PageFooter from "./components/PageFooter.vue";
 
@@ -51,10 +50,6 @@ export default {
     },
   },
   mounted() {
-    EventBus.on("logout", () => {
-      this.logOut();
-    });
-
     // if user logged in but account dne, remove from local storage (e.x. if account deleted from db)
     if (tokenService.getUser()) {
       userService.getDoesUserExist(tokenService.getUser().id).then(res => {
@@ -63,10 +58,6 @@ export default {
         }
       });
     }
-
-  },
-  beforeUnmount() {
-    EventBus.remove("logout");
   },
 };
 </script>

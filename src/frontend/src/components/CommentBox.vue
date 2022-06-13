@@ -60,21 +60,24 @@ export default {
         },
         handleReply(commentId) {
             // Only want one reply box open at a time.
+            console.log(1)
+
             if (document.getElementById("userReplyTextArea")) {
                 document.getElementById("userReplyTextArea").remove();
             }
             // Cancel reply if user clicks reply to same comment again.
             if (commentId === this.replyToId) {
+                console.log(2)
                 let userReply = document.getElementById("userReplyTextArea");
                 this.replyToId = -1;
                 this.commentContent = "";
                 if (userReply) userReply.remove();
             }
             else {
+                console.log(3)
                 this.replyToId = commentId;
                 let textArea = document.getElementById("replyBox");
                 let textAreaClone = textArea.cloneNode(true);
-                let parentCommentContainer = document.getElementById('commentContainer ' + commentId);
                 let parentComment = document.getElementById("comment " + commentId);
                 let parentCommentMarginLeft = parseInt(parentComment.style.marginLeft);
 
@@ -101,7 +104,9 @@ export default {
                     textAreaClone.remove();
                 });
 
-                parentCommentContainer.appendChild(textAreaClone);
+                //                insertAfter(parentComment, textAreaClone);
+
+                parentComment.after(textAreaClone);
             }
         },
         handleNewComment() {
@@ -168,8 +173,6 @@ export default {
                 }
             }
 
-            console.log(commentTree)
-            console.log(commentMap)
             this.comments = commentTree;
         },
     }
