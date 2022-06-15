@@ -60,21 +60,18 @@ export default {
         },
         handleReply(commentId) {
             // Only want one reply box open at a time.
-            console.log(1)
 
             if (document.getElementById("userReplyTextArea")) {
                 document.getElementById("userReplyTextArea").remove();
             }
             // Cancel reply if user clicks reply to same comment again.
             if (commentId === this.replyToId) {
-                console.log(2)
                 let userReply = document.getElementById("userReplyTextArea");
                 this.replyToId = -1;
                 this.commentContent = "";
                 if (userReply) userReply.remove();
             }
             else {
-                console.log(3)
                 this.replyToId = commentId;
                 let textArea = document.getElementById("replyBox");
                 let textAreaClone = textArea.cloneNode(true);
@@ -122,7 +119,6 @@ export default {
                 return;
             }
 
-            console.log(this.replyToId)
             commentService.newComment(
                 this.commentContent,
                 this.currentUser.username,

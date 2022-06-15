@@ -1,6 +1,6 @@
 <template>
     <div :class="comment.depth == 0 ? 'comment parentComment' : 'comment childComment'"
-        :id="'comment ' + comment.commentId" :style="{ 'margin-left': comment.depth * 15 + 'px' }">
+        :id="'comment ' + comment.commentId">
         <profile-pic class="profileUserPic" alt="profile picture">
             <img id="commentProfilePic" alt="profile picture" src="../assets/imgs/userDark.svg" />
         </profile-pic>
@@ -21,7 +21,7 @@
             </div>
         </div>
     </div>
-    <div v-if="comment.children.length > 0">
+    <div :id="'commentReplies ' + comment.commentId" class="commentReplies" v-if="comment.children.length > 0">
         <comment v-for="child in comment.children" :key="child" :comment="child"></comment>
     </div>
 </template>
@@ -40,9 +40,14 @@ export default {
         return {
         };
     },
+    mounted() {
+        let replyContainer = document.getElementById("commentReplies " + this.comment.commentId);
+        if (replyContainer)
+            replyContainer.style.marginLeft = (this.comment.depth + 1) * 15 + "px";
+
+    },
     methods: {
         parseCommentDate(timestamp) {
-            console.log(this.comment.depth);
             let date = new Date(timestamp);
             let month = date.getMonth() + 1;
             let day = date.getDate();
@@ -50,7 +55,6 @@ export default {
             return month + "/" + day + "/" + year;
         },
         emitReply(commentId) {
-
             this.$emit("handleReply", commentId);
         },
 
@@ -102,9 +106,12 @@ export default {
 }
 
 .childComment {
-    border-left: 1px solid $primaryDark;
     margin-top: 10px;
     padding-left: 5px;
+}
+
+.commentReplies {
+    border-left: 1px solid $primaryDark;
 }
 
 .replyButton {
