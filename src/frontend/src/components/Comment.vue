@@ -155,8 +155,8 @@ export default {
 }
 
 .childComment {
-    margin-top: 20px;
-    padding-left: 10px;
+    margin-top: 30px;
+    padding-left: 15px;
 }
 
 .commentReplies {
