@@ -25,7 +25,8 @@
                 @click="storeReply(comment.commentId)">Reply</button>
         </div>
     </div>
-    <div :id="'commentReplies ' + comment.commentId" class="commentReplies" v-if="comment.children.length > 0">
+    <div :id="'commentReplies ' + comment.commentId" class="commentReplies" v-if="comment.children.length > 0"
+        :style="{ borderLeft: '2px solid ' + getBorderColor(comment.commentId) }">
         <comment v-for="child in comment.children" :key="child" :comment="child"></comment>
     </div>
 </template>
@@ -43,7 +44,14 @@ export default {
     data() {
         return {
             replyActive: false,
+            borderColors: ["#93c3f5", "#86c2b6", "#f5c881", "#ffb2b2", "#bdb2ff", "#cbb7ac", "#95d991"],
+            currentBorderIndex: 0,
         };
+    },
+    computed: {
+        currentReplyCommentid() {
+            return this.$store.getters["commentReply/getReplyCommentId"];
+        },
     },
     mounted() {
         let replyContainer = document.getElementById("commentReplies " + this.comment.commentId);
@@ -71,7 +79,20 @@ export default {
                 replyButton.innerHTML = "Reply";
             }
         },
-    }
+        getBorderColor(commentId) {
+            let index = commentId % this.borderColors.length;
+            return this.borderColors[index];
+        },
+    },
+    watch: {
+        currentReplyCommentid() {
+            if (this.currentReplyCommentid !== this.comment.commentId) {
+                let replyButton = document.getElementById("replyButton " + this.comment.commentId);
+                replyButton.innerHTML = "Reply";
+                this.replyActive = false;
+            }
+        },
+    },
 }
 </script>
 
@@ -100,7 +121,17 @@ export default {
 }
 
 .commentUsername {
+    border-bottom: 2px solid transparent;
+    box-sizing: border-box;
     font-size: 0.8rem;
+}
+
+.commentUsername:hover {
+    border-bottom: 2px solid $highlightTwo;
+}
+
+.commentUsername:visited {
+    color: $primaryDark;
 }
 
 .separatorDot {
@@ -124,12 +155,12 @@ export default {
 }
 
 .childComment {
-    margin-top: 10px;
-    padding-left: 5px;
+    margin-top: 20px;
+    padding-left: 10px;
 }
 
 .commentReplies {
-    border-left: 1px solid $primaryDark;
+    // border-left: 1px solid $primaryDark;
 }
 
 .replyButton {

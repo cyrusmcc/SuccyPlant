@@ -181,15 +181,7 @@ export default {
     },
     watch: {
         currReplyCommentId() {
-            console.log("currReplyCommentId changed");
             this.handleReply(this.currReplyCommentId);
-
-            /*
-            if (this.currReplyCommentId === -1) {
-                let userReply = document.getElementById("userReplyTextArea");
-                if (userReply) userReply.remove();
-            }
-            */
         },
     },
 }
@@ -252,7 +244,6 @@ export default {
     display: flex;
     flex-direction: column;
     row-gap: 30px;
-    ;
 }
 
 .threadContainer {
