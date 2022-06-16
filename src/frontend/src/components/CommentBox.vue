@@ -48,6 +48,9 @@ export default {
         currentUser() {
             return this.$store.state.auth.user;
         },
+        currReplyCommentId() {
+            return this.$store.getters["commentReply/getReplyCommentId"];
+        },
     },
     methods: {
         adjustTextArea() {
@@ -61,13 +64,14 @@ export default {
         handleReply(commentId) {
             // Only want one reply box open at a time.
 
+            console.log("handleReply: " + commentId);
             if (document.getElementById("userReplyTextArea")) {
                 document.getElementById("userReplyTextArea").remove();
             }
             // Cancel reply if user clicks reply to same comment again.
             if (commentId === this.replyToId) {
                 let userReply = document.getElementById("userReplyTextArea");
-                this.replyToId = -1;
+                this.$store.commit("commentReply/setReplyCommentId", null);
                 this.commentContent = "";
                 if (userReply) userReply.remove();
             }
@@ -76,11 +80,14 @@ export default {
                 let textArea = document.getElementById("replyBox");
                 let textAreaClone = textArea.cloneNode(true);
                 let parentComment = document.getElementById("comment " + commentId);
-                let parentCommentMarginLeft = parseInt(parentComment.style.marginLeft);
+                let parentCommentMarginLeft = "0";
+                if (parentComment)
+                    parentCommentMarginLeft = parseInt(parentComment.style.marginLeft);
 
                 // indent reply box according to level of comment
                 textAreaClone.id = "userReplyTextArea";
                 textAreaClone.style.marginLeft = parentCommentMarginLeft + "px";
+                textAreaClone.style.paddingLeft = "5px";
                 textAreaClone.style.width = "";
                 textAreaClone.style.maxWidth = "100%";
                 textAreaClone.style.minWidth = "50%";
@@ -103,7 +110,7 @@ export default {
 
                 //                insertAfter(parentComment, textAreaClone);
 
-                parentComment.after(textAreaClone);
+                if (parentComment) parentComment.after(textAreaClone);
             }
         },
         handleNewComment() {
@@ -171,8 +178,22 @@ export default {
 
             this.comments = commentTree;
         },
-    }
+    },
+    watch: {
+        currReplyCommentId() {
+            console.log("currReplyCommentId changed");
+            this.handleReply(this.currReplyCommentId);
+
+            /*
+            if (this.currReplyCommentId === -1) {
+                let userReply = document.getElementById("userReplyTextArea");
+                if (userReply) userReply.remove();
+            }
+            */
+        },
+    },
 }
+
 </script>
 
 <style scoped lang="scss">

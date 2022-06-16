@@ -1,24 +1,28 @@
 <template>
     <div :class="comment.depth == 0 ? 'comment parentComment' : 'comment childComment'"
         :id="'comment ' + comment.commentId">
-        <profile-pic class="profileUserPic" alt="profile picture">
-            <img id="commentProfilePic" alt="profile picture" src="../assets/imgs/userDark.svg" />
-        </profile-pic>
-        <div class="commentText">
-            <div class="commentHeader">
-                <router-link class="commentUsername" :to="'/p/' + comment.user.username"> {{ comment.user.username }}
-                </router-link>
-                <span class="separatorDot"></span>
-                <div class="commentDate">
-                    {{ parseCommentDate(comment.timestamp) }}
+        <div class="commentData">
+            <profile-pic class="profileUserPic" alt="profile picture">
+                <img id="commentProfilePic" alt="profile picture" src="../assets/imgs/userDark.svg" />
+            </profile-pic>
+            <div class="commentText">
+                <div class="commentHeader">
+                    <router-link class="commentUsername" :to="'/p/' + comment.user.username"> {{ comment.user.username
+                    }}
+                    </router-link>
+                    <span class="separatorDot"></span>
+                    <div class="commentDate">
+                        {{ parseCommentDate(comment.timestamp) }}
+                    </div>
+                </div>
+                <div class="commentBody" lang="en">
+                    {{ comment.content }}
                 </div>
             </div>
-            <div class="commentBody" lang="en">
-                {{ comment.content }}
-            </div>
-            <div class="commentActions">
-                <button class="replyButton" @click="emitReply(comment.commentId)">Reply</button>
-            </div>
+        </div>
+        <div class="commentActions">
+            <button class="replyButton" :id="'replyButton ' + comment.commentId"
+                @click="storeReply(comment.commentId)">Reply</button>
         </div>
     </div>
     <div :id="'commentReplies ' + comment.commentId" class="commentReplies" v-if="comment.children.length > 0">
@@ -38,6 +42,7 @@ export default {
     },
     data() {
         return {
+            replyActive: false,
         };
     },
     mounted() {
@@ -54,16 +59,29 @@ export default {
             let year = date.getFullYear();
             return month + "/" + day + "/" + year;
         },
-        emitReply(commentId) {
-            this.$emit("handleReply", commentId);
+        storeReply(commentId) {
+            this.replyActive = !this.replyActive;
+            if (this.replyActive) {
+                this.$store.commit("commentReply/setReplyCommentId", commentId);
+                let replyButton = document.getElementById("replyButton " + commentId);
+                replyButton.innerHTML = "Cancel";
+            } else {
+                let replyButton = document.getElementById("replyButton " + commentId);
+                this.$store.commit("commentReply/setReplyCommentId", null);
+                replyButton.innerHTML = "Reply";
+            }
         },
-
     }
 }
 </script>
 
 <style scoped lang="scss">
 .comment {
+    display: flex;
+    flex-direction: column;
+}
+
+.commentData {
     column-gap: 10px;
     display: flex;
     flex-direction: row;
@@ -116,8 +134,7 @@ export default {
 
 .replyButton {
     font-size: 0.8rem;
-    margin-left: 5px;
-    opacity: 0.88;
+    opacity: 0.7;
     margin-top: 5px;
     border: none;
     background: none;
