@@ -77,7 +77,7 @@ export default {
   width: 100%;
 }
 
-@include screen-md {
+@media screen and (min-width: 750px) {
   .galleryContainer {
     align-items: flex-start;
     column-gap: 10px;

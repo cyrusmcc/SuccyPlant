@@ -2,34 +2,17 @@
   <div class="filterBarContainer">
     <div id="selectedTags"></div>
     <search-bar @search="setSearchValue"></search-bar>
-    <button
-      @click="toggleFilter"
-      class="filterButton"
-      v-show="showFilterButton"
-      :style="[
-        showFilter == true
-          ? { color: '#f4f4f3', background: '#121113' }
-          : { color: '#121113', background: '#f4f4f3' },
-      ]"
-    >
-      <img
-        class="filterIcon"
-        src="@/assets/imgs/filter.svg"
-        v-if="!showFilter"
-      />
-      <img
-        class="filterIcon"
-        src="@/assets/imgs/filterLight.svg"
-        v-if="showFilter"
-      />
+    <button @click="toggleFilter" class="filterButton" v-show="showFilterButton" :style="[
+      showFilter == true
+        ? { color: '#f4f4f3', background: '#121113' }
+        : { color: '#121113', background: '#f4f4f3' },
+    ]">
+      <img class="filterIcon" src="@/assets/imgs/filter.svg" v-if="!showFilter" />
+      <img class="filterIcon" src="@/assets/imgs/filterLight.svg" v-if="showFilter" />
 
       <span>Filter</span>
     </button>
-    <tag-sort
-      @sort-posts-by-tags="setSelectedTags"
-      v-show="showFilter"
-      :showFilter="true"
-    ></tag-sort>
+    <tag-sort @sort-posts-by-tags="setSelectedTags" v-show="showFilter" :showFilter="true"></tag-sort>
     <button class="searchButton" v-if="showFilter" @click="emitSortOptions">
       Search
     </button>
@@ -94,7 +77,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@include screen-md {
+@media screen and (min-width: 750px) {
   .filterBarContainer {
     position: sticky;
     top: 50px;

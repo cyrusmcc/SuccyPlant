@@ -3,24 +3,17 @@
     <ol class="galPostList">
       <li v-for="(galPost, index) in galleryPosts" :key="index">
         <div id="galleryImgContainer">
-          <img
-            :src="getImg(galPost.thumbnailUrl)"
-            class="galPostImg"
-            :alt="'image of ' + galPost.scientificName"
-          />
+          <img :src="getImg(galPost.thumbnailUrl)" class="galPostImg" :alt="'image of ' + galPost.scientificName" />
         </div>
         <div id="galPostInfoContainer">
           <div id="galPostTitle">
             <router-link :to="'/plant/' + galPost.id">{{
-              galPost.scientificName
+                galPost.scientificName
             }}</router-link>
           </div>
           <ol id="galPostTagList">
             <li v-for="(tag, index) in galPost.post.tags" :key="index">
-              <div
-                class="galPostTag"
-                :style="{ background: getColor(tag.category) }"
-              >
+              <div class="galPostTag" :style="{ background: getColor(tag.category) }">
                 {{ tag.value }}
               </div>
             </li>
@@ -101,7 +94,7 @@ a {
   width: 100%;
 }
 
-.galPostList > li {
+.galPostList>li {
   align-items: center;
   border-radius: 4px;
   border: 1px solid $outline;
@@ -160,7 +153,7 @@ a {
   width: 95%;
 }
 
-#galPostTagList > li {
+#galPostTagList>li {
   list-style-type: none;
 }
 
@@ -185,7 +178,7 @@ a {
   width: 100%;
 }
 
-#galPostTitle > * {
+#galPostTitle>* {
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -200,16 +193,17 @@ a {
   font-size: small;
 }
 
-@include screen-md() {
+@media screen and (min-width: 750px) {
   .gridContainer {
     max-width: 70%;
   }
 
   .galPostList {
     justify-content: flex-start;
+    min-width: 30rem;
   }
 
-  .galPostList > li {
+  .galPostList>li {
     width: 200px;
   }
 }
