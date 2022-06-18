@@ -2,7 +2,12 @@
   <div class="container">
     <div class="galleryContainer">
       <filter-bar @sortPostsByTags="getPosts"></filter-bar>
-      <gallery-grid :galleryPosts="posts"></gallery-grid>
+      <div class="gallery">
+        <gallery-grid :galleryPosts="posts"></gallery-grid>
+        <button class="loadPostsButton button-primaryDark-noBorder" v-if="posts.length > 0"
+          @click="loadMore(tagString, searchTerm, false)">Load
+          more</button>
+      </div>
     </div>
   </div>
 </template>
@@ -19,7 +24,10 @@ export default {
     filterBar,
   },
   data() {
-    return {};
+    return {
+      tagString: "",
+      searchTerm: "",
+    };
   },
   computed: {
     posts() {
@@ -30,24 +38,40 @@ export default {
     },
   },
   mounted() {
-    // only want to retrieve plants once, if there are preselected tags in store then sortPostsByTags will be called
-    // which calls getPosts
-    if (!this.preselectedTags || this.preselectedTags.length == 0)
-      this.getPosts();
+
+    if (!this.posts) {
+      const plants = async () => {
+        const arr = await plantService.getPlants();
+
+        this.$store.state.plants.posts = arr;
+      };
+      plants();
+    }
+    else {
+      // only want to retrieve plants once, if there are preselected tags in store then sortPostsByTags will be called
+      // which calls getPosts
+      if (!this.preselectedTags || this.preselectedTags.length == 0)
+        this.getPosts(null, null, true);
+    }
+
   },
   methods: {
-    getPosts(tags, searchTerm) {
+    getPosts(tags, searchTerm, initialLoad) {
       let tagString = "";
       if (tags) {
         for (let i = 0; i < tags.length; i++) {
           tagString += tags[i].label + "=" + tags[i].selected + "&";
         }
+        this.tagString = tagString;
       }
+
+      this.searchTerm = searchTerm;
 
       const arr = async () => {
         const arr = await plantService.getPlantsAndImgs(
           tagString,
           searchTerm,
+          initialLoad,
           "thumbnail"
         );
         this.$store.commit("plants/setPlants", arr);
@@ -57,8 +81,22 @@ export default {
       if (this.preselectedTags) {
         this.$store.commit("plants/setPreselectedTags", []);
         this.$store.commit("plants/setPlants", []);
+        this.tagString = "";
+        this.searchTerm = "";
       }
     },
+    loadMore() {
+      const arr = async () => {
+        const arr = await plantService.getPlantsAndImgs(
+          this.tagString,
+          this.searchTerm,
+          false,
+          "thumbnail"
+        );
+        this.$store.commit("plants/addPlants", arr);
+      };
+      arr();
+    }
   },
 };
 </script>
@@ -77,6 +115,18 @@ export default {
   width: 100%;
 }
 
+.gallery {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+.loadPostsButton {
+  align-self: center;
+  margin: 10px 0;
+}
+
 @media screen and (min-width: 750px) {
   .galleryContainer {
     align-items: flex-start;
@@ -85,5 +135,6 @@ export default {
     flex-direction: row;
     margin-left: 10px;
   }
+
 }
 </style>

@@ -150,7 +150,7 @@ a {
   flex-wrap: wrap;
   justify-content: center;
   padding: 0;
-  width: 95%;
+  width: 85%;
 }
 
 #galPostTagList>li {
@@ -194,9 +194,6 @@ a {
 }
 
 @media screen and (min-width: 750px) {
-  .gridContainer {
-    max-width: 70%;
-  }
 
   .galPostList {
     justify-content: flex-start;

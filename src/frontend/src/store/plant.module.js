@@ -68,5 +68,9 @@ export const plants = {
     setPreselectedTags: (state, tags) => {
       state[0].preselectedTags = tags;
     },
+    addPlants: (state, plants) => {
+      if (state[0].plants == null) this.setPlants(state, plants);
+      else state[0].plants = state[0].plants.concat(plants);
+    }
   },
 };

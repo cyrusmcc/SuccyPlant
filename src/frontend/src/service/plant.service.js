@@ -12,7 +12,8 @@ class PlantService {
       });
     }
   }
-  getPlants(tags, searchTerm) {
+  getPlants(tags, searchTerm, initialLoad) {
+    pageNum = initialLoad ? 0 : pageNum;
     return api
       .get(PLANT_API_URL + "get-all", {
         headers: {
@@ -24,14 +25,14 @@ class PlantService {
         },
       })
       .then((response) => {
-        //pageNum++;
+        pageNum++;
         return response.data;
       });
   }
-  getPlantsAndImgs(tags, searchTerm, imgType) {
+  getPlantsAndImgs(tags, searchTerm, initialLoad, imgType) {
     let plants = [];
     const getPlantsInfo = async () => {
-      plants = await this.getPlants(tags, searchTerm);
+      plants = await this.getPlants(tags, searchTerm, initialLoad);
 
       for (let i = 0; i < plants.length; i++) {
         let imgUrl = await this.getPlantImgById(plants[i].id, imgType);
