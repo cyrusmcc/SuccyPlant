@@ -225,7 +225,7 @@ export default {
 .submitCommentButton {
     background: none;
     border: none;
-    color: $primaryLight;
+    color: $primaryDark;
     cursor: pointer;
     font-size: 0.8rem;
     margin: 8px;

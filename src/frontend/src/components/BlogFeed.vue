@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="blogArr">
     <!--
     <div class="blogFeedHead">Recent articles</div>
     -->
@@ -18,7 +18,7 @@
         </div>
       </li>
     </ol>
-    <button @click="getBlogs" class="button-primaryDark-noBorder">
+    <button v-if="blogArr.length > 0" @click="getBlogs" class="loadMoreButton button-primaryDark-noBorder">
       Load More
     </button>
   </div>
@@ -187,5 +187,9 @@ img {
 
 .formattedDate {
   color: $accentTwo;
+}
+
+.loadMoreButton {
+  align-self: center;
 }
 </style>

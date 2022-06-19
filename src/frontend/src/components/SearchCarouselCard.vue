@@ -2,7 +2,7 @@
   <div class="container">
     <h2>Find your next succyplant</h2>
     <carousel :images="images" :autoplay="true"></carousel>
-    <search-bar></search-bar>
+    <search-bar @search="setSearchValue"></search-bar>
   </div>
 </template>
 
@@ -31,6 +31,12 @@ export default {
       ],
     };
   },
+  methods: {
+    setSearchValue(value) {
+      this.$store.commit("plants/setSearchTerm", value);
+      this.emitSortOptions();
+    },
+  }
 };
 </script>
 

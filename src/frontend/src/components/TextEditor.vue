@@ -7,7 +7,7 @@
       </div>
     </div>
     <div id="bodyContainer">
-      <textarea id="textEditorBody" :value="bodyText" @input="update"></textarea>
+      <textarea id="textEditorBody" :value="bodyText" @input="update" placeholder="Enter text here"></textarea>
       <div id="previewBodyText" class="" v-html="textType == 'md' ? compiledMarkdown : bodyText" v-if="displayPreview">
       </div>
     </div>
@@ -87,8 +87,10 @@ export default {
 
 #editorToolBar {
   align-items: center;
-  background-color: $primaryDark;
+  background-color: $primaryLight;
+  border: 1px solid $primaryDark;
   border-radius: 4px 4px 0 0;
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   height: 2rem;
@@ -96,8 +98,10 @@ export default {
 }
 
 #bodyContainer {
-  background-color: $accentDark;
+  background-color: $primaryLight;
   border-radius: 0 0 4px 4px;
+  border: 1px solid $primaryDark;
+  border-top: none;
   box-sizing: border-box;
   height: 70px;
   overflow: hidden;
@@ -105,10 +109,10 @@ export default {
 }
 
 #textEditorBody {
-  background-color: $accentDark;
+  background-color: $primaryLight;
   border-radius: 0 0 4px 4px;
   border: none;
-  color: $primaryLight;
+  color: $primaryDark;
   height: 98%;
   outline: none;
   padding: 1px;
@@ -130,9 +134,10 @@ export default {
 }
 
 #previewIcon {
+  cursor: pointer;
+  filter: invert(100%) sepia(93%) saturate(1352%) hue-rotate(87deg) brightness(119%) contrast(119%);
   height: 0.8rem;
   margin-left: 10px;
-  cursor: pointer;
 }
 
 #previewIcon:hover {
