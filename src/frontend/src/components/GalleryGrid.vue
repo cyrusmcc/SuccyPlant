@@ -11,13 +11,15 @@
                 galPost.scientificName
             }}</router-link>
           </div>
-          <ol id="galPostTagList">
-            <li v-for="(tag, index) in galPost.post.tags" :key="index">
-              <div class="galPostTag" :style="{ background: getColor(tag.category) }">
-                {{ tag.value }}
-              </div>
-            </li>
-          </ol>
+          <div class="tagRowContainer" v-for="(row, index) in getTagRows(galPost.post.tags)" :key="index">
+            <ol id="galPostTagList">
+              <li v-for="(tag, index) in row" :key="index" :style="{ order: getOrder(tag.category) }">
+                <div class="galPostTag" :style="{ background: getColor(tag.category) }">
+                  {{ tag.value }}
+                </div>
+              </li>
+            </ol>
+          </div>
         </div>
       </li>
     </ol>
@@ -61,11 +63,68 @@ export default {
           return "#86c2b6";
       }
     },
+    getOrder(Label) {
+      switch (Label) {
+        case "Genus":
+          return 1;
+        case "Type":
+          return 2;
+        case "Size":
+          return 3;
+        case "Difficulty":
+          return 4;
+        case "Light":
+          return 5;
+        case "Water":
+          return 6;
+        case "Pet Safe":
+          return 7;
+        default:
+          return 1;
+      }
+    },
+    getTagRows(tags) {
+      let tagRows = {
+        tagRow1: [],
+        tagRow2: [],
+        tagRow3: [],
+        tagRow4: [],
+      };
+
+      for (let i = 0; i < tags.length; i++) {
+        switch (tags[i].category) {
+          case "Genus":
+            tagRows.tagRow1.push(tags[i]);
+            break;
+          case "Type":
+            tagRows.tagRow2.push(tags[i]);
+            break;
+          case "Size":
+            tagRows.tagRow2.push(tags[i]);
+            break;
+          case "Difficulty":
+            tagRows.tagRow3.push(tags[i]);
+            break;
+          case "Light":
+            tagRows.tagRow3.push(tags[i]);
+            break;
+          case "Water":
+            tagRows.tagRow4.push(tags[i]);
+            break;
+          case "Pet Safe":
+            tagRows.tagRow4.push(tags[i]);
+            break;
+          default:
+            break;
+        }
+      }
+      return tagRows;
+    },
     getImg(thumbnailUrl) {
       return URL.createObjectURL(thumbnailUrl);
     },
-  },
-};
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -87,7 +146,7 @@ a {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 5px;
   justify-content: center;
   margin-top: 0;
   padding: 0;
@@ -121,7 +180,7 @@ a {
   height: 170px;
   justify-content: center;
   overflow: hidden;
-  width: 200px;
+  width: 100%;
 }
 
 .galPostImg {
@@ -138,19 +197,23 @@ a {
   justify-content: flex-start;
   margin-top: 10px;
   padding-bottom: 5px;
-  row-gap: 10px;
+  row-gap: 3px;
   width: 95%;
 }
 
+.tagRowContainer {
+  margin-top: 5px;
+}
+
 #galPostTagList {
+  //flex-wrap: wrap;
   align-content: flex-start;
   column-gap: 5px;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   justify-content: center;
   padding: 0;
-  width: 85%;
+  width: 100%;
 }
 
 #galPostTagList>li {
@@ -163,7 +226,6 @@ a {
   cursor: default;
   font-size: 0.8rem;
   height: fit-content;
-  margin-top: 10px;
   padding: 3px;
   width: fit-content;
 }

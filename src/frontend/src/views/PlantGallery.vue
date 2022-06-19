@@ -118,6 +118,7 @@ export default {
 .gallery {
   display: flex;
   flex-direction: column;
+  max-width: 1040px;
   justify-content: center;
   width: 100%;
 }
