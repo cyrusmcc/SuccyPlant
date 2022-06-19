@@ -1,18 +1,9 @@
 <template>
   <div class="searchBar">
-    <input
-      class="searchBarInput"
-      placeholder="Search plants"
-      v-model="content"
-      @keyup.enter="$emit('search', content)"
-      @input="$emit('search', content)"
-    />
+    <input class="searchBarInput" placeholder="Search plants" v-model="content" @keyup.enter="search(content)"
+      @input="search(content)" />
     <div class="searchBarIcon">
-      <img
-        class="magGlassImg"
-        src="@/assets/imgs/magGlassDark.svg"
-        alt="search icon"
-      />
+      <img class="magGlassImg" src="@/assets/imgs/magGlassDark.svg" alt="search icon" />
     </div>
   </div>
 </template>
@@ -24,6 +15,13 @@ export default {
     return {
       content: "",
     };
+  },
+  methods: {
+    search(content) {
+      if (content.length > 3) {
+        this.$emit("search", content);
+      }
+    },
   },
 };
 </script>
@@ -42,6 +40,7 @@ export default {
   background-color: $primaryLight;
   max-width: 40rem;
 }
+
 .searchBarInput {
   width: 80%;
   height: 100%;
