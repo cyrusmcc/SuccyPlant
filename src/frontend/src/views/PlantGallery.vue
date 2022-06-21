@@ -110,6 +110,7 @@ export default {
 .galleryContainer {
   align-items: center;
   display: flex;
+  max-width: 1300px;
   flex-direction: column;
   row-gap: 10px;
   width: 100%;

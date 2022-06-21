@@ -6,13 +6,8 @@
         <div class="directionArrowRight" @click="handleRightClick">&gt;</div>
       </div>
       <div class="carouselDots" v-if="images.length <= 5">
-        <div
-          class="carouselDot"
-          v-for="(image, i) in images"
-          :key="i"
-          @click="handleDotClick(i)"
-          :style="[i == index ? { opacity: 1 } : { opacity: 0.5 }]"
-        ></div>
+        <div class="carouselDot" v-for="(image, i) in images" :key="i" @click="handleDotClick(i)"
+          :style="[i == index ? { opacity: 1 } : { opacity: 0.5 }]"></div>
       </div>
       <img :src="images[index].url" alt="carousel-image" />
     </div>
@@ -63,6 +58,7 @@ img {
 
 .homeContainer {
   height: 100%;
+  width: 100%;
 }
 
 .carousel {

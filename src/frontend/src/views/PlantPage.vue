@@ -328,6 +328,7 @@ h3 {
   flex-direction: column;
   height: fit-content;
   justify-content: center;
+  max-width: 1100px;
   padding-top: 10px;
   width: 100%;
 }
