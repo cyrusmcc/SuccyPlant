@@ -28,6 +28,8 @@
           <ErrorMessage name="email" class="error-feedback" />
         </div>
 
+        <terms-and-policy></terms-and-policy>
+
         <button class="button-primaryDark-noBorder" id="registerButton">
           Register
         </button>
@@ -50,6 +52,7 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
+import TermsAndPolicy from '../components/termsAndPolicy.vue';
 
 export default {
   name: "Register",
@@ -57,6 +60,7 @@ export default {
     Form,
     Field,
     ErrorMessage,
+    TermsAndPolicy,
   },
   data() {
     const schema = yup.object().shape({
@@ -115,9 +119,9 @@ export default {
 </script>
 <style scoped lang="scss">
 img {
+  margin: 0 auto 15px auto;
   max-height: auto;
   width: 7.5rem;
-  margin: 0 auto 15px auto;
 }
 
 Form {
@@ -125,10 +129,10 @@ Form {
 }
 
 fieldset {
-  position: relative;
-  display: flex;
   align-items: center;
+  display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .card {
@@ -137,24 +141,24 @@ fieldset {
 }
 
 .container {
+  align-content: center;
   display: flex;
   flex-direction: column;
-  align-content: center;
   justify-content: center;
 }
 
 #registerButton {
-  margin-bottom: 5px;
-  width: 100%;
   align-self: flex-start;
+  margin: 5px 0 5px 0;
+  width: 100%;
 }
 
 #login-link {
-  font-size: 0.85rem;
   color: $primaryDark;
-  display: flex;
-  justify-content: center;
   column-gap: 6px;
+  display: flex;
+  font-size: 0.85rem;
+  justify-content: center;
 }
 
 #login-link a {
@@ -162,14 +166,14 @@ fieldset {
 }
 
 #email-label {
-  display: flex;
   align-content: center;
   column-gap: 5px;
+  display: flex;
 }
 
 #email-label span {
+  align-self: center;
   font-size: 0.75em;
   padding-bottom: 5px;
-  align-self: center;
 }
 </style>
